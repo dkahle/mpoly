@@ -1,0 +1,63 @@
+Version 0.0.6
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* is.linear function.
+
+
+
+Version 0.0.5
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* parenthetical expressions are now handled.
+
+CHANGES
+
+* permutations now returns a better ordered listing of the permutations of a set.  It also allows for the more flexible specification of (e.g.) permutations(5) for permutations(1:5).
+
+FIXES
+
+* some negative parsing in mp has been fixed.
+
+
+
+Version 0.0.4
+-------------------------------------------------------------------------
+
+CHANGES
+
+* division symbols in mp now return an error.
+* mpoly now has a GPL-2 license.
+
+FIXES
+
+* fixed a glitch in print.mpoly that made mp("-1 + y") print as "-1 1  +  y".
+* mpolyList now works on single elements, either a mpoly object (converting it to a mpolyList) or a call to mp.
+* mp now properly handles constants raised to powers.
+
+
+Version 0.0.3
+-------------------------------------------------------------------------
+
+FIXES
+
+* Fixed an issue with as.mpoly (and is.mpoly.lm).
+
+
+
+Version 0.0.2
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* as.mpoly method now defined for lm objects which makes an mpoly object out of a linear model.
+
+
+
+Version 0.0.1
+-------------------------------------------------------------------------
+
+PACKAGE GENESIS
