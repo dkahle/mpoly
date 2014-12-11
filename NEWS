@@ -5,6 +5,11 @@ NEW FEATURES
 
 * is.linear function.
 
+CHANGES
+
+* vastly enhanced mp parser based on stringr (now dependent on stringi)
+* description file updated for CRAN's standards.
+
 
 
 Version 0.0.5

@@ -7,8 +7,8 @@
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mp}}
 #' @export as.mpoly
-#' @S3method as.mpoly default
-#' @S3method as.mpoly lm
+#' @export as.mpoly.default
+#' @export as.mpoly.lm
 #' @examples
 #' \dontrun{
 #' library(plyr)
