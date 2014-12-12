@@ -11,9 +11,9 @@ Description: mpoly allows for the symbolic manipulation of multivariate
     sparse and super sparse polynomials.  It also allows for basic
     differential calculus with multivariate polynomials and Grobner basis
     calculations from computational algebraic geometry.
-Depends:
+Depends: 
     stringr (>= 0.9.0)
-Imports:
+Imports: 
     rSymPy,
     rJython,
     rJava,
@@ -22,3 +22,4 @@ Imports:
     plyr,
     stats
 License: GPL-2
+Suggests: testthat
