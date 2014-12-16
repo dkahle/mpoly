@@ -14,7 +14,7 @@
 #' unclass(m)
 #'
 #'
-#'
+#' 
 #'
 #'
 #' gradient( mp("x + 2 y + x^2 y + x y z") ) 
@@ -153,20 +153,20 @@ parse_parenthetical_polynomial <- function(string){
 
 
 
-#' parse_parenthetical_term("3 y")
-#' parse_parenthetical_term("-(x + y)")
-#' parse_parenthetical_term(" 3 (x + y) 4 (x - y) ")
-#' parse_parenthetical_term("(x + y) (x - y)")
-#' parse_parenthetical_term("-(x + y) (x - y)")
-#' parse_parenthetical_term("(x + y)")
-#' parse_parenthetical_term("(x + y)^2")
-#' parse_parenthetical_term("(x + y)(x-y)")
-#' parse_parenthetical_term("-2 (x + y)^2 (x - y)^0 4 (1+1)^3")
-#' 
-#' # more complex usage
-#' parse_parenthetical_term("((5^2))") 
-#' string <- "(1+1) (2^3 z (x+y)^2)^2"
-#' parse_parenthetical_term(string)
+# parse_parenthetical_term("3 y")
+# parse_parenthetical_term("-(x + y)")
+# parse_parenthetical_term(" 3 (x + y) 4 (x - y) ")
+# parse_parenthetical_term("(x + y) (x - y)")
+# parse_parenthetical_term("-(x + y) (x - y)")
+# parse_parenthetical_term("(x + y)")
+# parse_parenthetical_term("(x + y)^2")
+# parse_parenthetical_term("(x + y)(x-y)")
+# parse_parenthetical_term("-2 (x + y)^2 (x - y)^0 4 (1+1)^3")
+# 
+# # more complex usage
+# parse_parenthetical_term("((5^2))") 
+# string <- "(1+1) (2^3 z (x+y)^2)^2"
+# parse_parenthetical_term(string)
 parse_parenthetical_term <- function(string){
   
   # short circuit if simpler
@@ -241,26 +241,26 @@ parse_parenthetical_term <- function(string){
 
 
 
-#' parse_nonparenthetical_polynomial(" -1")
-#' parse_nonparenthetical_polynomial("x-1")
-#' parse_nonparenthetical_polynomial("5-2x")
-#' parse_nonparenthetical_polynomial("5 - 2     x")
-#' parse_nonparenthetical_polynomial("5 + -2x")
-#' parse_nonparenthetical_polynomial("1--1")
-#' parse_nonparenthetical_polynomial("1 - - 1")
-#' parse_nonparenthetical_polynomial("5^2x")
-#' parse_nonparenthetical_polynomial("5^2-x")
-#' parse_nonparenthetical_polynomial("-x")
-#' parse_nonparenthetical_polynomial("-1")
-#' parse_nonparenthetical_polynomial("1+-x-x")
-#' parse_nonparenthetical_polynomial("1 - -3")
-#'
-#' parse_nonparenthetical_polynomial("-x + 2y - 4x - -4")
-#'
-#' string <- "-4 + 2+2 x +   1 x y^4 -3 prq^3 -y - 3 x 2 - 3 y -2"
-#' parse_nonparenthetical_polynomial(string)
-#' parse_nonparenthetical_polynomial("x    +       y")
-#' parse_nonparenthetical_polynomial("x    -       y+-xy")
+# parse_nonparenthetical_polynomial(" -1")
+# parse_nonparenthetical_polynomial("x-1")
+# parse_nonparenthetical_polynomial("5-2x")
+# parse_nonparenthetical_polynomial("5 - 2     x")
+# parse_nonparenthetical_polynomial("5 + -2x")
+# parse_nonparenthetical_polynomial("1--1")
+# parse_nonparenthetical_polynomial("1 - - 1")
+# parse_nonparenthetical_polynomial("5^2x")
+# parse_nonparenthetical_polynomial("5^2-x")
+# parse_nonparenthetical_polynomial("-x")
+# parse_nonparenthetical_polynomial("-1")
+# parse_nonparenthetical_polynomial("1+-x-x")
+# parse_nonparenthetical_polynomial("1 - -3")
+#
+# parse_nonparenthetical_polynomial("-x + 2y - 4x - -4")
+#
+# string <- "-4 + 2+2 x +   1 x y^4 -3 prq^3 -y - 3 x 2 - 3 y -2"
+# parse_nonparenthetical_polynomial(string)
+# parse_nonparenthetical_polynomial("x    +       y")
+# parse_nonparenthetical_polynomial("x    -       y+-xy")
 parse_nonparenthetical_polynomial <- function(string){
   
   # trim
@@ -295,15 +295,16 @@ parse_nonparenthetical_polynomial <- function(string){
 
 
 
-
-#' parse_nonparenthetical_term("12var 2 y 2x")
-#' parse_nonparenthetical_term("-2      7")
-#' parse_nonparenthetical_term("2 x y^2 3 2           3^2")
-#' parse_nonparenthetical_term("2 x -2") # -> warn
-#' parse_nonparenthetical_term("x")
-#' parse_nonparenthetical_term("-x")
-#' parse_nonparenthetical_term("-5x")
-#' parse_nonparenthetical_term("-0x")
+# parse_nonparenthetical_term("12var 2 y 2x")
+# parse_nonparenthetical_term("-2      7")
+# parse_nonparenthetical_term("2 x y^2 3 2           3^2")
+# parse_nonparenthetical_term("2 x -2") # -> warn
+# parse_nonparenthetical_term("x")
+# parse_nonparenthetical_term("-x")
+# parse_nonparenthetical_term("-5x")
+# parse_nonparenthetical_term("-0x")
+# parse_nonparenthetical_term("1.5x")
+# parse_nonparenthetical_term("1.5^2x")
 parse_nonparenthetical_term <- function(string){
   
   # trim
@@ -319,15 +320,15 @@ parse_nonparenthetical_term <- function(string){
     string <- str_replace_all(string, "[\\s]*\\-[\\s]*", "-")
   }
   
+  # split based on spaces
   parts <- str_split(string, " ")[[1]]
   parts <- parts[nchar(parts) > 0] # for "2        -2"
   
-  # warn about negative other term
-  if(length(parts) > 1){
-    if(any(str_detect(parts[-1], "\\-"))){
-      warning(paste0("(", string, ") has a non-initial negative element, parse_nonparenthetical_term should not be used on this string."))
-    }
+  # if more than one negative provided error
+  if(str_detect(str_sub(string, 2), fixed("-"))){
+    stop("negative signs only allowed at the beginning of terms", call. = FALSE)
   }
+  
   
   # fix, e.g. "2x"
   smashed_var_bool <- str_detect(parts, "[0-9]+[:alpha:]")
@@ -391,16 +392,16 @@ parse_nonparenthetical_term <- function(string){
 
 
 
-#' fix_term_joins("-2 - -2x + y - -3 y - 2")
-#' fix_term_joins("1-1")
-#' fix_term_joins("1--1")
-#' fix_term_joins("1 - - 1")
-#' fix_term_joins("5 - 2     x")
-#' fix_term_joins("5^2x - 1")
-#' fix_term_joins("1+-xx-x")
-#' fix_term_joins("-1-1")
-#' fix_term_joins("-1-1-") # error
-#' fix_term_joins("-1-1+") # error
+# fix_term_joins("-2 - -2x + y - -3 y - 2")
+# fix_term_joins("1-1")
+# fix_term_joins("1--1")
+# fix_term_joins("1 - - 1")
+# fix_term_joins("5 - 2     x")
+# fix_term_joins("5^2x - 1")
+# fix_term_joins("1+-xx-x")
+# fix_term_joins("-1-1")
+# fix_term_joins("-1-1-") # error
+# fix_term_joins("-1-1+") # error
 fix_term_joins <- function(string){
   
   # trim
@@ -469,8 +470,8 @@ fix_term_joins <- function(string){
 
 
 
-#' string <- "-(x + y) + 2 x (x + y) + 3 y"
-#' extract_polynomial_terms(string)
+# string <- "-(x + y) + 2 x (x + y) + 3 y"
+# extract_polynomial_terms(string)
 extract_polynomial_terms <- function(string){
   
   # run fix_term_joins on blanked strings to get protect parentheticals
@@ -515,14 +516,14 @@ extract_polynomial_terms <- function(string){
 
 
 
-#' an inner parenthetical is one that does not contain parentheticals
-#' extract_leftmost_inner_parenthetical("(x + 5)")
-#' extract_leftmost_inner_parenthetical("(x + 5)", contents_only = TRUE)
-#'
-#' extract_leftmost_inner_parenthetical("(x + 5)^10")
-#' extract_leftmost_inner_parenthetical("(x + 5)^10", contents_only = TRUE)
-#' extract_leftmost_inner_parenthetical("((x + 5)^10+2)^2")
-#' extract_leftmost_inner_parenthetical("((x + 5)^10+2)", contents_only = TRUE)
+# an inner parenthetical is one that does not contain parentheticals
+# extract_leftmost_inner_parenthetical("(x + 5)")
+# extract_leftmost_inner_parenthetical("(x + 5)", contents_only = TRUE)
+#
+# extract_leftmost_inner_parenthetical("(x + 5)^10")
+# extract_leftmost_inner_parenthetical("(x + 5)^10", contents_only = TRUE)
+# extract_leftmost_inner_parenthetical("((x + 5)^10+2)^2")
+# extract_leftmost_inner_parenthetical("((x + 5)^10+2)", contents_only = TRUE)
 extract_leftmost_inner_parenthetical <- function(string, contents_only = FALSE){
   string <- str_extract(string, "\\([^()]*\\)[\\^\\d]*")
   if(contents_only){
@@ -536,9 +537,9 @@ extract_leftmost_inner_parenthetical <- function(string, contents_only = FALSE){
 
 
 
-#' blank_parentheticals(" -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 ")
-#' blank_parentheticals(" -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 ", "*")
-#' blank_parentheticals(" -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 ", "_")
+# blank_parentheticals(" -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 ")
+# blank_parentheticals(" -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 ", "*")
+# blank_parentheticals(" -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 ", "_")
 blank_parentheticals <- function(string, char = "-"){
   # " -1 1 x (3 x + -1 (7 + -1 2 x))^2 7 (x + 1) -3 " ->
   # " -1 1 x ------------------------- 7 ------- -3 "
@@ -561,10 +562,10 @@ blank_parentheticals <- function(string, char = "-"){
 
 
 
-#' string <- " -3 -(x + y)^2 4 (x - y)x 4 "
-#' collect_nonparenthetical_elements(string)
-#' string <- " (x + y)^2   (x - y)(x)  "
-#' collect_nonparenthetical_elements(string)
+# string <- " -3 -(x + y)^2 4 (x - y)x 4 "
+# collect_nonparenthetical_elements(string)
+# string <- " (x + y)^2   (x - y)(x)  "
+# collect_nonparenthetical_elements(string)
 collect_nonparenthetical_elements <- function(string){
   
   blanked_string <- blank_parentheticals(string, "|")  
@@ -579,10 +580,10 @@ collect_nonparenthetical_elements <- function(string){
   
 }
 
-#' string <- " -3 (x + y)^2 4 (x - y)x 4 "
-#' delete_nonparenthetical_elements(string)
-#' string <- " (x + y)^2   (x - y)(x)  "
-#' delete_nonparenthetical_elements(string)
+# string <- " -3 (x + y)^2 4 (x - y)x 4 "
+# delete_nonparenthetical_elements(string)
+# string <- " (x + y)^2   (x - y)(x)  "
+# delete_nonparenthetical_elements(string)
 delete_nonparenthetical_elements <- function(string){
   
   blanked_string <- blank_parentheticals(string, "*")  
@@ -592,10 +593,10 @@ delete_nonparenthetical_elements <- function(string){
   
 }
 
-#' string <- " -3 (x + y)^2 4 (x - y)(x) 4 "
-#' term_parentheticals(string)
-#' string <- " -(x + y)^2   3(x - y)(x)  "
-#' term_parentheticals(string)
+# string <- " -3 (x + y)^2 4 (x - y)(x) 4 "
+# term_parentheticals(string)
+# string <- " -(x + y)^2   3(x - y)(x)  "
+# term_parentheticals(string)
 term_parentheticals <- function(string){
   
   nonpars <- collect_nonparenthetical_elements(string)
@@ -631,11 +632,11 @@ contains_parenthetical_expression <- function(string){
 
 
 
-#' contains_nested_parenthetical_expression("5+5")
-#' contains_nested_parenthetical_expression("(5+5)")
-#' contains_nested_parenthetical_expression("((5+5))")
-#' contains_nested_parenthetical_expression("x + (5 y) + 2")
-#' contains_nested_parenthetical_expression("x + ((5 y) + 2)")
+# contains_nested_parenthetical_expression("5+5")
+# contains_nested_parenthetical_expression("(5+5)")
+# contains_nested_parenthetical_expression("((5+5))")
+# contains_nested_parenthetical_expression("x + (5 y) + 2")
+# contains_nested_parenthetical_expression("x + ((5 y) + 2)")
 contains_nested_parenthetical_expression <- function(string){
   only_parentheses <- str_replace_all(string, "[^()]", "")
   str_detect(only_parentheses, fixed("(("))

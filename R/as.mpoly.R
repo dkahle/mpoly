@@ -6,14 +6,14 @@
 #' @return the object formated as a mpoly object.
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mp}}
-#' @export as.mpoly
-#' @export as.mpoly.default
-#' @export as.mpoly.lm
+#' @export
 #' @examples
 #' \dontrun{
+#' 
 #' library(plyr)
 #' library(ggplot2)
 #' library(stringr)
+#' 
 #' n <- 101
 #' s <- seq(-5, 5, length.out = n)
 #' 
