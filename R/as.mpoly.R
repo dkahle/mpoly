@@ -49,9 +49,16 @@
 #' 
 as.mpoly <- function(x) UseMethod('as.mpoly')
 
+
+
+#' @export  
 as.mpoly.default <- function(x) 
   stop('object not supported.  see ?as.mpoly for details.')
 
+
+
+
+#' @export  
 as.mpoly.lm <- function(x){
   coefs <- coefficients(x)
   coef_names <- names(coefs)
