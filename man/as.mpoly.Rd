@@ -16,9 +16,11 @@ mpoly is the most basic function used to create objects of class mpoly.
 }
 \examples{
 \dontrun{
+
 library(plyr)
 library(ggplot2)
 library(stringr)
+
 n <- 101
 s <- seq(-5, 5, length.out = n)
 
@@ -27,7 +29,7 @@ df <- data.frame(x = s)
 df <- mutate(df, y = -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 qplot(x, y, data = df)
 mod <- lm(y ~ x + I(x^2), data = df)
-p <- as.mpoly(mod)
+(p <- as.mpoly(mod))
 f <- as.function(p)
 qplot(x, y, data = df) +
   stat_function(fun = f, colour = 'red')
@@ -43,6 +45,9 @@ f <- as.function(p)
 df$fit <- apply(df[,c('x','y')], 1, f)
 qplot(x, y, data = df, geom = 'raster', fill = fit)
 qplot(x, y, data = df, geom = 'raster', fill = z - fit) # residuals
+
+
+
 
 # to do
 mod <- lm(z ~ poly(x, y, degree = 2), data = df)

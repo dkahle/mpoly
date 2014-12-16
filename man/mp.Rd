@@ -22,7 +22,12 @@ is.mpoly( m )
 unclass(m)
 
 
+mp("x + 2 y + x^2 y + x y z")
+mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x"))
+# mp('x + 2 y + x^2 y', varorder = c('q', 'p')) # -> error
 
+( ms <- mp(c('x + y', '2 x')) )
+is.mpolyList(ms)
 
 
 gradient( mp("x + 2 y + x^2 y + x y z") )
@@ -33,34 +38,6 @@ gradient( mp("(x + y)^10") )
 strings <- print(polys)
 strings
 mp(strings)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# working new in version 0.6
-mp('x + 4x') # note the 4x as opposed to 4 x
-mp('x - 4x') # same
-mp('x -1') # -> -1 x
-mp("x(1+x)")
-
-mp("x ((x + y) + 2)")
-mp("1+x")
 }
 \author{
 David Kahle \email{david.kahle@gmail.com}

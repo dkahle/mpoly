@@ -4,10 +4,12 @@ Version 0.0.6
 NEW FEATURES
 
 * is.linear function.
+* round now has a method applicable to mpoly objects that rounds the coefficients.  this is particularly nice in combination with as.mpoly.lm.
 
 CHANGES
 
-* vastly enhanced mp parser based on stringr (now dependent on stringi)
+* vastly enhanced mp parser based on stringr 9.0.0 (now dependent on stringi).
+* tests added.
 * description file updated for CRAN's standards.
 
 

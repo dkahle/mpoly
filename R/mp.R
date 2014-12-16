@@ -14,7 +14,12 @@
 #' unclass(m)
 #'
 #'
-#' 
+#' mp("x + 2 y + x^2 y + x y z") 
+#' mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x")) 
+#' # mp('x + 2 y + x^2 y', varorder = c('q', 'p')) # -> error
+#'
+#' ( ms <- mp(c('x + y', '2 x')) )
+#' is.mpolyList(ms)
 #'
 #'
 #' gradient( mp("x + 2 y + x^2 y + x y z") ) 
@@ -27,32 +32,8 @@
 #' mp(strings)
 #' 
 #' 
-#' 
 #'
 #'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#' # working new in version 0.6
-#' mp('x + 4x') # note the 4x as opposed to 4 x
-#' mp('x - 4x') # same
-#' mp('x -1') # -> -1 x
-#' mp("x(1+x)")
-#'
-#' mp("x ((x + y) + 2)")
-#' mp("1+x")
 #' 
 #' 
 #' 
@@ -179,8 +160,8 @@ parse_parenthetical_term <- function(string){
   mpolys <- lapply(pieces, function(piece){
     
     # identify expression and exponent components
-    expr <- str_extract(piece, "\\([()[:alnum:][+-]\\s\\^]+\\)")
-    expr <- str_sub(expr, 2, -2)
+    expr <- str_extract(piece, "\\([()[:alnum:][+-]\\s\\^\\.]+\\)")
+    expr <- str_sub(expr, 2, -2) # take off parens
     if(str_detect(piece, fixed("^"))){
       exponent <- as.numeric(str_rev(str_extract(str_rev(piece), "[\\d]+"))) # gets first
     } else {
@@ -421,8 +402,8 @@ fix_term_joins <- function(string){
   }
   
   # break string into pieces of terms and joins
-  terms <- str_extract_all(string, "[[:alnum:]\\^\\|]+")[[1]]
-  joins <- str_split(string, "[[:alnum:]\\^|]+")[[1]]
+  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.]+")[[1]]
+  joins <- str_split(string, "[[:alnum:]\\^\\.|]+")[[1]]
   if(joins[1] == "") joins <- joins[-1] 
   if(joins[length(joins)] == "") joins <- joins[-length(joins)] 
   if(length(joins) == 0L) return(string)
