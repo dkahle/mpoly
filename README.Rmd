@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 mpoly is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  
 
-```{r mp, message = FALSE}
+```{r mp, echo = TRUE}
 library(mpoly)
 
 p1 <- mp("x + y")
