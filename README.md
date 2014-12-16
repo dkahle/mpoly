@@ -84,7 +84,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> -3.398  +  1.943 x  -  0.983 x^2
+#> -2.898  +  1.973 x  -  1.004 x^2
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
@@ -92,7 +92,7 @@ qplot(x, y, data = df) +
 
 ![](README-unnamed-chunk-7-1.png)
 
-Grobner bases computations are available using **Rsympy**:
+Grobner bases computations are available using **rSymPy**:
 
 ``` {.r}
 polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
