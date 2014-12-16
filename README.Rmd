@@ -17,32 +17,78 @@ knitr::opts_chunk$set(
 
 # mpoly
 
-mpoly is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  
+__mpoly__ is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  Polynomials are defined with the `mp` function:
 
 ```{r mp, echo = TRUE}
 library(mpoly)
+mp("x + y")
+mp("(x + 4y)^2 (x - .25)")
+```
 
+[Term orders](http://en.wikipedia.org/wiki/Lexicographical_order#Monomials) are available with the reorder function:
+```{r}
+(p <- mp("(x + y)^2 (1 + x)"))
+reorder(p, varorder = c('y','x'), order = 'lex')
+reorder(p, varorder = c('x','y'), order = 'glex')
+```
+
+Arithmetic is defined for them (`+`, `-`, `*` and `^`):
+```{r}
 p1 <- mp("x + y")
 p2 <- mp("x - y")
 
+p1 + p2
+p1 - p2
 p1 * p2
 p1^2
+```
 
 
+You can compute derivatives easily:
+```{r}
+deriv(mp("x + x y + x y^2"), "y")
+```
 
+And turn them into functions you can evaluate:
+```{r}
+f <- as.function(mp("(x-2) x (x+2)"))
+s <- seq(-2.5, 2.5, .1)
+df <- expand.grid(x = s)
+df$f <- apply(df, 1, f)
 
 library(ggplot2)
-(p <- round(as.mpoly(lm(dist ~ speed, data = cars))))
-qplot(speed, dist, data = cars) +
-  stat_function(fun = as.function(p), color = "red")
+qplot(x, f, data = df, geom = "line")
+```
 
-(p <- round(as.mpoly(lm(dist ~ speed + I(speed^2), data = cars))))
-qplot(speed, dist, data = cars) +
-  stat_function(fun = as.function(p), color = "red")
 
+
+```{r}
+f <- as.function(mp("x^2 - y^2")) 
+df <- expand.grid(x = s, y = s)
+df$f <- apply(df, 1, f)
+qplot(x, y, data = df, geom = "tile", fill = f)
+```
+
+I'm starting to put in methods for some other R functions:
+
+```{r}
+n <- 101
+df <- data.frame(x = seq(-5, 5, length.out = n))
+df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
+
+mod <- lm(y ~ x + I(x^2), data = df)
+(p <- round(as.mpoly(mod)))
+qplot(x, y, data = df) +
+  stat_function(fun = as.function(p), colour = 'red')
 
 ```
 
+Grobner bases computations are available using __Rsympy__:
+
+```{r}
+polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
+grobner(polys)
+```
 
 
 ## Installation
