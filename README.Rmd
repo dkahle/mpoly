@@ -83,7 +83,7 @@ qplot(x, y, data = df) +
 
 ```
 
-Grobner bases computations are available using __Rsympy__:
+Grobner bases computations are available using __rSymPy__:
 
 ```{r}
 polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
