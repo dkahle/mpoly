@@ -66,10 +66,12 @@ mpoly <- function(list, varorder){
   
   ## organize 
   
+  
   # remove terms with coef 0
   terms2keep <- !sapply(list, function(v) v['coef'] == 0)
   list <- list[terms2keep]
   if(length(list) == 0) list <- list(c(coef = 0))
+  
   
   # remove 0 degrees, combine like degrees, put 'coef' as rightmost element
   list <- lapply(list, function(v){
@@ -78,12 +80,12 @@ mpoly <- function(list, varorder){
     coef_ndx <- which(names(v) == 'coef')
     coefs <- v[coef_ndx]    
     v <- v[-coef_ndx]
-
   	
   	# combine like degrees (sum)
   	if(length(names(v)) != length(unique(names(v)))){
-  	  split_v <- split(v, match(names(v), unique(names(v))))
-  	  names(split_v) <- sapply(split_v, function(v) names(v)[1])
+  	  element_names <- unique(names(v))
+  	  split_v <- split(v, match(names(v), element_names))
+  	  names(split_v) <- element_names
       v <- sapply(split_v, sum)
   	}
   	
@@ -91,10 +93,9 @@ mpoly <- function(list, varorder){
   	coefs <- c(coef = prod(coefs))
   	
   	# remove zero degree elements
-    if(length(v) > 0){  	
-  	  p <- length(v)
-      v <- v[1:p][v[1:p] != 0]
-    }    
+    if(length(v) > 0) v <- v[v != 0]
+    
+    # return
     c(v, coefs)
   })
   
@@ -119,23 +120,26 @@ mpoly <- function(list, varorder){
     vars <- varorder
   }
 
+  
   # sort
   list <- lapply(list, function(v){
     p <- length(v) - 1
     c( (v[1:p])[intersect(vars, names(v[1:p]))], v['coef'] )
   })   
   
+   
   
-  
-  
-  ## combine like terms, if present  
+  ## combine like terms, if present
   monomials <- sapply(list, function(v){
   	p <- length(v) - 1
     paste(names(v[1:p]), v[1:p],  sep = '', collapse = '')
-  })
-  if(length(monomials) != length(unique(monomials))){
-    ndcs2combine <- split(1:length(list), match(monomials, unique(monomials)))
+  })  # e.g. c("x1", "y1", "y1", "x2z1", "y4t3", "coef5", "coef-5")
+  
+  unique_monomials <- unique(monomials)
+  if(length(monomials) != length(unique_monomials)){
+    ndcs2combine <- split(1:length(list), match(monomials, unique_monomials))
     list <- lapply(ndcs2combine, function(v){
+      if(length(v) == 1) return(list[[v]])
       flatList <- unlist(list[v])
       coef <- sum(flatList[names(flatList) == 'coef'])
       v <- list[v][[1]]
@@ -145,12 +149,14 @@ mpoly <- function(list, varorder){
     list <- unname(list)
   }
   
-  # combine constant terms
+  
+  
+  ## combine constant terms
   constant_ndcs <- which(sapply(list, length) == 1)
   if(length(constant_ndcs) > 1){
     list <- c(
       list[-constant_ndcs],
-      c(sum(unlist(list[constant_ndcs])))
+      sum(unlist(list[constant_ndcs]))
     )
     names(list[[length(list)]]) <- 'coef'
   }
