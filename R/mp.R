@@ -375,6 +375,8 @@ parse_nonparenthetical_term <- function(string){
 
 # fix_term_joins("-2 - -2x + y - -3 y - 2")
 # fix_term_joins("1-1")
+# fix_term_joins("x[1]")
+# fix_term_joins("x[1,1]")
 # fix_term_joins("1--1")
 # fix_term_joins("1 - - 1")
 # fix_term_joins("5 - 2     x")
@@ -402,8 +404,8 @@ fix_term_joins <- function(string){
   }
   
   # break string into pieces of terms and joins
-  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.]+")[[1]]
-  joins <- str_split(string, "[[:alnum:]\\^\\.|]+")[[1]]
+  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,]+")[[1]]
+  joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|]+")[[1]]
   if(joins[1] == "") joins <- joins[-1] 
   if(joins[length(joins)] == "") joins <- joins[-length(joins)] 
   if(length(joins) == 0L) return(string)

@@ -5,6 +5,7 @@ NEW FEATURES
 
 * is.linear function.
 * round now has a method applicable to mpoly objects that rounds the coefficients.  this is particularly nice in combination with as.mpoly.lm.
+* hard braces are now allowed for variables, e.g. x[1,1]
 
 CHANGES
 

@@ -59,6 +59,11 @@ test_that("parse_nonparenthetical_term works", {
   expect_equal(f("-.2 x"), m(list(c(coef = -.2, x = 1))))  
   expect_equal(f("- .2 x"), m(list(c(coef = -.2, x = 1))))    
   
+  expect_equal(f("x[1]^2"), m(list(c(coef = 1, "x[1]" = 2))))    
+  expect_equal(f("x[1] ^ 2"), m(list(c(coef = 1, "x[1]" = 2))))    
+  expect_equal(f("2 x[1] ^ 2"), m(list(c(coef = 2, "x[1]" = 2))))    
+  expect_equal(f("-2 x[1] ^ 2"), m(list(c(coef = -2, "x[1]" = 2))))    
+  
   expect_equal(f("x1^2"), m(list(c(coef = 1, x1 = 2))))    
   expect_equal(f("x1 ^ 2"), m(list(c(coef = 1, x1 = 2))))    
   expect_equal(f("2 x1 ^ 2"), m(list(c(coef = 2, x1 = 2))))    
@@ -167,6 +172,11 @@ test_that("parse_nonparenthetical_polynomial works", {
   expect_equal(f(".2 x"), m(list(c(coef = .2, x = 1))))
   expect_equal(f("-.2 x"), m(list(c(coef = -.2, x = 1))))  
   expect_equal(f("- .2 x"), m(list(c(coef = -.2, x = 1))))    
+    
+  expect_equal(f("x[1]^2"), m(list(c(coef = 1, "x[1]" = 2))))    
+  expect_equal(f("x[1] ^ 2"), m(list(c(coef = 1, "x[1]" = 2))))    
+  expect_equal(f("2 x[1] ^ 2"), m(list(c(coef = 2, "x[1]" = 2))))    
+  expect_equal(f("-2 x[1] ^ 2"), m(list(c(coef = -2, "x[1]" = 2))))      
   
   expect_equal(f("x1^2"), m(list(c(coef = 1, x1 = 2))))    
   expect_equal(f("x1 ^ 2"), m(list(c(coef = 1, x1 = 2))))    
