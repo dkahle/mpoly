@@ -82,12 +82,7 @@ mpoly <- function(list, varorder){
     v <- v[-coef_ndx]
   	
   	# combine like degrees (sum)
-  	if(length(names(v)) != length(unique(names(v)))){
-  	  element_names <- unique(names(v))
-  	  split_v <- split(v, match(names(v), element_names))
-  	  names(split_v) <- element_names
-      v <- sapply(split_v, sum)
-  	}
+  	if(length(names(v)) != length(unique(names(v)))) v <- tapply(v, names(v), sum)      
   	
   	# combine like coefficients (product)
   	coefs <- c(coef = prod(coefs))

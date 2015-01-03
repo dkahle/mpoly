@@ -310,7 +310,6 @@ parse_nonparenthetical_term <- function(string){
     stop("negative signs only allowed at the beginning of terms", call. = FALSE)
   }
   
-  
   # fix, e.g. "2x"
   smashed_var_bool <- str_detect(parts, "[0-9]+[:alpha:]")
   if(any(smashed_var_bool)){
