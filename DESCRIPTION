@@ -5,7 +5,7 @@ Version: 0.1.0
 Date: 2015-01-10
 URL: https://github.com/dkahle/mpoly
 BugReports: https://github.com/dkahle/mpoly/issues
-Authors@R: as.person("David Kahle <david.kahle@gmail.com> [aut, cre]")
+Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
 Description: mpoly allows for the symbolic manipulation of multivariate
     polynomials in a general and consistent way designed especially for
     sparse and super sparse polynomials.  It also allows for basic
