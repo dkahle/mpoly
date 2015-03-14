@@ -105,7 +105,7 @@ parse_parenthetical_polynomial <- function(string){
   mpolys <- lapply(as.list(terms), parse_parenthetical_term)
   
   # add and return
-  Reduce("+", mpolys)
+  Reduce(`+`, mpolys)
 }
 
 
@@ -177,7 +177,7 @@ parse_parenthetical_term <- function(string){
   })
   
   # product and return
-  Reduce("*", mpolys)
+  Reduce(`*`, mpolys)
 }
 
 
@@ -265,7 +265,7 @@ parse_nonparenthetical_polynomial <- function(string){
   mpolyTerms <- lapply(as.list(terms), parse_nonparenthetical_term)
   
   # combine and return
-  Reduce("+", mpolyTerms)
+  Reduce(`+`, mpolyTerms)
 }
 
 
