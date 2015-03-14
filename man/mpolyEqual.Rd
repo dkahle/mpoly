@@ -20,18 +20,18 @@ A logical value.
 Determine whether two multivariate polynomials are equal.
 }
 \examples{
-p1 <- mp('x + y + 2 z')
+p1 <- mp("x + y + 2 z")
 p1 == p1
 
-p2 <- reorder(p1, order = 'lex', varorder = c('z','y','x'))
+p2 <- reorder(p1, order = "lex", varorder = c("z","y","x"))
 p1 == p2
-p2 <- reorder(p1, order = 'lex', varorder = c('z','w','y','x'))
+p2 <- reorder(p1, order = "lex", varorder = c("z","w","y","x"))
 p1 == p2
 p1 == ( 2 * p2 )
 
-mp('x + 1') == mp('y + 1')
-mp('2') == mp('1')
-mp('1') == mp('1')
-mp('0') == mp('-0')
+mp("x + 1") == mp("y + 1")
+mp("2") == mp("1")
+mp("1") == mp("1")
+mp("0") == mp("-0")
 }
 
