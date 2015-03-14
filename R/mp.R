@@ -9,16 +9,16 @@
 #' @seealso \code{\link{mpoly}}
 #' @export mp
 #' @examples
-#' ( m <- mp('x + y + x y') )
+#' ( m <- mp("x + y + x y") )
 #' is.mpoly( m )
 #' unclass(m)
 #'
 #'
 #' mp("x + 2 y + x^2 y + x y z") 
 #' mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x")) 
-#' # mp('x + 2 y + x^2 y', varorder = c('q', 'p')) # -> error
+#' # mp("x + 2 y + x^2 y", varorder = c("q", "p")) # -> error
 #'
-#' ( ms <- mp(c('x + y', '2 x')) )
+#' ( ms <- mp(c("x + y", "2 x")) )
 #' is.mpolyList(ms)
 #'
 #'
@@ -26,7 +26,7 @@
 #' gradient( mp("(x + y)^10") ) 
 #'
 #' # mp and the print methods are kinds of inverses of each other
-#' ( polys <- mp(c('x + y', 'x - y')) )
+#' ( polys <- mp(c("x + y", "x - y")) )
 #' strings <- print(polys)
 #' strings
 #' mp(strings)
@@ -49,7 +49,7 @@ mp <- function(string, varorder){
     } else {
       mpolyList <- lapply(as.list(string), mp, varorder = varorder)
     }
-    class(mpolyList) <- 'mpolyList'
+    class(mpolyList) <- "mpolyList"
     return(mpolyList)
   }
   
@@ -66,9 +66,9 @@ mp <- function(string, varorder){
     
     if(!all(vars %in% varorder)){
       error <- paste(
-        'if specified, varorder must contain all computed vars - ',
-        paste(vars, collapse = ', '),
-        sep = ''
+        "if specified, varorder must contain all computed vars - ",
+        paste(vars, collapse = ", "),
+        sep = ""
       )
       stop(error, call. = FALSE)
     }
@@ -247,7 +247,7 @@ parse_nonparenthetical_polynomial <- function(string){
   # trim
   string <- str_trim(string)
   
-  # check to see if it's a single term
+  # check to see if it"s a single term
   if(
     !str_detect(string, "[+]") && 
     !str_detect(str_sub(string, 2), "[-]")
@@ -397,7 +397,7 @@ fix_term_joins <- function(string){
   # zero trick for leading symbol, e.g. "-1 + x" -> "0 + -1 + x"
   if(str_detect(str_sub(string, 1, 1), fixed("-"))){
     if(str_detect(str_sub(string, 1, 1), fixed("--"))){
-      stop('"--" cannot lead an expression.', call. = FALSE)
+      stop(""--" cannot lead an expression.", call. = FALSE)
     }
     string <- str_c("0 + ", string)
   }
@@ -460,7 +460,7 @@ extract_polynomial_terms <- function(string){
   blanked_string <- blank_parentheticals(string, "|")
   piped_string <- fix_term_joins(blanked_string)
   
-  # change +'s to *'s for breaking later
+  # change +"s to *"s for breaking later
   # they distinguish polynomial terms
   piped_string <- str_replace_all(piped_string, fixed("+"), "*")
   
@@ -631,7 +631,7 @@ unmatched_parentheses_stop <- function(string){
     if(str_count(string, fixed("(")) > str_count(string, fixed(")"))){
       stop("not all parenthetical expressions closed.", call. = FALSE)
     } else if(str_count(string, fixed("(")) < str_count(string, fixed(")"))){
-      stop("not all parenthetical expressions closed. (excess )'s detected)", call. = FALSE)
+      stop('not all parenthetical expressions closed. (excess )"s detected)', call. = FALSE)
     }
   }
   invisible()
