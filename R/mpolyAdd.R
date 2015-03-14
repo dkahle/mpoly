@@ -30,7 +30,7 @@
 #' list <- list(c(coef = -1))
 #' ( p2 <- mpoly(list) )
 #' p1 + p2
-'+.mpoly' <- function(e1, e2){
+`+.mpoly` <- function(e1, e2){
 	
   mpoly( c( unclass(e1), unclass(e2) ) )
  
@@ -71,12 +71,12 @@
 #' list <- list(c(coef = -1))
 #' ( p2 <- mpoly(list) )
 #' p1 - p2
-'-.mpoly' <- function(e1, e2){
+`-.mpoly` <- function(e1, e2){
   e2 <- lapply(e2, function(v){
-    v['coef'] <- -v['coef']
+    v["coef"] <- -v["coef"]
     v
   })
-  class(e2) <- 'mpoly'
+  class(e2) <- "mpoly"
   e1 + e2	
 }
 
