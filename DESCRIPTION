@@ -21,6 +21,9 @@ Imports:
     partitions,
     plyr,
     stats
+Suggests:
+    ggplot2,
+    MASS
 License: GPL-2
 Suggests:
     testthat
