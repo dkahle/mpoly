@@ -10,6 +10,7 @@
 #' @name mpolyEqual
 #' @export
 #' @examples
+#' 
 #' p1 <- mp("x + y + 2 z")
 #' p1 == p1
 #' 
@@ -28,6 +29,7 @@
 #' mp("2") == mp("1")
 #' mp("1") == mp("1")
 #' mp("0") == mp("-0")
+#' 
 `==.mpoly` <- function(e1, e2){
 	
   if(!is.mpoly(e1)  || !is.mpoly(e2)){
