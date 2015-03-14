@@ -25,60 +25,65 @@
 #' )
 #' 
 #' mpoly(list) # 3 x  -  4 y  -  3 x^2 z  +  4 y^4 t^3  +  5
-#' mpoly(list, varorder = c('y', 'z', 't', 'x'))
+#' mpoly(list, varorder = c("y", "z", "t", "x"))
 #' 
 #' list <- list(  c(x = 5, x = 2, coef = 5, coef = 6, y = 0) )
 #' mpoly(list)
 #' 
 #' # ERROR CHECKS (in order)
 #' # mpoly(1:5)
-#' # mpoly(list(c(x = 'a', coef = 1)))
+#' # mpoly(list(c(x = "a", coef = 1)))
 #' # mpoly(list(c(x = 1,     1, coef = 2)))
 #' # mpoly(list(c(x = 1, y = 1)))
 #' # mpoly(list(c(x = 1, y = 1.5, coef = 2)))
 #' # mpoly(list(c(x = 1, y = -2, coef = 2)))
-#' # mpoly(list(c(x = 1, y = 2, coef = 2)), varorder = 'x')
+#' # mpoly(list(c(x = 1, y = 2, coef = 2)), varorder = "x")
 #' 
 mpoly <- function(list, varorder){
 
   ## argument checking
   if(!is.list(list)){
-    stop('list must be of class list.', call. = FALSE)
+    stop("list must be of class list.", call. = FALSE)
   }
   
-  if(!all(sapply(list, is.numeric))){
-    stop('each element of list must be of type numeric.', call. = FALSE)  
+  if(!all(vapply(list, is.numeric, logical(1)))){
+    stop("each element of list must be of type numeric.", call. = FALSE)  
   }
   
   if(any( unlist(lapply(list, function(v) nchar(names(v)))) == 0 )){
-    stop('each element of list must be named for every element.', call. = FALSE)  
+    stop("each element of list must be named for every element.", call. = FALSE)  
   }    
   
   flatList <- unlist(list)
-  flatList <- flatList[names(flatList) != 'coef']
+  flatList <- flatList[names(flatList) != "coef"]
   if(!all(is.wholenumber(flatList)) || any(flatList < 0)){
-    stop('degrees must be nonnegative integers.', call. = FALSE)
+    stop("degrees must be nonnegative integers.", call. = FALSE)
   }  
   
   # give terms without a coefficient a coef of 1
-  needsACoef <- which(!sapply(list, function(v) "coef" %in% names(v)))
-  list[needsACoef] <- lapply(list[needsACoef], function(v) c(v, coef = 1))
+  addCoefIfMissing <- function(v){
+    if("coef" %in% names(v)) return(v)
+    c(v, coef = 1)
+  }
+  list <- lapply(list, addCoefIfMissing)
+  
   
   
   ## organize 
-  
-  
+    
   # remove terms with coef 0
-  terms2keep <- !vapply(list, function(v) any(v['coef'] == 0), TRUE)
-  list <- list[terms2keep]
+  hasNonZeroCoef <- function(v) all(v["coef"] != 0)
+  list <- Filter(hasNonZeroCoef, list)
+  
+  
+  # if all terms have been eliminated, recreate it with a 0 coef
   if(length(list) == 0) list <- list(c(coef = 0))
   
   
   # remove 0 degrees, combine like degrees, single coef as rightmost element
-  list <- lapply(list, function(v){
-  	
+  list <- lapply(list, function(v){  	
     # separate vardegs from coefs
-    coef_ndx <- which(names(v) == 'coef')
+    coef_ndx <- which(names(v) == "coef")
     coefs <- v[coef_ndx]    
     v <- v[-coef_ndx]
   	
@@ -88,11 +93,8 @@ mpoly <- function(list, varorder){
   	# combine like coefficients (product)
   	coefs <- c(coef = prod(coefs))
   	
-  	# remove zero degree elements
-    if(length(v) > 0) v <- v[v != 0]
-    
-    # return
-    c(v, coefs)
+  	# remove zero degree elements, combine and return  
+    c(v[v != 0], coefs)
   })
   
   
@@ -105,8 +107,8 @@ mpoly <- function(list, varorder){
   if(!missing(varorder)){  	
     if( !setequal(vars, varorder) ){
       stop(paste(
-        'if specified varorder must be a permutation of',
-        paste(vars, collapse = ', ')        
+        "if specified varorder must be a permutation of",
+        paste(vars, collapse = ", ")        
       ), call. = FALSE)	
     }    
     vars <- varorder
@@ -117,7 +119,7 @@ mpoly <- function(list, varorder){
   list <- lapply(list, function(v){
     p <- length(v) - 1L
     if(p == 0L) return(v)
-    c( (v[1:p])[intersect(vars, names(v[1:p]))], v['coef'] )
+    c( (v[1:p])[intersect(vars, names(v[1:p]))], v["coef"] )
   })   
   
    
@@ -127,8 +129,9 @@ mpoly <- function(list, varorder){
   ## combine like terms, if present
   monomials <- vapply(list, function(v){
   	p <- length(v) - 1 # remove coef on monomials
-    paste(names(v[1:p]), v[1:p],  sep = '', collapse = '')
-  }, "")  # e.g. c("x1", "y1", "y1", "x2z1", "y4t3", "x1", "x1", "coef5")
+    paste(names(v[1:p]), v[1:p],  sep = "", collapse = "")
+  }, character(1))  
+  # e.g. c("x1", "y1", "y1", "x2z1", "y4t3", "x1", "x1", "coef5")
   
   unique_monomials <- unique(monomials)
   
@@ -137,9 +140,9 @@ mpoly <- function(list, varorder){
     list <- lapply(ndcs2combine, function(v){
       if(length(v) == 1) return(list[[v]])
       flatList <- unlist(list[v])
-      coef <- sum(flatList[names(flatList) == 'coef'])
+      coef <- sum(flatList[names(flatList) == "coef"])
       v <- list[v][[1]]
-      v['coef'] <- coef
+      v["coef"] <- coef
       v
     })
     list <- unname(list)
@@ -148,13 +151,18 @@ mpoly <- function(list, varorder){
   
   
   ## combine constant terms
-  constant_ndcs <- which(sapply(list, length) == 1L)
-  if(length(constant_ndcs) > 1){
+  ## mpoly(list(c(x = 1, coef = 1), c(coef = 1), c(coef = 2)))
+  isLengthOne    <- function(x) length(x) == 1L
+  isNotLengthOne <- function(x) length(x) > 1L
+    
+  nonConstantTerms <- Filter(isNotLengthOne, list)
+  constantTerms    <- Filter(isLengthOne, list)
+  
+  if(length(constantTerms) > 0){
     list <- c(
-      list[-constant_ndcs],
-      sum(unlist(list[constant_ndcs]))
-    )
-    names(list[[length(list)]]) <- 'coef'
+      nonConstantTerms, 
+      list(Reduce(`+`, constantTerms))
+    )  
   }
   
   
@@ -163,15 +171,16 @@ mpoly <- function(list, varorder){
   ## re-organize after like-terms combined
   
   # remove terms with coef 0
-  terms2keep <- !sapply(list, function(v) v['coef'] == 0)
-  list <- list[terms2keep]  
-  if(length(list) == 0) list <- list(c(coef = 0))  
+  list <- Filter(hasNonZeroCoef, list)
+    
+  # if all terms have been eliminated, recreate it with a 0 coef
+  if(length(list) == 0) list <- list(c(coef = 0))
 
   
   
   
   ## return classed list
-  class(list) <- 'mpoly'
+  class(list) <- "mpoly"
   list  
 }
 
