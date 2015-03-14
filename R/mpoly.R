@@ -60,6 +60,7 @@ mpoly <- function(list, varorder){
     stop("degrees must be nonnegative integers.", call. = FALSE)
   }  
   
+  
   # give terms without a coefficient a coef of 1
   addCoefIfMissing <- function(v){
     if("coef" %in% names(v)) return(v)
@@ -72,12 +73,7 @@ mpoly <- function(list, varorder){
   ## organize 
     
   # remove terms with coef 0
-  hasNonZeroCoef <- function(v) all(v["coef"] != 0)
-  list <- Filter(hasNonZeroCoef, list)
-  
-  
-  # if all terms have been eliminated, recreate it with a 0 coef
-  if(length(list) == 0) list <- list(c(coef = 0))
+  list <- filterOutZeroTerms(list)
   
   
   # remove 0 degrees, combine like degrees, single coef as rightmost element
@@ -99,9 +95,9 @@ mpoly <- function(list, varorder){
   
   
   
-  
   ## set intrinsic varorder - done again after 0 degrees are removed
   vars <- unique(names(flatList))
+  
   
   # deal with varorder argument
   if(!missing(varorder)){  	
@@ -123,9 +119,7 @@ mpoly <- function(list, varorder){
   })   
   
    
-
-  
-  
+   
   ## combine like terms, if present
   monomials <- vapply(list, function(v){
   	p <- length(v) - 1 # remove coef on monomials
@@ -167,16 +161,9 @@ mpoly <- function(list, varorder){
   
   
   
-  
   ## re-organize after like-terms combined
-  
-  # remove terms with coef 0
-  list <- Filter(hasNonZeroCoef, list)
-    
-  # if all terms have been eliminated, recreate it with a 0 coef
-  if(length(list) == 0) list <- list(c(coef = 0))
+  list <- filterOutZeroTerms(list)
 
-  
   
   
   ## return classed list
@@ -186,4 +173,25 @@ mpoly <- function(list, varorder){
 
 
 
+
+
+
+
+
+
+
+
+filterOutZeroTerms <- function(list){
+  
+  hasNonZeroCoef <- function(v) all(v["coef"] != 0)
+  
+  # remove terms with coef 0
+  list <- Filter(hasNonZeroCoef, list)
+  
+  # if all terms have been eliminated, recreate it with a 0 coef
+  if(length(list) == 0) list <- list(c(coef = 0))  
+  
+  # return
+  list  
+}
 
