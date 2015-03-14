@@ -183,6 +183,7 @@ mpoly <- function(list, varorder){
 
 filterOutZeroTerms <- function(list){
   
+  # a term is zero if any of its coefficients are 0
   hasNonZeroCoef <- function(v) all(v["coef"] != 0)
   
   # remove terms with coef 0
