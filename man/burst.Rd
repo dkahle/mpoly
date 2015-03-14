@@ -9,7 +9,7 @@ burst(n, r = n)
 \arguments{
 \item{n}{integer to sum to}
 
-\item{r}{number of cells (dimension of vectors)}
+\item{r}{number of components}
 }
 \value{
 a matrix whose rows are the n-tuples
@@ -19,15 +19,15 @@ Determine all r-vectors with nonnegative integer entries summing to n
 }
 \examples{
 burst(4)
-apply(burst(4), 1, sum) # all sum to 4
 
 burst(4, 4)
 burst(4, 3)
 burst(4, 2)
-burst(4, 1)
-apply(burst(4,3), 1, sum) # all sum to 4
-apply(burst(4,2), 1, sum) # all sum to 4
-apply(burst(4,1), 1, sum) # all sum to 4
+
+rowSums(burst(4))
+rowSums(burst(4, 3))
+rowSums(burst(4, 2))
+
 
 burst(10, 4) # all possible 2x2 contingency tables with n=10
 burst(10, 4) / 10 # all possible empirical relative frequencies
