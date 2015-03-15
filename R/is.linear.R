@@ -22,7 +22,7 @@ is.linear <- function(x){
   
   stopifnot(is.mpoly(x) || is.mpolyList(x))
   
-  if(is.mpolyList(x)) return(sapply(x, is.linear))
+  if(is.mpolyList(x)) return(vapply(x, is.linear, logical(1)))
 
   all(
     vapply(x, function(term) all(length(term) <= 2), logical(1))
