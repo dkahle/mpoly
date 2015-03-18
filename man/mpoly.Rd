@@ -43,15 +43,6 @@ mpoly(list, varorder = c("y", "z", "t", "x"))
 
 list <- list(  c(x = 5, x = 2, coef = 5, coef = 6, y = 0) )
 mpoly(list)
-
-# ERROR CHECKS (in order)
-# mpoly(1:5)
-# mpoly(list(c(x = "a", coef = 1)))
-# mpoly(list(c(x = 1,     1, coef = 2)))
-# mpoly(list(c(x = 1, y = 1)))
-# mpoly(list(c(x = 1, y = 1.5, coef = 2)))
-# mpoly(list(c(x = 1, y = -2, coef = 2)))
-# mpoly(list(c(x = 1, y = 2, coef = 2)), varorder = "x")
 }
 \author{
 David Kahle \email{david.kahle@gmail.com}

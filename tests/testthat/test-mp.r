@@ -1,6 +1,56 @@
+context("Function mpoly is working properly")
+
+test_that("mpoly flags non-list arguments",{
+  expect_error(mpoly(1:5), "list must be of class list.")
+})
+
+test_that("mpoly only allows named whole number exponents",{
+  
+  expect_error(
+    mpoly(list(c(x = "a", coef = 1))), 
+    "each element of list must be of type numeric."
+  )
+  
+  expect_error(
+    mpoly(list(c(x = 1,     1, coef = 2))), 
+    "each element of list must be named for every element."
+  )
+  
+  expect_error(
+    mpoly(list(c(x = 1, y = 1.5, coef = 2))), 
+    "degrees must be nonnegative integers."
+  )
+  
+  expect_error(
+    mpoly(list(c(x = 1, y = -2, coef = 2))), 
+    "degrees must be nonnegative integers."
+  )
+  
+  expect_error(
+    mpoly(list(c(x = 1, y = 2, coef = 2)), varorder = "x"), 
+    "if specified varorder must be a permutation of"
+  )
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 context("Quality of polynomial parsing")
-
-
 
 test_that("parse_nonparenthetical_term works", {
   
