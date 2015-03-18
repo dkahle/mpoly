@@ -120,7 +120,7 @@ mpoly <- function(list, varorder){
   
    
    
-  ## combine like terms, if present
+  ## prepare to check if like terms are present
   monomials <- vapply(list, function(v){
   	p <- length(v) - 1 # remove coef on monomials
     paste(names(v[1:p]), v[1:p],  sep = "", collapse = "")
@@ -129,28 +129,32 @@ mpoly <- function(list, varorder){
   
   unique_monomials <- unique(monomials)
   
+  
+  
+  ## check if like terms are present and, if so, correct  
   if(length(monomials) != length(unique_monomials)){
-    ndcs2combine <- split(1:length(list), match(monomials, unique_monomials))
+
+    matchedMonomials <- match(monomials, unique_monomials)
+    matchedMonomials <- factor(matchedMonomials, levels = 1:max(matchedMonomials))
+    ndcs2combine     <- split.default(1:length(list), matchedMonomials)
+    
     list <- lapply(ndcs2combine, function(v){
-      if(length(v) == 1) return(list[[v]])
-      flatList <- unlist(list[v])
-      coef <- sum(flatList[names(flatList) == "coef"])
-      v <- list[v][[1]]
+      if(length(v) == 1) return(list[[v]])      
+      coef <- sum(vapply(list[v], `[`, double(1), length(list[[v[1]]])))
+      v <- list[[v[1]]]
       v["coef"] <- coef
       v
     })
-    list <- unname(list)
+    
+    names(list) <- NULL # list <- unname(list)
   }
   
   
   
   ## combine constant terms
-  ## mpoly(list(c(x = 1, coef = 1), c(coef = 1), c(coef = 2)))
-  isLengthOne    <- function(x) length(x) == 1L
-  isNotLengthOne <- function(x) length(x) > 1L
-    
-  nonConstantTerms <- Filter(isNotLengthOne, list)
-  constantTerms    <- Filter(isLengthOne, list)
+  ## mpoly(list(c(x = 1, coef = 1), c(coef = 1), c(coef = 2)))    
+  nonConstantTerms <- fastFilter(isNotLengthOne, list)
+  constantTerms    <- fastFilter(isLengthOne, list)
   
   if(length(constantTerms) > 0){
     list <- c(
@@ -187,7 +191,7 @@ filterOutZeroTerms <- function(list){
   hasNonZeroCoef <- function(v) all(v["coef"] != 0)
   
   # remove terms with coef 0
-  list <- Filter(hasNonZeroCoef, list)
+  list <- fastFilter(hasNonZeroCoef, list)
   
   # if all terms have been eliminated, recreate it with a 0 coef
   if(length(list) == 0) list <- list(c(coef = 0))  
@@ -196,3 +200,12 @@ filterOutZeroTerms <- function(list){
   list  
 }
 
+
+
+
+
+
+
+isLengthOne    <- function(x) length(x) == 1L
+isNotLengthOne <- function(x) length(x) > 1L
+fastFilter     <- function(f, x) x[vapply(x, f, logical(1))]
