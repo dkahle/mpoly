@@ -76,7 +76,7 @@ mpoly <- function(list, varorder){
     v <- v[-coef_ndx]
   	
   	# combine like degrees (sum)
-  	if(length(names(v)) != length(unique(names(v)))) v <- tapply(v, names(v), sum)      
+  	if(length(names(v)) != length(unique(names(v)))) v <- fastNamedVecTapply(v, sum)   
   	
   	# combine like coefficients (product)
   	coefs <- c(coef = prod(coefs))
@@ -138,7 +138,7 @@ mpoly <- function(list, varorder){
       v
     })
     
-    names(list) <- NULL # list <- unname(list)
+    names(list) <- NULL # i.e. list <- unname(list)
   }
   
   
@@ -201,3 +201,26 @@ filterOutZeroTerms <- function(list){
 isLengthOne    <- function(x) length(x) == 1L
 isNotLengthOne <- function(x) length(x) > 1L
 fastFilter     <- function(f, x) x[vapply(x, f, logical(1))]
+
+
+
+
+
+
+
+fastNamedVecTapply <- function(x, f, type = double(1)){
+  uniqueNames  <- unique(names(x))
+  matchedNames <- match(names(x), uniqueNames) # indices
+  matchedNames <- factor(matchedNames, levels = 1:max(matchedNames))
+  groupIndices <- split(1:length(x), matchedNames)
+  vapply(groupIndices, function(ndcs){
+    f(x[ndcs])
+  }, type)
+}
+# x <- 1:10
+# names(x) <- sample(letters[1:3], 10, replace = TRUE)
+# fastNamedVecTapply(x, sum)
+
+
+
+
