@@ -212,10 +212,8 @@ fastNamedVecTapply <- function(x, f, type = double(1)){
   uniqueNames  <- unique(names(x))
   matchedNames <- match(names(x), uniqueNames) # indices
   matchedNames <- factor(matchedNames, levels = 1:max(matchedNames))
-  groupIndices <- split(1:length(x), matchedNames)
-  vapply(groupIndices, function(ndcs){
-    f(x[ndcs])
-  }, type)
+  groupIndices <- split.default(1:length(x), matchedNames)
+  vapply(groupIndices, function(ndcs) f(x[ndcs]), type)
 }
 # x <- 1:10
 # names(x) <- sample(letters[1:3], 10, replace = TRUE)
