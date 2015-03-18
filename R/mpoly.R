@@ -63,7 +63,7 @@ mpoly <- function(list, varorder){
   
   # give terms without a coefficient a coef of 1
   addCoefIfMissing <- function(v){
-    if("coef" %in% names(v)) return(v)
+    if(any("coef" == names(v))) return(v)
     c(v, coef = 1)
   }
   list <- lapply(list, addCoefIfMissing)
