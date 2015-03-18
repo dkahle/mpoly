@@ -50,7 +50,7 @@ mpoly <- function(list, varorder){
     stop("each element of list must be of type numeric.", call. = FALSE)  
   }
   
-  if(any( unlist(lapply(list, function(v) nchar(names(v)))) == 0 )){
+  if(any( unlist(lapply(list, function(v) nchar(names(v))), use.names = FALSE) == 0 )){
     stop("each element of list must be named for every element.", call. = FALSE)  
   }    
   
