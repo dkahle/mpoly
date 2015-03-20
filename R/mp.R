@@ -398,7 +398,7 @@ fix_term_joins <- function(string){
   # zero trick for leading symbol, e.g. "-1 + x" -> "0 + -1 + x"
   if(str_detect(str_sub(string, 1, 1), fixed("-"))){
     if(str_detect(str_sub(string, 1, 1), fixed("--"))){
-      stop(""--" cannot lead an expression.", call. = FALSE)
+      stop('"--" cannot lead an expression.', call. = FALSE)
     }
     string <- str_c("0 + ", string)
   }
