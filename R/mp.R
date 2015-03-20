@@ -75,7 +75,7 @@ mp <- function(string, varorder){
     
     # order vars appropriately
     vars <- intersect(varorder, vars)
-    out <- reorder.mpoly(out, varorder = vars)
+    out  <- reorder.mpoly(out, varorder = vars)
   } 
   
   # return
@@ -105,7 +105,7 @@ parse_parenthetical_polynomial <- function(string){
   mpolys <- lapply(as.list(terms), parse_parenthetical_term)
   
   # add and return
-  Reduce(`+`, mpolys)
+  Reduce(`+.mpoly`, mpolys)
 }
 
 
@@ -177,7 +177,7 @@ parse_parenthetical_term <- function(string){
   })
   
   # product and return
-  Reduce(`*`, mpolys)
+  Reduce(`*.mpoly`, mpolys)
 }
 
 
@@ -265,7 +265,7 @@ parse_nonparenthetical_polynomial <- function(string){
   mpolyTerms <- lapply(as.list(terms), parse_nonparenthetical_term)
   
   # combine and return
-  Reduce(`+`, mpolyTerms)
+  Reduce(`+.mpoly`, mpolyTerms)
 }
 
 
@@ -337,9 +337,10 @@ parse_nonparenthetical_term <- function(string){
     coef <- 1L
   } else {
     coef <- prod(
-      sapply(
+      vapply(
         as.list(parts[which(!parts_with_vars)]), 
-        function(.) eval(parse(text = .))
+        function(.) eval(parse(text = .)),
+        double(1)
       )  
     ) # this multiplies even, e.g., 5^2
   }
@@ -352,8 +353,8 @@ parse_nonparenthetical_term <- function(string){
   var_parts_with_exps_bool <- str_detect(var_parts, fixed("^"))
   var_parts[!var_parts_with_exps_bool] <- str_c(var_parts[!var_parts_with_exps_bool], "^1")
   var_parts <- str_split(var_parts, fixed("^"))
-  vars <- sapply(var_parts, function(x) x[1])
-  exps <- sapply(var_parts, function(x) as.integer(x[2]))
+  vars <- vapply(var_parts, `[`, character(1), 1L)
+  exps <- as.integer(vapply(var_parts, `[`, character(1), 2L))
   names(exps) <- vars
   
   # mpoly and return
@@ -638,4 +639,4 @@ unmatched_parentheses_stop <- function(string){
 }
 
 
-str_rev <- function(string) paste(rev(str_split(string, "")[[1]]), collapse = "")
+str_rev <- function(string) paste(rev.default(str_split(string, "")[[1]]), collapse = "")
