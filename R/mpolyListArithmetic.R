@@ -1,17 +1,28 @@
-#' Add vectors multivariate polynomials element-wise.
+#' Element-wise arithmetic with vectors of multivariate polynomials.
 #'
-#' Compute the sum of two mpolyList objects.
+#' Element-wise arithmetic with vectors of multivariate polynomials.
 #' 
 #' @param e1 an object of class mpolyList
 #' @param e2 an object of class mpolyList
 #' @return An object of class mpolyList.
-#' @name mpolyListAdd
-#' @export
+#' @name mpolyListArithmetic
 #' @examples
+#' 
 #' ( ms1 <- mp( c('x + 1', 'x + 2') ) )
 #' ( ms2 <- mp( c('x + 1', 'y + 2') ) )
 #' ms1 + ms2
-#'
+#' ms1 - ms2
+#' 
+NULL
+
+
+
+
+
+
+
+#' @rdname mpolyListArithmetic
+#' @export
 `+.mpolyList` <- function(e1, e2){
   
   ## argument check
@@ -58,20 +69,14 @@
 
 
 
-#' Subtract vectors of multivariate polynomials element-wise.
-#'
-#' Compute the difference of two mpolyList objects.
-#' 
-#' @param e1 an object of class mpolyList
-#' @param e2 an object of class mpolyList
-#' @return An object of class mpolyList.
-#' @name mpolyListSub
+
+
+
+
+
+
+#' @rdname mpolyListArithmetic
 #' @export
-#' @examples
-#' ( ms1 <- mp( c('x + 1', 'x + 2') ) )
-#' ( ms2 <- mp( c('x + 1', 'y + 2') ) )
-#' ms1 - ms2
-#'
 `-.mpolyList` <- function(e1, e2){
   ## change coefficient signs in e2
   e2 <- lapply(e2, unclass)
