@@ -34,9 +34,7 @@
 mpoly <- function(list, varorder){
 
   ## argument checking
-  if(!is.list(list)){
-    stop("list must be of class list.", call. = FALSE)
-  }
+  stopifnot(is.list(list))
   
   if(!all(vapply(list, is.numeric, logical(1)))){
     stop("each element of list must be of type numeric.", call. = FALSE)  
@@ -73,10 +71,10 @@ mpoly <- function(list, varorder){
     # separate vardegs from coefs
     coef_ndx <- which(names(v) == "coef")
     coefs <- v[coef_ndx]    
-    v <- v[-coef_ndx]
+    v     <- v[-coef_ndx]
   	
   	# combine like degrees (sum)
-  	if(length(names(v)) != length(unique(names(v)))) v <- fastNamedVecTapply(v, sum)   
+  	if(length(names(v)) != length(unique(names(v)))) v <- tapply(v, names(v), sum) #fastNamedVecTapply(v, sum)   
   	
   	# combine like coefficients (product)
   	coefs <- c(coef = prod(coefs))
