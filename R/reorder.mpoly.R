@@ -1,14 +1,15 @@
-#' Reorder a multivariate polynomial.
+#'Reorder a multivariate polynomial.
 #'
-#' This function is used to set the intrinsic order of a multivariate polynomial.  It is used for both the in-term variables and the terms.
-#' 
-#' @param x an object of class mpoly
-#' @param varorder the order of the variables 
-#' @param order a total order used to order the terms
-#' @param ... additional arguments
-#' @usage \method{reorder}{mpoly}(x, varorder = vars(x), order, ...)
-#' @return An object of class mpoly.
-#' @export
+#'This function is used to set the intrinsic order of a multivariate polynomial.
+#'It is used for both the in-term variables and the terms.
+#'
+#'@param x an object of class mpoly
+#'@param varorder the order of the variables
+#'@param order a total order used to order the terms
+#'@param ... additional arguments
+#'@usage \method{reorder}{mpoly}(x, varorder = vars(x), order, ...)
+#'@return An object of class mpoly.
+#'@export
 #' @examples
 #'	
 #' list <- list(

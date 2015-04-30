@@ -9,9 +9,11 @@
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{varorder}{the order in which the arguments of the function will be provided}
+\item{varorder}{the order in which the arguments of the function will be
+provided}
 
-\item{vector}{whether the function should take a vector argument (TRUE) or a series of arguments (FALSE)}
+\item{vector}{whether the function should take a vector argument (TRUE) or a
+series of arguments (FALSE)}
 
 \item{...}{any additional arguments}
 }

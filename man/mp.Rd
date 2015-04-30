@@ -15,7 +15,9 @@ mp(string, varorder)
 An object of class mpoly.
 }
 \description{
-mp is a smart function which attempts to create a formal mpoly object from a character string containing the usual representation  of a multivariate polynomial.
+mp is a smart function which attempts to create a formal mpoly object from a
+character string containing the usual representation  of a multivariate
+polynomial.
 }
 \examples{
 ( m <- mp("x + y + x y") )

@@ -1,5 +1,5 @@
 #' Determine all permutations of a set.
-#'
+#' 
 #' An implementation of the Steinhaus-Johnson-Trotter permutation algorithm.
 #' 
 #' @param set a set
@@ -17,16 +17,9 @@ permutations <- function(set){
   row2diag <- function(row, direction){
   	np1 <- length(row) + 1
   	mat <- matrix(nrow = np1, ncol = np1)
-    if(direction == -1){
-      for(k in 1:np1){
-        mat[k,] <- insert(np1, np1-k+1, row)
-      }      
-    } 
-    if(direction == +1){
-      for(k in 1:np1){
-        mat[k,] <- insert(np1, k, row)
-      }
-    }
+    if(direction == -1) for(k in 1:np1) mat[k,] <- insert(np1, np1-k+1, row)
+    if(direction == +1) for(k in 1:np1) mat[k,] <- insert(np1, k, row)
+
     mat
   } 
   # row2diag(matrix(c(1,2,2,1),2,2)[,1], -1)
@@ -35,9 +28,7 @@ permutations <- function(set){
   stepUp <- function(mat){ # an r x # matrix
     c <- ncol(mat)
     m <- NULL
-    for(k in 1:nrow(mat)){
-      m <- rbind(m, row2diag(mat[k,],(-1)^k))
-    }    
+    for(k in 1:nrow(mat)) m <- rbind(m, row2diag(mat[k,],(-1)^k))
     m    
   }
   # stepUp(matrix(1))  
@@ -45,14 +36,11 @@ permutations <- function(set){
   
   # iterate stepUp
   out <- matrix(1)
-  for(k in 1:(r-1)){
-    out <- stepUp(out)
-  }
+  for(k in 1:(r-1)) out <- stepUp(out)
   
   # substitute set values
-  for(k in 1:r){
-  	out[out==k] <- paste('_', set[k], sep = '')
-  }
+  for(k in 1:r) out[out==k] <- paste('_', set[k], sep = '')
+  
   out <- gsub('_', '', out) # clear PH
   if(is.numeric(set)){
   	d <- dim(out)

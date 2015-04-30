@@ -1,6 +1,6 @@
 #' Convert an object to an mpoly
-#'
-#' mpoly is the most basic function used to create objects of class mpoly. 
+#' 
+#' mpoly is the most basic function used to create objects of class mpoly.
 #' 
 #' @param x an object of class lm.
 #' @return the object formated as a mpoly object.
@@ -24,7 +24,7 @@
 #' lines(s, f(s), col = "red")
 #' 
 #' 
-#'
+#' 
 #' \dontrun{
 #' # one dimensional case with ggplot2
 #' library(ggplot2)

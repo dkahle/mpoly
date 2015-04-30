@@ -4,16 +4,17 @@
 \alias{as.function.mpolyList}
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
-\method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE, ...)
+\method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
+  ...)
 }
 \arguments{
-\item{x}{an object of class mpolyList
-#}
+\item{x}{an object of class mpolyList #}
 
-\item{varorder}{the order in which the arguments of the function will be provided (default vars(mpoly))
-#}
+\item{varorder}{the order in which the
+arguments of the function will be provided (default vars(mpoly)) #}
 
-\item{vector}{whether the function should take a vector argument (TRUE) or a series of arguments (FALSE)}
+\item{vector}{whether the function should take a vector argument (TRUE) or a
+series of arguments (FALSE)}
 
 \item{...}{any additional arguments}
 }

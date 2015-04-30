@@ -1,10 +1,10 @@
 #' Test whether an mpoly object is linear.
-#'
+#' 
 #' Test whether an mpoly object is linear.
-#'
+#' 
 #' @param x an mpoly or mpolyList object
 #' @return a logical vector
-#' @export 
+#' @export
 #' @examples
 #' \dontrun{
 #' 

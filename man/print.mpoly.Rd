@@ -9,7 +9,8 @@
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{stars}{print the multivariate polynomial in the more computer-friendly asterisk notation (default FALSE)}
+\item{stars}{print the multivariate polynomial in the more computer-friendly
+asterisk notation (default FALSE)}
 
 \item{varorder}{the order of the variables}
 

@@ -1,10 +1,11 @@
 #' Define an mpoly object.
-#'
+#' 
 #' mpoly is the most basic function used to create objects of class mpoly. 
-#' However, it is not a general purpose function; for that see mp. 
+#' However, it is not a general purpose function; for that see mp.
 #' 
 #' @param list a list from which to construct an mpoly object
-#' @param varorder (optional) a character vector setting the intrinsic variable order of the polynomial 
+#' @param varorder (optional) a character vector setting the intrinsic variable 
+#'   order of the polynomial
 #' @return Object of class mpoly.
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mp}}
@@ -34,7 +35,7 @@
 mpoly <- function(list, varorder){
 
   ## argument checking
-  stopifnot(is.list(list))
+  if(!is.list(list)) stop("input to mpoly must be a list.", call. = FALSE)
   
   if(!all(vapply(list, is.numeric, logical(1)))){
     stop("each element of list must be of type numeric.", call. = FALSE)  
@@ -74,7 +75,7 @@ mpoly <- function(list, varorder){
     v     <- v[-coef_ndx]
   	
   	# combine like degrees (sum)
-  	if(length(names(v)) != length(unique(names(v)))) v <- tapply(v, names(v), sum) #fastNamedVecTapply(v, sum)   
+  	if(length(names(v)) != length(unique(names(v)))) v <- fastNamedVecTapply(v, sum)   
   	
   	# combine like coefficients (product)
   	coefs <- c(coef = prod(coefs))
@@ -211,12 +212,14 @@ fastNamedVecTapply <- function(x, f, type = double(1)){
   matchedNames <- match(names(x), uniqueNames) # indices
   matchedNames <- factor(matchedNames, levels = 1:max(matchedNames))
   groupIndices <- split.default(1:length(x), matchedNames)
-  vapply(groupIndices, function(ndcs) f(x[ndcs]), type)
+  out <- vapply(groupIndices, function(ndcs) f(x[ndcs]), type)
+  names(out) <- uniqueNames
+  out
 }
 # x <- 1:10
 # names(x) <- sample(letters[1:3], 10, replace = TRUE)
 # fastNamedVecTapply(x, sum)
-
+# tapply(x, names(x), sum)
 
 
 

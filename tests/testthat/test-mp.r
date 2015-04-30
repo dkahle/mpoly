@@ -1,7 +1,7 @@
 context("Function mpoly is working properly")
 
 test_that("mpoly flags non-list arguments",{
-  expect_error(mpoly(1:5), "list must be of class list.")
+  expect_error(mpoly(1:5), "input to mpoly must be a list.")
 })
 
 test_that("mpoly only allows named whole number exponents",{

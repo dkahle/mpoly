@@ -1,6 +1,7 @@
 #' Enumerate the partitions of an integer
-#'
-#' Determine all unrestricted partitions of an integer.  This function is equivalent to the function parts in the partitions package.
+#' 
+#' Determine all unrestricted partitions of an integer.  This function is
+#' equivalent to the function parts in the partitions package.
 #' 
 #' @param n an integer
 #' @return a matrix whose rows are the n-tuples

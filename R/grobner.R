@@ -1,7 +1,10 @@
 #' Compute a grobner basis of a list of multivariate polynomials.
-#'
-#' grobner computes a Groebner basis for a collection of multivarite polynomials represented as an object of class mpolyList.  
-#' Note that the polynomials printed after calculation are unlikely to be properly ordered; this is because the order of the monomials displayed is governed by the print method, not the mpoly's themselves.
+#' 
+#' grobner computes a Groebner basis for a collection of multivarite polynomials
+#' represented as an object of class mpolyList. Note that the polynomials
+#' printed after calculation are unlikely to be properly ordered; this is
+#' because the order of the monomials displayed is governed by the print method,
+#' not the mpoly's themselves.
 #' 
 #' @param mpolyList an object of class mpolyList
 #' @param varorder order of variables
@@ -35,11 +38,11 @@
 #' # -3 x  +  2 y^3
 #' # x^2  -  2 y^2
 #' # -3  +  x y
-#'
-#'
+#' 
+#' 
 #' # example from algebraic statistics, dinwoodie 1998
 #' #mp()
-#'
+#' 
 #' }
 grobner <- function(mpolyList, varorder = vars(mpolyList), order = 'lex'){
   

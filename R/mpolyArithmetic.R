@@ -1,5 +1,5 @@
 #' Arithmetic with multivariate polynomials
-#'
+#' 
 #' Arithmetic with multivariate polynomials
 #' 
 #' @param e1 an object of class mpoly
@@ -13,8 +13,10 @@
 #' p - p
 #' p * p
 #' p^2
+#' p^10
 #' 
 #' 
+#' mp("(x+1)^10")
 #' p + 1
 #' 2*p
 #' 
@@ -32,9 +34,24 @@ NULL
 #' @rdname mpolyArithmetic
 #' @export
 `+.mpoly` <- function(e1, e2){
+  
+  ## strip to lists
+  e1 <- unclass(e1)
+  e2 <- unclass(e2)
+  
+  ## if either is constant, mpoly it
+  if(!is.list(e1)){
+    stopifnot(is.numeric(e1) && length(e1) == 1)
+    e1 <- list(coef = e1)
+  }
+  
+  if(!is.list(e2)){
+    stopifnot(is.numeric(e2) && length(e2) == 1)
+    e2 <- list(c(coef = e2))
+  }
 	
-  mpoly( c( unclass(e1), unclass(e2) ) )
- 
+  ## let mpoly do the heavy lifting
+  mpoly(c(e1, e2)) 
 }
 
 
@@ -107,15 +124,16 @@ l <- list(
 
 #' @rdname mpolyArithmetic
 #' @export
-'^.mpoly' <- function(e1, e2){
+`^.mpoly` <- function(e1, e2){
   
   if(!is.mpoly(e1)) stop('e1 must be of class mpoly.', call. = FALSE)
   
   if(!is.wholenumber(e2) || e2 < 0) stop('exponent must be a positive integer.', call. = FALSE)
   
-  if(e2 == 0) return(mpoly(list(c(coef = 1))))
-  
   out <- mpoly(list(c(coef = 1)))
+  
+  if(e2 == 0) return(out)
+    
   for(k in 1:e2) out <- out * e1
   
   out

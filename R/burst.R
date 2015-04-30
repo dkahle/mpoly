@@ -1,6 +1,7 @@
 #' Enumerate integer r-vectors summing to n
-#'
-#' Determine all r-vectors with nonnegative integer entries summing to n
+#' 
+#' Determine all r-vectors with nonnegative integer entries summing to n.  Note 
+#' that this is intended to be optimized.
 #' 
 #' @param n integer to sum to
 #' @param r number of components
@@ -17,10 +18,10 @@
 #' rowSums(burst(4, 3))
 #' rowSums(burst(4, 2))
 #' 
-#'
+#' 
 #' burst(10, 4) # all possible 2x2 contingency tables with n=10
 #' burst(10, 4) / 10 # all possible empirical relative frequencies
-#'
+#' 
 burst <- function(n, r = n){
   stopifnot(is.wholenumber(n))
   stopifnot(n > 0)

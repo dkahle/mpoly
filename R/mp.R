@@ -1,6 +1,8 @@
 #' Define a multivariate polynomial.
-#'
-#' mp is a smart function which attempts to create a formal mpoly object from a character string containing the usual representation  of a multivariate polynomial.
+#' 
+#' mp is a smart function which attempts to create a formal mpoly object from a
+#' character string containing the usual representation  of a multivariate
+#' polynomial.
 #' 
 #' @param string a character string containing a polynomial, see examples
 #' @param varorder (optional) order of variables in string
@@ -12,19 +14,19 @@
 #' ( m <- mp("x + y + x y") )
 #' is.mpoly( m )
 #' unclass(m)
-#'
-#'
+#' 
+#' 
 #' mp("x + 2 y + x^2 y + x y z") 
 #' mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x")) 
 #' # mp("x + 2 y + x^2 y", varorder = c("q", "p")) # -> error
-#'
+#' 
 #' ( ms <- mp(c("x + y", "2 x")) )
 #' is.mpolyList(ms)
-#'
-#'
+#' 
+#' 
 #' gradient( mp("x + 2 y + x^2 y + x y z") ) 
 #' gradient( mp("(x + y)^10") ) 
-#'
+#' 
 #' # mp and the print methods are kinds of inverses of each other
 #' ( polys <- mp(c("x + y", "x - y")) )
 #' strings <- print(polys)
@@ -32,8 +34,8 @@
 #' mp(strings)
 #' 
 #' 
-#'
-#'
+#' 
+#' 
 #' 
 #' 
 #' 
