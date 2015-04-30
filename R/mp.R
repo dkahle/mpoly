@@ -467,13 +467,14 @@ extract_polynomial_terms <- function(string){
   
   # unprotect
   string_ndcs <- str_locate_all(blanked_string, "[|]+")[[1]]
-  piped_ndcs <- str_locate_all(piped_string, "[|]+")[[1]]  
+  piped_ndcs  <- str_locate_all(piped_string,   "[|]+")[[1]]  
   if(nrow(string_ndcs) > 0){
     for(k in 1:nrow(string_ndcs)){
       str_sub(piped_string, piped_ndcs[k,1], piped_ndcs[k,2]) <- 
         str_sub(string, string_ndcs[k,1], string_ndcs[k,2])  
     }
   }
+  
   # split
   str_trim(str_split(piped_string, fixed("*"))[[1]])
 }

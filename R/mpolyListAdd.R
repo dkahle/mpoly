@@ -4,17 +4,15 @@
 #' 
 #' @param e1 an object of class mpolyList
 #' @param e2 an object of class mpolyList
-#' @method + mpolyList
-#' @aliases +.mpolyList
 #' @return An object of class mpolyList.
 #' @name mpolyListAdd
-#' @export +.mpolyList -.mpolyList
+#' @export
 #' @examples
 #' ( ms1 <- mp( c('x + 1', 'x + 2') ) )
 #' ( ms2 <- mp( c('x + 1', 'y + 2') ) )
 #' ms1 + ms2
 #'
-'+.mpolyList' <- function(e1, e2){
+`+.mpolyList` <- function(e1, e2){
   
   ## argument check
   if(is.numeric(e1) && length(e1) == 1) e1 <- mpoly(list(c(coef = e1)))
@@ -66,16 +64,15 @@
 #' 
 #' @param e1 an object of class mpolyList
 #' @param e2 an object of class mpolyList
-#' @method - mpolyList
-#' @aliases -.mpolyList
 #' @return An object of class mpolyList.
 #' @name mpolyListSub
+#' @export
 #' @examples
 #' ( ms1 <- mp( c('x + 1', 'x + 2') ) )
 #' ( ms2 <- mp( c('x + 1', 'y + 2') ) )
 #' ms1 - ms2
 #'
-'-.mpolyList' <- function(e1, e2){
+`-.mpolyList` <- function(e1, e2){
   ## change coefficient signs in e2
   e2 <- lapply(e2, unclass)
   e2 <- lapply(e2, function(l){

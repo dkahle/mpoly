@@ -5,9 +5,8 @@
 #' @param expr an object of class mpoly
 #' @param var character - the partial derivative desired
 #' @param ... any additional arguments
-#' @usage \method{deriv}{mpoly}(expr, var, ...)
 #' @return An object of class mpoly or mpolyList.
-#' @export deriv.mpoly gradient
+#' @export
 #' @examples
 #' m <- mp('x y + y z + z^2')
 #' deriv(m, 'x')
@@ -70,6 +69,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' @param mpoly an object of class mpoly
 #' @seealso \code{\link{deriv.mpoly}}
 #' @return An object of class mpoly or mpolyList.
+#' @export
 #' @examples
 #' m <- mp('x y + y z + z^2')
 #' gradient(m)

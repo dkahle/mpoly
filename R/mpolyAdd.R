@@ -4,11 +4,9 @@
 #' 
 #' @param e1 an object of class mpoly
 #' @param e2 an object of class mpoly
-#' @method + mpoly
-#' @aliases +.mpoly
 #' @return object of class mpoly
 #' @name mpolyAdd
-#' @export +.mpoly -.mpoly
+#' @export
 #' @examples
 #' 
 #' list <- list(
@@ -46,8 +44,7 @@
 #' 
 #' @param e1 an object of class mpoly
 #' @param e2 an object of class mpoly
-#' @method - mpoly
-#' @aliases -.mpoly
+#' @export
 #' @return object of class mpoly
 #' @name mpolySub
 #' @examples
