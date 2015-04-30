@@ -69,15 +69,13 @@ NULL
   
   ## allow for multiplication by a constant
   if(is.numeric(e1) && length(e1) == 1) e1 <- mpoly(list(c(coef = e1)))
-  
   if(is.numeric(e2) && length(e2) == 1) e2 <- mpoly(list(c(coef = e2)))
   
   
   
   ## argument check
-  if(!is.mpoly(e1) || !is.mpoly(e2)){
-    stop('e1 and e2 must be of class mpoly.', call. = FALSE)
-  }
+  stopifnot(is.mpoly(e1))
+  stopifnot(is.mpoly(e2))
   
   
   
@@ -94,6 +92,10 @@ NULL
   mpoly( unlist(list, recursive = FALSE) )
 }	
 
+
+l <- list(
+  c(x = 1, coef = 1, x = 1, coef = 1)  
+)
 
 
 
@@ -114,8 +116,7 @@ NULL
   if(e2 == 0) return(mpoly(list(c(coef = 1))))
   
   out <- mpoly(list(c(coef = 1)))
-  for(k in 1:e2){
-    out <- out * e1
-  }
+  for(k in 1:e2) out <- out * e1
+  
   out
 }
