@@ -1,3 +1,11 @@
+Version 0.1.1
+-------------------------------------------------------------------------
+
+CHANGES
+
+* the internals of tuples hasve been changed, but the user shouldn't expect to see them.
+
+
 Version 0.1.0
 -------------------------------------------------------------------------
 
