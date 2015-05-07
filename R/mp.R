@@ -147,6 +147,7 @@ parse_parenthetical_polynomial <- function(string){
 # parse_parenthetical_term("-2 (x + y)^2 (x - y)^0 4 (1+1)^3")
 # 
 # # more complex usage
+# parse_parenthetical_term("((x^2))") 
 # parse_parenthetical_term("((5^2))") 
 # string <- "(1+1) (2^3 z (x+y)^2)^2"
 # parse_parenthetical_term(string)
@@ -164,7 +165,7 @@ parse_parenthetical_term <- function(string){
     # identify expression and exponent components
     expr <- str_extract(piece, "\\([()[:alnum:][+-]\\s\\^\\.]+\\)")
     expr <- str_sub(expr, 2, -2) # take off parens
-    if(str_detect(piece, fixed("^"))){
+    if(str_detect(blank_parentheticals(piece), fixed("^"))){
       exponent <- as.numeric(str_rev(str_extract(str_rev(piece), "[\\d]+"))) # gets first
     } else {
       exponent <- 1
@@ -176,6 +177,7 @@ parse_parenthetical_term <- function(string){
     } else {
       parse_nonparenthetical_polynomial(expr)^exponent
     }
+    
   })
   
   # product and return
@@ -573,7 +575,7 @@ collect_nonparenthetical_elements <- function(string){
 delete_nonparenthetical_elements <- function(string){
   
   blanked_string <- blank_parentheticals(string, "*")  
-  erase_ndcs <- str_locate_all(blanked_string, "[[:alnum:][-]]")[[1]][,1]
+  erase_ndcs <- str_locate_all(blanked_string, "[[:alnum:][-][//^]]")[[1]][,1]
   for(k in erase_ndcs) str_sub(string, k, k) <- " "
   string
   
