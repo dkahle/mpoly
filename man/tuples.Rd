@@ -12,6 +12,8 @@ tuples(set, n = length(set), repeats = FALSE, list = FALSE)
 \item{n}{length of each tuple}
 
 \item{repeats}{if set contains duplicates, should the result?}
+
+\item{list}{tuples as list?}
 }
 \value{
 a matrix whose rows are the n-tuples
@@ -22,6 +24,8 @@ simple wrapper for expand.grid, so it is not optimized.
 }
 \examples{
 tuples(1:2, 5)
+tuples(1:2, 5, list = TRUE)
+
 apply(tuples(c("x","y","z"), 3), 1, paste, collapse = "")
 
 # multinomial coefficients

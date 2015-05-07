@@ -9,14 +9,13 @@
 #' @seealso \code{\link{mp}}
 #' @export
 #' @examples
-#' \dontrun{
 #' 
 #' p <- mp("x + 3.14159265")^4
 #' p
 #' round(p)
 #' round(p, 0)
 #' 
-#' 
+#' \dontrun{
 #' library(plyr)
 #' library(ggplot2)
 #' library(stringr)
@@ -38,6 +37,7 @@
 #' qplot(x, y, data = df) +
 #'   stat_function(fun = as.function(p), colour = 'red') +
 #'   stat_function(fun = as.function(round(p,1)), colour = 'blue')
+#'
 #'
 #' }
 #' 

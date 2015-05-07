@@ -6,11 +6,14 @@
 #' @param set a set
 #' @param n length of each tuple
 #' @param repeats if set contains duplicates, should the result?
+#' @param list tuples as list?
 #' @return a matrix whose rows are the n-tuples
 #' @export
 #' @examples
 #' 
 #' tuples(1:2, 5)
+#' tuples(1:2, 5, list = TRUE)
+#' 
 #' apply(tuples(c("x","y","z"), 3), 1, paste, collapse = "")
 #' 
 #' # multinomial coefficients
@@ -45,9 +48,9 @@ tuples <- function(set, n = length(set), repeats = FALSE, list = FALSE){
   
   ## delete duplicates
   if(!repeats) out <- unique(out)
-  
+
   ## do list
-  if(list) out <- unname(split(out, rep(1:nCombos, r)))
+  if(list) out <- unname(split(out, rep(1:nCombos, n)))
   
   ## return
   out
