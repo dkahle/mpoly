@@ -1,9 +1,19 @@
 Version 0.1.1
 -------------------------------------------------------------------------
 
+NEW FEATURES
+
+* a new function called plug allows users to plug values into indeterminates in mpoly objects.
+* a new function called chebyshev allows users to compute chebyshev polynomials.  to do this (more) efficiently, memoisation is used.
+
 CHANGES
 
-* the internals of tuples hasve been changed, but the user shouldn't expect to see them.
+* the internals of tuples have been changed, but the user shouldn't expect to see them.
+
+
+FIXES 
+
+* a bug in mp functions where non-parenthetical exponents in parenthetical expressions were mis-parsed has been fixed.
 
 
 Version 0.1.0
