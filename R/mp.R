@@ -165,8 +165,14 @@ parse_parenthetical_term <- function(string){
     # identify expression and exponent components
     expr <- str_extract(piece, "\\([()[:alnum:][+-]\\s\\^\\.]+\\)")
     expr <- str_sub(expr, 2, -2) # take off parens
-    if(str_detect(blank_parentheticals(piece), fixed("^"))){
-      exponent <- as.numeric(str_rev(str_extract(str_rev(piece), "[\\d]+"))) # gets first
+    
+    # check for exponent on the outer parenthetical
+    last_paren_ndx     <- nchar(piece) - str_locate(str_rev(piece), fixed(")"))[[1]] + 1
+    string_after_paren <- str_sub(piece, last_paren_ndx+1) # "" or "^3"
+    
+    # if "^3", extract, otherwise 1
+    if(str_detect(string_after_paren, fixed("^"))){
+      exponent <- as.numeric(str_rev(str_extract(str_rev(string_after_paren), "[\\d]+"))) # gets first
     } else {
       exponent <- 1
     }
