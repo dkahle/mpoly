@@ -9,6 +9,7 @@
 #'   series of arguments (FALSE)
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE, ...)
+#' @seealso \code{\link{plug}}
 #' @export
 #' @examples
 #' mpoly <- mp('1 2 3 4')

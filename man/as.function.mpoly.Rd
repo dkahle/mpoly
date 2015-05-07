@@ -37,4 +37,7 @@ f <- as.function(mpoly, varorder = c('z','y','x'), vector = FALSE)
 f(3, 2, 1) # -> 16
 f(1, 1, 1) # -> 5
 }
+\seealso{
+\code{\link{plug}}
+}
 
