@@ -4,8 +4,7 @@
 #' 
 #' @param p a polynomial
 #' @param indeterminate the indeterminate in the polynomial to switch
-#' @param out the value/indeterminate to replace it with
-#' @param list tuples as list?
+#' @param value the value/indeterminate to substitute
 #' @return an mpoly object
 #' @export
 #' @examples

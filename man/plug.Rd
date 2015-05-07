@@ -11,9 +11,7 @@ plug(p, indeterminate, value)
 
 \item{indeterminate}{the indeterminate in the polynomial to switch}
 
-\item{out}{the value/indeterminate to replace it with}
-
-\item{list}{tuples as list?}
+\item{value}{the value/indeterminate to substitute}
 }
 \value{
 an mpoly object
