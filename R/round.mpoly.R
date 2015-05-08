@@ -42,11 +42,20 @@
 #' }
 #' 
 round.mpoly <- function(x, digits = 3){
+  
+  ## round coefficients
   p <- lapply(x, function(term){
     term["coef"] <- round(term["coef"], digits = digits)
     term
   })
+  
+  ## drop zero terms
+  p <- Filter(function(v) v[["coef"]] != 0, p)
+  
+  ## class
   class(p) <- "mpoly"
+  
+  ## out
   p
 }
 
