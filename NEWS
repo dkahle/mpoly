@@ -14,6 +14,7 @@ CHANGES
 FIXES 
 
 * a bug in mp functions where non-parenthetical exponents in parenthetical expressions were mis-parsed has been fixed.
+* round.mpoly now drops terms rounded to have 0 coefficients.
 
 
 Version 0.1.0

@@ -39,7 +39,6 @@ plug <- function(p, indeterminate, value){
     
   }
   
-  
   ## if plugging in a value
   if(is.character(value)) value <- str_trim(value)
   if(is.mpoly(value))     value <- suppressMessages(print.mpoly(value))
