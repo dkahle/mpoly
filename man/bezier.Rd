@@ -40,11 +40,8 @@ bezier(points)
 \dontrun{  # visualize the bernstein polynomials
 
 library(ggplot2); theme_set(theme_bw())
-library(reshape2)
 
 s <- seq(0, 1, length.out = 101)
-
-
 
 ## example 1
 points <- data.frame(x = 0:3, y = c(0,1,-1,0))
