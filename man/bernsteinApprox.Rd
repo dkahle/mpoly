@@ -11,6 +11,10 @@ bernsteinApprox(f, n, lower = 0, upper = 1, indeterminate = "x")
 
 \item{n}{Bernstein polynomial degree}
 
+\item{lower}{lower bound for approximation}
+
+\item{upper}{upper bound for approximation}
+
 \item{indeterminate}{indeterminate}
 }
 \value{
@@ -44,8 +48,27 @@ qplot(x, y, data = df, geom = "line", color = which)
 
 
 
-p <- bernsteinApprox(dnorm, 10, -3, 3)
-round(p, 3)
+
+p <- bernsteinApprox(sin, 20, pi/2, 1.5*pi)
+round(p, 4)
+
+x <- seq(0, 2*pi, length.out = 101)
+df <- data.frame(
+  x = rep(x, 2),
+  y = c(sin(x), as.function(p)(x)),
+  which = rep(c("actual", "approx"), each = 101)
+)
+qplot(x, y, data = df, geom = "line", color = which)
+
+
+
+
+
+
+
+
+p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
+round(p, 4)
 
 x <- seq(-3, 3, length.out = 101)
 df <- data.frame(

@@ -67,6 +67,8 @@ bernstein <- function(k, n, indeterminate = "x"){
 #' 
 #' @param f the function to approximate
 #' @param n Bernstein polynomial degree
+#' @param lower lower bound for approximation
+#' @param upper upper bound for approximation
 #' @param indeterminate indeterminate
 #' @return a mpoly object
 #' @author David Kahle 
@@ -101,8 +103,27 @@ bernstein <- function(k, n, indeterminate = "x"){
 #' 
 #' 
 #' 
-#' p <- bernsteinApprox(dnorm, 10, -3, 3) 
-#' round(p, 3)
+#' 
+#' p <- bernsteinApprox(sin, 20, pi/2, 1.5*pi) 
+#' round(p, 4)
+#' 
+#' x <- seq(0, 2*pi, length.out = 101)
+#' df <- data.frame(
+#'   x = rep(x, 2), 
+#'   y = c(sin(x), as.function(p)(x)), 
+#'   which = rep(c("actual", "approx"), each = 101)
+#' )
+#' qplot(x, y, data = df, geom = "line", color = which)
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
+#' p <- bernsteinApprox(dnorm, 15, -1.25, 1.25) 
+#' round(p, 4)
 #' 
 #' x <- seq(-3, 3, length.out = 101)
 #' df <- data.frame(
@@ -123,7 +144,7 @@ bernsteinApprox <- function(f, n, lower = 0, upper = 1, indeterminate = "x"){
 
   ## compute support and determine weights
   s <- (0:n)/n
-  fscaled <- function(.) f( (.-lower)/(upper-lower) )
+  fscaled <- function(.) f( (upper-lower)*. + lower )
   weights <- as.list(fscaled(s))
   
   ## convert weights to mpolyList
@@ -133,11 +154,8 @@ bernsteinApprox <- function(f, n, lower = 0, upper = 1, indeterminate = "x"){
   ## multiply weights by basis
   approxPoly <- Reduce(`+`, weights * bernstein(0:n, n, "temp"))  
   
-  ## round - fix this
-  #approxPoly <- round(approxPoly, 3)
-  
   ## compute plugin and plug in
-  pluginPoly <- (upper-lower)*mp(indeterminate) + lower
+  pluginPoly <- (upper-lower)^-1 * (mp(indeterminate) + -1*lower)
   plug(approxPoly, "temp", pluginPoly)
   
 }
