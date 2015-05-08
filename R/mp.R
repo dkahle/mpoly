@@ -151,6 +151,8 @@ parse_parenthetical_polynomial <- function(string){
 # parse_parenthetical_term("((5^2))") 
 # string <- "(1+1) (2^3 z (x+y)^2)^2"
 # parse_parenthetical_term(string)
+# parse_parenthetical_term("6 (x)")
+# parse_parenthetical_term("6.18033988749895 (x)")
 parse_parenthetical_term <- function(string){
   
   # short circuit if simpler
@@ -169,7 +171,7 @@ parse_parenthetical_term <- function(string){
     # check for exponent on the outer parenthetical
     last_paren_ndx     <- nchar(piece) - str_locate(str_rev(piece), fixed(")"))[[1]] + 1
     string_after_paren <- str_sub(piece, last_paren_ndx+1) # "" or "^3"
-    
+  
     # if "^3", extract, otherwise 1
     if(str_detect(string_after_paren, fixed("^"))){
       exponent <- as.numeric(str_rev(str_extract(str_rev(string_after_paren), "[\\d]+"))) # gets first
@@ -252,12 +254,13 @@ parse_parenthetical_term <- function(string){
 # parse_nonparenthetical_polynomial(string)
 # parse_nonparenthetical_polynomial("x    +       y")
 # parse_nonparenthetical_polynomial("x    -       y+-xy")
+# parse_nonparenthetical_polynomial("1e-2 x")
 parse_nonparenthetical_polynomial <- function(string){
   
   # trim
   string <- str_trim(string)
   
-  # check to see if it"s a single term
+  # check to see if it's a single term
   if(
     !str_detect(string, "[+]") && 
     !str_detect(str_sub(string, 2), "[-]")
@@ -296,6 +299,7 @@ parse_nonparenthetical_polynomial <- function(string){
 # parse_nonparenthetical_term("-0x")
 # parse_nonparenthetical_term("1.5x")
 # parse_nonparenthetical_term("1.5^2x")
+# parse_nonparenthetical_term("1e-2 x")
 parse_nonparenthetical_term <- function(string){
   
   # trim
@@ -317,7 +321,7 @@ parse_nonparenthetical_term <- function(string){
   
   # if more than one negative provided error
   if(str_detect(str_sub(string, 2), fixed("-"))){
-    stop("negative signs only allowed at the beginning of terms", call. = FALSE)
+    stop("negative signs are only allowed at the beginning of terms.", call. = FALSE)
   }
   
   # fix, e.g. "2x"
@@ -393,6 +397,8 @@ parse_nonparenthetical_term <- function(string){
 # fix_term_joins("5^2x - 1")
 # fix_term_joins("1+-xx-x")
 # fix_term_joins("-1-1")
+# fix_term_joins("1e-2 x")
+# fix_term_joins("1e+2 x")
 # fix_term_joins("-1-1-") # error
 # fix_term_joins("-1-1+") # error
 fix_term_joins <- function(string){
@@ -413,6 +419,17 @@ fix_term_joins <- function(string){
     string <- str_c("0 + ", string)
   }
   
+  # fix scientific notation
+  while(str_detect(string, fixed("e+"))){
+    stringToReplace <- str_extract(string, "[0-9\\.]+e\\+[0-9]+")
+    string <- str_replace(string, "[0-9\\.]+e\\+[0-9]+", format(as.numeric(stringToReplace)))
+  }
+  
+  while(str_detect(string, fixed("e-"))){
+    stringToReplace <- str_extract(string, "[0-9\\.]+e-[0-9]+")
+    string <- str_replace(string, "[0-9\\.]+e-[0-9]+", format(as.numeric(stringToReplace)))    
+  }
+    
   # break string into pieces of terms and joins
   terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,]+")[[1]]
   joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|]+")[[1]]
@@ -578,18 +595,25 @@ collect_nonparenthetical_elements <- function(string){
 # delete_nonparenthetical_elements(string)
 # string <- " (x + y)^2   (x - y)(x)  "
 # delete_nonparenthetical_elements(string)
+# string <- ".2 (x)"
+# delete_nonparenthetical_elements(string)
 delete_nonparenthetical_elements <- function(string){
   
   blanked_string <- blank_parentheticals(string, "*")  
-  erase_ndcs <- str_locate_all(blanked_string, "[[:alnum:][-][//^]]")[[1]][,1]
+  erase_ndcs <- str_locate_all(blanked_string, "[[:alnum:][-][//^][.]]")[[1]][,1]
   for(k in erase_ndcs) str_sub(string, k, k) <- " "
   string
   
 }
 
+
+
+
 # string <- " -3 (x + y)^2 4 (x - y)(x) 4 "
 # term_parentheticals(string)
 # string <- " -(x + y)^2   3(x - y)(x)  "
+# term_parentheticals(string)
+# string <- ".2 (x)"
 # term_parentheticals(string)
 term_parentheticals <- function(string){
   
@@ -651,3 +675,9 @@ unmatched_parentheses_stop <- function(string){
 
 
 str_rev <- function(string) paste(rev.default(str_split(string, "")[[1]]), collapse = "")
+
+is.number <- function(char) str_detect(char, "[0-9]{1}")
+is.period <- function(char) str_detect(char, "[\\.]{1}")
+is.letter <- function(char) str_detect(char, "[a-zA-Z]{1}")
+
+

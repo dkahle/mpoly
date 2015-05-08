@@ -69,7 +69,7 @@ test_that("parse_nonparenthetical_term works", {
   
   expect_equal(f("2 2"), m(list(c(coef = 4))))
   expect_equal(f("-2 2"), m(list(c(coef = -4))))
-  expect_error(f("-2 -2"), "negative signs only allowed at the beginning of terms")
+  expect_error(f("-2 -2"), "negative signs are only allowed at the beginning of terms.")
   
   expect_equal(f(".5 .5"), m(list(c(coef = .25))))
   expect_equal(f(".5 2"), m(list(c(coef = 1))))  
