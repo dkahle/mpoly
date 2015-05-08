@@ -3,17 +3,19 @@ Version 0.1.1
 
 NEW FEATURES
 
-* a new function called plug allows users to plug values into indeterminates in mpoly objects.
-* a new function called chebyshev allows users to compute chebyshev polynomials.  to do this (more) efficiently, memoisation is used.
+* A new function called plug allows users to plug values into indeterminates in mpoly objects.
+* A new function called chebyshev allows users to compute Chebyshev polynomials.  To do this (more) efficiently, memoisation is used.
+* New functions called bernstein and bernsteinApprox allow users to compute Bernstein polynomials and approximate functions with Bernstein polynomials, see examples.
+* A new function called bezier allows users to compute the polynomials associated with Bezier curves.
 
 CHANGES
 
-* the internals of tuples have been changed, but the user shouldn't expect to see them.
+* The internals of tuples have been changed, but the user shouldn't expect to see them.
 
 
 FIXES 
 
-* a bug in mp functions where non-parenthetical exponents in parenthetical expressions were mis-parsed has been fixed.
+* A bug in mp functions where non-parenthetical exponents in parenthetical expressions were mis-parsed has been fixed.
 * round.mpoly now drops terms rounded to have 0 coefficients.
 
 
@@ -24,13 +26,13 @@ NEW FEATURES
 
 * is.linear function.
 * round now has a method applicable to mpoly objects that rounds the coefficients.  this is particularly nice in combination with as.mpoly.lm.
-* hard braces are now allowed for variables, e.g. x[1,1]
+* Hard braces are now allowed for variables, e.g. x[1,1]
 
 CHANGES
 
-* vastly enhanced mp parser based on stringr 9.0.0 (now dependent on stringi).
-* tests added.
-* description file updated for CRAN's standards.
+* Vastly enhanced mp parser based on stringr 9.0.0 (now dependent on stringi).
+* Tests added.
+* Description file updated for CRAN's standards.
 
 
 
@@ -39,15 +41,15 @@ Version 0.0.5
 
 NEW FEATURES
 
-* parenthetical expressions are now handled.
+* Parenthetical expressions are now handled.
 
 CHANGES
 
-* permutations now returns a better ordered listing of the permutations of a set.  It also allows for the more flexible specification of (e.g.) permutations(5) for permutations(1:5).
+* Permutations now returns a better ordered listing of the permutations of a set.  It also allows for the more flexible specification of (e.g.) permutations(5) for permutations(1:5).
 
 FIXES
 
-* some negative parsing in mp has been fixed.
+* Some negative parsing in mp has been fixed.
 
 
 
@@ -56,12 +58,12 @@ Version 0.0.4
 
 CHANGES
 
-* division symbols in mp now return an error.
+* Division symbols in mp now return an error.
 * mpoly now has a GPL-2 license.
 
 FIXES
 
-* fixed a glitch in print.mpoly that made mp("-1 + y") print as "-1 1  +  y".
+* Fixed a glitch in print.mpoly that made mp("-1 + y") print as "-1 1  +  y".
 * mpolyList now works on single elements, either a mpoly object (converting it to a mpolyList) or a call to mp.
 * mp now properly handles constants raised to powers.
 
