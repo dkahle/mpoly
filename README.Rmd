@@ -114,7 +114,7 @@ chebyshev(0:5)
 ```
 
 And you can visualize them:
-```{r}
+```{r, fig.height=3}
 library(reshape2)
 
 s <- seq(-1, 1, length.out = 201)
@@ -129,7 +129,7 @@ qplot(x, value, data = mdf, geom = "line", color = variable)
 ```
 
 [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are available with `bernstein()`:
-```{r}
+```{r, fig.height=3}
 bernstein(0:4, 4)
 
 s <- seq(0, 1, length.out = 101)
@@ -145,7 +145,7 @@ qplot(x, value, data = mdf, geom = "line", color = variable)
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function.  Here's an approximation to the standard normal density:
 
-```{r}
+```{r, fig.height=3}
 p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
 round(p, 4)
 
