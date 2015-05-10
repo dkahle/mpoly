@@ -82,7 +82,7 @@ s <- seq(-2.5, 2.5, .1)
 df <- expand.grid(x = s)
 df$f <- apply(df, 1, f)
 
-library(ggplot2)
+library(ggplot2); theme_set(theme_bw())
 qplot(x, f, data = df, geom = "line")
 ```
 
