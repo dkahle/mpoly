@@ -184,7 +184,7 @@ qplot(x, y, data = df, geom = "line") +
 
 I'm starting to put in methods for some other R functions:
 
-```{r}
+```{r, fig.height=3}
 n <- 101
 df <- data.frame(x = seq(-5, 5, length.out = n))
 df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))

@@ -266,7 +266,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> 1.913 x  -  1.003 x^2  -  3.056
+#> 2.003 x  -  0.986 x^2  -  3.285
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
