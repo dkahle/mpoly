@@ -50,8 +50,8 @@ points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 df <- t(sapply(s, as.function(bezPolys)) )
 df <- as.data.frame(df)
 names(df) <- c("x", "y")
-qplot(x, y, data = df, geom = "line") +
-  geom_line(data = points, color = "red") +
+qplot(x, y, data = df, geom = "path") +
+  geom_path(data = points, color = "red") +
   geom_point(data = points, color = "red", size = 8)
 
 
@@ -64,9 +64,38 @@ points <- data.frame(x = 0:2, y = c(0,1,0))
 df <- t(sapply(s, as.function(bezPolys)) )
 df <- as.data.frame(df)
 names(df) <- c("x", "y")
-qplot(x, y, data = df, geom = "line") +
-  geom_line(data = points, color = "red") +
+qplot(x, y, data = df, geom = "path") +
+  geom_path(data = points, color = "red") +
   geom_point(data = points, color = "red", size = 8)
+
+
+
+
+## example 3
+points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
+(bezPolys <- bezier(points))
+
+df <- t(sapply(s, as.function(bezPolys)) )
+df <- as.data.frame(df)
+names(df) <- c("x", "y")
+qplot(x, y, data = df, geom = "path") +
+  geom_path(data = points, color = "red") +
+  geom_point(data = points, color = "red", size = 8)
+
+
+
+## example 4
+points <- data.frame(x = c(-1,2,-2,1), y = c(0,1,1,0))
+(bezPolys <- bezier(points))
+
+df <- t(sapply(s, as.function(bezPolys)) )
+df <- as.data.frame(df)
+names(df) <- c("x", "y")
+qplot(x, y, data = df, geom = "path") +
+  geom_path(data = points, color = "red") +
+  geom_point(data = points, color = "red", size = 8)
+
+
 
 
 }
