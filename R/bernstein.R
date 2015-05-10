@@ -26,7 +26,7 @@
 #' library(reshape2)
 #' 
 #' s <- seq(0, 1, length.out = 101)
-#' N <- 5 # number of bernstein polynomials to plot
+#' N <- 10 # number of bernstein polynomials to plot
 #' (bernPolys <- bernstein(0:N, N))
 #' 
 #' df <- t(sapply(s, as.function(bernPolys)) )
@@ -39,12 +39,30 @@
 #' }
 #'
 bernstein <- function(k, n, indeterminate = "x"){  
+  
+  ## make it possible for vector k args
   if(length(k) > 1){
     listOPolys <- lapply(k, function(.) bernstein(., n, indeterminate))
     class(listOPolys) <- "mpolyList"
     return(listOPolys)
   }
-  choose(n, k) * mp(indeterminate)^k * mp(paste0("(1-",indeterminate,")"))^(n-k)  
+  
+  ## construct coefficients and degrees of terms
+  m <- n - k  
+  coefs <- choose(n, k) * (-1)^(0:m) * choose(m, 0:m)
+  degs  <- k:n
+  
+  ## construct polynomial as list
+  p <- Map(function(deg, coef) c(x = deg, coef = coef), degs, coefs)
+  
+  ## wipe out zeros
+  p <- lapply(p, function(v) v[v != 0])
+  
+  ## class list
+  class(p) <- "mpoly"
+  
+  ## swap and return
+  swap(p, "x", indeterminate)
 }
 
 
@@ -53,6 +71,33 @@ bernstein <- function(k, n, indeterminate = "x"){
 
 
 
+
+
+
+bernsteinLookup <- function(k, n, indeterminate){
+  
+  ml <- function(...){
+    p <- list(...)
+    class(p) <- "mpoly"
+    p
+  }
+  
+  if(k == 0 && n == 0) p <- ml(c(coef = 1))
+  
+  if(k == 0 && n == 1) p <- ml(c(x = 1, coef = -1), c(coef = 1))
+  if(k == 1 && n == 1) p <- ml(c(x = 1, coef = 1))
+  
+  if(k == 0 && n == 2) p <- ml(c(x = 2, coef = 1), c(x = 1, coef = -2), c(coef = 1))
+  if(k == 1 && n == 2) p <- ml(c(x = 2, coef = -2), c(x = 1, coef = 2))
+  if(k == 2 && n == 2) p <- ml(c(x = 2, coef = 1))
+  
+  if(k == 0 && n == 3) p <- ml(c(x = 3, coef = -1), c(x = 2, coef =  3), c(x = 1, coef = -3), c(coef = 1))
+  if(k == 1 && n == 3) p <- ml(c(x = 3, coef =  3), c(x = 2, coef = -6), c(x = 1, coef = 3))
+  if(k == 2 && n == 3) p <- ml(c(x = 3, coef = -3), c(x = 2, coef =  3))
+  if(k == 3 && n == 3) p <- ml(c(x = 3, coef =  1))
+  
+  swap(p, "x", indeterminate)
+}
 
 
 

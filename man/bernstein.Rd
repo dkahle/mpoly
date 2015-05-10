@@ -36,7 +36,7 @@ library(ggplot2); theme_set(theme_bw())
 library(reshape2)
 
 s <- seq(0, 1, length.out = 101)
-N <- 5 # number of bernstein polynomials to plot
+N <- 10 # number of bernstein polynomials to plot
 (bernPolys <- bernstein(0:N, N))
 
 df <- t(sapply(s, as.function(bernPolys)) )
