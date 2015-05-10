@@ -228,6 +228,32 @@ qplot(x, y, data = df, geom = "line", color = which)
 
 ![](README-unnamed-chunk-13-1.png)
 
+Bezier polynomials and curves
+-----------------------------
+
+You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given collection of points with `bezier()`:
+
+``` r
+points <- data.frame(x = 0:3, y = c(0,1,-1,0))
+(bezPolys <- bezier(points))
+#> 3 t
+#> 6 t^3  -  9 t^2  +  3 t
+```
+
+And viewing them is just as easy:
+
+``` r
+df <- t(sapply(s, as.function(bezPolys)) )
+#> f(t)
+df <- as.data.frame(df)
+names(df) <- c("x", "y")
+qplot(x, y, data = df, geom = "line") +
+  geom_line(data = points, color = "red") +
+  geom_point(data = points, color = "red", size = 8)
+```
+
+![](README-unnamed-chunk-15-1.png)
+
 Other stuff
 -----------
 
@@ -240,13 +266,13 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> 1.969 x  -  0.969 x^2  -  3.05
+#> 2.036 x  -  0.954 x^2  -  3.309
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
 ```
 
-![](README-unnamed-chunk-14-1.png)
+![](README-unnamed-chunk-16-1.png)
 
 Installation
 ------------
