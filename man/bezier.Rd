@@ -84,6 +84,7 @@ qplot(x, y, data = df, geom = "path") +
 
 
 
+
 ## example 4
 points <- data.frame(x = c(-1,2,-2,1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
