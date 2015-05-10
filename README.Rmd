@@ -11,7 +11,8 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "README-",
+  dpi = 250
 )
 ```
 
@@ -193,6 +194,10 @@ mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
+
+
+df <- df %>% dplyr::arrange(x)
+bezier(df)
 ```
 
 
