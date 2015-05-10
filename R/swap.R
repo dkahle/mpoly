@@ -17,8 +17,11 @@
 swap <- function(p, variable, replacement){
   
   ## arg checks
-  stopifnot(variable %in% vars(p))
-  if(replacement %in% vars(p)){
+  vars <- vars(p)
+  if(length(vars) == 0) return(p)
+  
+  stopifnot(variable %in% vars)
+  if(replacement %in% vars && length(vars) > 1){
     stop("the replacement value cannot be a variable in the polynomial, try plug.", call. = FALSE)
   }
   
