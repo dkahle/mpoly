@@ -249,7 +249,7 @@ df <- as.data.frame(df)
 names(df) <- c("x", "y")
 qplot(x, y, data = df, geom = "line") +
   geom_line(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 8)
+  geom_point(data = points, color = "red", size = 4)
 ```
 
 ![](README-unnamed-chunk-15-1.png)
@@ -266,7 +266,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> 2.036 x  -  0.954 x^2  -  3.309
+#> 1.913 x  -  1.003 x^2  -  3.056
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)

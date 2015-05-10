@@ -175,7 +175,7 @@ df <- as.data.frame(df)
 names(df) <- c("x", "y")
 qplot(x, y, data = df, geom = "line") +
   geom_line(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 8)
+  geom_point(data = points, color = "red", size = 4)
 ```
 
 
