@@ -193,7 +193,6 @@ mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
-
 ```
 
 
