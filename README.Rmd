@@ -164,7 +164,7 @@ qplot(x, y, data = df, geom = "line", color = which)
 
 You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given collection of points with `bezier()`:
 ```{r, fig.height=3}
-points <- data.frame(x = 0:3, y = c(0,1,-1,0))
+points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
 ```
 
@@ -173,8 +173,8 @@ And viewing them is just as easy:
 df <- t(sapply(s, as.function(bezPolys)) )
 df <- as.data.frame(df)
 names(df) <- c("x", "y")
-qplot(x, y, data = df, geom = "line") +
-  geom_line(data = points, color = "red") +
+qplot(x, y, data = df, geom = "path") +
+  geom_path(data = points, color = "red") +
   geom_point(data = points, color = "red", size = 4)
 ```
 
