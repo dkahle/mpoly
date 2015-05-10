@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 # mpoly
 
+## Specifying polynomials
+
 __mpoly__ is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  Polynomials are defined with the `mp` function:
 
 ```{r mp, echo = TRUE}
@@ -32,7 +34,14 @@ reorder(p, varorder = c('y','x'), order = 'lex')
 reorder(p, varorder = c('x','y'), order = 'glex')
 ```
 
-Arithmetic is defined for them (`+`, `-`, `*` and `^`):
+Vectors of polynomials (`mpolyList`s) can be specified in the same way:
+```{r}
+mp(c("(x+y)^2", "z"))
+```
+
+## Polynomial arithmetic
+
+Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)...
 ```{r}
 p1 <- mp("x + y")
 p2 <- mp("x - y")
@@ -43,13 +52,29 @@ p1 * p2
 p1^2
 ```
 
+... and vectors of polynomials:
+```{r}
+(ps1 <- mp(c("x", "y")))
+(ps2 <- mp(c("2x", "y+z")))
+ps1 + ps2
+ps1 - ps2
+ps1 * ps2
+```
+
+
+## Some calculus
 
 You can compute derivatives easily:
 ```{r}
-deriv(mp("x + x y + x y^2"), "y")
+p <- mp("x + x y + x y^2")
+deriv(p, "y")
+gradient(p)
 ```
 
-And turn them into functions you can evaluate:
+
+## Function coercion
+
+You can turn polynomials and vectors of polynomials into functions you can evaluate with `as.function()`.  For example, you can visualize a univariate polynomials like this:
 ```{r}
 f <- as.function(mp("(x-2) x (x+2)"))
 s <- seq(-2.5, 2.5, .1)
@@ -61,13 +86,81 @@ qplot(x, f, data = df, geom = "line")
 ```
 
 
-
+Or a bivariate polynomial like this:
 ```{r}
 f <- as.function(mp("x^2 - y^2")) 
 df <- expand.grid(x = s, y = s)
 df$f <- apply(df, 1, f)
 qplot(x, y, data = df, geom = "tile", fill = f)
 ```
+
+## Algebraic geometry
+
+Grobner bases computations are available using __rSymPy__:
+
+```{r}
+polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
+grobner(polys)
+```
+
+
+## Special polynomials
+
+You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
+```{r}
+chebyshev(1)
+chebyshev(2)
+chebyshev(0:5)
+```
+
+And you can visualize them:
+```{r}
+library(reshape2)
+
+s <- seq(-1, 1, length.out = 201)
+N <- 5 # number of chebyshev polynomials to plot
+(chebPolys <- chebyshev(0:N))
+
+df <- t(sapply(s, as.function(chebPolys)) )
+df <- as.data.frame(cbind(s, df))
+names(df) <- c("x", paste0("T_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = mdf, geom = "line", color = variable)
+```
+
+[Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are available with `bernstein()`:
+```{r}
+bernstein(0:4, 4)
+
+s <- seq(0, 1, length.out = 101)
+N <- 5 # number of bernstein polynomials to plot
+(bernPolys <- bernstein(0:N, N))
+
+df <- t(sapply(s, as.function(bernPolys)) )
+df <- as.data.frame(cbind(s, df))
+names(df) <- c("x", paste0("B_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = mdf, geom = "line", color = variable)
+```
+
+You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function.  Here's an approximation to the standard normal density:
+
+```{r}
+p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
+round(p, 4)
+
+x <- seq(-3, 3, length.out = 101)
+df <- data.frame(
+  x = rep(x, 2),
+  y = c(dnorm(x), as.function(p)(x)),
+  which = rep(c("actual", "approx"), each = 101)
+)
+qplot(x, y, data = df, geom = "line", color = which)
+```
+
+
+
+## Other stuff
 
 I'm starting to put in methods for some other R functions:
 
@@ -83,12 +176,6 @@ qplot(x, y, data = df) +
 
 ```
 
-Grobner bases computations are available using __rSymPy__:
-
-```{r}
-polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
-grobner(polys)
-```
 
 
 ## Installation
