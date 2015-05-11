@@ -5,5 +5,5 @@
 #' @param x object to be tested
 #' @return Vector of logicals.
 #' @export
-is.mpoly <- function(x) class(x) == "mpoly"
+is.mpoly <- function(x) any(class(x) == "mpoly")
 
