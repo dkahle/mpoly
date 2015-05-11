@@ -74,30 +74,9 @@ bernstein <- function(k, n, indeterminate = "x"){
 
 
 
-bernsteinLookup <- function(k, n, indeterminate){
-  
-  ml <- function(...){
-    p <- list(...)
-    class(p) <- "mpoly"
-    p
-  }
-  
-  if(k == 0 && n == 0) p <- ml(c(coef = 1))
-  
-  if(k == 0 && n == 1) p <- ml(c(x = 1, coef = -1), c(coef = 1))
-  if(k == 1 && n == 1) p <- ml(c(x = 1, coef = 1))
-  
-  if(k == 0 && n == 2) p <- ml(c(x = 2, coef = 1), c(x = 1, coef = -2), c(coef = 1))
-  if(k == 1 && n == 2) p <- ml(c(x = 2, coef = -2), c(x = 1, coef = 2))
-  if(k == 2 && n == 2) p <- ml(c(x = 2, coef = 1))
-  
-  if(k == 0 && n == 3) p <- ml(c(x = 3, coef = -1), c(x = 2, coef =  3), c(x = 1, coef = -3), c(coef = 1))
-  if(k == 1 && n == 3) p <- ml(c(x = 3, coef =  3), c(x = 2, coef = -6), c(x = 1, coef = 3))
-  if(k == 2 && n == 3) p <- ml(c(x = 3, coef = -3), c(x = 2, coef =  3))
-  if(k == 3 && n == 3) p <- ml(c(x = 3, coef =  1))
-  
-  swap(p, "x", indeterminate)
-}
+
+
+
 
 
 
