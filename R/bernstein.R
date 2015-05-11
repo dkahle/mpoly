@@ -15,6 +15,8 @@
 #' bernstein(0, 1)
 #' bernstein(1, 1)
 #' 
+#' bernstein(0, 1, "t")
+#' 
 #' bernstein(0:2, 2)
 #' bernstein(0:3, 3)
 #' bernstein(0:4, 4)
@@ -64,8 +66,7 @@ bernstein <- function(k, n, indeterminate = "x"){
   attr(p, "bernstein") <- c(k = k, n = n, indeterminate = indeterminate)
   
   ## swap and return
-  #swap(p, "x", indeterminate)
-  p
+  swap(p, "x", indeterminate)
 }
 
 

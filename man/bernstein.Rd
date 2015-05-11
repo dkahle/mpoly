@@ -25,6 +25,8 @@ bernstein(0, 0)
 bernstein(0, 1)
 bernstein(1, 1)
 
+bernstein(0, 1, "t")
+
 bernstein(0:2, 2)
 bernstein(0:3, 3)
 bernstein(0:4, 4)
