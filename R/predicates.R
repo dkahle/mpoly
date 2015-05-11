@@ -8,13 +8,13 @@ is.letter <- function(char) str_detect(char, "[a-zA-Z]{1}")
 
 
 
-#' Determine if a polynomial is a constant
-#'
-#' Test whether an mpoly is a constant polynomial or the elements of an mpolyList are constant polynomials.
-#'
+#' mpoly predicate functions
+#' 
+#' Various functions to deal with mpoly and mpolyList objects.
+#' 
 #' @param x object to be tested
 #' @return Vector of logicals.
-#' @export
+#' @name predicates
 #' @examples
 #' 
 #' p <- mp("5")
@@ -22,7 +22,41 @@ is.letter <- function(char) str_detect(char, "[a-zA-Z]{1}")
 #' is.constant(p)
 #' 
 #' is.constant(mp(c("x + 1", "7", "y - 2")))
+#' 
+#' p <- mp("x + y")
+#' is.mpoly(p)
+#' 
+#' is.mpolyList(mp(c("x + 1", "y - 1")))
 #'
+#' 
+#' 
+#' is.linear(mp("0"))
+#' is.linear(mp("x + 1"))
+#' is.linear(mp("x + y"))
+#' is.linear(mp(c("0", "x + y")))
+#' 
+#' is.linear(mp("x + x y"))
+#' is.linear(mp(c("x + x y", "x")))
+#' 
+#' 
+#' (p <- bernstein(2, 5))
+#' is.mpoly(p)
+#' is.bernstein(p)
+#' 
+#' (p <- chebyshev(5))
+#' is.mpoly(p)
+#' is.chebyshev(p)
+#' str(p)
+
+
+
+
+
+
+
+
+#' @export
+#' @rdname predicates
 is.constant <- function(p){
   if(is.mpoly(p) && length(p) == 1) return(TRUE)
   if(is.mpolyList(p)) return(vapply(p, is.constant, logical(1)))
@@ -34,18 +68,8 @@ is.constant <- function(p){
 
 
 
-#' Test whether an object is an mpoly object
-#'
-#' Test whether an object is an mpoly object.
-#'
-#' @param x object to be tested
-#' @return Vector of logicals.
 #' @export
-#' @examples
-#' 
-#' p <- mp("x + y")
-#' is.mpoly(p)
-#' 
+#' @rdname predicates
 is.mpoly <- function(x) any(class(x) == "mpoly")
 
 
@@ -53,20 +77,29 @@ is.mpoly <- function(x) any(class(x) == "mpoly")
 
 
 
-
-
-
-#' Test whether an object is an mpolyList
-#'
-#' Test whether an object is an mpolyList.
-#'
-#' @param mpolyList object whose class is in question
-#' @return Logical.
 #' @export
-#' @examples
-#' 
-#' is.mpolyList(mp(c("x + 1", "y - 1")))
-#'
+#' @rdname predicates
+is.bernstein <- function(x) any(class(x) == "bernstein")
+
+
+
+
+
+
+#' @export
+#' @rdname predicates
+is.chebyshev <- function(x) any(class(x) == "chebyshev")
+
+
+
+
+
+
+
+
+
+#' @export
+#' @rdname predicates
 is.mpolyList <- function(mpolyList){
   if(any(class(mpolyList) == "mpolyList")){
     return(TRUE)  
@@ -83,26 +116,8 @@ is.mpolyList <- function(mpolyList){
 
 
 
-#' Test whether an mpoly object is linear
-#' 
-#' Test whether an mpoly object is linear.
-#' 
-#' @param x an mpoly or mpolyList object
-#' @return a logical vector
 #' @export
-#' @examples
-#' \dontrun{
-#' 
-#' is.linear(mp("0"))
-#' is.linear(mp("x + 1"))
-#' is.linear(mp("x + y"))
-#' is.linear(mp(c("0", "x + y")))
-#' 
-#' is.linear(mp("x + x y"))
-#' is.linear(mp(c("x + x y", "x")))
-#' 
-#' 
-#' }
+#' @rdname predicates
 is.linear <- function(x){
   
   stopifnot(is.mpoly(x) || is.mpolyList(x))
@@ -113,6 +128,10 @@ is.linear <- function(x){
     vapply(x, function(term) all(length(term) <= 2), logical(1))
   )  
 }
+
+
+
+
 
 
 
