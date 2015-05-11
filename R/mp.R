@@ -676,8 +676,8 @@ unmatched_parentheses_stop <- function(string){
 
 str_rev <- function(string) paste(rev.default(str_split(string, "")[[1]]), collapse = "")
 
-is.number <- function(char) str_detect(char, "[0-9]{1}")
-is.period <- function(char) str_detect(char, "[\\.]{1}")
-is.letter <- function(char) str_detect(char, "[a-zA-Z]{1}")
+
+
+
 
 
