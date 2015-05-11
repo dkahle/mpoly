@@ -12,47 +12,46 @@
 #' @seealso \code{\link{plug}}
 #' @export
 #' @examples
-#' mpoly <- mp('1 2 3 4')
-#' f <- as.function(mpoly)
+#' 
+#' p <- mp('1 2 3 4')
+#' f <- as.function(p)
 #' f(10) # -> 24
-#' mpoly <- mp('x + 3 x y + z^2 x')
-#' f <- as.function(mpoly)
+#' 
+#' p <- mp("x + 3 x y + z^2 x")
+#' f <- as.function(p)
 #' f(1:3) # -> 16
 #' f(c(1,1,1)) # -> 5
 #' 
-#' f <- as.function(mpoly, vector = FALSE)
+#' f <- as.function(p, vector = FALSE)
 #' f(1, 2, 3) # -> 16
 #' f(1, 1, 1) # -> 5
 #' 
-#' f <- as.function(mpoly, varorder = c('z','y','x'), vector = FALSE)
+#' f <- as.function(p, varorder = c('z','y','x'), vector = FALSE)
 #' f(3, 2, 1) # -> 16
 #' f(1, 1, 1) # -> 5
 #' 
 as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
 	
-  # argument checking
+  ## argument checking
   stopifnot(is.character(varorder))
   stopifnot(is.logical(vector))  	
-
-  if(!is.mpoly(x)){
-    stop('x must be of class mpoly.', call. = FALSE)
-  }
+  stopifnot(is.mpoly(x))
 	
   if(!setequal(varorder, vars(x))){
     stop('varorder must contain all of the variables of x.',
       call. = FALSE)
   }
   
+  ## determine the number of variables
   p <- length(vars(x))
-  
-  if(length(vars) == 0){ # constant function
-    return(function(x){ return(unclass(x)[[1]]['coef']) })
-  }
+ 
+  ## deal with constant polynomials
+  if(is.constant(x)) return( function(.) unlist(x)[["coef"]] )
     
-  # univariate polynomial
+  ## univariate polynomial
   if(p == 1) vector <- FALSE
   
-  # general polynomials as a vector argument
+  ## general polynomials as a vector argument
   if(vector){
     mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
     mpoly_string <- paste(' ', mpoly_string, ' ', sep = '')
@@ -74,7 +73,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
     return(eval(parse(text = mpoly_string)))
   }
   
-  # general polynomials as a bunch of arguments
+  ## general polynomials as a bunch of arguments
   if(!vector){
     mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
     message('f(', paste(varorder, collapse = ', '), ')', sep = '')
