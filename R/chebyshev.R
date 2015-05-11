@@ -105,7 +105,7 @@ chebyshev <- function(degree, kind = 1, indeterminate = "x"){
   
   ## attribute it
   class(p) <- c("chebyshev", "mpoly")
-  attr(p, "chebyshev") <- c(degree = degree, kind = kind, indeterminate = indeterminate)
+  attr(p, "chebyshev") <- list(degree = degree, kind = kind, indeterminate = indeterminate)
   
   ##
   p
