@@ -81,7 +81,7 @@ chebyshev <- function(degree, kind = 1, indeterminate = "x"){
     if(length(n) > 1){ 
       listOPolys <- lapply(n, function(.) cheb(.))
       class(listOPolys) <- "mpolyList"
-      return(listOPolys)    
+      listOPolys
     }
     
     # set n as character (convenience)
@@ -100,8 +100,15 @@ chebyshev <- function(degree, kind = 1, indeterminate = "x"){
     out    
   } 
    
-  ## make it and run it
-  cheb(degree)
+  ## make polynomial
+  p <- cheb(degree)
+  
+  ## attribute it
+  class(p) <- c("chebyshev", "mpoly")
+  attr(p, "chebyshev") <- c(degree = degree, kind = kind, indeterminate = indeterminate)
+  
+  ##
+  p
 }
 
 

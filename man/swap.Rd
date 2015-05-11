@@ -22,6 +22,15 @@ Swap polynomial indeterminates
 \examples{
 (p <- mp("(x + y)^2"))
 swap(p, "x", "t")
+
+## the meta data is retained
+(p <- bernstein(3, 5))
+(p2 <- swap(p, "x", "t"))
+is.bernstein(p2)
+
+(p <- chebyshev(3))
+(p2 <- swap(p, "x", "t"))
+is.chebyshev(p2)
 }
 \author{
 David Kahle

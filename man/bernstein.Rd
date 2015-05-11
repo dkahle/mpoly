@@ -28,6 +28,7 @@ bernstein(1, 1)
 bernstein(0:2, 2)
 bernstein(0:3, 3)
 bernstein(0:4, 4)
+bernstein(0:10, 10)
 
 
 \dontrun{  # visualize the bernstein polynomials
