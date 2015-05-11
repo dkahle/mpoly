@@ -9,7 +9,7 @@
 #' is.mpolyList(mp(c('x + 1', 'y - 1')))
 #'
 is.mpolyList <- function(mpolyList){
-  if(class(mpolyList) == 'mpolyList'){
+  if(any(class(mpolyList) == "mpolyList")){
     return(TRUE)	
   } else {
     return(FALSE)	
