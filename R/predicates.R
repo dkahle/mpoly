@@ -58,7 +58,7 @@ is.letter <- function(char) str_detect(char, "[a-zA-Z]{1}")
 #' @export
 #' @rdname predicates
 is.constant <- function(p){
-  if(is.mpoly(p) && length(p) == 1) return(TRUE)
+  if(is.mpoly(p) && length(p) == 1 && length(p[[1]]) == 1) return(TRUE)
   if(is.mpolyList(p)) return(vapply(p, is.constant, logical(1)))
   FALSE
 }
