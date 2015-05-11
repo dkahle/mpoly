@@ -89,3 +89,32 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   }  
   
 }
+
+
+
+
+
+
+
+
+
+
+as.function.bernstein <- function(x, ...){
+ 
+  ## grab bernstein values
+  k <- attr(x, "bernstein")$k
+  n <- attr(x, "bernstein")$n
+  
+  ## return exp'd log function
+  function(.) exp(lchoose(n, k) + k*log(.) + (n-k)*log(1-.))
+  
+}
+
+
+
+
+
+
+
+
+

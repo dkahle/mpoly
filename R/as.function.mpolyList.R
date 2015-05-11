@@ -90,3 +90,40 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
   }  
   
 }
+
+
+
+
+
+
+
+
+
+as.function.bezier <- function(x, ...){
+  
+  points <- attr(x, "bezier")$points
+  n <- nrow(points)
+  degree <- n-1
+  points <- as.matrix(points)
+  
+  combineTwo <- function(vec, t) t*vec[-length(vec)] + (1-t)*vec[-1]
+  
+  
+  singlePointBezier <- function(.){
+    for(i in 1:degree) points <- apply(points, 2, combineTwo, t = .)
+    points
+  }  
+  
+  function(.){
+    if(length(.) > 1) return(t(sapply(., singlePointBezier)))
+    singlePointBezier(.)
+  }
+  
+}
+
+
+
+
+
+
+

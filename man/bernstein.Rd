@@ -29,9 +29,13 @@ bernstein(0, 1, "t")
 
 bernstein(0:2, 2)
 bernstein(0:3, 3)
+bernstein(0:3, 3, "t")
+
+
 bernstein(0:4, 4)
 bernstein(0:10, 10)
-
+bernstein(0:10, 10, "t")
+bernstein(0:20, 20, "t")
 
 \dontrun{  # visualize the bernstein polynomials
 

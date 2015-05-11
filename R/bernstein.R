@@ -19,9 +19,13 @@
 #' 
 #' bernstein(0:2, 2)
 #' bernstein(0:3, 3)
+#' bernstein(0:3, 3, "t")
+#' 
+#' 
 #' bernstein(0:4, 4)
 #' bernstein(0:10, 10)
-#' 
+#' bernstein(0:10, 10, "t")
+#' bernstein(0:20, 20, "t")
 #' 
 #' \dontrun{  # visualize the bernstein polynomials
 #' 
@@ -63,8 +67,8 @@ bernstein <- function(k, n, indeterminate = "x"){
   
   ## class list
   class(p) <- c("bernstein", "mpoly")
-  attr(p, "bernstein") <- c(k = k, n = n, indeterminate = indeterminate)
-  
+  attr(p, "bernstein") <- list(k = k, n = n, indeterminate = indeterminate)
+
   ## swap and return
   swap(p, "x", indeterminate)
 }

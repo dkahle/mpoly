@@ -1,11 +1,12 @@
 #' Bezier polynomials
 #' 
 #' Compute the Bezier polynomials of a given collection of points.  Note that 
-#' evaluating the polynomials with \code{\link{as.function.mpoly}} will not take
-#' advantage of efficient algorithms such as De Casteljau's algorithm to do so. 
-#' For that, see the bezier package.
+#' using \code{\link{as.function}} on the resulting Bezier polynomials is made 
+#' numerically stable by taking advantage of de Casteljau's algorithm; it does
+#' not use the polynomial that is printed to the screen.
 #' 
-#' @param ... either a sequence of points or a matrix/data frame of points, see examples
+#' @param ... either a sequence of points or a matrix/data frame of points, see 
+#'   examples
 #' @param indeterminate the indeterminate of the resulting polynomial
 #' @return a mpoly object
 #' @author David Kahle
@@ -31,16 +32,15 @@
 #' \dontrun{  # visualize the bernstein polynomials
 #' 
 #' library(ggplot2); theme_set(theme_bw())
-#'
+#' 
 #' s <- seq(0, 1, length.out = 101) 
 #' 
 #' ## example 1
 #' points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 #' (bezPolys <- bezier(points))
+#' f <- as.function(bezPolys)
+#' df <- as.data.frame(f(s))
 #' 
-#' df <- t(sapply(s, as.function(bezPolys)) )
-#' df <- as.data.frame(df)
-#' names(df) <- c("x", "y")
 #' qplot(x, y, data = df, geom = "path") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_point(data = points, color = "red", size = 8)
@@ -51,10 +51,9 @@
 #' ## example 2
 #' points <- data.frame(x = 0:2, y = c(0,1,0))
 #' (bezPolys <- bezier(points))
+#' f <- as.function(bezPolys)
+#' df <- as.data.frame(f(s))
 #' 
-#' df <- t(sapply(s, as.function(bezPolys)) )
-#' df <- as.data.frame(df)
-#' names(df) <- c("x", "y")
 #' qplot(x, y, data = df, geom = "path") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_point(data = points, color = "red", size = 8)
@@ -65,10 +64,9 @@
 #' ## example 3
 #' points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 #' (bezPolys <- bezier(points))
+#' f <- as.function(bezPolys)
+#' df <- as.data.frame(f(s))
 #' 
-#' df <- t(sapply(s, as.function(bezPolys)) )
-#' df <- as.data.frame(df)
-#' names(df) <- c("x", "y")
 #' qplot(x, y, data = df, geom = "path") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_point(data = points, color = "red", size = 8)
@@ -79,15 +77,25 @@
 #' ## example 4
 #' points <- data.frame(x = c(-1,2,-2,1), y = c(0,1,1,0))
 #' (bezPolys <- bezier(points))
+#' f <- as.function(bezPolys)
+#' df <- as.data.frame(f(s))
 #' 
-#' df <- t(sapply(s, as.function(bezPolys)) )
-#' df <- as.data.frame(df)
-#' names(df) <- c("x", "y")
 #' qplot(x, y, data = df, geom = "path") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_point(data = points, color = "red", size = 8)
+#'   
+#'   
+#'   
+#'   
+#' ## example 5
+#' qplot(speed, dist, data = cars)
 #' 
-#' 
+#' s <- seq(0, 1, length.out = 201) 
+#' p <- bezier(cars)
+#' f <- as.function(p)
+#' df <- as.data.frame(f(s))
+#' qplot(speed, dist, data = cars) +
+#'   geom_path(data = df, color = "red")
 #' 
 #' 
 #' }
@@ -121,6 +129,7 @@ bezier <- function(..., indeterminate = "t"){
   ## make polynomial
   n <- nrow(points) 
   bernPolys <- bernstein(0:(n-1), n-1, indeterminate)
+  
   
   ## initialize bezPoly
   d <- ncol(points)
