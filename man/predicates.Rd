@@ -2,6 +2,7 @@
 % Please edit documentation in R/predicates.R
 \name{predicates}
 \alias{is.bernstein}
+\alias{is.bezier}
 \alias{is.chebyshev}
 \alias{is.constant}
 \alias{is.linear}
@@ -15,6 +16,8 @@ is.constant(p)
 is.mpoly(x)
 
 is.bernstein(x)
+
+is.bezier(x)
 
 is.chebyshev(x)
 

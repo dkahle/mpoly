@@ -120,7 +120,7 @@ bezier <- function(..., indeterminate = "t"){
 
   ## make polynomial
   n <- nrow(points) 
-  bernPolys <- bernstein(0:(n-1), n-1, "t")
+  bernPolys <- bernstein(0:(n-1), n-1, indeterminate)
   
   ## initialize bezPoly
   d <- ncol(points)
@@ -138,6 +138,10 @@ bezier <- function(..., indeterminate = "t"){
     ## accumulate onto bezPoly
     bezPoly <- bezPoly + polyWeights * basis
   }
+  
+  ## class with meta-data
+  class(bezPoly) <- c("bezier", "mpolyList")
+  attr(bezPoly, "bezier") <- list(points = points)
   
   ## return
   bezPoly

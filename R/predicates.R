@@ -84,6 +84,13 @@ is.bernstein <- function(x) any(class(x) == "bernstein")
 
 
 
+#' @export
+#' @rdname predicates
+is.bezier <- function(x) any(class(x) == "bezier")
+
+
+
+
 
 
 #' @export
