@@ -107,7 +107,7 @@ grobner(polys)
 
 ## Special polynomials
 
-You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
+__mpoly__ can make use of many pieces of the __polynom__ and __orthopolynom__ packages with `as.mpoly()` methods.  For instance, you can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 ```{r}
 chebyshev(1)
 chebyshev(2)
@@ -118,8 +118,7 @@ And you can visualize them:
 ```{r, fig.height=3}
 library(reshape2)
 
-s <- seq(-1, 1, length.out = 201)
-N <- 5 # number of chebyshev polynomials to plot
+s <- seq(-1, 1, length.out = 201); N <- 5
 (chebPolys <- chebyshev(0:N))
 
 df <- t(sapply(s, as.function(chebPolys)) )
@@ -129,7 +128,21 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "line", color = variable)
 ```
 
-[Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are available with `bernstein()`:
+[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available, too:
+```{r}
+s <- seq(-1, 1, length.out = 201); N <- 5
+(jacPolys <- jacobi(0:N, 2, 2))
+ 
+df <- t(sapply(s, as.function(jacPolys)) )
+df <- as.data.frame(cbind(s, df))
+names(df) <- c("x", paste0("P_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = variable)
+```
+
+
+
+[Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in __polynom__ or __orthopolynom__ but are available in __mpoly__ with `bernstein()`:
 ```{r, fig.height=3}
 bernstein(0:4, 4)
 

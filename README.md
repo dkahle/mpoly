@@ -5,7 +5,7 @@ mpoly
 Specifying polynomials
 ----------------------
 
-**mpoly** is a simple collection of tools to help deal with multivariate polynomials *symbolically* and functionally in R. Polynomials are defined with the `mp` function:
+**mpoly** is a simple collection of tools to help deal with multivariate polynomials *symbolically* and functionally in R. Polynomials are defined with the `mp()` function:
 
 ``` r
 library(mpoly)
@@ -27,7 +27,7 @@ reorder(p, varorder = c('x','y'), order = 'glex')
 #> x^3  +  2 x^2 y  +  x y^2  +  x^2  +  2 x y  +  y^2
 ```
 
-Vectors of polynomials (`mpolyList`s) can be specified in the same way:
+Vectors of polynomials (`mpolyList`'s) can be specified in the same way:
 
 ``` r
 mp(c("(x+y)^2", "z"))
@@ -138,20 +138,28 @@ grobner(polys)
 Special polynomials
 -------------------
 
-You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
+**mpoly** can make use of many pieces of the **polynom** and **orthopolynom** packages with `as.mpoly()` methods. For instance, you can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 
 ``` r
 chebyshev(1)
+#> Loading required package: polynom
+#> 
+#> Attaching package: 'polynom'
+#> 
+#> The following object is masked from 'package:mpoly':
+#> 
+#>     LCM
+#> 
 #> x
 chebyshev(2)
-#> 2 x^2  -  1
+#> -1  +  2 x^2
 chebyshev(0:5)
 #> 1
 #> x
-#> 2 x^2  -  1
-#> 4 x^3  -  3 x
-#> 8 x^4  -  8 x^2  +  1
-#> 16 x^5  -  20 x^3  +  5 x
+#> -1  +  2 x^2
+#> -3 x  +  4 x^3
+#> 1  -  8 x^2  +  8 x^4
+#> 5 x  -  20 x^3  +  16 x^5
 ```
 
 And you can visualize them:
@@ -159,15 +167,14 @@ And you can visualize them:
 ``` r
 library(reshape2)
 
-s <- seq(-1, 1, length.out = 201)
-N <- 5 # number of chebyshev polynomials to plot
+s <- seq(-1, 1, length.out = 201); N <- 5
 (chebPolys <- chebyshev(0:N))
 #> 1
 #> x
-#> 2 x^2  -  1
-#> 4 x^3  -  3 x
-#> 8 x^4  -  8 x^2  +  1
-#> 16 x^5  -  20 x^3  +  5 x
+#> -1  +  2 x^2
+#> -3 x  +  4 x^3
+#> 1  -  8 x^2  +  8 x^4
+#> 5 x  -  20 x^3  +  16 x^5
 
 df <- t(sapply(s, as.function(chebPolys)) )
 #> f(x)
@@ -179,7 +186,29 @@ qplot(x, value, data = mdf, geom = "line", color = variable)
 
 ![](README-unnamed-chunk-11-1.png)
 
-[Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are available with `bernstein()`:
+[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available, too:
+
+``` r
+s <- seq(-1, 1, length.out = 201); N <- 5
+(jacPolys <- jacobi(0:N, 2, 2))
+#> 1
+#> 5 x
+#> -2.5  +  17.5 x^2
+#> -17.5 x  +  52.5 x^3
+#> 4.375  -  78.75 x^2  +  144.375 x^4
+#> 39.375 x  -  288.75 x^3  +  375.375 x^5
+ 
+df <- t(sapply(s, as.function(jacPolys)) )
+#> f(x)
+df <- as.data.frame(cbind(s, df))
+names(df) <- c("x", paste0("P_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = variable)
+```
+
+![](README-unnamed-chunk-12-1.png)
+
+[Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in **polynom** or **orthopolynom** but are available in **mpoly** with `bernstein()`:
 
 ``` r
 bernstein(0:4, 4)
@@ -207,7 +236,7 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "line", color = variable)
 ```
 
-![](README-unnamed-chunk-12-1.png)
+![](README-unnamed-chunk-13-1.png)
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function. Here's an approximation to the standard normal density:
 
@@ -226,7 +255,7 @@ df <- data.frame(
 qplot(x, y, data = df, geom = "line", color = which)
 ```
 
-![](README-unnamed-chunk-13-1.png)
+![](README-unnamed-chunk-14-1.png)
 
 Bezier polynomials and curves
 -----------------------------
@@ -244,7 +273,6 @@ And viewing them is just as easy:
 
 ``` r
 df <- t(sapply(s, as.function(bezPolys)) )
-#> f(t)
 df <- as.data.frame(df)
 names(df) <- c("x", "y")
 qplot(x, y, data = df, geom = "path") +
@@ -252,7 +280,7 @@ qplot(x, y, data = df, geom = "path") +
   geom_point(data = points, color = "red", size = 4)
 ```
 
-![](README-unnamed-chunk-15-1.png)
+![](README-unnamed-chunk-16-1.png)
 
 Other stuff
 -----------
@@ -266,13 +294,13 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> 2 x  -  1.031 x^2  -  2.694
+#> 2.105 x  -  0.969 x^2  -  3.118
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
 ```
 
-![](README-unnamed-chunk-16-1.png)
+![](README-unnamed-chunk-17-1.png)
 
 Installation
 ------------
