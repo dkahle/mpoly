@@ -165,7 +165,17 @@ chebyshev(0:5)
 And you can visualize them:
 
 ``` r
-library(reshape2)
+library(reshape2); library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> 
+#> The following object is masked from 'package:stats':
+#> 
+#>     filter
+#> 
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
 s <- seq(-1, 1, length.out = 201); N <- 5
 (chebPolys <- chebyshev(0:N))
@@ -176,9 +186,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 #> 1  -  8 x^2  +  8 x^4
 #> 5 x  -  20 x^3  +  16 x^5
 
-df <- t(sapply(s, as.function(chebPolys)) )
+df <- sapply(s, as.function(chebPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
-df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
@@ -198,9 +207,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 #> 4.375  -  78.75 x^2  +  144.375 x^4
 #> 39.375 x  -  288.75 x^3  +  375.375 x^5
  
-df <- t(sapply(s, as.function(jacPolys)) )
+df <- sapply(s, as.function(jacPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
-df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
@@ -228,9 +236,8 @@ N <- 5 # number of bernstein polynomials to plot
 #> 5 x^4  -  5 x^5
 #> x^5
 
-df <- t(sapply(s, as.function(bernPolys)) )
+df <- sapply(s, as.function(bernPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
-df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("B_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
@@ -272,26 +279,41 @@ points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 And viewing them is just as easy:
 
 ``` r
-df <- t(sapply(s, as.function(bezPolys)) )
-df <- as.data.frame(df)
+df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
 names(df) <- c("x", "y")
-qplot(x, y, data = df, geom = "path") +
-  geom_path(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 4)
+ggplot(aes(x = x, y = y), data = df) + 
+  geom_point(data = points, color = "red", size = 8) +
+  geom_path(data = points, color = "red", linetype = 2) +
+  geom_path()
 ```
 
 ![](README-unnamed-chunk-16-1.png)
+
+``` r
+points <- data.frame(x = c(1,-3,3,-1), y = c(0,1,1,0))
+(bezPolys <- bezier(points))
+#> -12 t  +  30 t^2  -  20 t^3  +  1
+#> 3 t  -  3 t^2
+df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
+names(df) <- c("x", "y")
+ggplot(aes(x = x, y = y), data = df) + 
+  geom_point(data = points, color = "red", size = 8) +
+  geom_path(data = points, color = "red", linetype = 2) +
+  geom_path()
+```
+
+![](README-unnamed-chunk-17-1.png)
 
 To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm). This allows `bezier()` to be used as a smoother:
 
 ``` r
 s <- seq(0, 1, length.out = 201) 
-df <- as.data.frame(as.function(bezier(cars))(s))
+df <- as.function(bezier(cars))(s) %>% as.data.frame
 qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 ```
 
-![](README-unnamed-chunk-17-1.png)
+![](README-unnamed-chunk-18-1.png)
 
 Other stuff
 -----------
@@ -304,14 +326,14 @@ df <- data.frame(x = seq(-5, 5, length.out = n))
 df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
-(p <- round(as.mpoly(mod)))
-#> 1.957 x  -  0.976 x^2  -  3.585
+(p <- mod %>% as.mpoly %>% round)
+#> 2.017 x  -  0.997 x^2  -  2.723
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
 ```
 
-![](README-unnamed-chunk-18-1.png)
+![](README-unnamed-chunk-19-1.png)
 
 Installation
 ------------
