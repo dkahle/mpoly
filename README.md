@@ -181,7 +181,7 @@ df <- t(sapply(s, as.function(chebPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "line", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
 ![](README-unnamed-chunk-11-1.png)
@@ -203,7 +203,7 @@ df <- t(sapply(s, as.function(jacPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = variable)
+qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
 ```
 
 ![](README-unnamed-chunk-12-1.png)
@@ -233,7 +233,7 @@ df <- t(sapply(s, as.function(bernPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("B_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "line", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
 ![](README-unnamed-chunk-13-1.png)
@@ -252,7 +252,7 @@ df <- data.frame(
   which = rep(c("actual", "approx"), each = 101)
 )
 #> f(x)
-qplot(x, y, data = df, geom = "line", color = which)
+qplot(x, y, data = df, geom = "path", color = which)
 ```
 
 ![](README-unnamed-chunk-14-1.png)
@@ -294,7 +294,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> 2.105 x  -  0.969 x^2  -  3.118
+#> 2.124 x  -  1.003 x^2  -  3.515
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)

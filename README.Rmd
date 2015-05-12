@@ -125,11 +125,11 @@ df <- t(sapply(s, as.function(chebPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "line", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
 [Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available, too:
-```{r}
+```{r, fig.height=3}
 s <- seq(-1, 1, length.out = 201); N <- 5
 (jacPolys <- jacobi(0:N, 2, 2))
  
@@ -137,7 +137,7 @@ df <- t(sapply(s, as.function(jacPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = variable)
+qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
 ```
 
 
@@ -154,7 +154,7 @@ df <- t(sapply(s, as.function(bernPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("B_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "line", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function.  Here's an approximation to the standard normal density:
@@ -169,7 +169,7 @@ df <- data.frame(
   y = c(dnorm(x), as.function(p)(x)),
   which = rep(c("actual", "approx"), each = 101)
 )
-qplot(x, y, data = df, geom = "line", color = which)
+qplot(x, y, data = df, geom = "path", color = which)
 ```
 
 
