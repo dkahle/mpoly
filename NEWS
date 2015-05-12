@@ -5,8 +5,10 @@ NEW FEATURES
 
 * A new function called plug allows users to plug values into indeterminates in mpoly objects.
 * A new function called chebyshev allows users to compute Chebyshev polynomials.  To do this (more) efficiently, memoisation is used.
-* New functions called bernstein and bernsteinApprox allow users to compute Bernstein polynomials and approximate functions with Bernstein polynomials, see examples.
-* A new function called bezier allows users to compute the polynomials associated with Bezier curves.
+* New functions called bernstein and bernsteinApprox allow users to compute Bernstein polynomials and approximate functions with Bernstein polynomials, see examples.  A special as.function method exists for evaluating these in a numerically stable way.
+* A new function called bezier allows users to compute the polynomials associated with Bezier curves.  A special as.function method exists for evaluating these in a numerically stable way via de Casteljau's algorithm, based on a new function called bezierFunction (exported).
+* Several new predicate functions are exported.
+* ggplot2 is now imported.
 
 CHANGES
 

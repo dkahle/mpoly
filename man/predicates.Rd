@@ -11,7 +11,7 @@
 \alias{predicates}
 \title{mpoly predicate functions}
 \usage{
-is.constant(p)
+is.constant(x)
 
 is.mpoly(x)
 
@@ -21,7 +21,7 @@ is.bezier(x)
 
 is.chebyshev(x)
 
-is.mpolyList(mpolyList)
+is.mpolyList(x)
 
 is.linear(x)
 }

@@ -16,9 +16,9 @@ Imports:
     rjson,
     partitions,
     plyr,
-    stats
+    stats,
+    ggplot2
 Suggests:
-    ggplot2,
     MASS
 License: GPL-2
 Suggests:

@@ -2,7 +2,7 @@
 #'
 #' A package for symbolic computation and more with multivariate polynomials
 #'
-#' @import stringr rSymPy rJython rJava rjson partitions plyr stats
+#' @import stringr rSymPy rJython rJava rjson partitions plyr stats ggplot2
 #' @docType package
 #' @name mpoly
 #' @aliases mpoly package-mpoly

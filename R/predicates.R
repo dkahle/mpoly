@@ -57,9 +57,9 @@ is.letter <- function(char) str_detect(char, "[a-zA-Z]{1}")
 
 #' @export
 #' @rdname predicates
-is.constant <- function(p){
-  if(is.mpoly(p) && length(p) == 1 && length(p[[1]]) == 1) return(TRUE)
-  if(is.mpolyList(p)) return(vapply(p, is.constant, logical(1)))
+is.constant <- function(x){
+  if(is.mpoly(x) && length(x) == 1 && length(x[[1]]) == 1) return(TRUE)
+  if(is.mpolyList(x)) return(vapply(x, is.constant, logical(1)))
   FALSE
 }
 
@@ -107,8 +107,8 @@ is.chebyshev <- function(x) any(class(x) == "chebyshev")
 
 #' @export
 #' @rdname predicates
-is.mpolyList <- function(mpolyList){
-  if(any(class(mpolyList) == "mpolyList")){
+is.mpolyList <- function(x){
+  if(any(class(x) == "mpolyList")){
     return(TRUE)  
   } else {
     return(FALSE)	
