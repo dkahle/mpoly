@@ -1,14 +1,17 @@
 #' Chebyshev polynomials
 #' 
-#' Chebyshev polynomials
+#' Chebyshev polynomials as computed by orthopolynom.
 #' 
 #' @param degree degree of polynomial
-#' @param kind "t" or "u" (Chebyshev polynomials of the first and second kinds), or "c" or "s"
+#' @param kind "t" or "u" (Chebyshev polynomials of the first and second kinds),
+#'   or "c" or "s"
 #' @param indeterminate indeterminate
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
-#' @seealso chebyshev.t.polynomials, chebyshev.u.polynomials, chebyshev.c.polynomials, chebyshev.s.polynomials
+#' @seealso chebyshev.t.polynomials, chebyshev.u.polynomials,
+#'   chebyshev.c.polynomials, chebyshev.s.polynomials,
+#'   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 #' @export
 #' @examples
 #' 
@@ -46,7 +49,7 @@
 #' qplot(x, value, data = mdf, geom = "line", color = variable)
 #' 
 #' 
-#'
+#' 
 chebyshev <- function(degree, kind = "t", indeterminate = "x", normalized = FALSE){
   
   stopifnot(all(is.wholenumber(degree)))

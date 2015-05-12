@@ -9,7 +9,8 @@ chebyshev(degree, kind = "t", indeterminate = "x", normalized = FALSE)
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{"t" or "u" (Chebyshev polynomials of the first and second kinds), or "c" or "s"}
+\item{kind}{"t" or "u" (Chebyshev polynomials of the first and second kinds),
+or "c" or "s"}
 
 \item{indeterminate}{indeterminate}
 
@@ -19,7 +20,7 @@ chebyshev(degree, kind = "t", indeterminate = "x", normalized = FALSE)
 a mpoly object or mpolyList object
 }
 \description{
-Chebyshev polynomials
+Chebyshev polynomials as computed by orthopolynom.
 }
 \examples{
 chebyshev(0)
@@ -59,6 +60,8 @@ qplot(x, value, data = mdf, geom = "line", color = variable)
 David Kahle calling code from the orthopolynom package
 }
 \seealso{
-chebyshev.t.polynomials, chebyshev.u.polynomials, chebyshev.c.polynomials, chebyshev.s.polynomials
+chebyshev.t.polynomials, chebyshev.u.polynomials,
+  chebyshev.c.polynomials, chebyshev.s.polynomials,
+  \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }
 
