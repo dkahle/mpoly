@@ -39,7 +39,11 @@ bezier(points)
 
 
 
-\dontrun{  # visualize the bernstein polynomials
+
+
+
+
+# visualize the bernstein polynomials
 
 library(ggplot2); theme_set(theme_bw())
 
@@ -124,9 +128,6 @@ f <- as.function(p)
 df <- as.data.frame(f(s))
 qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
-
-
-}
 }
 \author{
 David Kahle

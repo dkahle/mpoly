@@ -41,7 +41,20 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path()
 
 
+
+
 f <- bezierFunction(points, weights = c(1,5,5,1))
+df <- as.data.frame(f(t))
+
+ggplot(aes(x = x, y = y), data = df) +
+  geom_point(data = points, color = "red", size = 8) +
+  geom_path(data = points, color = "red") +
+  geom_path()
+
+
+
+
+f <- bezierFunction(points, weights = c(1,10,10,1))
 df <- as.data.frame(f(t))
 
 ggplot(aes(x = x, y = y), data = df) +

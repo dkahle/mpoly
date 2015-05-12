@@ -31,7 +31,11 @@
 #' 
 #' 
 #' 
-#' \dontrun{  # visualize the bernstein polynomials
+#' 
+#' 
+#' 
+#' 
+#' # visualize the bernstein polynomials
 #' 
 #' library(ggplot2); theme_set(theme_bw())
 #' 
@@ -118,7 +122,6 @@
 #'   geom_path(data = df, color = "red")
 #' 
 #' 
-#' }
 #' 
 bezier <- function(..., indeterminate = "t"){  
   
@@ -247,6 +250,8 @@ bezier <- function(..., indeterminate = "t"){
 #'   geom_path()
 #'   
 #'   
+#'   
+#'   
 #' f <- bezierFunction(points, weights = c(1,5,5,1))
 #' df <- as.data.frame(f(t))
 #' 
@@ -257,6 +262,14 @@ bezier <- function(..., indeterminate = "t"){
 #'   
 #'   
 #'   
+#'   
+#' f <- bezierFunction(points, weights = c(1,10,10,1))
+#' df <- as.data.frame(f(t))
+#' 
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_path(data = points, color = "red") +
+#'   geom_path()
 #'   
 #'   
 #'   
@@ -297,7 +310,8 @@ bezierFunction <- function(points, weights = rep(1L, nrow(points))){
 
 
 
-
+#' @export 
+#' @rdname as.function.mpolyList
 as.function.bezier <- function(x, ...) bezierFunction(attr(x, "bezier")$points, ...)
 
 
