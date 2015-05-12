@@ -282,24 +282,26 @@ And viewing them is just as easy:
 df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
 names(df) <- c("x", "y")
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red", size = 4) +
   geom_path(data = points, color = "red", linetype = 2) +
-  geom_path()
+  geom_path(size = 2)
 ```
 
 ![](README-unnamed-chunk-16-1.png)
 
+Weighting is available also:
+
 ``` r
-points <- data.frame(x = c(1,-3,3,-1), y = c(0,1,1,0))
+points <- data.frame(x = c(1,-2,2,-1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
-#> -12 t  +  30 t^2  -  20 t^3  +  1
+#> -9 t  +  21 t^2  -  14 t^3  +  1
 #> 3 t  -  3 t^2
-df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
+df <- sapply(s, as.function(bezPolys, weights = c(1,5,5,1))) %>% t %>% as.data.frame
 names(df) <- c("x", "y")
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red", size = 4) +
   geom_path(data = points, color = "red", linetype = 2) +
-  geom_path()
+  geom_path(size = 2)
 ```
 
 ![](README-unnamed-chunk-17-1.png)
@@ -327,7 +329,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.017 x  -  0.997 x^2  -  2.723
+#> 2.166 x  -  1.036 x^2  -  2.588
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
