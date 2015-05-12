@@ -192,6 +192,14 @@ qplot(x, y, data = df, geom = "path") +
   geom_point(data = points, color = "red", size = 4)
 ```
 
+To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm).  This allows `bezier()` to be used as a smoother:
+```{r, fig.height=3}
+s <- seq(0, 1, length.out = 201) 
+df <- as.data.frame(as.function(bezier(cars))(s))
+qplot(speed, dist, data = cars) +
+  geom_path(data = df, color = "red")
+```
+
 
 
 ## Other stuff

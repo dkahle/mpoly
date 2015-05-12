@@ -282,6 +282,17 @@ qplot(x, y, data = df, geom = "path") +
 
 ![](README-unnamed-chunk-16-1.png)
 
+To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm). This allows `bezier()` to be used as a smoother:
+
+``` r
+s <- seq(0, 1, length.out = 201) 
+df <- as.data.frame(as.function(bezier(cars))(s))
+qplot(speed, dist, data = cars) +
+  geom_path(data = df, color = "red")
+```
+
+![](README-unnamed-chunk-17-1.png)
+
 Other stuff
 -----------
 
@@ -294,13 +305,13 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- round(as.mpoly(mod)))
-#> 2.124 x  -  1.003 x^2  -  3.515
+#> 1.957 x  -  0.976 x^2  -  3.585
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
 ```
 
-![](README-unnamed-chunk-17-1.png)
+![](README-unnamed-chunk-18-1.png)
 
 Installation
 ------------
