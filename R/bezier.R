@@ -2,14 +2,16 @@
 #' 
 #' Compute the Bezier polynomials of a given collection of points.  Note that 
 #' using \code{\link{as.function}} on the resulting Bezier polynomials is made 
-#' numerically stable by taking advantage of de Casteljau's algorithm; it does
-#' not use the polynomial that is printed to the screen.
+#' numerically stable by taking advantage of de Casteljau's algorithm; it does 
+#' not use the polynomial that is printed to the screen.  See
+#' \code{\link{bezierFunction}} for details
 #' 
 #' @param ... either a sequence of points or a matrix/data frame of points, see 
 #'   examples
 #' @param indeterminate the indeterminate of the resulting polynomial
 #' @return a mpoly object
 #' @author David Kahle
+#' @seealso bezierFunction
 #' @export
 #' @examples
 #' 
@@ -38,12 +40,27 @@
 #' ## example 1
 #' points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 #' (bezPolys <- bezier(points))
+#' 
 #' f <- as.function(bezPolys)
 #' df <- as.data.frame(f(s))
 #' 
-#' qplot(x, y, data = df, geom = "path") +
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
 #'   geom_path(data = points, color = "red") +
-#'   geom_point(data = points, color = "red", size = 8)
+#'   geom_path()
+#'   
+#'   
+#'   
+#'   
+#' ## example 1 with weights
+#' f <- as.function(bezPolys, weights = c(1,5,5,1))
+#' df <- as.data.frame(f(s))
+#' 
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_path(data = points, color = "red") +
+#'   geom_path()
+#'   
 #'   
 #'   
 #'   
@@ -54,9 +71,10 @@
 #' f <- as.function(bezPolys)
 #' df <- as.data.frame(f(s))
 #' 
-#' qplot(x, y, data = df, geom = "path") +
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
 #'   geom_path(data = points, color = "red") +
-#'   geom_point(data = points, color = "red", size = 8)
+#'   geom_path()
 #' 
 #' 
 #' 
@@ -67,9 +85,10 @@
 #' f <- as.function(bezPolys)
 #' df <- as.data.frame(f(s))
 #' 
-#' qplot(x, y, data = df, geom = "path") +
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
 #'   geom_path(data = points, color = "red") +
-#'   geom_point(data = points, color = "red", size = 8)
+#'   geom_path()
 #'   
 #'   
 #'   
@@ -80,9 +99,10 @@
 #' f <- as.function(bezPolys)
 #' df <- as.data.frame(f(s))
 #' 
-#' qplot(x, y, data = df, geom = "path") +
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
 #'   geom_path(data = points, color = "red") +
-#'   geom_point(data = points, color = "red", size = 8)
+#'   geom_path()
 #'   
 #'   
 #'   
@@ -155,4 +175,135 @@ bezier <- function(..., indeterminate = "t"){
   ## return
   bezPoly
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' Bezier function
+#' 
+#' Compute the Bezier function of a collection of polynomials.  By Bezier 
+#' function we mean the Bezier curve function, a parametric map running from t =
+#' 0, the first point, to t = 1, the last point, where the coordinate mappings 
+#' are linear combinations of Bernstein polynomials.
+#' 
+#' The function returned is vectorized and evaluates the Bezier curve in a 
+#' numerically stable way with de Castlejau's algorithm (implemented in R).
+#' 
+#' @param points a matrix or data frame of numerics.  the rows represent points.
+#' @param weights the weights in a weighted Bezier curve
+#' @return function of a single parameter
+#' @author David Kahle
+#' @references \url{http://en.wikipedia.org/wiki/Bezier_curve}, 
+#'   \url{http://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
+#' @seealso \code{\link{bezier}}
+#' @export
+#' @examples
+#' 
+#' library(ggplot2); theme_set(theme_bw())
+#' 
+#' 
+#' t <- seq(0, 1, length.out = 201)
+#' points <- data.frame(x = 0:3, y = c(0,1,-1,0))
+#' 
+#' 
+#' f <- bezierFunction(points)
+#' df <- as.data.frame(f(t))
+#' 
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_path(data = points, color = "red") +
+#'   geom_path()
+#'   
+#'   
+#' f <- bezierFunction(points, weights = c(1,5,5,1))
+#' df <- as.data.frame(f(t))
+#' 
+#' ggplot(aes(x = x, y = y), data = df) + 
+#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_path(data = points, color = "red") +
+#'   geom_path()
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#'   
+#' 
+bezierFunction <- function(points, weights = rep(1L, nrow(points))){
+  
+  n <- nrow(points)
+  degree <- n-1
+  points <- cbind(1, as.matrix(points))
+  points <- weights * points
+  
+  combineTwo <- function(vec, t) t*vec[-length(vec)] + (1-t)*vec[-1]  
+  
+  singlePointBezier <- function(.){
+    for(i in 1:degree) points <- apply(points, 2, combineTwo, t = .)
+    points[-1] / points[1]
+  }  
+  
+  function(.){
+    if(length(.) > 1) return(t(sapply(., singlePointBezier)))
+    singlePointBezier(.)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+as.function.bezier <- function(x, ...) bezierFunction(attr(x, "bezier")$points, ...)
+
+
+
+
+
+
+
 

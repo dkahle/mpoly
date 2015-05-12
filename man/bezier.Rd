@@ -19,7 +19,8 @@ a mpoly object
 Compute the Bezier polynomials of a given collection of points.  Note that
 using \code{\link{as.function}} on the resulting Bezier polynomials is made
 numerically stable by taking advantage of de Casteljau's algorithm; it does
-not use the polynomial that is printed to the screen.
+not use the polynomial that is printed to the screen.  See
+\code{\link{bezierFunction}} for details
 }
 \examples{
 p1 <- c(0,  0)
@@ -47,12 +48,27 @@ s <- seq(0, 1, length.out = 101)
 ## example 1
 points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 (bezPolys <- bezier(points))
+
 f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
-qplot(x, y, data = df, geom = "path") +
+ggplot(aes(x = x, y = y), data = df) +
+  geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 8)
+  geom_path()
+
+
+
+
+## example 1 with weights
+f <- as.function(bezPolys, weights = c(1,5,5,1))
+df <- as.data.frame(f(s))
+
+ggplot(aes(x = x, y = y), data = df) +
+  geom_point(data = points, color = "red", size = 8) +
+  geom_path(data = points, color = "red") +
+  geom_path()
+
 
 
 
@@ -63,9 +79,10 @@ points <- data.frame(x = 0:2, y = c(0,1,0))
 f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
-qplot(x, y, data = df, geom = "path") +
+ggplot(aes(x = x, y = y), data = df) +
+  geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 8)
+  geom_path()
 
 
 
@@ -76,9 +93,10 @@ points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
-qplot(x, y, data = df, geom = "path") +
+ggplot(aes(x = x, y = y), data = df) +
+  geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 8)
+  geom_path()
 
 
 
@@ -89,9 +107,10 @@ points <- data.frame(x = c(-1,2,-2,1), y = c(0,1,1,0))
 f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
-qplot(x, y, data = df, geom = "path") +
+ggplot(aes(x = x, y = y), data = df) +
+  geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
-  geom_point(data = points, color = "red", size = 8)
+  geom_path()
 
 
 
@@ -111,5 +130,8 @@ qplot(speed, dist, data = cars) +
 }
 \author{
 David Kahle
+}
+\seealso{
+bezierFunction
 }
 
