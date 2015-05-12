@@ -3,10 +3,12 @@
 #' Chebyshev polynomials
 #' 
 #' @param degree degree of polynomial
-#' @param kind 1 or 2 (Chebyshev polynomials of the first and second kinds)
+#' @param kind "t" or "u" (Chebyshev polynomials of the first and second kinds), or "c" or "s"
 #' @param indeterminate indeterminate
-#' @return a mpoly object
-#' @author David Kahle modifying code from Adam Leerich modifying code from Hadley Wickham
+#' @param normalized provide normalized coefficients
+#' @return a mpoly object or mpolyList object
+#' @author David Kahle calling code from the orthopolynom package
+#' @seealso chebyshev.t.polynomials, chebyshev.u.polynomials, chebyshev.c.polynomials, chebyshev.s.polynomials
 #' @export
 #' @examples
 #' 
@@ -19,13 +21,16 @@
 #' chebyshev(6)
 #' chebyshev(10)
 #' 
-#' chebyshev(0:5)
-#' chebyshev(0:5, 2)
-#' 
+#' chebyshev(0:5) 
+#' chebyshev(0:5, normalize = TRUE)
+#' chebyshev(0:5, kind = "u")
+#' chebyshev(0:5, kind = "c")
+#' chebyshev(0:5, kind = "s")
 #' chebyshev(0:5, indeterminate = "t")
 #' 
 #' 
-#' \dontrun{  # visualize the chebyshev polynomials
+#' 
+#' # visualize the chebyshev polynomials
 #' 
 #' library(ggplot2); theme_set(theme_bw())
 #' library(reshape2)
@@ -41,74 +46,42 @@
 #' qplot(x, value, data = mdf, geom = "line", color = variable)
 #' 
 #' 
-#' }
 #'
-chebyshev <- function(degree, kind = 1, indeterminate = "x"){
+chebyshev <- function(degree, kind = "t", indeterminate = "x", normalized = FALSE){
   
   stopifnot(all(is.wholenumber(degree)))
   stopifnot(all(degree >= 0))
-  
+
   
   ## deal with kind
-  if(kind == 1){
-    multiplier <- 1
-  } else if(kind == 2){
-    multiplier <- 2
-  } else{
-    stop("only kinds 1 and 2 are allowed.", call. = FALSE)
+  stopifnot(kind %in% c("t","u","c","s"))
+  
+  ## make coefs
+  if(kind == "t") coefs <- chebyshev.t.polynomials(max(degree), normalized)
+  if(kind == "u") coefs <- chebyshev.u.polynomials(max(degree), normalized)
+  if(kind == "c") coefs <- chebyshev.c.polynomials(max(degree), normalized)
+  if(kind == "s") coefs <- chebyshev.s.polynomials(max(degree), normalized)
+  
+  ## if only one degree is wanted, return that
+  if(length(degree) == 1){
+    coefs <- rev.default(coefs)[[1]]
+    p <- as.mpoly.polynomial(coefs, indeterminate)
+    class(p) <- c("chebyshev", "mpoly")
+    attr(p, "chebyshev") <- list(degree = length(coefs)-1, kind = kind, indeterminate = indeterminate)
+    return(p)
   }
   
+  ## if several are wanted, return them
+  coefs <- coefs[degree+1]
+  ps <- lapply(coefs, function(polynomial){
+    p <- as.mpoly.polynomial(polynomial, indeterminate)
+    class(p) <- c("chebyshev", "mpoly")
+    attr(p, "chebyshev") <- list(degree = length(polynomial)-1, kind = kind, indeterminate = indeterminate)
+    p
+  })
+  class(ps) <- "mpolyList"
+  ps
 
-  ## set up memoise infrastructure
-  cache <- new.env(TRUE, emptyenv())
-  
-  cache_set <- function(key, value) assign(key, value, envir = cache)
-  
-  cache_get <- function(key) get(key, envir = cache, inherits = FALSE)
-  
-  cache_has_key <- function(key) exists(key, envir = cache, inherits = FALSE)
-  
-  
-  ## set base cases
-  cache_set("0", mp("1"))
-  cache_set("1", multiplier * mp(indeterminate))
-    
-  
-  ## write function
-  cheb <- function(n){    
-    
-    # deal with vectorized n
-    if(length(n) > 1){ 
-      listOPolys <- lapply(n, function(.) cheb(.))
-      class(listOPolys) <- "mpolyList"
-      listOPolys
-    }
-    
-    # set n as character (convenience)
-    nc <- as.character(n)
-    
-    # if result known, return
-    if(cache_has_key(nc)) return(cache_get(nc))
-    
-    # compute result
-    out <- 2*mp(indeterminate)*cheb(n-1) - cheb(n-2)
-    
-    # cache result
-    cache_set(nc, out)
-    
-    # return
-    out    
-  } 
-   
-  ## make polynomial
-  p <- cheb(degree)
-  
-  ## attribute it
-  class(p) <- c("chebyshev", "mpoly")
-  attr(p, "chebyshev") <- list(degree = degree, kind = kind, indeterminate = indeterminate)
-  
-  ##
-  p
 }
 
 

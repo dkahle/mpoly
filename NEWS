@@ -4,7 +4,9 @@ Version 0.1.1
 NEW FEATURES
 
 * A new function called plug allows users to plug values into indeterminates in mpoly objects.
-* A new function called chebyshev allows users to compute Chebyshev polynomials.  To do this (more) efficiently, memoisation is used.
+* mpoly now imports the polynom and orthopolynom packages, and has as.mpoly methods to parse their objects into mpoly objects.
+* mpoly now imports reshape2 for some visualization stuff.
+* A new function called chebyshev allows users to compute Chebyshev polynomials.  This is based on orthopolynom.
 * New functions called bernstein and bernsteinApprox allow users to compute Bernstein polynomials and approximate functions with Bernstein polynomials, see examples.  A special as.function method exists for evaluating these in a numerically stable way.
 * A new function called bezier allows users to compute the polynomials associated with Bezier curves.  A special as.function method exists for evaluating these in a numerically stable way via de Casteljau's algorithm, based on a new function called bezierFunction (exported).
 * Several new predicate functions are exported.

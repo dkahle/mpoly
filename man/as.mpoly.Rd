@@ -4,10 +4,12 @@
 \alias{as.mpoly}
 \title{Convert an object to an mpoly}
 \usage{
-as.mpoly(x)
+as.mpoly(x, ...)
 }
 \arguments{
-\item{x}{an object of class lm.}
+\item{x}{an object of class lm}
+
+\item{...}{additional arguments to pass to methods}
 }
 \value{
 the object formated as a mpoly object.
@@ -32,9 +34,8 @@ lines(s, f(s), col = "red")
 
 
 
-\dontrun{
 # one dimensional case with ggplot2
-library(ggplot2)
+library(ggplot2); theme_set(theme_bw())
 
 qplot(x, y, data = df)
 qplot(x, y, data = df) +
@@ -52,14 +53,6 @@ f <- as.function(p)
 df$fit <- apply(df[,c("x","y")], 1, f)
 qplot(x, y, data = df, geom = "raster", fill = fit)
 qplot(x, y, data = df, geom = "raster", fill = z - fit) # residuals
-
-
-
-
-# to do
-#mod <- lm(z ~ poly(x, y, degree = 2), data = df)
-
-}
 }
 \author{
 David Kahle \email{david.kahle@gmail.com}

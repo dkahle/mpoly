@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 ## Specifying polynomials
 
-__mpoly__ is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  Polynomials are defined with the `mp` function:
+__mpoly__ is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  Polynomials are defined with the `mp()` function:
 
 ```{r mp, echo = TRUE}
 library(mpoly)
@@ -35,7 +35,7 @@ reorder(p, varorder = c('y','x'), order = 'lex')
 reorder(p, varorder = c('x','y'), order = 'glex')
 ```
 
-Vectors of polynomials (`mpolyList`s) can be specified in the same way:
+Vectors of polynomials (`mpolyList`'s) can be specified in the same way:
 ```{r}
 mp(c("(x+y)^2", "z"))
 ```

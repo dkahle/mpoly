@@ -4,17 +4,19 @@
 \alias{chebyshev}
 \title{Chebyshev polynomials}
 \usage{
-chebyshev(degree, kind = 1, indeterminate = "x")
+chebyshev(degree, kind = "t", indeterminate = "x", normalized = FALSE)
 }
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{1 or 2 (Chebyshev polynomials of the first and second kinds)}
+\item{kind}{"t" or "u" (Chebyshev polynomials of the first and second kinds), or "c" or "s"}
 
 \item{indeterminate}{indeterminate}
+
+\item{normalized}{provide normalized coefficients}
 }
 \value{
-a mpoly object
+a mpoly object or mpolyList object
 }
 \description{
 Chebyshev polynomials
@@ -30,12 +32,15 @@ chebyshev(6)
 chebyshev(10)
 
 chebyshev(0:5)
-chebyshev(0:5, 2)
-
+chebyshev(0:5, normalize = TRUE)
+chebyshev(0:5, kind = "u")
+chebyshev(0:5, kind = "c")
+chebyshev(0:5, kind = "s")
 chebyshev(0:5, indeterminate = "t")
 
 
-\dontrun{  # visualize the chebyshev polynomials
+
+# visualize the chebyshev polynomials
 
 library(ggplot2); theme_set(theme_bw())
 library(reshape2)
@@ -49,11 +54,11 @@ df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "line", color = variable)
-
-
-}
 }
 \author{
-David Kahle modifying code from Adam Leerich modifying code from Hadley Wickham
+David Kahle calling code from the orthopolynom package
+}
+\seealso{
+chebyshev.t.polynomials, chebyshev.u.polynomials, chebyshev.c.polynomials, chebyshev.s.polynomials
 }
 

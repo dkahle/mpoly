@@ -17,7 +17,10 @@ Imports:
     partitions,
     plyr,
     stats,
-    ggplot2
+    ggplot2,
+    polynom,
+    orthopolynom,
+    reshape2
 Suggests:
     MASS
 License: GPL-2
