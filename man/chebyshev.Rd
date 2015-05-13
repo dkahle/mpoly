@@ -33,7 +33,7 @@ chebyshev(6)
 chebyshev(10)
 
 chebyshev(0:5)
-chebyshev(0:5, normalize = TRUE)
+chebyshev(0:5, normalized = TRUE)
 chebyshev(0:5, kind = "u")
 chebyshev(0:5, kind = "c")
 chebyshev(0:5, kind = "s")

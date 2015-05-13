@@ -37,7 +37,7 @@ jacobi(6)
 jacobi(10, 2, 2, normalized = TRUE)
 
 jacobi(0:5)
-jacobi(0:5, normalize = TRUE)
+jacobi(0:5, normalized = TRUE)
 jacobi(0:5, kind = "g")
 jacobi(0:5, indeterminate = "t")
 
