@@ -154,7 +154,7 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 df <- sapply(s, as.function(legPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
 #### Bernstein polynomials

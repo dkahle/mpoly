@@ -50,7 +50,7 @@ df <- t(sapply(s, as.function(legPolys)) )
 df <- as.data.frame(cbind(s, df))
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = variable)
+qplot(x, value, data = mdf, geom = "line", color = variable)
 }
 \author{
 David Kahle calling code from the orthopolynom package
