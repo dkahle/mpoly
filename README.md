@@ -138,7 +138,11 @@ grobner(polys)
 Special polynomials
 -------------------
 
-**mpoly** can make use of many pieces of the **polynom** and **orthopolynom** packages with `as.mpoly()` methods. For instance, you can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
+**mpoly** can make use of many pieces of the **polynom** and **orthopolynom** packages with `as.mpoly()` methods. In particular, many special polynomials are available.
+
+#### Chebyshev polynomials
+
+You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 
 ``` r
 chebyshev(1)
@@ -195,7 +199,9 @@ qplot(x, value, data = mdf, geom = "path", color = variable)
 
 ![](README-unnamed-chunk-11-1.png)
 
-[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available, too:
+#### Jacobi polynomials
+
+[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available:
 
 ``` r
 s <- seq(-1, 1, length.out = 201); N <- 5
@@ -215,6 +221,31 @@ qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = var
 ```
 
 ![](README-unnamed-chunk-12-1.png)
+
+#### Legendre polynomials
+
+[Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials) are available:
+
+``` r
+s <- seq(-1, 1, length.out = 201); N <- 5
+(legPolys <- legendre(0:N))
+#> 1
+#> x
+#> -0.5  +  1.5 x^2
+#> -1.5 x  +  2.5 x^3
+#> 0.375  -  3.75 x^2  +  4.375 x^4
+#> 1.875 x  -  8.75 x^3  +  7.875 x^5
+ 
+df <- sapply(s, as.function(legPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
+#> f(x)
+names(df) <- c("x", paste0("P_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+```
+
+![](README-unnamed-chunk-13-1.png)
+
+#### Bernstein polynomials
 
 [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in **polynom** or **orthopolynom** but are available in **mpoly** with `bernstein()`:
 
@@ -243,7 +274,7 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
-![](README-unnamed-chunk-13-1.png)
+![](README-unnamed-chunk-14-1.png)
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function. Here's an approximation to the standard normal density:
 
@@ -262,7 +293,7 @@ df <- data.frame(
 qplot(x, y, data = df, geom = "path", color = which)
 ```
 
-![](README-unnamed-chunk-14-1.png)
+![](README-unnamed-chunk-15-1.png)
 
 Bezier polynomials and curves
 -----------------------------
@@ -280,14 +311,14 @@ And viewing them is just as easy:
 
 ``` r
 df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
-names(df) <- c("x", "y")
+
 ggplot(aes(x = x, y = y), data = df) + 
   geom_point(data = points, color = "red", size = 4) +
   geom_path(data = points, color = "red", linetype = 2) +
   geom_path(size = 2)
 ```
 
-![](README-unnamed-chunk-16-1.png)
+![](README-unnamed-chunk-17-1.png)
 
 Weighting is available also:
 
@@ -297,14 +328,14 @@ points <- data.frame(x = c(1,-2,2,-1), y = c(0,1,1,0))
 #> -9 t  +  21 t^2  -  14 t^3  +  1
 #> 3 t  -  3 t^2
 df <- sapply(s, as.function(bezPolys, weights = c(1,5,5,1))) %>% t %>% as.data.frame
-names(df) <- c("x", "y")
+
 ggplot(aes(x = x, y = y), data = df) + 
   geom_point(data = points, color = "red", size = 4) +
   geom_path(data = points, color = "red", linetype = 2) +
   geom_path(size = 2)
 ```
 
-![](README-unnamed-chunk-17-1.png)
+![](README-unnamed-chunk-18-1.png)
 
 To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm). This allows `bezier()` to be used as a smoother:
 
@@ -315,7 +346,7 @@ qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 ```
 
-![](README-unnamed-chunk-18-1.png)
+![](README-unnamed-chunk-19-1.png)
 
 Other stuff
 -----------
@@ -329,13 +360,13 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.166 x  -  1.036 x^2  -  2.588
+#> 1.971 x  -  1.008 x^2  -  2.816
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
 ```
 
-![](README-unnamed-chunk-19-1.png)
+![](README-unnamed-chunk-20-1.png)
 
 Installation
 ------------

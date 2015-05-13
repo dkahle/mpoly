@@ -107,7 +107,11 @@ grobner(polys)
 
 ## Special polynomials
 
-__mpoly__ can make use of many pieces of the __polynom__ and __orthopolynom__ packages with `as.mpoly()` methods.  For instance, you can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
+__mpoly__ can make use of many pieces of the __polynom__ and __orthopolynom__ packages with `as.mpoly()` methods.  In particular, many special polynomials are available.
+
+#### Chebyshev polynomials
+
+You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 ```{r}
 chebyshev(1)
 chebyshev(2)
@@ -127,7 +131,9 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
-[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available, too:
+#### Jacobi polynomials
+
+[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available:
 ```{r, fig.height=3}
 s <- seq(-1, 1, length.out = 201); N <- 5
 (jacPolys <- jacobi(0:N, 2, 2))
@@ -138,7 +144,20 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
 ```
 
+#### Legendre polynomials
 
+[Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials) are available:
+```{r, fig.height=3}
+s <- seq(-1, 1, length.out = 201); N <- 5
+(legPolys <- legendre(0:N))
+ 
+df <- sapply(s, as.function(legPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
+names(df) <- c("x", paste0("P_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+```
+
+#### Bernstein polynomials
 
 [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in __polynom__ or __orthopolynom__ but are available in __mpoly__ with `bernstein()`:
 ```{r, fig.height=3}
