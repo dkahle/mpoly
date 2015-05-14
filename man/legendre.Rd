@@ -56,6 +56,7 @@ qplot(x, value, data = mdf, geom = "line", color = variable)
 David Kahle calling code from the orthopolynom package
 }
 \seealso{
-\url{http://en.wikipedia.org/wiki/Legendre_polynomials}
+\code{\link{legendre.polynomials}},
+  \url{http://en.wikipedia.org/wiki/Legendre_polynomials}
 }
 

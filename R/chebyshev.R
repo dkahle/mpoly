@@ -9,8 +9,10 @@
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
-#' @seealso chebyshev.t.polynomials, chebyshev.u.polynomials,
-#'   chebyshev.c.polynomials, chebyshev.s.polynomials,
+#' @seealso \code{\link{chebyshev.t.polynomials}}, 
+#'   \code{\link{chebyshev.u.polynomials}}, 
+#'   \code{\link{chebyshev.c.polynomials}},
+#'   \code{\link{chebyshev.s.polynomials}}, 
 #'   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 #' @export
 #' @examples

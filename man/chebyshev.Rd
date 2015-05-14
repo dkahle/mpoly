@@ -60,8 +60,10 @@ qplot(x, value, data = mdf, geom = "line", color = variable)
 David Kahle calling code from the orthopolynom package
 }
 \seealso{
-chebyshev.t.polynomials, chebyshev.u.polynomials,
-  chebyshev.c.polynomials, chebyshev.s.polynomials,
+\code{\link{chebyshev.t.polynomials}},
+  \code{\link{chebyshev.u.polynomials}},
+  \code{\link{chebyshev.c.polynomials}},
+  \code{\link{chebyshev.s.polynomials}},
   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }
 

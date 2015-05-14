@@ -76,7 +76,7 @@ gradient(p)
 ## Function coercion
 
 You can turn polynomials and vectors of polynomials into functions you can evaluate with `as.function()`.  For example, you can visualize a univariate polynomials like this:
-```{r, fig.height=3}
+```{r asFunction, fig.height=3}
 f <- as.function(mp("(x-2) x (x+2)"))
 s <- seq(-2.5, 2.5, .1)
 df <- expand.grid(x = s)
@@ -88,7 +88,7 @@ qplot(x, f, data = df, geom = "line")
 
 
 Or a bivariate polynomial like this:
-```{r}
+```{r asFuntionMulti}
 f <- as.function(mp("x^2 - y^2")) 
 df <- expand.grid(x = s, y = s)
 df$f <- apply(df, 1, f)
@@ -112,14 +112,14 @@ __mpoly__ can make use of many pieces of the __polynom__ and __orthopolynom__ pa
 #### Chebyshev polynomials
 
 You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
-```{r}
+```{r chebyshev1}
 chebyshev(1)
 chebyshev(2)
 chebyshev(0:5)
 ```
 
 And you can visualize them:
-```{r, fig.height=3}
+```{r chebyshev, fig.height=3}
 library(reshape2); library(dplyr)
 
 s <- seq(-1, 1, length.out = 201); N <- 5
@@ -131,10 +131,9 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
-#### Jacobi polynomials
+#### [Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials)
 
-[Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials) are available:
-```{r, fig.height=3}
+```{r jacobi, fig.height=3}
 s <- seq(-1, 1, length.out = 201); N <- 5
 (jacPolys <- jacobi(0:N, 2, 2))
  
@@ -144,10 +143,9 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
 ```
 
-#### Legendre polynomials
+#### [Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials)
 
-[Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials) are available:
-```{r, fig.height=3}
+```{r legendre, fig.height=3}
 s <- seq(-1, 1, length.out = 201); N <- 5
 (legPolys <- legendre(0:N))
  
@@ -157,10 +155,22 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
+#### [Hermite polynomials](http://en.wikipedia.org/wiki/Hermite_polynomials)
+
+```{r hermite, fig.height=3}
+s <- seq(-3, 3, length.out = 201); N <- 5
+(hermPolys <- hermite(0:N))
+
+df <- sapply(s, as.function(hermPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
+names(df) <- c("x", paste0("He_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+```
+
 #### Bernstein polynomials
 
 [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in __polynom__ or __orthopolynom__ but are available in __mpoly__ with `bernstein()`:
-```{r, fig.height=3}
+```{r bernstein, fig.height=3}
 bernstein(0:4, 4)
 
 s <- seq(0, 1, length.out = 101)
@@ -175,7 +185,7 @@ qplot(x, value, data = mdf, geom = "path", color = variable)
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function.  Here's an approximation to the standard normal density:
 
-```{r, fig.height=3}
+```{r bernsteinApprox, fig.height=3}
 p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
 round(p, 4)
 
@@ -193,13 +203,13 @@ qplot(x, y, data = df, geom = "path", color = which)
 ## Bezier polynomials and curves
 
 You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given collection of points with `bezier()`:
-```{r, fig.height=3}
+```{r bezier, fig.height=3}
 points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
 ```
 
 And viewing them is just as easy:
-```{r, fig.height = 3}
+```{r bezierPlot, fig.height = 3}
 df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
 
 ggplot(aes(x = x, y = y), data = df) + 
@@ -210,7 +220,7 @@ ggplot(aes(x = x, y = y), data = df) +
 
 Weighting is available also:
 
-```{r, fig.height = 3}
+```{r bezierWeighting, fig.height = 3}
 points <- data.frame(x = c(1,-2,2,-1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
 df <- sapply(s, as.function(bezPolys, weights = c(1,5,5,1))) %>% t %>% as.data.frame
@@ -222,7 +232,7 @@ ggplot(aes(x = x, y = y), data = df) +
 ```
 
 To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm).  This allows `bezier()` to be used as a smoother:
-```{r, fig.height=3}
+```{r bezierSmooth, fig.height=3}
 s <- seq(0, 1, length.out = 201) 
 df <- as.function(bezier(cars))(s) %>% as.data.frame
 qplot(speed, dist, data = cars) +
@@ -235,7 +245,7 @@ qplot(speed, dist, data = cars) +
 
 I'm starting to put in methods for some other R functions:
 
-```{r, fig.height=3}
+```{r lm, fig.height=3}
 n <- 101
 df <- data.frame(x = seq(-5, 5, length.out = n))
 df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
