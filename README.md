@@ -140,7 +140,7 @@ Special polynomials
 
 **mpoly** can make use of many pieces of the **polynom** and **orthopolynom** packages with `as.mpoly()` methods. In particular, many special polynomials are available.
 
-#### Chebyshev polynomials
+#### [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials)
 
 You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 
@@ -262,7 +262,7 @@ qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = var
 
 ![](README-hermite-1.png)
 
-#### Bernstein polynomials
+#### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
 
 [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in **polynom** or **orthopolynom** but are available in **mpoly** with `bernstein()`:
 
@@ -312,8 +312,8 @@ qplot(x, y, data = df, geom = "path", color = which)
 
 ![](README-bernsteinApprox-1.png)
 
-Bezier polynomials and curves
------------------------------
+[Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
+--------------------------------------------------------------------------
 
 You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given collection of points with `bezier()`:
 
@@ -377,7 +377,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 1.975 x  -  1.031 x^2  -  2.772
+#> 2.057 x  -  1.034 x^2  -  3.071
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)

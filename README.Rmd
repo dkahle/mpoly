@@ -109,7 +109,7 @@ grobner(polys)
 
 __mpoly__ can make use of many pieces of the __polynom__ and __orthopolynom__ packages with `as.mpoly()` methods.  In particular, many special polynomials are available.
 
-#### Chebyshev polynomials
+#### [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials)
 
 You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 ```{r chebyshev1}
@@ -167,7 +167,7 @@ mdf <- melt(df, id = "x")
 qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
 ```
 
-#### Bernstein polynomials
+#### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
 
 [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in __polynom__ or __orthopolynom__ but are available in __mpoly__ with `bernstein()`:
 ```{r bernstein, fig.height=3}
@@ -200,7 +200,7 @@ qplot(x, y, data = df, geom = "path", color = which)
 
 
 
-## Bezier polynomials and curves
+## [Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
 
 You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given collection of points with `bezier()`:
 ```{r bezier, fig.height=3}
