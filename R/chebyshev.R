@@ -72,7 +72,12 @@ chebyshev <- function(degree, kind = "t", indeterminate = "x", normalized = FALS
     coefs <- rev.default(coefs)[[1]]
     p <- as.mpoly.polynomial(coefs, indeterminate)
     class(p) <- c("chebyshev", "mpoly")
-    attr(p, "chebyshev") <- list(degree = length(coefs)-1, kind = kind, indeterminate = indeterminate)
+    attr(p, "chebyshev") <- list(
+      degree = length(polynomial)-1, 
+      kind = kind, 
+      indeterminate = indeterminate,
+      normalized = normalized
+    )
     return(p)
   }
   
@@ -81,7 +86,12 @@ chebyshev <- function(degree, kind = "t", indeterminate = "x", normalized = FALS
   ps <- lapply(coefs, function(polynomial){
     p <- as.mpoly.polynomial(polynomial, indeterminate)
     class(p) <- c("chebyshev", "mpoly")
-    attr(p, "chebyshev") <- list(degree = length(polynomial)-1, kind = kind, indeterminate = indeterminate)
+    attr(p, "chebyshev") <- list(
+      degree = length(polynomial)-1, 
+      kind = kind, 
+      indeterminate = indeterminate,
+      normalized = normalized
+    )
     p
   })
   class(ps) <- "mpolyList"

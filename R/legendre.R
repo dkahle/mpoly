@@ -59,7 +59,7 @@ legendre <- function(degree, indeterminate = "x", normalized = FALSE){
     coefs <- rev.default(coefs)[[1]]
     p <- as.mpoly.polynomial(coefs, indeterminate)
     class(p) <- c("legendre", "mpoly")
-    attr(p, "legendre") <- list(degree = length(coefs)-1, indeterminate = indeterminate)
+    attr(p, "legendre") <- list(degree = length(coefs)-1, indeterminate = indeterminate, normalized = normalized)
     return(p)
   }
   
@@ -68,7 +68,7 @@ legendre <- function(degree, indeterminate = "x", normalized = FALSE){
   ps <- lapply(coefs, function(polynomial){
     p <- as.mpoly.polynomial(polynomial, indeterminate)
     class(p) <- c("legendre", "mpoly")
-    attr(p, "legendre") <- list(degree = length(polynomial)-1, indeterminate = indeterminate)
+    attr(p, "legendre") <- list(degree = length(polynomial)-1, indeterminate = indeterminate, normalized = normalized)
     p
   })
   class(ps) <- "mpolyList"

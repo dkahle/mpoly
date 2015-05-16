@@ -65,7 +65,12 @@ hermite <- function(degree, kind = "he", indeterminate = "x", normalized = FALSE
     coefs <- rev.default(coefs)[[1]]
     p <- as.mpoly.polynomial(coefs, indeterminate)
     class(p) <- c("hermite", "mpoly")
-    attr(p, "hermite") <- list(degree = length(coefs)-1, kind = kind, indeterminate = indeterminate)
+    attr(p, "hermite") <- list(
+      degree = length(polynomial)-1, 
+      kind = kind, 
+      indeterminate = indeterminate,
+      normalized = normalized
+    )
     return(p)
   }
   
@@ -74,7 +79,12 @@ hermite <- function(degree, kind = "he", indeterminate = "x", normalized = FALSE
   ps <- lapply(coefs, function(polynomial){
     p <- as.mpoly.polynomial(polynomial, indeterminate)
     class(p) <- c("hermite", "mpoly")
-    attr(p, "hermite") <- list(degree = length(polynomial)-1, kind = kind, indeterminate = indeterminate)
+    attr(p, "hermite") <- list(
+      degree = length(polynomial)-1, 
+      kind = kind, 
+      indeterminate = indeterminate,
+      normalized = normalized
+    )
     p
   })
   class(ps) <- "mpolyList"
