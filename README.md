@@ -215,7 +215,8 @@ df <- sapply(s, as.function(jacPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable) +
+  coord_cartesian(ylim = c(-25, 25))
 ```
 
 ![](README-jacobi-1.png)
@@ -257,10 +258,32 @@ df <- sapply(s, as.function(hermPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
 names(df) <- c("x", paste0("He_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
 ```
 
 ![](README-hermite-1.png)
+
+#### [(Generalized) Laguerre polynomials](http://en.wikipedia.org/wiki/Laguerre_polynomials)
+
+``` r
+s <- seq(-5, 20, length.out = 201); N <- 5
+(lagPolys <- laguerre(0:N))
+#> 1
+#> 1  -  x
+#> 1  -  2 x  +  0.5 x^2
+#> 1  -  3 x  +  1.5 x^2  -  0.1666667 x^3
+#> 1  -  4 x  +  3 x^2  -  0.6666667 x^3  +  0.04166667 x^4
+#> 1  -  5 x  +  5 x^2  -  1.666667 x^3  +  0.2083333 x^4  -  0.008333333 x^5
+
+df <- sapply(s, as.function(lagPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
+#> f(x)
+names(df) <- c("x", paste0("L_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = mdf, geom = "path", color = variable) +
+  coord_cartesian(ylim = c(-25, 25))
+```
+
+![](README-laguerre-1.png)
 
 #### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
 
@@ -377,7 +400,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.057 x  -  1.034 x^2  -  3.071
+#> 1.947 x  -  1.028 x^2  -  2.756
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)

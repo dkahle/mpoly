@@ -140,7 +140,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 df <- sapply(s, as.function(jacPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable) +
+  coord_cartesian(ylim = c(-25, 25))
 ```
 
 #### [Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials)
@@ -164,7 +165,20 @@ s <- seq(-3, 3, length.out = 201); N <- 5
 df <- sapply(s, as.function(hermPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 names(df) <- c("x", paste0("He_", 0:N))
 mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 25), geom = "path", color = variable)
+qplot(x, value, data = mdf, geom = "path", color = variable)
+```
+
+#### [(Generalized) Laguerre polynomials](http://en.wikipedia.org/wiki/Laguerre_polynomials)
+
+```{r laguerre, fig.height=3}
+s <- seq(-5, 20, length.out = 201); N <- 5
+(lagPolys <- laguerre(0:N))
+
+df <- sapply(s, as.function(lagPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
+names(df) <- c("x", paste0("L_", 0:N))
+mdf <- melt(df, id = "x")
+qplot(x, value, data = mdf, geom = "path", color = variable) +
+  coord_cartesian(ylim = c(-25, 25))
 ```
 
 #### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
