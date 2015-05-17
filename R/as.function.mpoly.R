@@ -116,5 +116,28 @@ as.function.bernstein <- function(x, ...){
 
 
 
+as.function.jacobi <- function(x, ...){
+  return(as.function.mpoly(x)) ## below is broken.
+  
+  ## grab bernstein values
+  d <- attr(x, "jacobi")$degree
+  k <- attr(x, "jacobi")$kind
+  i <- attr(x, "jacobi")$indeterminate
+  n <- attr(x, "jacobi")$normalized
+  a <- attr(x, "jacobi")$alpha
+  b <- attr(x, "jacobi")$beta
+  
+  ## return exp'd log function
+  ## http://en.wikipedia.org/wiki/Jacobi_polynomials
+  function(.) pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1, (1-.)/2)
+  
+}
+
+
+
+
+
+
+
 
 

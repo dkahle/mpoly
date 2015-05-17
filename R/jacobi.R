@@ -71,7 +71,8 @@ jacobi <- function(degree, alpha = 1, beta = 1, kind = "p", indeterminate = "x",
       degree = length(polynomial)-1, 
       kind = kind, 
       indeterminate = indeterminate,
-      normalized = normalized
+      normalized = normalized,
+      alpha = alpha, beta = beta
     )
     return(p)
   }
@@ -85,7 +86,8 @@ jacobi <- function(degree, alpha = 1, beta = 1, kind = "p", indeterminate = "x",
       degree = length(polynomial)-1, 
       kind = kind, 
       indeterminate = indeterminate,
-      normalized = normalized
+      normalized = normalized,
+      alpha = alpha, beta = beta
     )
     p
   })
