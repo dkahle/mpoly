@@ -16,9 +16,9 @@ An object of class mpolyList.
 Combine a series of mpoly objects into a mpolyList.
 }
 \examples{
-( p1 <- mp('t^4 - x') )
-( p2 <- mp('t^3 - y') )
-( p3 <- mp('t^2 - z') )
+( p1 <- mp("t^4 - x") )
+( p2 <- mp("t^3 - y") )
+( p3 <- mp("t^2 - z") )
 ( ms <- mpolyList(p1, p2, p3) )
 is.mpolyList( ms )
 
@@ -28,5 +28,12 @@ mpolyList(p)
 
 ps <- mp(c("x + 1", "y + 2"))
 is.mpolyList(ps)
+
+
+f <- function(){
+  a <- mp("1")
+  mpolyList(a)
+}
+f()
 }
 
