@@ -22,7 +22,6 @@ Imports:
     orthopolynom,
     reshape2
 Suggests:
-    MASS
-License: GPL-2
-Suggests:
     testthat
+License: GPL-2
+RoxygenNote: 5.0.1
