@@ -4,17 +4,19 @@
 \alias{print.mpoly}
 \title{Pretty printing of multivariate polynomials.}
 \usage{
-\method{print}{mpoly}(x, stars = FALSE, varorder, order, ...)
+\method{print}{mpoly}(x, stars = FALSE, varorder, order,
+  ...)
 }
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{stars}{print the multivariate polynomial in the more computer-friendly
-asterisk notation (default FALSE)}
+\item{stars}{print the multivariate polynomial in the more
+computer-friendly asterisk notation (default FALSE)}
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the monomials in the printing}
+\item{order}{a total order used to order the monomials in the
+printing}
 
 \item{...}{additional parameters}
 }

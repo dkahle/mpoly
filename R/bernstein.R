@@ -6,7 +6,7 @@
 #' @param n Bernstein polynomial degree
 #' @param indeterminate indeterminate
 #' @return a mpoly object
-#' @author David Kahle 
+#' @author David Kahle
 #' @export
 #' @examples
 #' 
@@ -44,7 +44,7 @@
 #' 
 #' 
 #' }
-#'
+#' 
 bernstein <- function(k, n, indeterminate = "x"){  
   
   ## make it possible for vector k args

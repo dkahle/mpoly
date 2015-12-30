@@ -3,15 +3,15 @@
 #' Chebyshev polynomials as computed by orthopolynom.
 #' 
 #' @param degree degree of polynomial
-#' @param kind "t" or "u" (Chebyshev polynomials of the first and second kinds),
-#'   or "c" or "s"
+#' @param kind "t" or "u" (Chebyshev polynomials of the first and
+#'   second kinds), or "c" or "s"
 #' @param indeterminate indeterminate
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
 #' @seealso \code{\link{chebyshev.t.polynomials}}, 
 #'   \code{\link{chebyshev.u.polynomials}}, 
-#'   \code{\link{chebyshev.c.polynomials}},
+#'   \code{\link{chebyshev.c.polynomials}}, 
 #'   \code{\link{chebyshev.s.polynomials}}, 
 #'   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 #' @export

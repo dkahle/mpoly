@@ -63,7 +63,7 @@ qplot(x, value, data = mdf, geom = "line", color = variable) +
 David Kahle calling code from the orthopolynom package
 }
 \seealso{
-\code{\link{glaguerre.polynomials}},
+\code{\link{glaguerre.polynomials}}, 
   \url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
 }
 

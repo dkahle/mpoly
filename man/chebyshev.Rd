@@ -9,8 +9,8 @@ chebyshev(degree, kind = "t", indeterminate = "x", normalized = FALSE)
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{"t" or "u" (Chebyshev polynomials of the first and second kinds),
-or "c" or "s"}
+\item{kind}{"t" or "u" (Chebyshev polynomials of the first and
+second kinds), or "c" or "s"}
 
 \item{indeterminate}{indeterminate}
 
@@ -66,7 +66,7 @@ David Kahle calling code from the orthopolynom package
 \seealso{
 \code{\link{chebyshev.t.polynomials}}, 
   \code{\link{chebyshev.u.polynomials}}, 
-  \code{\link{chebyshev.c.polynomials}},
+  \code{\link{chebyshev.c.polynomials}}, 
   \code{\link{chebyshev.s.polynomials}}, 
   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }

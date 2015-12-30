@@ -7,7 +7,8 @@
 mp(string, varorder)
 }
 \arguments{
-\item{string}{a character string containing a polynomial, see examples}
+\item{string}{a character string containing a polynomial, see
+examples}
 
 \item{varorder}{(optional) order of variables in string}
 }
@@ -15,9 +16,9 @@ mp(string, varorder)
 An object of class mpoly.
 }
 \description{
-mp is a smart function which attempts to create a formal mpoly object from a
-character string containing the usual representation  of a multivariate
-polynomial.
+mp is a smart function which attempts to create a formal mpoly
+object from a character string containing the usual
+representation  of a multivariate polynomial.
 }
 \examples{
 ( m <- mp("x + y + x y") )

@@ -4,21 +4,23 @@
 \alias{as.function.mpoly}
 \title{Change a multivariate polynomial into a function.}
 \usage{
-\method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE, ...)
+\method{as.function}{mpoly}(x, varorder = vars(x), vector
+  = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{varorder}{the order in which the arguments of the function will be
-provided}
+\item{varorder}{the order in which the arguments of the function
+will be provided}
 
-\item{vector}{whether the function should take a vector argument (TRUE) or a
-series of arguments (FALSE)}
+\item{vector}{whether the function should take a vector argument
+(TRUE) or a series of arguments (FALSE)}
 
 \item{...}{any additional arguments}
 }
 \description{
-Transforms an mpoly object into a function which can be evaluated.
+Transforms an mpoly object into a function which can be
+evaluated.
 }
 \examples{
 

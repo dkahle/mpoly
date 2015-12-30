@@ -7,20 +7,22 @@
 bezier(..., indeterminate = "t")
 }
 \arguments{
-\item{...}{either a sequence of points or a matrix/data frame of points, see 
-examples}
+\item{...}{either a sequence of points or a matrix/data frame of
+points, see examples}
 
-\item{indeterminate}{the indeterminate of the resulting polynomial}
+\item{indeterminate}{the indeterminate of the resulting
+polynomial}
 }
 \value{
 a mpoly object
 }
 \description{
-Compute the Bezier polynomials of a given collection of points.  Note that 
-using \code{\link{as.function}} on the resulting Bezier polynomials is made 
-numerically stable by taking advantage of de Casteljau's algorithm; it does 
-not use the polynomial that is printed to the screen.  See
-\code{\link{bezierFunction}} for details
+Compute the Bezier polynomials of a given collection of points. 
+Note that using \code{\link{as.function}} on the resulting Bezier
+polynomials is made numerically stable by taking advantage of de
+Casteljau's algorithm; it does not use the polynomial that is
+printed to the screen.  See \code{\link{bezierFunction}} for
+details
 }
 \examples{
 

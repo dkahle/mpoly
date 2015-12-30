@@ -1,10 +1,11 @@
 #' Define a multivariate polynomial.
 #' 
-#' mp is a smart function which attempts to create a formal mpoly object from a
-#' character string containing the usual representation  of a multivariate
-#' polynomial.
+#' mp is a smart function which attempts to create a formal mpoly
+#' object from a character string containing the usual
+#' representation  of a multivariate polynomial.
 #' 
-#' @param string a character string containing a polynomial, see examples
+#' @param string a character string containing a polynomial, see
+#'   examples
 #' @param varorder (optional) order of variables in string
 #' @return An object of class mpoly.
 #' @author David Kahle \email{david.kahle@@gmail.com}

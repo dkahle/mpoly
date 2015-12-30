@@ -3,7 +3,8 @@
 #' Switch indeterminates in a polynomial
 #' 
 #' @param p a polynomial
-#' @param indeterminate the indeterminate in the polynomial to switch
+#' @param indeterminate the indeterminate in the polynomial to
+#'   switch
 #' @param value the value/indeterminate to substitute
 #' @return an mpoly object
 #' @export

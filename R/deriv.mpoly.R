@@ -1,7 +1,8 @@
 #' Compute partial derivatives of a multivariate polynomial.
-#'
-#' This is a deriv method for mpoly objects.  It does not call the deriv function (from package stats).
-#'
+#' 
+#' This is a deriv method for mpoly objects.  It does not call the
+#' deriv function (from package stats).
+#' 
 #' @param expr an object of class mpoly
 #' @param var character - the partial derivative desired
 #' @param ... any additional arguments

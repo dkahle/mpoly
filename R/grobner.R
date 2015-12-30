@@ -1,14 +1,16 @@
 #' Compute a grobner basis of a list of multivariate polynomials.
 #' 
-#' grobner computes a Groebner basis for a collection of multivarite polynomials
-#' represented as an object of class mpolyList. Note that the polynomials
-#' printed after calculation are unlikely to be properly ordered; this is
-#' because the order of the monomials displayed is governed by the print method,
-#' not the mpoly's themselves.
+#' grobner computes a Groebner basis for a collection of multivarite
+#' polynomials represented as an object of class mpolyList. Note
+#' that the polynomials printed after calculation are unlikely to be
+#' properly ordered; this is because the order of the monomials
+#' displayed is governed by the print method, not the mpoly's
+#' themselves.
 #' 
 #' @param mpolyList an object of class mpolyList
 #' @param varorder order of variables
-#' @param order total order to be considered for monomials (e.g. lexicographic)
+#' @param order total order to be considered for monomials (e.g.
+#'   lexicographic)
 #' @return An object of class mpolyList.
 #' @export
 #' @examples

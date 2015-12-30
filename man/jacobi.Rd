@@ -66,8 +66,8 @@ qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = var
 David Kahle calling code from the orthopolynom package
 }
 \seealso{
-\code{\link{jacobi.g.polynomials}},
-  \code{\link{jacobi.p.polynomials}}
+\code{\link{jacobi.g.polynomials}}, 
+  \code{\link{jacobi.p.polynomials}} 
   \url{http://en.wikipedia.org/wiki/Jacobi_polynomials}
 }
 

@@ -1,7 +1,8 @@
 #' Determine all n-tuples using the elements of a set.
 #' 
-#' Determine all n-tuples using the elements of a set.  This is really just a
-#' simple wrapper for expand.grid, so it is not optimized.
+#' Determine all n-tuples using the elements of a set.  This is
+#' really just a simple wrapper for expand.grid, so it is not
+#' optimized.
 #' 
 #' @param set a set
 #' @param n length of each tuple

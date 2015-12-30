@@ -1,6 +1,7 @@
 #' Determine all permutations of a set.
 #' 
-#' An implementation of the Steinhaus-Johnson-Trotter permutation algorithm.
+#' An implementation of the Steinhaus-Johnson-Trotter permutation
+#' algorithm.
 #' 
 #' @param set a set
 #' @return a matrix whose rows are the permutations of set

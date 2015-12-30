@@ -3,12 +3,13 @@
 #' Hermite polynomials as computed by orthopolynom.
 #' 
 #' @param degree degree of polynomial
-#' @param kind "he" (default, probabilists', see Wikipedia article) or "h" (physicists)
+#' @param kind "he" (default, probabilists', see Wikipedia article)
+#'   or "h" (physicists)
 #' @param indeterminate indeterminate
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
-#' @seealso \code{\link{hermite.h.polynomials}},
+#' @seealso \code{\link{hermite.h.polynomials}}, 
 #'   \code{\link{hermite.he.polynomials}}, 
 #'   \url{http://en.wikipedia.org/wiki/Hermite_polynomials}
 #' @export

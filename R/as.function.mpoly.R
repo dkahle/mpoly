@@ -1,14 +1,16 @@
 #' Change a multivariate polynomial into a function.
 #' 
-#' Transforms an mpoly object into a function which can be evaluated.
+#' Transforms an mpoly object into a function which can be
+#' evaluated.
 #' 
 #' @param x an object of class mpoly
-#' @param varorder the order in which the arguments of the function will be
-#'   provided
-#' @param vector whether the function should take a vector argument (TRUE) or a
-#'   series of arguments (FALSE)
+#' @param varorder the order in which the arguments of the function
+#'   will be provided
+#' @param vector whether the function should take a vector argument
+#'   (TRUE) or a series of arguments (FALSE)
 #' @param ... any additional arguments
-#' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE, ...)
+#' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
+#'   = TRUE, ...)
 #' @seealso \code{\link{plug}}
 #' @export
 #' @examples
@@ -127,9 +129,10 @@ as.function.jacobi <- function(x, ...){
   a <- attr(x, "jacobi")$alpha
   b <- attr(x, "jacobi")$beta
   
-  ## return exp'd log function
-  ## http://en.wikipedia.org/wiki/Jacobi_polynomials
-  function(.) pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1, (1-.)/2)
+  ## return exp'd log function #
+  #http://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
+  #pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1,
+  #(1-.)/2)
   
 }
 

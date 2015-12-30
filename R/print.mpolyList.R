@@ -1,12 +1,15 @@
 #' Pretty printing of a list of multivariate polynomials.
-#'
-#' This function iterates print.mpoly on an object of class mpolyList.
+#' 
+#' This function iterates print.mpoly on an object of class
+#' mpolyList.
 #' 
 #' @param x an object of class mpolyList
-#' @param varorder the order of the variables 
-#' @param order a total order used to order the monomials in the printing
+#' @param varorder the order of the variables
+#' @param order a total order used to order the monomials in the
+#'   printing
 #' @param ... arguments to pass to print.mpoly
-#' @usage \method{print}{mpolyList}(x, varorder = vars(x), order, ...)
+#' @usage \method{print}{mpolyList}(x, varorder = vars(x), order,
+#'   ...)
 #' @return Invisible character vector of the printed objects.
 #' @export
 #' @examples

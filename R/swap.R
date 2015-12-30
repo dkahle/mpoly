@@ -6,7 +6,7 @@
 #' @param variable the variable in the polynomial to replace
 #' @param replacement the replacement variable
 #' @return a mpoly object
-#' @author David Kahle 
+#' @author David Kahle
 #' @export
 #' @examples
 #' 
@@ -22,7 +22,7 @@
 #' (p2 <- swap(p, "x", "t"))
 #' is.chebyshev(p2)
 #' 
-#'
+#' 
 swap <- function(p, variable, replacement){
 
 

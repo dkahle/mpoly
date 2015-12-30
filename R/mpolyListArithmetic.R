@@ -1,5 +1,5 @@
 #' Element-wise arithmetic with vectors of multivariate polynomials.
-#'
+#' 
 #' Element-wise arithmetic with vectors of multivariate polynomials.
 #' 
 #' @param e1 an object of class mpolyList

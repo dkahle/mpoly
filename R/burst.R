@@ -1,7 +1,7 @@
 #' Enumerate integer r-vectors summing to n
 #' 
-#' Determine all r-vectors with nonnegative integer entries summing to n.  Note 
-#' that this is intended to be optimized.
+#' Determine all r-vectors with nonnegative integer entries summing 
+#' to n.  Note that this is intended to be optimized.
 #' 
 #' @param n integer to sum to
 #' @param r number of components

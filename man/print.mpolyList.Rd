@@ -4,14 +4,16 @@
 \alias{print.mpolyList}
 \title{Pretty printing of a list of multivariate polynomials.}
 \usage{
-\method{print}{mpolyList}(x, varorder = vars(x), order, ...)
+\method{print}{mpolyList}(x, varorder = vars(x), order,
+  ...)
 }
 \arguments{
 \item{x}{an object of class mpolyList}
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the monomials in the printing}
+\item{order}{a total order used to order the monomials in the
+printing}
 
 \item{...}{arguments to pass to print.mpoly}
 }
@@ -19,7 +21,8 @@
 Invisible character vector of the printed objects.
 }
 \description{
-This function iterates print.mpoly on an object of class mpolyList.
+This function iterates print.mpoly on an object of class
+mpolyList.
 }
 \examples{
 

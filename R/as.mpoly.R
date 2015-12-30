@@ -1,6 +1,7 @@
 #' Convert an object to an mpoly
 #' 
-#' mpoly is the most basic function used to create objects of class mpoly.
+#' mpoly is the most basic function used to create objects of class
+#' mpoly.
 #' 
 #' @param x an object of class lm
 #' @param ... additional arguments to pass to methods

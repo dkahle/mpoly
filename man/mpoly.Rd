@@ -12,17 +12,19 @@ mpoly(list, varorder)
 \arguments{
 \item{list}{a list from which to construct an mpoly object}
 
-\item{varorder}{(optional) a character vector setting the intrinsic variable 
-order of the polynomial}
+\item{varorder}{(optional) a character vector setting the
+intrinsic variable order of the polynomial}
 }
 \value{
 Object of class mpoly.
 }
 \description{
-A package for symbolic computation and more with multivariate polynomials
+A package for symbolic computation and more with multivariate 
+polynomials
 
-mpoly is the most basic function used to create objects of class mpoly. 
-However, it is not a general purpose function; for that see mp.
+mpoly is the most basic function used to create objects of class
+mpoly. However, it is not a general purpose function; for that
+see mp.
 }
 \examples{
 list <- list(

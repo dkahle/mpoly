@@ -3,12 +3,14 @@
 #' This is the major function used to view multivariate polynomials.
 #' 
 #' @param x an object of class mpoly
-#' @param stars print the multivariate polynomial in the more computer-friendly
-#'   asterisk notation (default FALSE)
+#' @param stars print the multivariate polynomial in the more
+#'   computer-friendly asterisk notation (default FALSE)
 #' @param varorder the order of the variables
-#' @param order a total order used to order the monomials in the printing
+#' @param order a total order used to order the monomials in the
+#'   printing
 #' @param ... additional parameters
-#' @usage \method{print}{mpoly}(x, stars = FALSE, varorder, order, ...)
+#' @usage \method{print}{mpoly}(x, stars = FALSE, varorder, order,
+#'   ...)
 #' @return Invisible string of the printed object.
 #' @export
 #' @examples

@@ -15,7 +15,8 @@ as.mpoly(x, ...)
 the object formated as a mpoly object.
 }
 \description{
-mpoly is the most basic function used to create objects of class mpoly.
+mpoly is the most basic function used to create objects of class
+mpoly.
 }
 \examples{
 

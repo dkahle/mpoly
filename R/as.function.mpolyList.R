@@ -1,14 +1,16 @@
 #' Change a vector of multivariate polynomials into a function.
 #' 
-#' Transforms an mpolyList object into a function which can be evaluated.
+#' Transforms an mpolyList object into a function which can be
+#' evaluated.
 #' 
-#' @param x an object of class mpolyList #@param varorder the order in which the
-#'   arguments of the function will be provided (default vars(mpoly)) #@param
-#'   vector whether the function should take a vector argument (TRUE) or a
-#'   series of arguments (FALSE)
+#' @param x an object of class mpolyList
+#' @param varorder the order in which the arguments of the function
+#'   will be provided (default vars(mpoly))
+#' @param vector whether the function should take a vector argument
+#'   (TRUE) or a series of arguments (FALSE)
 #' @param ... any additional arguments
-#' @usage \method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
-#'   ...)
+#' @usage \method{as.function}{mpolyList}(x, varorder = vars(x),
+#'   vector = TRUE, ...)
 #' @export
 #' @examples
 #' mpolyList <- mp(c('2 x + 1', 'x - z^2'))

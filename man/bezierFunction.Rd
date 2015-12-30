@@ -7,7 +7,8 @@
 bezierFunction(points, weights = rep(1L, nrow(points)))
 }
 \arguments{
-\item{points}{a matrix or data frame of numerics.  the rows represent points.}
+\item{points}{a matrix or data frame of numerics.  the rows
+represent points.}
 
 \item{weights}{the weights in a weighted Bezier curve}
 }
@@ -15,14 +16,16 @@ bezierFunction(points, weights = rep(1L, nrow(points)))
 function of a single parameter
 }
 \description{
-Compute the Bezier function of a collection of polynomials.  By Bezier 
-function we mean the Bezier curve function, a parametric map running from t =
-0, the first point, to t = 1, the last point, where the coordinate mappings 
-are linear combinations of Bernstein polynomials.
+Compute the Bezier function of a collection of polynomials.  By
+Bezier function we mean the Bezier curve function, a parametric
+map running from t = 0, the first point, to t = 1, the last
+point, where the coordinate mappings are linear combinations of
+Bernstein polynomials.
 }
 \details{
-The function returned is vectorized and evaluates the Bezier curve in a 
-numerically stable way with de Castlejau's algorithm (implemented in R).
+The function returned is vectorized and evaluates the Bezier
+curve in a numerically stable way with de Castlejau's algorithm
+(implemented in R).
 }
 \examples{
 

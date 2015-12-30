@@ -1,11 +1,12 @@
 #' Define an mpoly object.
 #' 
-#' mpoly is the most basic function used to create objects of class mpoly. 
-#' However, it is not a general purpose function; for that see mp.
+#' mpoly is the most basic function used to create objects of class
+#' mpoly. However, it is not a general purpose function; for that
+#' see mp.
 #' 
 #' @param list a list from which to construct an mpoly object
-#' @param varorder (optional) a character vector setting the intrinsic variable 
-#'   order of the polynomial
+#' @param varorder (optional) a character vector setting the
+#'   intrinsic variable order of the polynomial
 #' @return Object of class mpoly.
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mp}}

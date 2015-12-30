@@ -1,14 +1,16 @@
 #' Bezier polynomials
 #' 
-#' Compute the Bezier polynomials of a given collection of points.  Note that 
-#' using \code{\link{as.function}} on the resulting Bezier polynomials is made 
-#' numerically stable by taking advantage of de Casteljau's algorithm; it does 
-#' not use the polynomial that is printed to the screen.  See
-#' \code{\link{bezierFunction}} for details
+#' Compute the Bezier polynomials of a given collection of points. 
+#' Note that using \code{\link{as.function}} on the resulting Bezier
+#' polynomials is made numerically stable by taking advantage of de
+#' Casteljau's algorithm; it does not use the polynomial that is
+#' printed to the screen.  See \code{\link{bezierFunction}} for
+#' details
 #' 
-#' @param ... either a sequence of points or a matrix/data frame of points, see 
-#'   examples
-#' @param indeterminate the indeterminate of the resulting polynomial
+#' @param ... either a sequence of points or a matrix/data frame of
+#'   points, see examples
+#' @param indeterminate the indeterminate of the resulting
+#'   polynomial
 #' @return a mpoly object
 #' @author David Kahle
 #' @seealso bezierFunction
@@ -216,15 +218,18 @@ bezier <- function(..., indeterminate = "t"){
 
 #' Bezier function
 #' 
-#' Compute the Bezier function of a collection of polynomials.  By Bezier 
-#' function we mean the Bezier curve function, a parametric map running from t =
-#' 0, the first point, to t = 1, the last point, where the coordinate mappings 
-#' are linear combinations of Bernstein polynomials.
+#' Compute the Bezier function of a collection of polynomials.  By
+#' Bezier function we mean the Bezier curve function, a parametric
+#' map running from t = 0, the first point, to t = 1, the last
+#' point, where the coordinate mappings are linear combinations of
+#' Bernstein polynomials.
 #' 
-#' The function returned is vectorized and evaluates the Bezier curve in a 
-#' numerically stable way with de Castlejau's algorithm (implemented in R).
+#' The function returned is vectorized and evaluates the Bezier
+#' curve in a numerically stable way with de Castlejau's algorithm
+#' (implemented in R).
 #' 
-#' @param points a matrix or data frame of numerics.  the rows represent points.
+#' @param points a matrix or data frame of numerics.  the rows
+#'   represent points.
 #' @param weights the weights in a weighted Bezier curve
 #' @return function of a single parameter
 #' @author David Kahle

@@ -19,8 +19,9 @@
 An object of class mpoly.
 }
 \description{
-This function is used to set the intrinsic order of a multivariate polynomial.
-It is used for both the in-term variables and the terms.
+This function is used to set the intrinsic order of a multivariate
+polynomial. It is used for both the in-term variables and the
+terms.
 }
 \examples{
 

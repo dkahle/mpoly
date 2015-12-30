@@ -1,7 +1,8 @@
 #'Reorder a multivariate polynomial.
 #'
-#'This function is used to set the intrinsic order of a multivariate polynomial.
-#'It is used for both the in-term variables and the terms.
+#'This function is used to set the intrinsic order of a multivariate
+#'polynomial. It is used for both the in-term variables and the
+#'terms.
 #'
 #'@param x an object of class mpoly
 #'@param varorder the order of the variables
