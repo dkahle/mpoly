@@ -1,3 +1,20 @@
+Version 1.0.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* mpoly now provided functions for extracting the leading term (LT),
+  leading coefficient (LC), leading monomial (LM), and arbitrary 
+  term (as in p[3]).  You can also compute the multidegree of a 
+  polynomial (multideg).
+
+CHANGES
+
+* reorder.mpoly now defaults to the lex order.
+
+
+
+
 Version 1.0.0
 -------------------------------------------------------------------------
 
