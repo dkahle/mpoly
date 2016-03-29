@@ -22,6 +22,8 @@ multideg(x, varorder = vars(x), order = "lex")
 \arguments{
 \item{x}{an object of class mpoly}
 
+\item{ndx}{a subsetting index}
+
 \item{varorder}{the order of the variables}
 
 \item{order}{a total order used to order the terms}

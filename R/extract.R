@@ -3,6 +3,7 @@
 #' Extract components of a multivariate polynomial
 #' 
 #' @param x an object of class mpoly
+#' @param ndx a subsetting index
 #' @param varorder the order of the variables
 #' @param order a total order used to order the terms
 #' @param ... additional arguments
