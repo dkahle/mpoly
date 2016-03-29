@@ -8,6 +8,7 @@ NEW FEATURES
   term (as in p[3]).  You can also compute the multidegree of a 
   polynomial (multideg).
 * new function exponents() extracts the exponents of an mpoly.
+* new function homogenize() homogenizes an mpoly.
 
 CHANGES
 
