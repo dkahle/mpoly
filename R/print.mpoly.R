@@ -80,6 +80,7 @@ print.mpoly <- function(x, stars = FALSE, varorder, order, ...){
     ## make printed terms
     terms <- sapply(x, function(v){
       if(length(v) == 1) return(format(v[["coef"]], scientific=FALSE)) # if a constant term
+      v <- v[v != 0] # eliminate lingering x^0's
       p <- length(v) - 1
       s <- paste(names(v[1:p]), v[1:p], sep = '^', collapse = ' ')
       s <- paste(format(v[["coef"]], scientific=FALSE), s)
