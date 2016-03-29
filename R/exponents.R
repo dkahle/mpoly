@@ -15,7 +15,9 @@
 exponents <- function(x, reduced = FALSE){
 
   l <- lapply(x, function(term){
-    as.integer(term[-which(names(term) == "coef")])
+    fixed_term <- as.integer(term[-which(names(term) == "coef")])
+    names(fixed_term) <- names(term[-which(names(term) == "coef")])
+    fixed_term
   })  
   
   if(reduced) return(l)
@@ -28,6 +30,8 @@ exponents <- function(x, reduced = FALSE){
   lapply(l, function(exp){
     tmp <- tmp + exp[v]
     tmp[is.na(tmp)] <- 0
-    as.integer(tmp)
+    tmp <- as.integer(tmp)
+    names(tmp) <- v
+    tmp
   })
 }
