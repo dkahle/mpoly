@@ -39,6 +39,8 @@ Extract components of a multivariate polynomial
 \examples{
 (p <- mp("x y + x (x+1) (x+2) x z + 3 x^10"))
 p[2]
+p[-2]
+p[2:3]
 LT(p)
 LC(p)
 LM(p)
