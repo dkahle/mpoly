@@ -21,10 +21,21 @@ mp("(x + 4y)^2 (x - .25)")
 ``` r
 (p <- mp("(x + y)^2 (1 + x)"))
 #> x^3  +  x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
-reorder(p, varorder = c('y','x'), order = 'lex')
+reorder(p, varorder = c("y","x"), order = "lex")
 #> y^2 x  +  y^2  +  2 y x^2  +  2 y x  +  x^3  +  x^2
-reorder(p, varorder = c('x','y'), order = 'glex')
+reorder(p, varorder = c("x","y"), order = "glex")
 #> x^3  +  2 x^2 y  +  x y^2  +  x^2  +  2 x y  +  y^2
+```
+
+You can extract pieces of polynoimals using the standard `[` operator, which works on its terms:
+
+``` r
+p[1]
+#> x^3
+p[1:3]
+#> x^3  +  x^2  +  2 x^2 y
+p[-1]
+#> x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
 ```
 
 Vectors of polynomials (`mpolyList`'s) can be specified in the same way:
@@ -84,8 +95,8 @@ p <- mp("x + x y + x y^2")
 deriv(p, "y")
 #> x  +  2 x y
 gradient(p)
-#> y  +  y^2  +  1
-#> x  +  2 y x
+#> y^2  +  y  +  1
+#> 2 y x  +  x
 ```
 
 Function coercion
@@ -129,10 +140,21 @@ grobner(polys)
 #> using variable ordering - t, x, y, z
 #> Loading required package: rJava
 #> -1 z  +  t^2
-#> t y  -  z^2
-#> -1 y  +  z t
-#> x  -  z^2
-#> y^2  -  z^3
+#> -1 z^2  +  t y
+#> z t  -  y
+#> -1 z^2  +  x
+#> -1 z^3  +  y^2
+```
+
+Homogenization and dehomogenization:
+
+``` r
+(p <- mp("x + 2 x y - z^3"))
+#> x  +  2 x y  -  z^3
+(hp <- homogenize(p))
+#> x t^2  +  2 x y t  -  z^3
+dehomogenize(hp, "t")
+#> x  +  2 x y  -  z^3
 ```
 
 Special polynomials
@@ -160,35 +182,27 @@ chebyshev(2)
 chebyshev(0:5)
 #> 1
 #> x
-#> -1  +  2 x^2
-#> -3 x  +  4 x^3
-#> 1  -  8 x^2  +  8 x^4
-#> 5 x  -  20 x^3  +  16 x^5
+#> 2 x^2  -  1
+#> 4 x^3  -  3 x
+#> 8 x^4  -  8 x^2  +  1
+#> 16 x^5  -  20 x^3  +  5 x
 ```
 
 And you can visualize them:
 
 ``` r
 library(reshape2); library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> 
-#> The following object is masked from 'package:stats':
-#> 
-#>     filter
-#> 
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
+```
 
+``` r
 s <- seq(-1, 1, length.out = 201); N <- 5
 (chebPolys <- chebyshev(0:N))
 #> 1
 #> x
-#> -1  +  2 x^2
-#> -3 x  +  4 x^3
-#> 1  -  8 x^2  +  8 x^4
-#> 5 x  -  20 x^3  +  16 x^5
+#> 2 x^2  -  1
+#> 4 x^3  -  3 x
+#> 8 x^4  -  8 x^2  +  1
+#> 16 x^5  -  20 x^3  +  5 x
 
 df <- sapply(s, as.function(chebPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
@@ -206,10 +220,10 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 (jacPolys <- jacobi(0:N, 2, 2))
 #> 1
 #> 5 x
-#> -2.5  +  17.5 x^2
-#> -17.5 x  +  52.5 x^3
-#> 4.375  -  78.75 x^2  +  144.375 x^4
-#> 39.375 x  -  288.75 x^3  +  375.375 x^5
+#> 17.5 x^2  -  2.5
+#> 52.5 x^3  -  17.5 x
+#> 144.375 x^4  -  78.75 x^2  +  4.375
+#> 375.375 x^5  -  288.75 x^3  +  39.375 x
  
 df <- sapply(s, as.function(jacPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
@@ -228,10 +242,10 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 (legPolys <- legendre(0:N))
 #> 1
 #> x
-#> -0.5  +  1.5 x^2
-#> -1.5 x  +  2.5 x^3
-#> 0.375  -  3.75 x^2  +  4.375 x^4
-#> 1.875 x  -  8.75 x^3  +  7.875 x^5
+#> 1.5 x^2  -  0.5
+#> 2.5 x^3  -  1.5 x
+#> 4.375 x^4  -  3.75 x^2  +  0.375
+#> 7.875 x^5  -  8.75 x^3  +  1.875 x
  
 df <- sapply(s, as.function(legPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
@@ -249,10 +263,10 @@ s <- seq(-3, 3, length.out = 201); N <- 5
 (hermPolys <- hermite(0:N))
 #> 1
 #> x
-#> -1  +  x^2
-#> -3 x  +  x^3
-#> 3  -  6 x^2  +  x^4
-#> 15 x  -  10 x^3  +  x^5
+#> x^2  -  1
+#> x^3  -  3 x
+#> x^4  -  6 x^2  +  3
+#> x^5  -  10 x^3  +  15 x
 
 df <- sapply(s, as.function(hermPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
@@ -269,11 +283,11 @@ qplot(x, value, data = mdf, geom = "path", color = variable)
 s <- seq(-5, 20, length.out = 201); N <- 5
 (lagPolys <- laguerre(0:N))
 #> 1
-#> 1  -  x
-#> 1  -  2 x  +  0.5 x^2
-#> 1  -  3 x  +  1.5 x^2  -  0.1666667 x^3
-#> 1  -  4 x  +  3 x^2  -  0.6666667 x^3  +  0.04166667 x^4
-#> 1  -  5 x  +  5 x^2  -  1.666667 x^3  +  0.2083333 x^4  -  0.008333333 x^5
+#> -1 x  +  1
+#> 0.5 x^2  -  2 x  +  1
+#> -0.1666667 x^3  +  1.5 x^2  -  3 x  +  1
+#> 0.04166667 x^4  -  0.6666667 x^3  +  3 x^2  -  4 x  +  1
+#> -0.008333333 x^5  +  0.2083333 x^4  -  1.666667 x^3  +  5 x^2  -  5 x  +  1
 
 df <- sapply(s, as.function(lagPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
 #> f(x)
@@ -291,20 +305,20 @@ qplot(x, value, data = mdf, geom = "path", color = variable) +
 
 ``` r
 bernstein(0:4, 4)
-#> 1  -  4 x  +  6 x^2  -  4 x^3  +  x^4
-#> 4 x  -  12 x^2  +  12 x^3  -  4 x^4
-#> 6 x^2  -  12 x^3  +  6 x^4
-#> 4 x^3  -  4 x^4
+#> x^4  -  4 x^3  +  6 x^2  -  4 x  +  1
+#> -4 x^4  +  12 x^3  -  12 x^2  +  4 x
+#> 6 x^4  -  12 x^3  +  6 x^2
+#> -4 x^4  +  4 x^3
 #> x^4
 
 s <- seq(0, 1, length.out = 101)
 N <- 5 # number of bernstein polynomials to plot
 (bernPolys <- bernstein(0:N, N))
-#> 1  -  5 x  +  10 x^2  -  10 x^3  +  5 x^4  -  x^5
-#> 5 x  -  20 x^2  +  30 x^3  -  20 x^4  +  5 x^5
-#> 10 x^2  -  30 x^3  +  30 x^4  -  10 x^5
-#> 10 x^3  -  20 x^4  +  10 x^5
-#> 5 x^4  -  5 x^5
+#> -1 x^5  +  5 x^4  -  10 x^3  +  10 x^2  -  5 x  +  1
+#> 5 x^5  -  20 x^4  +  30 x^3  -  20 x^2  +  5 x
+#> -10 x^5  +  30 x^4  -  30 x^3  +  10 x^2
+#> 10 x^5  -  20 x^4  +  10 x^3
+#> -5 x^5  +  5 x^4
 #> x^5
 
 df <- sapply(s, as.function(bernPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
@@ -343,8 +357,8 @@ You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curv
 ``` r
 points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
-#> -3 t  +  15 t^2  -  10 t^3  -  1
-#> 3 t  -  3 t^2
+#> -10 t^3  +  15 t^2  -  3 t  -  1
+#> -3 t^2  +  3 t
 ```
 
 And viewing them is just as easy:
@@ -365,8 +379,8 @@ Weighting is available also:
 ``` r
 points <- data.frame(x = c(1,-2,2,-1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
-#> -9 t  +  21 t^2  -  14 t^3  +  1
-#> 3 t  -  3 t^2
+#> -14 t^3  +  21 t^2  -  9 t  +  1
+#> -3 t^2  +  3 t
 df <- sapply(s, as.function(bezPolys, weights = c(1,5,5,1))) %>% t %>% as.data.frame
 
 ggplot(aes(x = x, y = y), data = df) + 
@@ -400,7 +414,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 1.947 x  -  1.028 x^2  -  2.756
+#> 2.153 x  -  1.037 x^2  -  2.873
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
