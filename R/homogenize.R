@@ -4,7 +4,7 @@
 #' 
 #' @param x an \code{\link{mpoly}} object
 #' @param var name of homogenization
-#' @return a (homogenized) mpoly
+#' @return a (de/homogenized) mpoly or an mpolyList
 #' @name homogenize
 #' @examples
 #' 
@@ -18,13 +18,16 @@
 #' homogenize(x, "o")
 #' 
 #' xh <- homogenize(x)
-#' dehomogenize(xh, "t")
+#' dehomogenize(xh) # assumes var = "t"
 #' 
-#' \dontrun{ demonstrates error
-#' xh <- mp("x^2 t + y")
-#' is.homogeneous(xh)
-#' dehomogenize(xh, "t")
-#' }
+#' 
+#' 
+#' # the functions are vectorized
+#' (ps <- mp(c("x + y^2", "x + y^3")))
+#' (psh <- homogenize(ps))
+#' dehomogenize(psh)
+#' 
+#' 
 #' 
 
 
@@ -32,6 +35,14 @@
 #' @rdname homogenize
 #' @export
 homogenize <- function(x, var = "t"){
+  
+  if(!inherits(x, "mpoly") && length(x) > 1){
+    hs <- lapply(x, homogenize, var = var)
+    class(hs) <- "mpolyList"
+    return(hs)
+  }
+  
+  if(!inherits(x, "mpoly")) stop("homogenize requires mpoly objects.", call. = FALSE)
   
   term_exps <- exponents(x)
   term_degs <- vapply(term_exps, sum, numeric(1))
@@ -63,9 +74,16 @@ homogenize <- function(x, var = "t"){
 
 #' @rdname homogenize
 #' @export
-dehomogenize <- function(x, var){
+dehomogenize <- function(x, var = "t"){
   
-  if(missing(var)) stop("dehomogenize requires a variable to dehomogenize.", call. = FALSE)
+  if(!inherits(x, "mpoly") && length(x) > 1){
+    hs <- lapply(x, dehomogenize, var = var)
+    class(hs) <- "mpolyList"
+    return(hs)
+  }
+  
+  if(!inherits(x, "mpoly")) stop("dehomogenize requires mpoly objects.", call. = FALSE)
+  # if(missing(var)) stop("dehomogenize requires a variable to dehomogenize.", call. = FALSE)
   
   # check for inhomogeneous
   if (!is.homogeneous(x)) {

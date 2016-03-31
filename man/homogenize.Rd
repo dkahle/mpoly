@@ -9,7 +9,7 @@
 \usage{
 homogenize(x, var = "t")
 
-dehomogenize(x, var)
+dehomogenize(x, var = "t")
 
 is.homogeneous(x)
 
@@ -21,7 +21,7 @@ homogeneous_components(x)
 \item{var}{name of homogenization}
 }
 \value{
-a (homogenized) mpoly
+a (de/homogenized) mpoly or an mpolyList
 }
 \description{
 Homogenize a polynomial.
@@ -38,13 +38,16 @@ homogeneous_components(x)
 homogenize(x, "o")
 
 xh <- homogenize(x)
-dehomogenize(xh, "t")
+dehomogenize(xh) # assumes var = "t"
 
-\dontrun{ demonstrates error
-xh <- mp("x^2 t + y")
-is.homogeneous(xh)
-dehomogenize(xh, "t")
-}
+
+
+# the functions are vectorized
+(ps <- mp(c("x + y^2", "x + y^3")))
+(psh <- homogenize(ps))
+dehomogenize(psh)
+
+
 
 }
 
