@@ -2,6 +2,7 @@
 % Please edit documentation in R/homogenize.R
 \name{homogenize}
 \alias{dehomogenize}
+\alias{homogeneous_components}
 \alias{homogenize}
 \alias{is.homogeneous}
 \title{Homogenize a polynomial}
@@ -11,6 +12,8 @@ homogenize(x, var = "t")
 dehomogenize(x, var)
 
 is.homogeneous(x)
+
+homogeneous_components(x)
 }
 \arguments{
 \item{x}{an \code{\link{mpoly}} object}
@@ -29,6 +32,8 @@ x <- mp("x^4 + y + 2 x y^2 - 3 z")
 is.homogeneous(x)
 (xh <- homogenize(x))
 is.homogeneous(xh)
+
+homogeneous_components(x)
 
 homogenize(x, "o")
 

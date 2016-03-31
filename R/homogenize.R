@@ -13,6 +13,8 @@
 #' (xh <- homogenize(x))
 #' is.homogeneous(xh)
 #' 
+#' homogeneous_components(x)
+#' 
 #' homogenize(x, "o")
 #' 
 #' xh <- homogenize(x)
@@ -97,4 +99,18 @@ is.homogeneous <- function(x){
 
 
 
-
+#' @rdname homogenize
+#' @export
+homogeneous_components <- function(x){
+  exps <- exponents(x)
+  exps_mat <- t(simplify2array(exps))
+  term_total_degs <- rowSums(exps_mat)
+  n_terms <- length(x)
+  term_ndcs <- split(1:n_terms, term_total_degs)
+  homo_comps <- lapply(term_ndcs, function(ndcs){
+    x[ndcs]
+  })
+  homo_comps <- unname(homo_comps)
+  class(homo_comps) <- "mpolyList"
+  homo_comps
+}
