@@ -18,9 +18,14 @@ An object of class mpolyList.
 Compute the terms of an mpoly object as a mpolyList.
 }
 \examples{
-terms(mp('x^2 - y + x y z'))
-is.mpolyList( terms(mp('x^2 - y + x y z')) )
-str(unclass( terms(mp('x^2 - y + x y z')) ))
+
+\dontrun{ .Deprecated issues a warning
+
+x <- mp("x^2 - y + x y z")
+terms(x)
+monomials(x)
+
+}
 
 }
 

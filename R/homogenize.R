@@ -19,6 +19,7 @@
 #' 
 #' xh <- homogenize(x)
 #' dehomogenize(xh) # assumes var = "t"
+#' plug(xh, "t", 1) # same effect, but dehomogenize is faster
 #' 
 #' 
 #' 
@@ -28,6 +29,16 @@
 #' dehomogenize(psh)
 #' 
 #' 
+#' # demonstrating a leading property of homogeneous polynomials
+#' library(magrittr)
+#' p  <- mp("x^2 + 2 x + 3")
+#' (ph <- homogenize(p, "y"))
+#' lambda <- 3
+#' (d <- totaldeg(p))
+#' ph %>% 
+#'   plug("x", lambda*mp("x")) %>% 
+#'   plug("y", lambda*mp("y"))
+#' lambda^d * ph 
 #' 
 
 
@@ -36,13 +47,13 @@
 #' @export
 homogenize <- function(x, var = "t"){
   
-  if(!inherits(x, "mpoly") && length(x) > 1){
+  if(!is.mpoly(x) && length(x) > 1){
     hs <- lapply(x, homogenize, var = var)
     class(hs) <- "mpolyList"
     return(hs)
   }
   
-  if(!inherits(x, "mpoly")) stop("homogenize requires mpoly objects.", call. = FALSE)
+  if(!is.mpoly(x)) stop("homogenize requires mpoly objects.", call. = FALSE)
   
   term_exps <- exponents(x)
   term_degs <- vapply(term_exps, sum, numeric(1))
@@ -76,13 +87,13 @@ homogenize <- function(x, var = "t"){
 #' @export
 dehomogenize <- function(x, var = "t"){
   
-  if(!inherits(x, "mpoly") && length(x) > 1){
+  if(!is.mpoly(x) && length(x) > 1){
     hs <- lapply(x, dehomogenize, var = var)
     class(hs) <- "mpolyList"
     return(hs)
   }
   
-  if(!inherits(x, "mpoly")) stop("dehomogenize requires mpoly objects.", call. = FALSE)
+  if(!is.mpoly(x)) stop("dehomogenize requires mpoly objects.", call. = FALSE)
   # if(missing(var)) stop("dehomogenize requires a variable to dehomogenize.", call. = FALSE)
   
   # check for inhomogeneous
@@ -92,7 +103,8 @@ dehomogenize <- function(x, var = "t"){
   }
   
   # dehomogenize
-  xdh <- lapply(x, function(term){
+  # plug(x, var, 1) # works, but is not optimized, so 
+   xdh <- lapply(x, function(term){
     var_ndx <- which(names(term) == var)
     if (length(var_ndx) == 0) {
       return(term) # var not in term  

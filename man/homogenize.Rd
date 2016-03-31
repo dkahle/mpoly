@@ -39,6 +39,7 @@ homogenize(x, "o")
 
 xh <- homogenize(x)
 dehomogenize(xh) # assumes var = "t"
+plug(xh, "t", 1) # same effect, but dehomogenize is faster
 
 
 
@@ -48,6 +49,16 @@ dehomogenize(xh) # assumes var = "t"
 dehomogenize(psh)
 
 
+# demonstrating a leading property of homogeneous polynomials
+library(magrittr)
+p  <- mp("x^2 + 2 x + 3")
+(ph <- homogenize(p, "y"))
+lambda <- 3
+(d <- totaldeg(p))
+ph \%>\% 
+  plug("x", lambda*mp("x")) \%>\% 
+  plug("y", lambda*mp("y"))
+lambda^d * ph 
 
 }
 

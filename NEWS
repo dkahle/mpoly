@@ -7,11 +7,13 @@ NEW FEATURES
   leading coefficient (LC), leading monomial (LM), and arbitrary 
   term (as in p[3]).  You can also compute the multidegree of a 
   polynomial (multideg).
-* new function exponents() extracts the exponents of an mpoly.
-* new function homogenize() homogenizes an mpoly.
+* new function exponents extracts the exponents of an mpoly.
+* new functions homogenize, dehomogenize, homogeneous_components extract
+  those components of a multivariate polynomial.
 
 CHANGES
 
+* terms.mpoly is now deprecated, use monomials.
 * reorder.mpoly now defaults to the lex order.
 
 
