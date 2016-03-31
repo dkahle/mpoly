@@ -50,21 +50,24 @@ Compute quantities/expressions related to a multivariate
 polynomial.
 }
 \examples{
-(p <- mp("x y + x (x+1) (x+2) x z + 3 x^10"))
+(p <- mp("x y^2 + x (x+1) (x+2) x z + 3 x^10"))
 p[2]
 p[-2]
 p[2:3]
+
 LT(p)
 LC(p)
 LM(p)
+
 multideg(p)
 totaldeg(p)
 monomials(p)
 
-x <- mp("x^4 + y + 2 x y^2 - 3 z")
-exponents(x)
-exponents(x, reduce = TRUE)
-lapply(exponents(x), is.integer)
+exponents(p)
+exponents(p, reduce = TRUE)
+lapply(exponents(p), is.integer)
+
+homogeneous_components(p)
 
 }
 
