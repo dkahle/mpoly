@@ -130,9 +130,10 @@ grobner(polys)
 
 Homogenization and dehomogenization:
 ```{r homogenization}
-(p <- mp("x + 2 x y - z^3"))
+(p <- mp("x + 2 x y + y - z^3"))
 (hp <- homogenize(p))
 dehomogenize(hp, "t")
+homogeneous_components(p)
 ```
 
 

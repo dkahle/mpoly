@@ -204,12 +204,16 @@ grobner(polys)
 Homogenization and dehomogenization:
 
 ``` r
-(p <- mp("x + 2 x y - z^3"))
-#> x  +  2 x y  -  z^3
+(p <- mp("x + 2 x y + y - z^3"))
+#> x  +  2 x y  +  y  -  z^3
 (hp <- homogenize(p))
-#> x t^2  +  2 x y t  -  z^3
+#> x t^2  +  2 x y t  +  y t^2  -  z^3
 dehomogenize(hp, "t")
-#> x  +  2 x y  -  z^3
+#> x  +  2 x y  +  y  -  z^3
+homogeneous_components(p)
+#> x  +  y
+#> 2 x y
+#> -1 z^3
 ```
 
 Special polynomials
@@ -469,7 +473,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.091 x  -  1.012 x^2  -  2.772
+#> 2.054 x  -  0.931 x^2  -  3.487
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
