@@ -27,6 +27,17 @@ reorder(p, varorder = c("x","y"), order = "glex")
 #> x^3  +  2 x^2 y  +  x y^2  +  x^2  +  2 x y  +  y^2
 ```
 
+Vectors of polynomials (`mpolyList`'s) can be specified in the same way:
+
+``` r
+mp(c("(x+y)^2", "z"))
+#> x^2  +  2 x y  +  y^2
+#> z
+```
+
+Polynomial parts
+----------------
+
 You can extract pieces of polynoimals using the standard `[` operator, which works on its terms:
 
 ``` r
@@ -38,12 +49,56 @@ p[-1]
 #> x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
 ```
 
-Vectors of polynomials (`mpolyList`'s) can be specified in the same way:
+There are also many other functions that can be used to piece apart polynomials, for example the leading term (default lex order):
 
 ``` r
-mp(c("(x+y)^2", "z"))
-#> x^2  +  2 x y  +  y^2
-#> z
+LT(p)
+#> x^3
+LC(p)
+#> [1] 1
+LM(p)
+#> x^3
+```
+
+You can also extract information about exponents:
+
+``` r
+exponents(p)
+#> [[1]]
+#> x y 
+#> 3 0 
+#> 
+#> [[2]]
+#> x y 
+#> 2 0 
+#> 
+#> [[3]]
+#> x y 
+#> 2 1 
+#> 
+#> [[4]]
+#> x y 
+#> 1 1 
+#> 
+#> [[5]]
+#> x y 
+#> 1 2 
+#> 
+#> [[6]]
+#> x y 
+#> 0 2
+multideg(p)
+#> x y 
+#> 3 0
+totaldeg(p)
+#> [1] 3
+monomials(p)
+#> x^3
+#> x^2
+#> 2 x^2 y
+#> 2 x y
+#> x y^2
+#> y^2
 ```
 
 Polynomial arithmetic
@@ -414,7 +469,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.153 x  -  1.037 x^2  -  2.873
+#> 2.091 x  -  1.012 x^2  -  2.772
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
