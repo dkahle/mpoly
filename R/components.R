@@ -104,10 +104,10 @@ multideg <- function(x, varorder = vars(x), order = "lex"){
 #' @rdname components
 #' @export
 totaldeg <- function(x){
-  if(!inherits(x, "mpoly") && length(x) > 1){
+  if(!is.mpoly(x) && length(x) > 1){
     return(vapply(x, totaldeg, numeric(1)))
   }
-  if(!inherits(x, "mpoly")) stop("totaldeg requires an mpoly or mpolyList object.")
+  if(!is.mpoly(x)) stop("totaldeg requires an mpoly or mpolyList object.")
   max(vapply(exponents(x), sum, numeric(1)))
 }
 
@@ -118,7 +118,7 @@ totaldeg <- function(x){
 #' @rdname components
 #' @export
 monomials <- function(x){
-  if(!inherits(x, "mpoly")) stop("monomials requires an mpoly or mpolyList object.")
+  if(!is.mpoly(x)) stop("monomials requires an mpoly or mpolyList object.")
   xs <- lapply(1:length(x), function(ndx) `[.mpoly`(x,ndx))
   class(xs) <- "mpolyList"
   xs
