@@ -82,11 +82,7 @@ reorder.mpoly <- function(x, varorder = vars(x), order = "lex", ...){
   
   ## argument check - order
   match.arg(order, c("lex","glex","grlex"))
-  # if(!missing(order)){
-  #   match.arg(order, c("lex","glex","grlex"))
-  # } else {
-  #   return(x)	
-  # }
+  
   
   
   
@@ -107,9 +103,8 @@ reorder.mpoly <- function(x, varorder = vars(x), order = "lex", ...){
     # construct matrix and sort appropriately
     m <- matrix(unname(unlist(l)), nrow = length(l), ncol = p + 1, byrow = TRUE)
     dimnames(m) <- list(1:nrow(m), c(varorder, "coef"))
-    for(k in p:1){
-      m <- m[order(m[,k], decreasing = TRUE),]	
-    }
+    for(k in p:1) m <- m[order(m[,k], decreasing = TRUE),]	
+    
     
     # split into list and add names
     list4mpoly <- unname(lapply(split(m, 1:n), function(v){
@@ -141,9 +136,8 @@ reorder.mpoly <- function(x, varorder = vars(x), order = "lex", ...){
     # construct matrix and sort appropriately
     m <- matrix(unname(unlist(l)), nrow = length(l), ncol = p + 1, byrow = TRUE)
     dimnames(m) <- list(1:nrow(m), c(varorder, "coef"))
-    for(k in p:1){
-      m <- m[order(m[,k], decreasing = TRUE),]	
-    }
+    for(k in p:1) m <- m[order(m[,k], decreasing = TRUE),]	
+    
     m <- m[order(apply(m[, 1:p, drop = FALSE],1,sum), decreasing = TRUE),]    
     
     # split into list and add names
@@ -176,9 +170,7 @@ reorder.mpoly <- function(x, varorder = vars(x), order = "lex", ...){
     # construct matrix and sort appropriately
     m <- matrix(unname(unlist(l)), nrow = length(l), ncol = p + 1, byrow = TRUE)
     dimnames(m) <- list(1:nrow(m), c(varorder, "coef"))
-    for(k in 1:p){
-      m <- m[order(m[,k]),]	
-    }
+    for(k in 1:p) m <- m[order(m[,k]),]	
     m <- m[order(apply(m[, 1:p, drop = FALSE],1,sum), decreasing = TRUE),]    
     
     # split into list and add names
