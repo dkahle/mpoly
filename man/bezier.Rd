@@ -133,6 +133,7 @@ qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 
 # the curve is not invariant to permutations of the points
+# but it always goes through the first and last points
 permute_rows <- function(df) df[sample(nrow(df)),]  
 p <- bezier(permute_rows(cars))
 f <- as.function(p)
