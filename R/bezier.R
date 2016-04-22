@@ -5,7 +5,7 @@
 #' polynomials is made numerically stable by taking advantage of de
 #' Casteljau's algorithm; it does not use the polynomial that is
 #' printed to the screen.  See \code{\link{bezierFunction}} for
-#' details
+#' details.
 #' 
 #' @param ... either a sequence of points or a matrix/data frame of
 #'   points, see examples
@@ -13,7 +13,7 @@
 #'   polynomial
 #' @return a mpoly object
 #' @author David Kahle
-#' @seealso bezierFunction
+#' @seealso \code{\link{bezierFunction}}
 #' @export
 #' @examples
 #' 

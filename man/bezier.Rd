@@ -22,7 +22,7 @@ Note that using \code{\link{as.function}} on the resulting Bezier
 polynomials is made numerically stable by taking advantage of de
 Casteljau's algorithm; it does not use the polynomial that is
 printed to the screen.  See \code{\link{bezierFunction}} for
-details
+details.
 }
 \examples{
 
@@ -148,6 +148,6 @@ qplot(speed, dist, data = cars) +
 David Kahle
 }
 \seealso{
-bezierFunction
+\code{\link{bezierFunction}}
 }
 
