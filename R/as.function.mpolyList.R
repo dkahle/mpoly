@@ -67,6 +67,21 @@
 #' f(.75) # P[X = 0], P[X = 1], and P[X = 2] for X ~ Bin(2, .75)
 #' dbinom(0:2, 2, .75)
 #' 
+#' # as the degree gets larger, you'll need to be careful when evaluating 
+#' # the polynomial.  as.function() is not currently optimized for 
+#' # stable numerical evaluation of polynomials; it evaluates them in 
+#' # the naive way
+#' all.equal( 
+#'   as.function(abinom(10))(.5), 
+#'   dbinom(0:10, 10, .5)
+#' )
+#' 
+#' all.equal( 
+#'   as.function(abinom(30))(.5), 
+#'   dbinom(0:30, 20, .5)
+#' )
+#' 
+#' 
 #' # the function produced is vectorized:
 #' number_of_probs <- 11
 #' probs <- seq(0, 1, length.out = number_of_probs)
