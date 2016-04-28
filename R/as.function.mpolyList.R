@@ -49,6 +49,31 @@
 #' f <- as.function(ps)
 #' f(s)
 #' 
+#' # the binomial pmf as an algebraic (polynomial) map
+#' # from [0,1] to [0,1]^size
+#' # p |-> {choose(size, x) p^x (1-p)^(size-x)}_{x = 0, ..., size}
+#' abinom <- function(size, indet = "p"){
+#'   xs <- 0:size
+#'   nxbinoms <- choose(size, 0:size)
+#'   chars4mp <- vapply(as.list(xs), function(x){
+#'     sprintf("%d %s^%d (1-%s)^%d", choose(size, x), indet, x, indet, size-x)
+#'   }, character(1))
+#'   mp(chars4mp)
+#' }
+#' (ps <- abinom(2, "p")) # = mp(c("(1-p)^2", "2 p (1-p)", "p^2"))
+#' f <- as.function(ps)
+#' f(.5) # P[X = 0], P[X = 1], and P[X = 2] for X ~ Bin(2, .5)
+#' dbinom(0:2, 2, .5)
+#' f(.75) # P[X = 0], P[X = 1], and P[X = 2] for X ~ Bin(2, .75)
+#' dbinom(0:2, 2, .75)
+#' 
+#' # the function produced is vectorized:
+#' number_of_probs <- 11
+#' probs <- seq(0, 1, length.out = number_of_probs)
+#' (mat <- f(probs))
+#' colnames(mat) <- sprintf("P[X = %d]", 0:2)
+#' rownames(mat) <- sprintf("p = %.2f", s)
+#' mat
 #' 
 as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
   
