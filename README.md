@@ -160,13 +160,11 @@ Function coercion
 You can turn polynomials and vectors of polynomials into functions you can evaluate with `as.function()`. Here's a basic example using a single multivariate polynomial:
 
 ``` r
-(p <- mp("x + 2 y"))
-#> x  +  2 y
-f <- as.function(p) # makes a function with a vector argument
+f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
 #> f(.) with . = (x, y)
 f(c(1,1))
 #> [1] 3
-f <- as.function(p, vector = FALSE) # makes a function with all arguments
+f <- as.function(mp("x + 2 y"), vector = FALSE) # makes a function with all arguments
 #> f(x, y)
 f(1, 1)
 #> [1] 3
@@ -191,8 +189,7 @@ f(1, 1)
 Whether you're working with a single multivariate polynomial or a vector of them (`mpolyList`), if it/they are actually univariate polynomial(s), the resulting function is vectorized. Here's an example with a single univariate polynomial.
 
 ``` r
-p <- mp("x^2")
-f <- as.function(p)
+f <- as.function(mp("x^2"))
 #> f(.) with . = x
 f(1:3)
 #> [1] 1 4 9
@@ -315,7 +312,7 @@ chebyshev(0:5)
 And you can visualize them:
 
 ``` r
-library(reshape2); library(dplyr)
+library(tidyr); library(dplyr)
 ```
 
 ``` r
@@ -332,8 +329,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame
 #> f(.) with . = (x)
 names(df) <- c("x", paste0("T_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "path", color = variable)
+mdf <- df %>% gather(degree, value, -x)
+qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
 ![](README-chebyshev-1.png)
@@ -353,8 +350,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 df <- as.function(jacPolys)(s) %>% cbind(s, .) %>% as.data.frame
 #> f(.) with . = (x)
 names(df) <- c("x", paste0("P_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "path", color = variable) +
+mdf <- df %>% gather(degree, value, -x)
+qplot(x, value, data = mdf, geom = "path", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 ```
 
@@ -375,8 +372,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 df <- as.function(legPolys)(s) %>% cbind(s, .) %>% as.data.frame
 #> f(.) with . = (x)
 names(df) <- c("x", paste0("P_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "path", color = variable)
+mdf <- df %>% gather(degree, value, -x)
+qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
 ![](README-legendre-1.png)
@@ -396,8 +393,8 @@ s <- seq(-3, 3, length.out = 201); N <- 5
 df <- as.function(hermPolys)(s) %>% cbind(s, .) %>% as.data.frame
 #> f(.) with . = (x)
 names(df) <- c("x", paste0("He_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "path", color = variable)
+mdf <- df %>% gather(degree, value, -x)
+qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
 ![](README-hermite-1.png)
@@ -417,8 +414,8 @@ s <- seq(-5, 20, length.out = 201); N <- 5
 df <- as.function(lagPolys)(s) %>% cbind(s, .) %>% as.data.frame
 #> f(.) with . = (x)
 names(df) <- c("x", paste0("L_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "path", color = variable) +
+mdf <- df %>% gather(degree, value, -x)
+qplot(x, value, data = mdf, geom = "path", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 ```
 
@@ -449,8 +446,8 @@ N <- 5 # number of bernstein polynomials to plot
 df <- as.function(bernPolys)(s) %>% cbind(s, .) %>% as.data.frame
 #> f(.) with . = (x)
 names(df) <- c("x", paste0("B_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "path", color = variable)
+mdf <- df %>% gather(degree, value, -x)
+qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
 ![](README-bernstein-1.png)
@@ -539,7 +536,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.034 x  -  1.015 x^2  -  2.815
+#> 1.993 x  -  1.012 x^2  -  3.361
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(.) with . = x
