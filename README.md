@@ -263,8 +263,9 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 #> 8 x^4  -  8 x^2  +  1
 #> 16 x^5  -  20 x^3  +  5 x
 
-df <- sapply(s, as.function(chebPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
-#> f(x)
+
+df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame
+#> f(.) with . = (x)
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
@@ -284,8 +285,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 #> 144.375 x^4  -  78.75 x^2  +  4.375
 #> 375.375 x^5  -  288.75 x^3  +  39.375 x
  
-df <- sapply(s, as.function(jacPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
-#> f(x)
+df <- as.function(jacPolys)(s) %>% cbind(s, .) %>% as.data.frame
+#> f(.) with . = (x)
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable) +
@@ -306,8 +307,8 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 #> 4.375 x^4  -  3.75 x^2  +  0.375
 #> 7.875 x^5  -  8.75 x^3  +  1.875 x
  
-df <- sapply(s, as.function(legPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
-#> f(x)
+df <- as.function(legPolys)(s) %>% cbind(s, .) %>% as.data.frame
+#> f(.) with . = (x)
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
@@ -327,8 +328,8 @@ s <- seq(-3, 3, length.out = 201); N <- 5
 #> x^4  -  6 x^2  +  3
 #> x^5  -  10 x^3  +  15 x
 
-df <- sapply(s, as.function(hermPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
-#> f(x)
+df <- as.function(hermPolys)(s) %>% cbind(s, .) %>% as.data.frame
+#> f(.) with . = (x)
 names(df) <- c("x", paste0("He_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
@@ -348,8 +349,8 @@ s <- seq(-5, 20, length.out = 201); N <- 5
 #> 0.04166667 x^4  -  0.6666667 x^3  +  3 x^2  -  4 x  +  1
 #> -0.008333333 x^5  +  0.2083333 x^4  -  1.666667 x^3  +  5 x^2  -  5 x  +  1
 
-df <- sapply(s, as.function(lagPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
-#> f(x)
+df <- as.function(lagPolys)(s) %>% cbind(s, .) %>% as.data.frame
+#> f(.) with . = (x)
 names(df) <- c("x", paste0("L_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable) +
@@ -380,8 +381,8 @@ N <- 5 # number of bernstein polynomials to plot
 #> -5 x^5  +  5 x^4
 #> x^5
 
-df <- sapply(s, as.function(bernPolys)) %>% t %>% cbind(s, .) %>% as.data.frame
-#> f(x)
+df <- as.function(bernPolys)(s) %>% cbind(s, .) %>% as.data.frame
+#> f(.) with . = (x)
 names(df) <- c("x", paste0("B_", 0:N))
 mdf <- melt(df, id = "x")
 qplot(x, value, data = mdf, geom = "path", color = variable)
@@ -423,7 +424,7 @@ points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
 And viewing them is just as easy:
 
 ``` r
-df <- sapply(s, as.function(bezPolys)) %>% t %>% as.data.frame
+df <- as.function(bezPolys)(s) %>% as.data.frame
 
 ggplot(aes(x = x, y = y), data = df) + 
   geom_point(data = points, color = "red", size = 4) +
@@ -440,7 +441,7 @@ points <- data.frame(x = c(1,-2,2,-1), y = c(0,1,1,0))
 (bezPolys <- bezier(points))
 #> -14 t^3  +  21 t^2  -  9 t  +  1
 #> -3 t^2  +  3 t
-df <- sapply(s, as.function(bezPolys, weights = c(1,5,5,1))) %>% t %>% as.data.frame
+df <- as.function(bezPolys, weights = c(1,5,5,1))(s) %>% as.data.frame
 
 ggplot(aes(x = x, y = y), data = df) + 
   geom_point(data = points, color = "red", size = 4) +
@@ -473,7 +474,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.054 x  -  0.931 x^2  -  3.487
+#> 1.976 x  -  0.984 x^2  -  3.252
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(x)
