@@ -10,6 +10,8 @@ NEW FEATURES
 * new function exponents extracts the exponents of an mpoly.
 * new functions homogenize, dehomogenize, homogeneous_components extract
   those components of a multivariate polynomial.
+* as.function() now returns vectorized functions when the polynomial(s) 
+  are only of one variable.
 
 CHANGES
 
