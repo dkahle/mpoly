@@ -227,7 +227,7 @@ f <- as.function(mp("(x-2) x (x+2)"))
 #> f(.) with . = x
 x <- seq(-2.5, 2.5, .1)
 
-library(ggplot2); theme_set(theme_bw())
+library(ggplot2); theme_set(theme_classic())
 qplot(x, f(x), geom = "line")
 ```
 
@@ -536,7 +536,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 2.02 x  -  1.026 x^2  -  2.793
+#> 1.994 x  -  1.038 x^2  -  2.296
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(.) with . = x

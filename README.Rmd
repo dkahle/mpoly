@@ -138,7 +138,7 @@ You can use this to visualize a univariate polynomials like this:
 f <- as.function(mp("(x-2) x (x+2)"))
 x <- seq(-2.5, 2.5, .1)
 
-library(ggplot2); theme_set(theme_bw())
+library(ggplot2); theme_set(theme_classic())
 qplot(x, f(x), geom = "line")
 ```
 
