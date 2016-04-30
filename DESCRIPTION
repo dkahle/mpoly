@@ -19,7 +19,7 @@ Imports:
     ggplot2,
     polynom,
     orthopolynom,
-    reshape2
+    tidyr
 Suggests:
     testthat,
     magrittr

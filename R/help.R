@@ -4,7 +4,8 @@
 #' polynomials
 #' 
 #' @import stringr rSymPy rJython rJava rjson partitions plyr stats 
-#'   ggplot2 polynom orthopolynom reshape2
+#'   ggplot2 polynom orthopolynom 
+#' @importFrom tidyr gather
 #' @docType package
 #' @name mpoly
 #' @aliases mpoly package-mpoly
