@@ -15,10 +15,6 @@
 #' @export
 #' @examples
 #' 
-#' p <- mp('1 2 3 4')
-#' f <- as.function(p)
-#' f(10) # -> 24
-#' 
 #' p <- mp("x + 3 x y + z^2 x")
 #' f <- as.function(p)
 #' f(1:3) # -> 16
@@ -31,6 +27,19 @@
 #' f <- as.function(p, varorder = c('z','y','x'), vector = FALSE)
 #' f(3, 2, 1) # -> 16
 #' f(1, 1, 1) # -> 5
+#' 
+#' # for univariate mpolys, as.function() returns a vectorized function
+#' # that can even apply to arrays
+#' p <- mp("x^2")
+#' f <- as.function(p)
+#' f(1:10)
+#' (mat <- matrix(1:4, 2))
+#' f(mat)
+#' 
+#' 
+#' p <- mp('1 2 3 4')
+#' f <- as.function(p)
+#' f(10) # -> 24
 #' 
 as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
 	
@@ -51,7 +60,23 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   if(is.constant(x)) return( function(.) unlist(x)[["coef"]] )
     
   ## univariate polynomial
-  if(p == 1) vector <- FALSE
+  if(p == 1){
+    mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
+    mpoly_string <- chartr(vars(x), ".", mpoly_string)
+    message("f(.) with . = ", vars(x))
+    f <- function(){}
+    formals(f) <- alist(. = )
+    #expression(if(length(.) > 1) return(sapply(., f))),
+    body(f) <- as.call(c(
+      as.name("{"),
+      expression(if(length(.) > 1){
+        .[] <- sapply(., f)
+        return(.)
+      }),
+      parse(text = mpoly_string)
+    ))
+    return(f)
+  }
   
   ## general polynomials as a vector argument
   if(vector){
