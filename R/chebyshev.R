@@ -37,18 +37,20 @@
 #' 
 #' # visualize the chebyshev polynomials
 #' 
-#' library(ggplot2); theme_set(theme_bw())
-#' library(reshape2)
+#' library(ggplot2); theme_set(theme_classic())
+#' library(tidyr)
 #' 
 #' s <- seq(-1, 1, length.out = 201)
 #' N <- 5 # number of chebyshev polynomials to plot
 #' (chebPolys <- chebyshev(0:N))
 #' 
-#' df <- t(sapply(s, as.function(chebPolys)) )
-#' df <- as.data.frame(cbind(s, df))
+#' # see ?bernstein for a better understanding of
+#' # how the code below works
+#' 
+#' df <- data.frame(s, as.function(chebPolys)(s))
 #' names(df) <- c("x", paste0("T_", 0:N))
-#' mdf <- melt(df, id = "x")
-#' qplot(x, value, data = mdf, geom = "line", color = variable)
+#' mdf <- gather(df, degree, value, -x)
+#' qplot(x, value, data = mdf, geom = "line", color = degree)
 #' 
 #' 
 #' 

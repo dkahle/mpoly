@@ -46,18 +46,20 @@ jacobi(0:5, indeterminate = "t")
 
 # visualize the jacobi polynomials
 
-library(ggplot2); theme_set(theme_bw())
-library(reshape2)
+library(ggplot2); theme_set(theme_classic())
+library(tidyr)
 
 s <- seq(-1, 1, length.out = 201)
 N <- 5 # number of jacobi polynomials to plot
 (jacPolys <- jacobi(0:N, 2, 2))
 
-df <- t(sapply(s, as.function(jacPolys)) )
-df <- as.data.frame(cbind(s, df))
+df <- data.frame(s, as.function(jacPolys)(s))
 names(df) <- c("x", paste0("P_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = subset(mdf, abs(value) <= 30), geom = "line", color = variable)
+mdf <- gather(df, degree, value, -x)
+qplot(x, value, data = mdf, geom = "line", color = degree)
+  
+qplot(x, value, data = mdf, geom = "line", color = degree) +
+  coord_cartesian(ylim = c(-30, 30))
 
 
 

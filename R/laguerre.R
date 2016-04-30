@@ -32,20 +32,23 @@
 #' 
 #' # visualize the laguerre polynomials
 #' 
-#' library(ggplot2); theme_set(theme_bw())
-#' library(reshape2)
+#' library(ggplot2); theme_set(theme_classic())
+#' library(tidyr)
 #' 
 #' s <- seq(-5, 20, length.out = 201)
 #' N <- 5 # number of laguerre polynomials to plot
 #' (lagPolys <- laguerre(0:N))
 #' 
-#' df <- t(sapply(s, as.function(lagPolys)) )
-#' df <- as.data.frame(cbind(s, df))
-#' names(df) <- c("x", paste0("L_", 0:N))
-#' mdf <- melt(df, id = "x")
-#' qplot(x, value, data = mdf, geom = "line", color = variable) +
-#'   coord_cartesian(ylim = c(-25, 25))
+#' # see ?bernstein for a better understanding of
+#' # how the code below works
 #' 
+#' df <- data.frame(s, as.function(lagPolys)(s))
+#' names(df) <- c("x", paste0("L_", 0:N))
+#' mdf <- gather(df, degree, value, -x)
+#' qplot(x, value, data = mdf, geom = "line", color = degree)
+#' 
+#' qplot(x, value, data = mdf, geom = "line", color = degree) +
+#'   coord_cartesian(ylim = c(-25, 25))
 #' 
 #' 
 laguerre <- function(degree, alpha = 0, indeterminate = "x", normalized = FALSE){

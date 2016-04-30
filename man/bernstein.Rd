@@ -40,19 +40,21 @@ bernstein(0:20, 20, "t")
 
 \dontrun{  # visualize the bernstein polynomials
 
-library(ggplot2); theme_set(theme_bw())
-library(reshape2)
+library(ggplot2); theme_set(theme_classic())
+library(tidyr)
 
 s <- seq(0, 1, length.out = 101)
 N <- 10 # number of bernstein polynomials to plot
 (bernPolys <- bernstein(0:N, N))
 
-df <- t(sapply(s, as.function(bernPolys)) )
-df <- as.data.frame(cbind(s, df))
+df <- data.frame(s, as.function(bernPolys)(s))
 names(df) <- c("x", paste0("B_", 0:N))
-mdf <- melt(df, id = "x")
-qplot(x, value, data = mdf, geom = "line", color = variable)
+head(df)
 
+mdf <- gather(df, degree, value, -x)
+head(mdf)
+
+qplot(x, value, data = mdf, geom = "line", color = degree)
 
 }
 
