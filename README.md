@@ -231,7 +231,7 @@ library(ggplot2); theme_set(theme_bw())
 qplot(x, f(x), geom = "line")
 ```
 
-![](README-asFunction-1.png)
+![](figures/README-asFunction-1.png)
 
 For multivariate polynomials, it's a little more complicated:
 
@@ -244,7 +244,7 @@ df$f <- apply(df, 1, f)
 qplot(x, y, data = df, geom = "tile", fill = f)
 ```
 
-![](README-asFuntionMulti-1.png)
+![](figures/README-asFuntionMulti-1.png)
 
 Algebraic geometry
 ------------------
@@ -333,7 +333,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](README-chebyshev-1.png)
+![](figures/README-chebyshev-1.png)
 
 #### [Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials)
 
@@ -355,7 +355,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 ```
 
-![](README-jacobi-1.png)
+![](figures/README-jacobi-1.png)
 
 #### [Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials)
 
@@ -376,7 +376,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](README-legendre-1.png)
+![](figures/README-legendre-1.png)
 
 #### [Hermite polynomials](http://en.wikipedia.org/wiki/Hermite_polynomials)
 
@@ -397,7 +397,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](README-hermite-1.png)
+![](figures/README-hermite-1.png)
 
 #### [(Generalized) Laguerre polynomials](http://en.wikipedia.org/wiki/Laguerre_polynomials)
 
@@ -419,7 +419,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 ```
 
-![](README-laguerre-1.png)
+![](figures/README-laguerre-1.png)
 
 #### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
 
@@ -450,7 +450,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](README-bernstein-1.png)
+![](figures/README-bernstein-1.png)
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function. Here's an approximation to the standard normal density:
 
@@ -469,7 +469,7 @@ df <- data.frame(
 qplot(x, y, data = df, geom = "path", color = which)
 ```
 
-![](README-bernsteinApprox-1.png)
+![](figures/README-bernsteinApprox-1.png)
 
 [Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
 --------------------------------------------------------------------------
@@ -494,7 +494,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](README-bezierPlot-1.png)
+![](figures/README-bezierPlot-1.png)
 
 Weighting is available also:
 
@@ -511,7 +511,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](README-bezierWeighting-1.png)
+![](figures/README-bezierWeighting-1.png)
 
 To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm). This allows `bezier()` to be used as a smoother:
 
@@ -522,7 +522,7 @@ qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 ```
 
-![](README-bezierSmooth-1.png)
+![](figures/README-bezierSmooth-1.png)
 
 Other stuff
 -----------
@@ -536,13 +536,13 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 1.993 x  -  1.012 x^2  -  3.361
+#> 2.02 x  -  1.026 x^2  -  2.793
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(.) with . = x
 ```
 
-![](README-lm-1.png)
+![](figures/README-lm-1.png)
 
 Installation
 ------------
