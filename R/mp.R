@@ -289,7 +289,7 @@ parse_nonparenthetical_polynomial <- function(string){
 
 
 
-
+# parse_parenthetical_term("t1a")
 # parse_nonparenthetical_term("12var 2 y 2x")
 # parse_nonparenthetical_term("-2      7")
 # parse_nonparenthetical_term("2 x y^2 3 2           3^2")
@@ -311,7 +311,7 @@ parse_nonparenthetical_term <- function(string){
     string <- str_replace_all(string, "[\\s]*\\^[\\s]*", "^")
   }
   
-  # fix spaces around minuses "x ^ 2" -> "x^2"
+  # fix spaces around minuses "x  -  2" -> "x-2"
   if(str_detect(string, fixed("-"))){
     string <- str_replace_all(string, "[\\s]*\\-[\\s]*", "-")
   }
@@ -326,7 +326,7 @@ parse_nonparenthetical_term <- function(string){
   }
   
   # fix, e.g. "2x"
-  smashed_var_bool <- str_detect(parts, "[0-9]+[:alpha:]")
+  smashed_var_bool <- str_detect(parts, "^[\\-\\.\\s \\^0-9]+[:alpha:]")
   if(any(smashed_var_bool)){
     places_to_break <- str_locate(parts[smashed_var_bool], "[:alpha:]")[,1]
     for(k in seq_along(places_to_break)){
@@ -606,7 +606,6 @@ delete_nonparenthetical_elements <- function(string){
   string
   
 }
-
 
 
 
