@@ -3,7 +3,8 @@ Version 1.0.1.999
 
 NEW FEATURES
 
-* 
+* you can now pass * for multiplication in mp, so that mp("x*x") works 
+  properly.
 
 CHANGES
 

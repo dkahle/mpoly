@@ -56,6 +56,9 @@ mp <- function(string, varorder){
     return(mpolyList)
   }
   
+  # switch *'s for " "'s
+  string <- chartr("*", " ", string)
+  
   # check for unmatched parentheses
   unmatched_parentheses_stop(string)
   
