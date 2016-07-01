@@ -346,10 +346,5 @@ qplot(x, y, data = df) +
 * From Github (dev version): 
 ```R
 # install.packages("devtools")
-devtools::install_github("Rexamine/stringi")
-devtools::install_github("hadley/stringr")
 devtools::install_github("dkahle/mpoly")
 ```
-
-
-

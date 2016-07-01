@@ -536,7 +536,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-#> 1.994 x  -  1.038 x^2  -  2.296
+#> 1.973 x  -  1.06 x^2  -  2.437
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 #> f(.) with . = x
@@ -553,7 +553,5 @@ Installation
 
     ``` r
     # install.packages("devtools")
-    devtools::install_github("Rexamine/stringi")
-    devtools::install_github("hadley/stringr")
     devtools::install_github("dkahle/mpoly")
     ```
