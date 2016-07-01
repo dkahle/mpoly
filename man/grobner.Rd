@@ -2,7 +2,8 @@
 % Please edit documentation in R/grobner.R
 \name{grobner}
 \alias{grobner}
-\title{Compute a grobner basis of a list of multivariate polynomials.}
+\title{REMOVED -- Compute a grobner basis of a list of multivariate 
+polynomials.}
 \usage{
 grobner(mpolyList, varorder = vars(mpolyList), order = "lex")
 }
@@ -11,51 +12,40 @@ grobner(mpolyList, varorder = vars(mpolyList), order = "lex")
 
 \item{varorder}{order of variables}
 
-\item{order}{total order to be considered for monomials (e.g.
+\item{order}{total order to be considered for monomials (e.g. 
 lexicographic)}
 }
 \value{
 An object of class mpolyList.
 }
 \description{
-grobner computes a Groebner basis for a collection of multivarite
-polynomials represented as an object of class mpolyList. Note
+This function has been removed to eliminate mpoly's dependence on
+packages that only it uses.  To compute a Grobner basis of a 
+collection of multivariate polynomials, checkout the new m2r
+package, which you can download with the code in the first example.
+}
+\details{
+grobner computes a Grobner basis for a collection of multivarite 
+polynomials represented as an object of class mpolyList. Note 
 that the polynomials printed after calculation are unlikely to be
-properly ordered; this is because the order of the monomials
-displayed is governed by the print method, not the mpoly's
+properly ordered; this is because the order of the monomials 
+displayed is governed by the print method, not the mpoly's 
 themselves.
 }
 \examples{
 \dontrun{
-polys <- mp(c('t^4 - x', 't^3 - y', 't^2 - z'))
-grobner(polys)
-# result
-# -1 z  +  t^2
-# t y  -  z^2
-# -1 y  +  t z
-# x  -  z^2
-# y^2  -  z^3
-
-grobner(polys, varorder = c('x','y','t','z'))
-# x  -  z^2
-# y  -  z t
-# -1 z  +  t^2
-
-polys <- mp(c('x^2 - 2 y^2', 'x y - 3'))
-grobner(polys, varorder = c('x', 'y'))
-# result
-# 3 x  -  2 y^3
-# 2 y^4  -  9
-
-# using a different monomial order
-grobner(polys, varorder = c('x', 'y'), order = 'grlex')
-# -3 x  +  2 y^3
-# x^2  -  2 y^2
-# -3  +  x y
 
 
-# example from algebraic statistics, dinwoodie 1998
-#mp()
+# code to download m2r:
+# note that to do this you should have Macaulay2 installed,
+# see https://github.com/musicman3320/m2r and 
+# http://www.math.uiuc.edu/Macaulay2/Downloads/
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("musicman3320/m2r")
+
+
+
+
 
 }
 }
