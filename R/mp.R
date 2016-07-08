@@ -259,6 +259,7 @@ parse_parenthetical_term <- function(string){
 # parse_nonparenthetical_polynomial("x    +       y")
 # parse_nonparenthetical_polynomial("x    -       y+-xy")
 # parse_nonparenthetical_polynomial("1e-2 x")
+# parse_nonparenthetical_polynomial("1e+2 x")
 parse_nonparenthetical_polynomial <- function(string){
   
   # trim
