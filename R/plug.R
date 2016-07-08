@@ -42,11 +42,11 @@ plug <- function(p, indeterminate, value){
   
   ## if plugging in a value
   if(is.character(value)) value <- str_trim(value)
-  if(is.mpoly(value))     value <- suppressMessages(print.mpoly(value))
+  if(is.mpoly(value))     value <- print.mpoly(value, silent = TRUE)
   
   if(is.character(value)){
     
-    charPoly <- suppressMessages(print.mpoly(p))
+    charPoly <- print.mpoly(p, silent = TRUE)
     charPoly <- str_replace_all(charPoly, indeterminate, paste0("(",value,")"))
     return(mp(charPoly))# this can be optimized    
     

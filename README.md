@@ -546,7 +546,7 @@ mod <- lm(y ~ x + I(x^2), data = df)
 # debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#86: coef_names <- str_replace_all(coef_names, " \\* ", " ")
 # debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#87: mp_str <- paste(coefs, coef_names, sep = " ", collapse = " + ")
 # debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#88: mp(mp_str)
-# 1.999 x  -  1.015 x^2  -  2.687
+# 2.014 x  -  1.024 x^2  -  2.651
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
