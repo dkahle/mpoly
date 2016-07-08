@@ -8,7 +8,9 @@ NEW FEATURES
 
 CHANGES
 
-* 
+* all java stuff has been removed; see the m2r package for grobner basis
+  computations.
+
 
 
 
