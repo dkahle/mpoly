@@ -15,7 +15,9 @@
 \item{order}{a total order used to order the monomials in the
 printing}
 
-\item{...}{arguments to pass to print.mpoly}
+\item{silent}{logical; if TRUE, suppresses output}
+
+\item{...}{arguments to pass to \code{\link{print.mpoly}}}
 }
 \value{
 Invisible character vector of the printed objects.
@@ -28,6 +30,10 @@ mpolyList.
 
 mL <- mp(c('x + 1', 'y - 1', 'x y^2 z  +  x^2 z^2  +  z^2  +  x^3'))
 mL
+
+ps <- print(mL, silent = TRUE)
+ps
+
 print(mL, order = 'lex')
 print(mL, order = 'glex')
 print(mL, order = 'grlex')

@@ -24,7 +24,7 @@
 #' f(1, 2, 3) # -> 16
 #' f(1, 1, 1) # -> 5
 #' 
-#' f <- as.function(p, varorder = c('z','y','x'), vector = FALSE)
+#' f <- as.function(p, varorder = c("z","y","x"), vector = FALSE)
 #' f(3, 2, 1) # -> 16
 #' f(1, 1, 1) # -> 5
 #' 
@@ -37,7 +37,7 @@
 #' f(mat)
 #' 
 #' 
-#' p <- mp('1 2 3 4')
+#' p <- mp("1 2 3 4")
 #' f <- as.function(p)
 #' f(10) # -> 24
 #' 
@@ -49,7 +49,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   stopifnot(is.mpoly(x))
 	
   if(!setequal(varorder, vars(x))){
-    stop('varorder must contain all of the variables of x.',
+    stop("varorder must contain all of the variables of x.",
       call. = FALSE)
   }
   
@@ -61,7 +61,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
     
   ## univariate polynomial
   if(p == 1){
-    mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
+    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
     mpoly_string <- chartr(vars(x), ".", mpoly_string)
     message("f(.) with . = ", vars(x))
     f <- function(){}
@@ -80,37 +80,37 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   
   ## general polynomials as a vector argument
   if(vector){
-    mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
-    mpoly_string <- paste(' ', mpoly_string, ' ', sep = '')
+    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- paste(" ", mpoly_string, " ", sep = "")
     for(k in 1:p){
       mpoly_string <- gsub(
-        paste(' ', varorder[k], ' ', sep = ''),
-        paste(' .[', k, '] ', sep = ''),
+        paste(" ", varorder[k], " ", sep = ""),
+        paste(" .[", k, "] ", sep = ""),
         mpoly_string
       )
       mpoly_string <- gsub(
-        paste(' ', varorder[k], '\\*\\*', sep = ''),
-        paste(' .[', k, ']**', sep = ''),
+        paste(" ", varorder[k], "\\*\\*", sep = ""),
+        paste(" .[", k, "]**", sep = ""),
         mpoly_string
       )      
     }
-    v <- paste('(', paste(varorder, collapse = ', '), ')', sep = '')
-    message('f(.) with . = ', v)
-    mpoly_string <- paste('function(.){', mpoly_string, '}')    
+    v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
+    message("f(.) with . = ", v)
+    mpoly_string <- paste("function(.){", mpoly_string, "}")    
     return(eval(parse(text = mpoly_string)))
   }
   
   ## general polynomials as a bunch of arguments
   if(!vector){
-    mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
-    message('f(', paste(varorder, collapse = ', '), ')', sep = '')
+    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
+    message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(
-      'function(', 
-      paste(varorder, collapse = ', '),
-      '){', 
+      "function(", 
+      paste(varorder, collapse = ", "),
+      "){", 
       mpoly_string, 
-      '}',
-      sep = ''
+      "}",
+      sep = ""
     )
     return(eval(parse(text = mpoly_string)))
   }  
@@ -132,7 +132,7 @@ as.function.bernstein <- function(x, ...){
   k <- attr(x, "bernstein")$k
   n <- attr(x, "bernstein")$n
   
-  ## return exp'd log function
+  ## return exp"d log function
   function(.) exp(lchoose(n, k) + k*log(.) + (n-k)*log(1-.))
   
 }

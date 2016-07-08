@@ -30,7 +30,7 @@
 #' 
 #' # mp and the print methods are kinds of inverses of each other
 #' ( polys <- mp(c("x + y", "x - y")) )
-#' strings <- print(polys)
+#' strings <- print(polys, silent = TRUE)
 #' strings
 #' mp(strings)
 #' 

@@ -7,7 +7,11 @@ NEW FEATURES
 
 CHANGES
 
-* 
+* the print.mpoly and print.mpolyList methods now print with cat() instead 
+  of message().  they also accept a silent argument, in which case the 
+  output is suppressed; characters are returned silently. the argument order
+  has changed so that stars follows varorder and order.
+
 
 
 Version 1.0.2

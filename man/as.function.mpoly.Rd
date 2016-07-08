@@ -33,7 +33,7 @@ f <- as.function(p, vector = FALSE)
 f(1, 2, 3) # -> 16
 f(1, 1, 1) # -> 5
 
-f <- as.function(p, varorder = c('z','y','x'), vector = FALSE)
+f <- as.function(p, varorder = c("z","y","x"), vector = FALSE)
 f(3, 2, 1) # -> 16
 f(1, 1, 1) # -> 5
 
@@ -46,7 +46,7 @@ f(1:10)
 f(mat)
 
 
-p <- mp('1 2 3 4')
+p <- mp("1 2 3 4")
 f <- as.function(p)
 f(10) # -> 24
 

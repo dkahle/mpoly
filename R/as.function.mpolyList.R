@@ -109,7 +109,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
     
   # univariate polynomial - vectorize
   if(p == 1){
-    mpoly_string <- suppressMessages(print.mpolyList(x, stars = TRUE))
+    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
     mpoly_string <- paste(" ", mpoly_string, " ", sep = "", collapse = ",")
     for(k in 1:p){
       mpoly_string <- gsub(
@@ -137,7 +137,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
   
   # general polynomials as a vector argument
   if(vector){
-    mpoly_string <- suppressMessages(print.mpolyList(x, stars = TRUE))
+    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
     mpoly_string <- paste(" ", mpoly_string, " ", sep = "", collapse = ",")
     for(k in 1:p){
       mpoly_string <- gsub(
@@ -159,7 +159,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
   
   # general polynomials as a bunch of arguments
   if(!vector){
-    mpoly_string <- suppressMessages(print.mpolyList(x, stars = TRUE))
+    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
     mpoly_string <- paste(mpoly_string, collapse = ", ")
     message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(

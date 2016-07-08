@@ -10,15 +10,17 @@
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{stars}{print the multivariate polynomial in the more
-computer-friendly asterisk notation (default FALSE)}
-
 \item{varorder}{the order of the variables}
 
 \item{order}{a total order used to order the monomials in the
 printing}
 
-\item{...}{additional parameters}
+\item{stars}{print the multivariate polynomial in the more
+computer-friendly asterisk notation (default FALSE)}
+
+\item{silent}{logical; if TRUE, suppresses output}
+
+\item{...}{additional parameters to go to \code{\link{cat}}}
 }
 \value{
 Invisible string of the printed object.
@@ -27,17 +29,16 @@ Invisible string of the printed object.
 This is the major function used to view multivariate polynomials.
 }
 \examples{
-( list <- list(c(x = 5, coef = 2), c(y = 2, coef = -3), c(x = 1, y = 3, coef = 1)) )
-p <- mpoly(list)
+p <- mp("2 x^5  -  3 y^2  +  x y^3")
 p
-s <- print(p)
+print(p) # same
+print(p, silent = TRUE)
+s <- print(p, silent = TRUE)
 s
 
-print(p, order = 'lex') # -> 2 x^5  +  x y^3  -  3 y^2
-print(p, order = 'lex', varorder = c('y','x')) # -> y^3 x  -  3 y^2  +  2 x^5
-print(p, varorder = c('y','x')) # -> 2 x^5  -  3 y^2  +  y^3 x
-
-
+print(p, order = "lex") # -> 2 x^5  +  x y^3  -  3 y^2
+print(p, order = "lex", varorder = c("y","x")) # -> y^3 x  -  3 y^2  +  2 x^5
+print(p, varorder = c("y","x")) # -> 2 x^5  -  3 y^2  +  y^3 x
 
 print(p, stars = TRUE)
 

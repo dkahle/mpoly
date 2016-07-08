@@ -7,7 +7,8 @@
 #' @param varorder the order of the variables
 #' @param order a total order used to order the monomials in the
 #'   printing
-#' @param ... arguments to pass to print.mpoly
+#' @param silent logical; if TRUE, suppresses output
+#' @param ... arguments to pass to \code{\link{print.mpoly}}
 #' @usage \method{print}{mpolyList}(x, varorder = vars(x), order,
 #'   ...)
 #' @return Invisible character vector of the printed objects.
@@ -16,6 +17,10 @@
 #' 
 #' mL <- mp(c('x + 1', 'y - 1', 'x y^2 z  +  x^2 z^2  +  z^2  +  x^3'))
 #' mL
+#' 
+#' ps <- print(mL, silent = TRUE)
+#' ps
+#' 
 #' print(mL, order = 'lex')
 #' print(mL, order = 'glex')
 #' print(mL, order = 'grlex')
@@ -25,7 +30,7 @@
 #' s <- print(mL, varorder = c('z','y','x'))
 #' str(s)
 #' 
-print.mpolyList <- function(x, varorder = vars(x), order, ...){
+print.mpolyList <- function(x, varorder = vars(x), order, silent = FALSE, ...){
   
   stopifnot(is.mpolyList(x))
   n <- length(x)
@@ -45,13 +50,16 @@ print.mpolyList <- function(x, varorder = vars(x), order, ...){
     )
     message(message)
   }
-  
+
   if(missing(order)){
-    polys <- sapply(x, print, varorder = varorder, ...)  
+    polys <- vapply(x, print, character(1), 
+      varorder = varorder, silent = TRUE, ...)  
   } else {
-    polys <- sapply(x, print, varorder = varorder, order = order, ...)    
+    polys <- vapply(x, print, character(1), 
+      varorder = varorder, order = order, silent = TRUE, ...)    
   }
- 
+
+  if(!silent) cat(polys, sep = "\n")
   invisible(polys)
 }
 
