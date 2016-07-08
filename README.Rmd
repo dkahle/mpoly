@@ -10,7 +10,7 @@ output:
 
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = "#",
   fig.path = "figures/README-",
   dpi = 250
 )
@@ -154,11 +154,11 @@ qplot(x, y, data = df, geom = "tile", fill = f)
 
 ## Algebraic geometry
 
-Grobner bases computations are available using __rSymPy__:
+__Grobner bases are no longer implemented, see [m2r](https://github.com/musicman3320/m2r)__
 
 ```{r grobner}
-polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
-grobner(polys)
+# polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
+# grobner(polys)
 ```
 
 Homogenization and dehomogenization:
