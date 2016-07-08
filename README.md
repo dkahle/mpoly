@@ -448,7 +448,6 @@ You can use the `bernsteinApprox()` function to compute the Bernstein polynomial
 
 ``` r
 p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
-# 0.4 x  +  0.50.588046 temp  +  0.1083736 temp^2  -  1.008848 temp^3  -  0.3526079 temp^4  +  0.752947 temp^5  +  0.170519 temp^6  -  0.2879303 temp^7  -  0.01536099 temp^8  +  0.0515204 temp^9  -  0.003705707 temp^10  -  0.00345877 temp^11  +  0.0004595094 temp^12  +  0.00005397795 temp^13  -  0.000007711137 temp^14  -  0.000000000000009103829 temp^15  +  0.1826491
 round(p, 4)
 # -0.1624 x^2  +  0.0262 x^4  -  0.002 x^6  +  0.0001 x^8  +  0.3796
 
@@ -546,7 +545,7 @@ mod <- lm(y ~ x + I(x^2), data = df)
 # debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#86: coef_names <- str_replace_all(coef_names, " \\* ", " ")
 # debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#87: mp_str <- paste(coefs, coef_names, sep = " ", collapse = " + ")
 # debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#88: mp(mp_str)
-# 2.014 x  -  1.024 x^2  -  2.651
+# 1.992 x  -  0.98 x^2  -  3.331
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
