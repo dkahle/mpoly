@@ -9,10 +9,6 @@ Description: Symbolic computing with multivariate polynomials in R.
 Depends:
     stringr (>= 1.0.0)
 Imports:
-    rSymPy,
-    rJython,
-    rJava,
-    rjson,
     partitions,
     plyr,
     stats,
