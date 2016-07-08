@@ -337,6 +337,15 @@ qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 ```
 
+```{r lm_poly, fig.height=3}
+s <- seq(-5, 5, length.out = n)
+df <- expand.grid(x = s, y = s) %>% 
+  mutate(z = x^2 - y^2 + 3*x*y + rnorm(n^2, 0, 3))
+
+(mod <- lm(z ~ poly(x, y, degree = 2, raw = TRUE), data = df))
+as.mpoly(mod)
+```
+
 
 
 ## Installation

@@ -528,13 +528,40 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 1.991 x  -  1.002 x^2  -  2.744
+# 2.021 x  -  0.979 x^2  -  3.507
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
 ```
 
 ![](figures/README-lm-1.png)
+
+``` r
+s <- seq(-5, 5, length.out = n)
+df <- expand.grid(x = s, y = s) %>% 
+  mutate(z = x^2 - y^2 + 3*x*y + rnorm(n^2, 0, 3))
+
+(mod <- lm(z ~ poly(x, y, degree = 2, raw = TRUE), data = df))
+# 
+# Call:
+# lm(formula = z ~ poly(x, y, degree = 2, raw = TRUE), data = df)
+# 
+# Coefficients:
+#                           (Intercept)  
+#                             -0.066621  
+# poly(x, y, degree = 2, raw = TRUE)1.0  
+#                              0.002571  
+# poly(x, y, degree = 2, raw = TRUE)2.0  
+#                              0.998949  
+# poly(x, y, degree = 2, raw = TRUE)0.1  
+#                              0.002239  
+# poly(x, y, degree = 2, raw = TRUE)1.1  
+#                              3.001249  
+# poly(x, y, degree = 2, raw = TRUE)0.2  
+#                             -0.987866
+as.mpoly(mod)
+# 0.002571436 x  +  0.9989494 x^2  +  0.002238815 y  +  3.001249 x y  -  0.9878661 y^2  -  0.06662147
+```
 
 Installation
 ------------
