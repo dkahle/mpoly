@@ -29,7 +29,12 @@
 #' qplot(x, y, data = df) +
 #'   stat_function(fun = as.function(p), colour = "red", size = 1)
 #'   
-#' (mod <- lm(y ~ poly(x, 2), data = df))  
+#' (mod <- lm(y ~ poly(x, 2, raw = TRUE), data = df))  
+#' (p <- as.mpoly(mod))
+#' qplot(x, y, data = df) +
+#'   stat_function(fun = as.function(p), colour = "red", size = 1)
+#'   
+#' (mod <- lm(y ~ poly(x, 1, raw = TRUE), data = df))  
 #' (p <- as.mpoly(mod))
 #' qplot(x, y, data = df) +
 #'   stat_function(fun = as.function(p), colour = "red", size = 1)
@@ -39,7 +44,7 @@
 #' # two dimensional case with ggplot2
 #' 
 #' df <- expand.grid(x = s, y = s) %>% 
-#'   mutate(df, z = x^2 - y^2 + 2 * x*y + rnorm(n^2, 0, 3))
+#'   mutate(z = x^2 - y^2 + 3*x*y + rnorm(n^2, 0, 3))
 #' qplot(x, y, data = df, geom = "raster", fill = z)
 #' 
 #' (mod <- lm(z ~ x + y + I(x^2) + I(y^2) + I(x*y), data = df))
@@ -70,22 +75,58 @@ as.mpoly.default <- function(x, ...)
 
 #' @export  
 as.mpoly.lm <- function(x, ...){
-browser()  
-  
+
   coefs <- coef(x)
   coef_names <- names(coefs)
   coef_names[coef_names == "(Intercept)"] <- 1
-  I_ndcs <- which(str_detect(coef_names, "I([0-9a-zA-Z]*)"))
-  if(length(I_ndcs) > 0){
-    coef_names[I_ndcs] <- sapply(as.list(coef_names[I_ndcs]), 
-      function(s) {
-          str_sub(s, 3, -2)
-      }
-    )
+  
+  # check for "poly(x, 2)1" syntax
+  if(any(str_detect(coef_names, "poly"))) {
+    
+    poly_ndcs <- which(str_detect(coef_names, "poly"))  
+    coef_names[poly_ndcs] <- vapply(coef_names[poly_ndcs], parse_model_poly, character(1))
+    mp_str <- paste(coefs, coef_names, sep = " ", collapse = " + ")
+    
+  } else { # I() notation
+    
+    I_ndcs <- which(str_detect(coef_names, "I([0-9a-zA-Z]*)"))  
+    if(length(I_ndcs) > 0){
+      coef_names[I_ndcs] <- vapply(
+        coef_names[I_ndcs], 
+        function(s) str_sub(s, 3, -2),
+        character(1)
+      )
+    }
+    coef_names  <- str_replace_all(coef_names, " \\* ", " ")
+    mp_str <- paste(coefs, coef_names, sep = " ", collapse = " + ")
+    
   }
-  coef_names  <- str_replace_all(coef_names, " \\* ", " ")
-  mp_str <- paste(coefs, coef_names, sep = " ", collapse = " + ")
+  
+
   mp(mp_str)
+}
+
+
+
+# s <- "poly(x, y, degree = 2, raw = TRUE)2.0"
+# parse_model_poly(s)
+parse_model_poly <- function(s) {
+  # grab vars; check for raw
+  inside <- str_extract_all(s, "poly\\(.+\\)")[[1]]
+  inside <- str_sub(inside, 6, -2)
+  inside <- str_split(inside, ", ")[[1]]
+  if(!any(inside == "raw = TRUE")) {
+    stop("poly() statements currently must contain raw = TRUE.")
+  }
+  vars <- inside[!str_detect(inside, "=")]
+  
+  # parse exponents
+  exponents <- str_sub(str_extract_all(s, "\\).+")[[1]], 2)
+  if(length(exponents) == 0) exponent <- "1"
+  exponents <- str_split(exponents, "\\.")[[1]]
+  
+  # put together
+  paste(paste(vars, exponents, sep = "^"), collapse = " ")
 }
 
 

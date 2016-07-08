@@ -528,24 +528,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# Called from: as.mpoly.lm(.)
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#75: coefs <- coef(x)
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#76: coef_names <- names(coefs)
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#77: coef_names[coef_names == "(Intercept)"] <- 1
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#78: I_ndcs <- which(str_detect(coef_names, "I([0-9a-zA-Z]*)"))
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#79: if (length(I_ndcs) > 0) {
-#     coef_names[I_ndcs] <- sapply(as.list(coef_names[I_ndcs]), 
-#         function(s) {
-#             str_sub(s, 3, -2)
-#         })
-# }
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#80: coef_names[I_ndcs] <- sapply(as.list(coef_names[I_ndcs]), function(s) {
-#     str_sub(s, 3, -2)
-# })
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#86: coef_names <- str_replace_all(coef_names, " \\* ", " ")
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#87: mp_str <- paste(coefs, coef_names, sep = " ", collapse = " + ")
-# debug at /Users/david_kahle/Dropbox/dev/mpoly/mpoly/R/as.mpoly.R#88: mp(mp_str)
-# 1.992 x  -  0.98 x^2  -  3.331
+# 1.991 x  -  1.002 x^2  -  2.744
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
