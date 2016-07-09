@@ -436,8 +436,8 @@ fix_term_joins <- function(string){
   }
     
   # break string into pieces of terms and joins
-  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,]+")[[1]]
-  joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|]+")[[1]]
+  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,_]+")[[1]]
+  joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|_]+")[[1]]
   if(joins[1] == "") joins <- joins[-1] 
   if(joins[length(joins)] == "") joins <- joins[-length(joins)] 
   if(length(joins) == 0L) return(string)
