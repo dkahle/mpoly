@@ -75,7 +75,7 @@ as.mpoly.default <- function(x, ...)
 
 #' @export  
 as.mpoly.lm <- function(x, ...){
-
+  
   coefs <- coef(x)
   coef_names <- names(coefs)
   coef_names[coef_names == "(Intercept)"] <- 1
@@ -111,6 +111,7 @@ as.mpoly.lm <- function(x, ...){
 # s <- "poly(x, y, degree = 2, raw = TRUE)2.0"
 # parse_model_poly(s)
 parse_model_poly <- function(s) {
+
   # grab vars; check for raw
   inside <- str_extract_all(s, "poly\\(.+\\)")[[1]]
   inside <- str_sub(inside, 6, -2)
@@ -118,12 +119,16 @@ parse_model_poly <- function(s) {
   if(!any(inside == "raw = TRUE")) {
     stop("poly() statements currently must contain raw = TRUE.")
   }
-  vars <- inside[!str_detect(inside, "=")]
+  vars <- inside[!(str_detect(inside, "=") | !str_detect(inside, "[:alpha:]"))]
   
   # parse exponents
-  exponents <- str_sub(str_extract_all(s, "\\).+")[[1]], 2)
-  if(length(exponents) == 0) exponent <- "1"
-  exponents <- str_split(exponents, "\\.")[[1]]
+  if(str_sub(s, -1) == ")") {
+    exponents <- 1
+  } else {
+    exponents <- str_sub(str_extract_all(s, "\\).+")[[1]], 2)
+    if(length(exponents) == 0) exponent <- "1"
+    exponents <- str_split(exponents, "\\.")[[1]]
+  }
   
   # put together
   paste(paste(vars, exponents, sep = "^"), collapse = " ")

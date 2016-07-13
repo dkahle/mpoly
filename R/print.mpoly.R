@@ -4,14 +4,14 @@
 #' 
 #' @param x an object of class mpoly
 #' @param varorder the order of the variables
-#' @param order a total order used to order the monomials in the
+#' @param order a total order used to order the monomials in the 
 #'   printing
-#' @param stars print the multivariate polynomial in the more
+#' @param stars print the multivariate polynomial in the more 
 #'   computer-friendly asterisk notation (default FALSE)
 #' @param silent logical; if TRUE, suppresses output
 #' @param ... additional parameters to go to \code{\link{cat}}
-#' @usage \method{print}{mpoly}(x, stars = FALSE, varorder, order,
-#'   ...)
+#' @usage \method{print}{mpoly}(x, varorder, order, stars = FALSE,
+#'   silent = FALSE, ...)
 #' @return Invisible string of the printed object.
 #' @export
 #' @examples
