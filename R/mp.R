@@ -403,7 +403,7 @@ parse_nonparenthetical_term <- function(string){
 # fix_term_joins("1+-xx-x")
 # fix_term_joins("-1-1")
 # fix_term_joins("1e-2 x")
-# fix_term_joins("1e+2 x")
+# mpoly:::fix_term_joins("1e+2 x")
 # fix_term_joins("-1-1-") # error
 # fix_term_joins("-1-1+") # error
 fix_term_joins <- function(string){
@@ -425,12 +425,12 @@ fix_term_joins <- function(string){
   }
   
   # fix scientific notation
-  while(str_detect(string, fixed("e+"))){
+  while(str_detect(string, "[0-9\\.]+e\\+[0-9]+")){
     stringToReplace <- str_extract(string, "[0-9\\.]+e\\+[0-9]+")
     string <- str_replace(string, "[0-9\\.]+e\\+[0-9]+", format(as.numeric(stringToReplace)))
   }
   
-  while(str_detect(string, fixed("e-"))){
+  while(str_detect(string, "[0-9\\.]+e\\-[0-9]+")){
     stringToReplace <- str_extract(string, "[0-9\\.]+e-[0-9]+")
     string <- str_replace(string, "[0-9\\.]+e-[0-9]+", format(as.numeric(stringToReplace)))    
   }

@@ -373,6 +373,20 @@ test_that("parse_nonparenthetical_polynomial works", {
 
 
 
+test_that("Scientific notation is parsed properly", {
+  
+  m <- mpoly
+  
+  expect_equal(mp("1e+2 x"), m(list(c(coef = 100, x = 1))))
+  expect_equal(mp("1e-2 x"), m(list(c(coef = .01, x = 1))))
+  expect_equal(mp("e-a"), m(list(c(coef = 1, e = 1), c(coef = -1, a = 1))))
+  expect_equal(mp("e+a"), m(list(c(coef = 1, e = 1), c(coef =  1, a = 1))))
+  expect_equal(mp("a-e"), m(list(c(coef = 1, a = 1), c(coef = -1, e = 1))))
+  expect_equal(mp("a+e"), m(list(c(coef = 1, a = 1), c(coef =  1, e = 1))))
+})
+
+
+
 # mp("(x)")
 # mp("((((x))))")
 # mp("(x + 0)")
