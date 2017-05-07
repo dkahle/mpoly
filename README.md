@@ -231,7 +231,7 @@ library(ggplot2); theme_set(theme_classic())
 qplot(x, f(x), geom = "line")
 ```
 
-![](figures/README-asFunction-1.png)
+![](tools/README-asFunction-1.png)
 
 For multivariate polynomials, it's a little more complicated:
 
@@ -244,7 +244,7 @@ df$f <- apply(df, 1, f)
 qplot(x, y, data = df, geom = "tile", fill = f)
 ```
 
-![](figures/README-asFuntionMulti-1.png)
+![](tools/README-asFuntionMulti-1.png)
 
 Algebraic geometry
 ------------------
@@ -285,7 +285,6 @@ chebyshev(1)
 # Loading required package: polynom
 # 
 # Attaching package: 'polynom'
-# 
 # The following object is masked from 'package:mpoly':
 # 
 #     LCM
@@ -325,7 +324,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](figures/README-chebyshev-1.png)
+![](tools/README-chebyshev-1.png)
 
 #### [Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials)
 
@@ -347,7 +346,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 ```
 
-![](figures/README-jacobi-1.png)
+![](tools/README-jacobi-1.png)
 
 #### [Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials)
 
@@ -368,7 +367,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](figures/README-legendre-1.png)
+![](tools/README-legendre-1.png)
 
 #### [Hermite polynomials](http://en.wikipedia.org/wiki/Hermite_polynomials)
 
@@ -389,7 +388,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](figures/README-hermite-1.png)
+![](tools/README-hermite-1.png)
 
 #### [(Generalized) Laguerre polynomials](http://en.wikipedia.org/wiki/Laguerre_polynomials)
 
@@ -411,7 +410,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 ```
 
-![](figures/README-laguerre-1.png)
+![](tools/README-laguerre-1.png)
 
 #### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
 
@@ -442,7 +441,7 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-![](figures/README-bernstein-1.png)
+![](tools/README-bernstein-1.png)
 
 You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function. Here's an approximation to the standard normal density:
 
@@ -461,7 +460,7 @@ df <- data.frame(
 qplot(x, y, data = df, geom = "path", color = which)
 ```
 
-![](figures/README-bernsteinApprox-1.png)
+![](tools/README-bernsteinApprox-1.png)
 
 [Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
 --------------------------------------------------------------------------
@@ -486,7 +485,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](figures/README-bezierPlot-1.png)
+![](tools/README-bezierPlot-1.png)
 
 Weighting is available also:
 
@@ -503,7 +502,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](figures/README-bezierWeighting-1.png)
+![](tools/README-bezierWeighting-1.png)
 
 To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm). This allows `bezier()` to be used as a smoother:
 
@@ -514,7 +513,7 @@ qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 ```
 
-![](figures/README-bezierSmooth-1.png)
+![](tools/README-bezierSmooth-1.png)
 
 Other stuff
 -----------
@@ -528,13 +527,13 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 2.021 x  -  0.979 x^2  -  3.507
+# 1.864 x  -  x^2  -  2.783
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
 ```
 
-![](figures/README-lm-1.png)
+![](tools/README-lm-1.png)
 
 ``` r
 s <- seq(-5, 5, length.out = n)
@@ -548,19 +547,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                             -0.066621  
+#                              0.003204  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                              0.002571  
+#                             -0.012784  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              0.998949  
+#                              0.997207  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                              0.002239  
+#                             -0.008901  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              3.001249  
+#                              2.995842  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -0.987866
+#                             -1.003032
 as.mpoly(mod)
-# 0.002571436 x  +  0.9989494 x^2  +  0.002238815 y  +  3.001249 x y  -  0.9878661 y^2  -  0.06662147
+# -0.01278423 x  +  0.9972066 x^2  -  0.008900973 y  +  2.995842 x y  -  1.003032 y^2  +  0.003203564
 ```
 
 Installation
