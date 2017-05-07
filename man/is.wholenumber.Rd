@@ -20,4 +20,3 @@ Test whether an object is a whole number.
 \examples{
 is.wholenumber(seq(-3,3,.5))
 }
-

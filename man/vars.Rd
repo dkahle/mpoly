@@ -24,4 +24,3 @@ list <- list(
 p <- mpoly(list)
 vars(p)
 }
-

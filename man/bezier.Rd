@@ -144,10 +144,9 @@ qplot(speed, dist, data = cars) +
 
 
 }
-\author{
-David Kahle
-}
 \seealso{
 \code{\link{bezierFunction}}
 }
-
+\author{
+David Kahle
+}

@@ -3,8 +3,9 @@
 \docType{package}
 \name{mpoly}
 \alias{mpoly}
-\alias{mpoly-package}
 \alias{package-mpoly}
+\alias{mpoly-package}
+\alias{mpoly}
 \title{Multivariate polynomials in R.}
 \usage{
 mpoly(list, varorder)
@@ -49,10 +50,9 @@ mpoly(list)
 
 
 }
-\author{
-David Kahle \email{david.kahle@gmail.com}
-}
 \seealso{
 \code{\link{mp}}
 }
-
+\author{
+David Kahle \email{david.kahle@gmail.com}
+}

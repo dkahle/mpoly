@@ -43,4 +43,3 @@ print(p, varorder = c("y","x")) # -> 2 x^5  -  3 y^2  +  y^3 x
 print(p, stars = TRUE)
 
 }
-

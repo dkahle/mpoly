@@ -24,4 +24,3 @@ str(partitions(5))
 \author{
 Robin K. S. Hankin, from package partitions
 }
-

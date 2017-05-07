@@ -30,4 +30,3 @@ deriv(m, 'a')
 is.mpoly(deriv(m, 'x'))
 is.mpolyList( deriv(m, c('x','y','z')) )
 }
-

@@ -51,10 +51,9 @@ mp(strings)
 
 
 }
-\author{
-David Kahle \email{david.kahle@gmail.com}
-}
 \seealso{
 \code{\link{mpoly}}
 }
-
+\author{
+David Kahle \email{david.kahle@gmail.com}
+}

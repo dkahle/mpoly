@@ -59,12 +59,11 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 
 }
-\author{
-David Kahle calling code from the orthopolynom package
-}
 \seealso{
 \code{\link{hermite.h.polynomials}}, 
   \code{\link{hermite.he.polynomials}}, 
   \url{http://en.wikipedia.org/wiki/Hermite_polynomials}
 }
-
+\author{
+David Kahle calling code from the orthopolynom package
+}

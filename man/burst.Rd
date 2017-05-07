@@ -34,4 +34,3 @@ burst(10, 4) # all possible 2x2 contingency tables with n=10
 burst(10, 4) / 10 # all possible empirical relative frequencies
 
 }
-

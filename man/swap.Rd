@@ -38,4 +38,3 @@ is.chebyshev(p2)
 \author{
 David Kahle
 }
-

@@ -77,9 +77,6 @@ ggplot(aes(x = x, y = y), data = df) +
   
 
 }
-\author{
-David Kahle
-}
 \references{
 \url{http://en.wikipedia.org/wiki/Bezier_curve}, 
   \url{http://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
@@ -87,4 +84,6 @@ David Kahle
 \seealso{
 \code{\link{bezier}}
 }
-
+\author{
+David Kahle
+}

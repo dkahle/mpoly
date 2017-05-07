@@ -51,10 +51,9 @@ qplot(x, y, data = df) +
 }
 
 }
-\author{
-David Kahle \email{david.kahle@gmail.com}
-}
 \seealso{
 \code{\link{mp}}
 }
-
+\author{
+David Kahle \email{david.kahle@gmail.com}
+}

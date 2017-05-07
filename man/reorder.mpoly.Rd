@@ -47,4 +47,3 @@ reorder(mp("x^2 + y x + y"), order = "lex")
 
 
 }
-

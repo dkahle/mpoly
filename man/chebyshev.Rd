@@ -62,9 +62,6 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 
 }
-\author{
-David Kahle calling code from the orthopolynom package
-}
 \seealso{
 \code{\link{chebyshev.t.polynomials}}, 
   \code{\link{chebyshev.u.polynomials}}, 
@@ -72,4 +69,6 @@ David Kahle calling code from the orthopolynom package
   \code{\link{chebyshev.s.polynomials}}, 
   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }
-
+\author{
+David Kahle calling code from the orthopolynom package
+}

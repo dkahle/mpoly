@@ -22,4 +22,3 @@ permutations(c('first','second','third'))
 permutations(c(1,1,3))
 apply(permutations(letters[1:6]), 1, paste, collapse = '')
 }
-

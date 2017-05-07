@@ -94,4 +94,3 @@ qplot(x, y, data = df, geom = "line", color = which)
 \author{
 David Kahle
 }
-

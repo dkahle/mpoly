@@ -24,4 +24,3 @@ insert(2, 1, 1)
 insert(2, 2, 1) 
 insert('x', 5, letters) 
 }
-
