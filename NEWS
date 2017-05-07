@@ -5,6 +5,7 @@ FIXES
 
 * A bug in scientific notation causing mp() to hang has been fixed. 
   (Thanks @sommars)
+* Move README from figures/ to tools/
 
 Version 1.0.3
 -------------------------------------------------------------------------
