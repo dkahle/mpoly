@@ -84,6 +84,7 @@ LM <- function(x, varorder = vars(x), order = "lex"){
 #' @rdname components
 #' @export
 multideg <- function(x, varorder = vars(x), order = "lex"){
+  if(is.constant(x)) return(0L)
   lt <- LT(x, varorder, order)
   coef_ndx <- which(names(lt[[1]]) == "coef")
   sparse_multideg <- lt[[1]][-coef_ndx]
