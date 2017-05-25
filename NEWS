@@ -5,6 +5,7 @@ NEW FEATURES
 
 * Add is.unipoly(), a predicate for univariate polynomials.
 * Add solve_unipoly(), a mpoly wrapper for polyroot().
+* plug() now works on mpolyLists.
 
 FIXES
 

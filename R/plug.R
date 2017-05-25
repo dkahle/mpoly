@@ -10,6 +10,7 @@
 #' @export
 #' @examples
 #' 
+#' # on an mpoly
 #' (p <- mp("(x+y)^3"))
 #' plug(p, "x", 5)
 #' plug(p, "x", "t")
@@ -19,13 +20,20 @@
 #' plug(p, "x", mp("x + y"))
 #' mp("((x+y)+y)^3")
 #' 
+#' # on an mpolyList
+#' ps <- mp(c("x+y", "x+1"))
+#' plug(ps, "x", 1)
+#' 
 plug <- function(p, indeterminate, value){
   
   stopifnot(length(value) == 1 || is.mpoly(value))
   stopifnot(length(indeterminate) == 1)
   
+  # go recursive if an mpolyList
+  if(is.mpolyList(p))
+    return(structure(lapply(p, plug, indeterminate, value), class = "mpolyList"))
   
-  ## if plugging in a number
+  # if plugging in a number
   if(is.numeric(value)){    
     
     pList <- unclass(p)
@@ -40,7 +48,7 @@ plug <- function(p, indeterminate, value){
     
   }
   
-  ## if plugging in a value
+  # if plugging in a value
   if(is.character(value)) value <- str_trim(value)
   if(is.mpoly(value))     value <- print.mpoly(value, silent = TRUE)
   
