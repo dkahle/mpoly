@@ -527,7 +527,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 1.864 x  -  x^2  -  2.783
+# 1.931 x  -  1.005 x^2  -  2.932
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -547,19 +547,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                              0.003204  
+#                            -0.0542186  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                             -0.012784  
+#                            -0.0081241  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              0.997207  
+#                             1.0027100  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                             -0.008901  
+#                            -0.0005508  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              2.995842  
+#                             3.0014475  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -1.003032
+#                            -1.0028567
 as.mpoly(mod)
-# -0.01278423 x  +  0.9972066 x^2  -  0.008900973 y  +  2.995842 x y  -  1.003032 y^2  +  0.003203564
+# -0.008124078 x  +  1.00271 x^2  -  0.0005507512 y  +  3.001448 x y  -  1.002857 y^2  -  0.05421859
 ```
 
 Installation
