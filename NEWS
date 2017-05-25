@@ -7,6 +7,11 @@ NEW FEATURES
 * Add solve_unipoly(), a mpoly wrapper for polyroot().
 * plug() now works on mpolyLists.
 
+CHANGES
+
+* as.function.mpoly() and as.function.mpolyList() no longer message
+  when the resulting function arguments are clear.
+
 FIXES
 
 * A bug in scientific notation causing mp() to hang has been fixed. 

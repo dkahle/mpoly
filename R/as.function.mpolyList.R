@@ -124,7 +124,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
       )      
     }
     v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
-    message("f(.) with . = ", v)
+    # message("f(.) with . = ", v)
     f <- function(){}
     formals(f) <- alist(. = )
     body(f) <- as.call(c(
@@ -152,7 +152,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
       )      
     }
     v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
-    message("f(.) with . = ", v)
+    if(missing(vector) || missing(varorder)) message("f(.) with . = ", v)
     mpoly_string <- paste("function(.){ c(", mpoly_string, ") }")    
     return(eval(parse(text = mpoly_string)))
   }
@@ -161,7 +161,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
   if(!vector){
     mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
     mpoly_string <- paste(mpoly_string, collapse = ", ")
-    message("f(", paste(varorder, collapse = ", "), ")", sep = "")
+    if(missing(vector) || missing(varorder)) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(
       "function(", 
       paste(varorder, collapse = ", "),
