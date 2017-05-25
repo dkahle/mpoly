@@ -1,6 +1,11 @@
 Version 1.0.4
 -------------------------------------------------------------------------
 
+NEW FEATURES
+
+* Add is.unipoly(), a predicate for univariate polynomials.
+* Add solve_unipoly(), a mpoly wrapper for polyroot().
+
 FIXES
 
 * A bug in scientific notation causing mp() to hang has been fixed. 
