@@ -26,12 +26,13 @@
 #' 
 plug <- function(p, indeterminate, value){
   
-  stopifnot(length(value) == 1 || is.mpoly(value))
-  stopifnot(length(indeterminate) == 1)
-  
   # go recursive if an mpolyList
   if(is.mpolyList(p))
     return(structure(lapply(p, plug, indeterminate, value), class = "mpolyList"))
+  
+  # check args
+  stopifnot(length(value) == 1 || is.mpoly(value))
+  stopifnot(length(indeterminate) == 1)
   
   # if plugging in a number
   if(is.numeric(value)){    
