@@ -79,6 +79,23 @@ is.mpoly <- function(x) any(class(x) == "mpoly")
 
 #' @export
 #' @rdname predicates
+is.unipoly <- function(x) {
+  if(is.mpolyList(x)) return(vapply(x, is.unipoly, logical(1)))
+  length(vars(x)) <= 1
+}
+# is.unipoly(mp("1"))
+# is.unipoly(mp("x+1"))
+# is.unipoly(mp("x+1+x^2"))
+# is.unipoly(mp(c("x+1+x^2", "y")))
+# is.unipoly(mp(c("x+1+x^2", "y", "x+y")))
+
+
+
+
+
+
+#' @export
+#' @rdname predicates
 is.bernstein <- function(x) any(class(x) == "bernstein")
 
 

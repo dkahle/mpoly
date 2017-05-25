@@ -4,6 +4,7 @@
 \alias{predicates}
 \alias{is.constant}
 \alias{is.mpoly}
+\alias{is.unipoly}
 \alias{is.bernstein}
 \alias{is.bezier}
 \alias{is.chebyshev}
@@ -14,6 +15,8 @@
 is.constant(x)
 
 is.mpoly(x)
+
+is.unipoly(x)
 
 is.bernstein(x)
 
