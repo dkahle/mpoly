@@ -21,8 +21,10 @@ solve_unipoly <- function(mpoly, real_only = FALSE) {
   names(coef_vec) <- 0:degs[1]
   for(k in 1:length(mpoly)) coef_vec[as.character(degs[k])] <- coefs[k]
   solns <- polyroot(coef_vec)
-  if(real_only) solns <- Re(Filter(is.real, solns))
+  if (real_only) {
+    is.real <- function(x) Im(x) == 0
+    solns <- Re(Filter(is.real, solns))
+  }
   solns
 }
 
-is.real <- function(x) Im(x) == 0

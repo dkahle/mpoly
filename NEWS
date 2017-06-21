@@ -1,4 +1,4 @@
-Version 1.0.4
+Version 1.0.5
 -------------------------------------------------------------------------
 
 NEW FEATURES
@@ -12,12 +12,19 @@ CHANGES
 * as.function.mpoly() and as.function.mpolyList() no longer message
   when the resulting function arguments are clear.
 
+
+
+Version 1.0.4
+-------------------------------------------------------------------------
+
 FIXES
 
 * A bug in scientific notation causing mp() to hang has been fixed. 
   (Thanks @sommars)
 * Move README from figures/ to tools/
 * Add https:// for paper reference
+
+
 
 Version 1.0.3
 -------------------------------------------------------------------------
