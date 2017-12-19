@@ -1,4 +1,4 @@
 .onAttach <- function(...) {
   if(!interactive()) return()
-  packageStartupMessage('  Please cite mpoly; see citation("mpoly") for details.')  
+  packageStartupMessage('  Please cite mpoly! See citation("mpoly") for details.')  
 }
