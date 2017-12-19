@@ -9,5 +9,5 @@ citEntry(entry = "article",
   number = "1",
   pages = "162--170",
   url = "https://journal.r-project.org/archive/2013-1/kahle.pdf",
-  textVersion = "D. Kahle. mpoly: Multivariate Polynomials in R. The R Journal, 5(1), 162-170. URL https://journal.r-project.org/archive/2013-1/kahle.pdf"
+  textVersion = "D. Kahle (2013). mpoly: Multivariate Polynomials in R. The R Journal, 5(1), 162-170. URL https://journal.r-project.org/archive/2013-1/kahle.pdf"
 )
