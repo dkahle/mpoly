@@ -2,7 +2,7 @@ citHeader("To cite mpoly in publications, please use:")
 
 citEntry(entry = "article",
   author = "David Kahle",
-  title = "mpoly: Multivariate Polynomials in R",
+  title = "mpoly: Multivariate Polynomials in {R}",
   journal = "The R Journal",
   year = "2013",
   volume = "5",

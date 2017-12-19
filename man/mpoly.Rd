@@ -20,8 +20,7 @@ intrinsic variable order of the polynomial}
 Object of class mpoly.
 }
 \description{
-A package for symbolic computation and more with multivariate 
-polynomials
+A package for symbolic computation and more with multivariate polynomials
 
 mpoly is the most basic function used to create objects of class
 mpoly. However, it is not a general purpose function; for that
