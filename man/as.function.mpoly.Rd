@@ -50,6 +50,9 @@ p <- mp("1 2 3 4")
 f <- as.function(p)
 f(10) # -> 24
 
+
+
+
 }
 \seealso{
 \code{\link{plug}}

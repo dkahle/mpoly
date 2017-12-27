@@ -5,6 +5,13 @@ CHANGES
 
 * Packages are now imported from more nicely (@importFrom in all cases).
 
+FIXES
+
+* A bug in as.function() that caused it to error on univariate polynomials
+  with indeterminates with numbers in them (e.g. x1) is now fixed.
+  (Thanks @Blaza)
+  
+
 Version 1.0.5
 -------------------------------------------------------------------------
 
