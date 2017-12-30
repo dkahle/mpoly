@@ -4,8 +4,10 @@ Title: Symbolic Computation and More with Multivariate Polynomials
 Version: 1.0.5.902
 URL: https://github.com/dkahle/mpoly
 BugReports: https://github.com/dkahle/mpoly/issues
-Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
+Authors@R: c(person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre")),
+             person("Blagoje", "Ivanovic", email = "blagoje.r.ivanovic@gmail.com", role = c("aut")))
 Description: Symbolic computing with multivariate polynomials in R.
+LinkingTo: Rcpp
 Imports:
     stringr (>= 1.0.0),
     partitions,
@@ -14,10 +16,12 @@ Imports:
     ggplot2,
     polynom,
     orthopolynom,
-    tidyr
+    tidyr,
+    Rcpp
 Suggests:
     testthat,
     magrittr,
     dplyr
+SystemRequirements: C++11
 License: GPL-2
 RoxygenNote: 6.0.1
