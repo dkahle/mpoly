@@ -1,7 +1,9 @@
 #' Multivariate polynomials in R.
 #'
 #' A package for symbolic computation and more with multivariate polynomials
-#'
+#' @import Rcpp
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib mpoly
 #' @importFrom stringr str_c str_detect str_sub str_replace_all str_replace
 #'   str_count str_dup str_extract str_extract_all str_locate str_locate_all
 #'   str_split str_sub<- str_trim fixed
