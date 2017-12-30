@@ -63,14 +63,25 @@ NULL
 #' @rdname mpolyArithmetic
 #' @export
 `-.mpoly` <- function(e1, e2){
-  
+
+  ## if either is constant, mpoly it
+  if(!is.list(e1)){
+    stopifnot(is.numeric(e1) && length(e1) == 1)
+    e1 <- list(c(coef = e1))
+  }
+
+  if(!is.list(e2)){
+    stopifnot(is.numeric(e2) && length(e2) == 1)
+    e2 <- list(c(coef = e2))
+  }
+
   ## flip coefficients of each term
   e2 <- lapply(e2, function(v){
     v["coef"] <- -v["coef"]
     v
   })
   class(e2) <- "mpoly"
-  
+
   ## add
   e1 + e2	
 }
