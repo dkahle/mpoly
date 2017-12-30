@@ -52,7 +52,6 @@ struct compareVarOrder {
 };
 
 
-// [[Rcpp::export]]
 NumericVector sortVars(const NumericVector& term, const CharacterVector& vars) {
   std::vector<std::string> names = term.names();
   std::sort(names.begin(), names.end(), compareVarOrder(vars));
@@ -68,7 +67,6 @@ NumericVector sortVars(const NumericVector& term, const CharacterVector& vars) {
 }
 
 
-// [[Rcpp::export]]
 CharacterVector getMonomialStrings(const List& poly) {
   CharacterVector res(poly.size());
   
@@ -94,7 +92,6 @@ CharacterVector getMonomialStrings(const List& poly) {
 }
 
 
-// [[Rcpp::export]]
 List combineMonomials(const List& poly) {
   CharacterVector monomials = getMonomialStrings(poly);
   CharacterVector uniqueMonomials = unique(monomials);
@@ -139,7 +136,7 @@ bool isSubset(CharacterVector sub, CharacterVector sup) {
   return true;
 }
 
-// [[Rcpp::export]]
+
 List tidyTerms(const List& poly, const CharacterVector& vars) {
   List res(poly.size());
   
@@ -166,7 +163,7 @@ List tidyTerms(const List& poly, const CharacterVector& vars) {
   return res;
 }
 
-// [[Rcpp::export]]
+
 List removeZeros(const List& poly){
   // to avoid expanding the list, we'll first check how many zeros there are
   // and then proceed to populate the resulting list without zero elements

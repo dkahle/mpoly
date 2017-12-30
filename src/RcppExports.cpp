@@ -5,63 +5,6 @@
 
 using namespace Rcpp;
 
-// sortVars
-NumericVector sortVars(const NumericVector& term, const CharacterVector& vars);
-RcppExport SEXP _mpoly_sortVars(SEXP termSEXP, SEXP varsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type term(termSEXP);
-    Rcpp::traits::input_parameter< const CharacterVector& >::type vars(varsSEXP);
-    rcpp_result_gen = Rcpp::wrap(sortVars(term, vars));
-    return rcpp_result_gen;
-END_RCPP
-}
-// getMonomialStrings
-CharacterVector getMonomialStrings(const List& poly);
-RcppExport SEXP _mpoly_getMonomialStrings(SEXP polySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const List& >::type poly(polySEXP);
-    rcpp_result_gen = Rcpp::wrap(getMonomialStrings(poly));
-    return rcpp_result_gen;
-END_RCPP
-}
-// combineMonomials
-List combineMonomials(const List& poly);
-RcppExport SEXP _mpoly_combineMonomials(SEXP polySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const List& >::type poly(polySEXP);
-    rcpp_result_gen = Rcpp::wrap(combineMonomials(poly));
-    return rcpp_result_gen;
-END_RCPP
-}
-// tidyTerms
-List tidyTerms(const List& poly, const CharacterVector& vars);
-RcppExport SEXP _mpoly_tidyTerms(SEXP polySEXP, SEXP varsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const List& >::type poly(polySEXP);
-    Rcpp::traits::input_parameter< const CharacterVector& >::type vars(varsSEXP);
-    rcpp_result_gen = Rcpp::wrap(tidyTerms(poly, vars));
-    return rcpp_result_gen;
-END_RCPP
-}
-// removeZeros
-List removeZeros(const List& poly);
-RcppExport SEXP _mpoly_removeZeros(SEXP polySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const List& >::type poly(polySEXP);
-    rcpp_result_gen = Rcpp::wrap(removeZeros(poly));
-    return rcpp_result_gen;
-END_RCPP
-}
 // reducePoly
 List reducePoly(const List& poly, const CharacterVector& vars);
 RcppExport SEXP _mpoly_reducePoly(SEXP polySEXP, SEXP varsSEXP) {
@@ -100,11 +43,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_mpoly_sortVars", (DL_FUNC) &_mpoly_sortVars, 2},
-    {"_mpoly_getMonomialStrings", (DL_FUNC) &_mpoly_getMonomialStrings, 1},
-    {"_mpoly_combineMonomials", (DL_FUNC) &_mpoly_combineMonomials, 1},
-    {"_mpoly_tidyTerms", (DL_FUNC) &_mpoly_tidyTerms, 2},
-    {"_mpoly_removeZeros", (DL_FUNC) &_mpoly_removeZeros, 1},
     {"_mpoly_reducePoly", (DL_FUNC) &_mpoly_reducePoly, 2},
     {"_mpoly_mpolyMult", (DL_FUNC) &_mpoly_mpolyMult, 2},
     {"_mpoly_mpolyPow", (DL_FUNC) &_mpoly_mpolyPow, 2},
