@@ -94,36 +94,24 @@ NULL
 #' @rdname mpolyArithmetic
 #' @export
 `*.mpoly` <- function(e1, e2){
-  
   ## allow for multiplication by a constant
   if(is.numeric(e1) && length(e1) == 1) e1 <- mpoly(list(c(coef = e1)))
   if(is.numeric(e2) && length(e2) == 1) e2 <- mpoly(list(c(coef = e2)))
-  
-  
-  
+
   ## argument check
   stopifnot(is.mpoly(e1))
   stopifnot(is.mpoly(e2))
-  
-  
-  
+
   ## multiply
-  list <- lapply(e1, function(v){
-    lapply(e2, function(z){
-      c(v, z)  
-    })	
-  })
-  
-  
-  
+  list <- mpolyMult(e1, e2)
   ## return
-  mpoly( unlist(list, recursive = FALSE) )
+  mpoly( list )
 }	
 
 
-l <- list(
-  c(x = 1, coef = 1, x = 1, coef = 1)  
-)
+# l <- list(
+#   c(x = 1, coef = 1, x = 1, coef = 1)
+# )
 
 
 
@@ -136,16 +124,14 @@ l <- list(
 #' @rdname mpolyArithmetic
 #' @export
 `^.mpoly` <- function(e1, e2){
-  
+
   if(!is.mpoly(e1)) stop('e1 must be of class mpoly.', call. = FALSE)
-  
+
   if(!is.wholenumber(e2) || e2 < 0) stop('exponent must be a positive integer.', call. = FALSE)
-  
-  out <- mpoly(list(c(coef = 1)))
-  
+
   if(e2 == 0) return(out)
-    
-  for(k in 1:e2) out <- out * e1
-  
-  out
+
+  out <- mpolyPow(e1, e2)
+
+  mpoly(out)
 }
