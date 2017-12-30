@@ -42,14 +42,14 @@ NULL
   ## if either is constant, mpoly it
   if(!is.list(e1)){
     stopifnot(is.numeric(e1) && length(e1) == 1)
-    e1 <- list(coef = e1)
+    e1 <- list(c(coef = e1))
   }
   
   if(!is.list(e2)){
     stopifnot(is.numeric(e2) && length(e2) == 1)
     e2 <- list(c(coef = e2))
   }
-	
+
   ## let mpoly do the heavy lifting
   mpoly(c(e1, e2)) 
 }
