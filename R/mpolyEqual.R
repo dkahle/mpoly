@@ -51,5 +51,7 @@
 }
 
 
-
+all.equal.mpoly <- function(e1, e2) {
+  e1 == e2
+}
 
