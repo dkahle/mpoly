@@ -11,6 +11,9 @@ FIXES
   with indeterminates with numbers in them (e.g. x1) is now fixed.
   (Thanks @Blaza)
   
+* A bug in mpoly/numeric arithmetic.  Fixed by @Blaza (thanks!) and tests
+  added.
+  
 
 Version 1.0.5
 -------------------------------------------------------------------------
