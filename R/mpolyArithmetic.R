@@ -35,11 +35,11 @@ NULL
 #' @export
 `+.mpoly` <- function(e1, e2){
   
-  ## strip to lists
+  # strip to lists
   e1 <- unclass(e1)
   e2 <- unclass(e2)
   
-  ## if either is constant, mpoly it
+  # if either is constant, mpoly it
   if(!is.list(e1)){
     stopifnot(is.numeric(e1) && length(e1) == 1)
     e1 <- list(c(coef = e1))
@@ -50,7 +50,7 @@ NULL
     e2 <- list(c(coef = e2))
   }
 
-  ## let mpoly do the heavy lifting
+  # let mpoly do the heavy lifting
   mpoly(c(e1, e2)) 
 }
 
@@ -64,14 +64,19 @@ NULL
 #' @export
 `-.mpoly` <- function(e1, e2){
   
-  ## flip coefficients of each term
+  # deal with constants
+  if(is.numeric(e2)) {
+    e2 <- mpoly(list(c("coef" = e2)))
+  }
+  
+  # flip coefficients of each term
   e2 <- lapply(e2, function(v){
     v["coef"] <- -v["coef"]
     v
   })
   class(e2) <- "mpoly"
   
-  ## add
+  # add
   e1 + e2	
 }
 
@@ -84,35 +89,26 @@ NULL
 #' @export
 `*.mpoly` <- function(e1, e2){
   
-  ## allow for multiplication by a constant
+  # allow for multiplication by a constant
   if(is.numeric(e1) && length(e1) == 1) e1 <- mpoly(list(c(coef = e1)))
   if(is.numeric(e2) && length(e2) == 1) e2 <- mpoly(list(c(coef = e2)))
   
-  
-  
-  ## argument check
+  # argument check
   stopifnot(is.mpoly(e1))
   stopifnot(is.mpoly(e2))
-  
-  
-  
-  ## multiply
+    
+  # multiply
   list <- lapply(e1, function(v){
     lapply(e2, function(z){
       c(v, z)  
     })	
   })
-  
-  
-  
-  ## return
+    
+  # return
   mpoly( unlist(list, recursive = FALSE) )
 }	
 
 
-l <- list(
-  c(x = 1, coef = 1, x = 1, coef = 1)  
-)
 
 
 
