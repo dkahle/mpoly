@@ -48,19 +48,27 @@ mp <- function(string, varorder){
   # if string is a vector of polys, return mpolyList
   if(length(string) > 1){
     if(missing(varorder)){
-      mpolyList <- lapply(as.list(string), mp)
+      mpolyList <- lapply(string, mp)
     } else {
-      mpolyList <- lapply(as.list(string), mp, varorder = varorder)
+      mpolyList <- lapply(string, mp, varorder = varorder)
     }
     class(mpolyList) <- "mpolyList"
     return(mpolyList)
   }
   
   # switch *'s for " "'s
-  string <- chartr("*", " ", string)
+  string <- str_replace_all(string, fixed("*"), " ")
   
-  # check for unmatched parentheses
+  # clean whitespace
+  string <- str_replace_all(string, " {2,}", " ")
+  string <- str_replace_all(string, "[\\n\\t]", " ")
+  
+  # clean double parens
+  string <- str_replace_all(string, fixed(")("), ") (")
+  
+  # check for bad things
   unmatched_parentheses_stop(string)
+  empty_parenthetical_stop(string)
   
   # compute
   out <- parse_parenthetical_polynomial(string)
@@ -71,10 +79,9 @@ mp <- function(string, varorder){
     vars <- vars(out)
     
     if(!all(vars %in% varorder)){
-      error <- paste(
-        "if specified, varorder must contain all computed vars - ",
-        paste(vars, collapse = ", "),
-        sep = ""
+      error <- sprintf(
+        "If specified, varorder must contain all computed vars - %s",
+        str_c(vars, collapse = ", ")
       )
       stop(error, call. = FALSE)
     }
@@ -86,6 +93,7 @@ mp <- function(string, varorder){
   
   # return
   out
+  
 }
 
 
@@ -95,23 +103,21 @@ mp <- function(string, varorder){
 
 
 
-
-# parse_parenthetical_polynomial("x ((x+y)+2)")
+# string <- "x ((x+y)+2)"
+# parse_parenthetical_polynomial(string)
 # parse_parenthetical_polynomial("x ((x+y) + 2)")
 # parse_parenthetical_polynomial("-(x + y) + 2 x (x + y)^2 + 3 y")
 parse_parenthetical_polynomial <- function(string){
-  
-  # trim up
-  string <- str_trim(string)
   
   # fix term joins
   terms <- extract_polynomial_terms(string)
   
   # parse into mpolys
-  mpolys <- lapply(as.list(terms), parse_parenthetical_term)
+  mpolys <- lapply(terms, parse_parenthetical_term)
   
   # add and return
   Reduce(`+.mpoly`, mpolys)
+  
 }
 
 
@@ -160,7 +166,8 @@ parse_parenthetical_polynomial <- function(string){
 parse_parenthetical_term <- function(string){
   
   # short circuit if simpler
-  if(!contains_parenthetical_expression(string)) return(parse_nonparenthetical_term(string))
+  if(!contains_parenthetical_expression(string)) 
+    return(parse_nonparenthetical_term(string))
   
   # break into parenthetical pieces ("bubbles")
   pieces <- term_parentheticals(string)
@@ -169,16 +176,16 @@ parse_parenthetical_term <- function(string){
   mpolys <- lapply(pieces, function(piece){
     
     # identify expression and exponent components
-    expr <- str_extract(piece, "\\([()[:alnum:][+-]\\s\\^\\.]+\\)")
+    expr <- str_extract(piece, "\\([-()\\w+ \\^.]+\\)")
     expr <- str_sub(expr, 2, -2) # take off parens
     
     # check for exponent on the outer parenthetical
-    last_paren_ndx     <- nchar(piece) - str_locate(str_rev(piece), fixed(")"))[[1]] + 1
-    string_after_paren <- str_sub(piece, last_paren_ndx+1) # "" or "^3"
-  
+    last_paren_ndx     <- nchar(piece) - str_locate(str_rev(piece), fixed(")"))[[1]] + 1L
+    string_after_paren <- str_sub(piece, last_paren_ndx + 1L) # "" or "^3"
+    
     # if "^3", extract, otherwise 1
     if(str_detect(string_after_paren, fixed("^"))){
-      exponent <- as.numeric(str_rev(str_extract(str_rev(string_after_paren), "[\\d]+"))) # gets first
+      exponent <- as.numeric(str_rev(str_extract(str_rev(string_after_paren), "[0-9]+"))) # gets first
     } else {
       exponent <- 1
     }
@@ -194,6 +201,7 @@ parse_parenthetical_term <- function(string){
   
   # product and return
   Reduce(`*.mpoly`, mpolys)
+  
 }
 
 
@@ -262,14 +270,8 @@ parse_parenthetical_term <- function(string){
 # parse_nonparenthetical_polynomial("1e+2 x")
 parse_nonparenthetical_polynomial <- function(string){
   
-  # trim
-  string <- str_trim(string)
-  
   # check to see if it's a single term
-  if(
-    !str_detect(string, "[+]") && 
-    !str_detect(str_sub(string, 2), "[-]")
-  ) {
+  if (!str_detect(string, "[+]") && !str_detect(str_sub(string, 2), "[-]")) {
     return(parse_nonparenthetical_term(string))
   }
   
@@ -277,13 +279,14 @@ parse_nonparenthetical_polynomial <- function(string){
   string <- fix_term_joins(string)  
   
   # split polynomial
-  terms <- str_trim(str_split(string, fixed(" + "))[[1]])
+  terms <- str_split(string, fixed(" + "))[[1]]
   
   # parse terms
-  mpolyTerms <- lapply(as.list(terms), parse_nonparenthetical_term)
+  mpolyTerms <- lapply(terms, parse_nonparenthetical_term)
   
   # combine and return
   Reduce(`+.mpoly`, mpolyTerms)
+  
 }
 
 
@@ -299,40 +302,33 @@ parse_nonparenthetical_polynomial <- function(string){
 # parse_nonparenthetical_term("2 x y^2 3 2           3^2")
 # parse_nonparenthetical_term("2 x -2") # -> warn
 # parse_nonparenthetical_term("x")
-# parse_nonparenthetical_term("-x")
+# parse_nonparenthetical_term("-x") # error
+# parse_nonparenthetical_term("+x") # correctly wrong
 # parse_nonparenthetical_term("-5x")
 # parse_nonparenthetical_term("-0x")
 # parse_nonparenthetical_term("1.5x")
 # parse_nonparenthetical_term("1.5^2x")
-# parse_nonparenthetical_term("1e-2 x")
+# parse_nonparenthetical_term("1e-2 x") # correctly error
 parse_nonparenthetical_term <- function(string){
   
-  # trim
-  string <- str_trim(string)
-  
   # fix spaces around exponents "x ^ 2" -> "x^2"
-  if(str_detect(string, fixed("^"))){
-    string <- str_replace_all(string, "[\\s]*\\^[\\s]*", "^")
-  }
+  string <- str_replace_all(string, " *\\^ *", "^")
   
   # fix spaces around minuses "x  -  2" -> "x-2"
-  if(str_detect(string, fixed("-"))){
-    string <- str_replace_all(string, "[\\s]*\\-[\\s]*", "-")
-  }
+  string <- str_replace_all(string, " *- *", "-")
   
   # split based on spaces
   parts <- str_split(string, " ")[[1]]
   parts <- parts[nchar(parts) > 0] # for "2        -2"
   
   # if more than one negative provided error
-  if(str_detect(str_sub(string, 2), fixed("-"))){
-    stop("negative signs are only allowed at the beginning of terms.", call. = FALSE)
-  }
+  if(str_detect(str_sub(string, 2), fixed("-")))
+    stop("Negative signs are only allowed at the beginning of terms.", call. = FALSE)
   
   # fix, e.g. "2x"
-  smashed_var_bool <- str_detect(parts, "^[\\-\\.\\s \\^0-9]+[:alpha:]")
+  smashed_var_bool <- str_detect(parts, "^[-. ^0-9]+[a-zA-Z]")
   if(any(smashed_var_bool)){
-    places_to_break <- str_locate(parts[smashed_var_bool], "[:alpha:]")[,1]
+    places_to_break <- str_locate(parts[smashed_var_bool], "[a-zA-Z]")[,1]
     for(k in seq_along(places_to_break)){
       parts[smashed_var_bool][k] <- str_c(
         str_sub(parts[smashed_var_bool][k], 1, places_to_break[k]-1),
@@ -344,14 +340,14 @@ parse_nonparenthetical_term <- function(string){
   }
   
   # fix, e.g. "-y"
-  minus_var_bool <- str_detect(parts, "\\-[:alpha:]")
+  minus_var_bool <- str_detect(parts, "\\-[a-zA-Z]")
   if(any(minus_var_bool)){
     parts[minus_var_bool] <- str_c("-1 ", str_sub(parts[minus_var_bool], 2))
     parts <- unlist(str_split(parts, " "))
   }
   
   # collect numeric elements
-  parts_with_vars <- str_detect(parts, "[:alpha:]")
+  parts_with_vars <- str_detect(parts, "[a-zA-Z]")
   if(all(parts_with_vars)){
     coef <- 1L
   } else {
@@ -393,6 +389,7 @@ parse_nonparenthetical_term <- function(string){
 
 
 # fix_term_joins("-2 - -2x + y - -3 y - 2")
+# fix_term_joins("1e2x - 1e-2x + 1e+2x")
 # fix_term_joins("1-1")
 # fix_term_joins("x[1]")
 # fix_term_joins("x[1,1]")
@@ -403,69 +400,61 @@ parse_nonparenthetical_term <- function(string){
 # fix_term_joins("1+-xx-x")
 # fix_term_joins("-1-1")
 # fix_term_joins("1e-2 x")
-# mpoly:::fix_term_joins("1e+2 x")
+# fix_term_joins("1e+2 x")
+# fix_term_joins("1e2 x")
 # fix_term_joins("-1-1-") # error
 # fix_term_joins("-1-1+") # error
 fix_term_joins <- function(string){
   
-  # trim
-  string <- str_trim(string)
-  
   # make sure last char is not a sign
-  if(str_detect(str_sub(string, -1), "[+-]")){
-    stop(paste0("term ", string, " does not terminate."), call. = FALSE)
-  }
+  if(str_detect(string, "[+-]$"))
+    stop(sprintf("Term %s does not terminate.", string), call. = FALSE)
   
   # zero trick for leading symbol, e.g. "-1 + x" -> "0 + -1 + x"
-  if(str_detect(str_sub(string, 1, 1), fixed("-"))){
-    if(str_detect(str_sub(string, 1, 1), fixed("--"))){
-      stop('"--" cannot lead an expression.', call. = FALSE)
-    }
+  if (str_detect(string, "^[+-]")) {
+    if (str_detect(string, "^[+-]{2,}")) stop(
+      sprintf("%s cannot start an expression.", str_extract(string, "^[+-]+")), 
+      call. = FALSE
+    )
     string <- str_c("0 + ", string)
   }
   
   # fix scientific notation
-  while(str_detect(string, "[0-9\\.]+e\\+[0-9]+")){
-    stringToReplace <- str_extract(string, "[0-9\\.]+e\\+[0-9]+")
-    string <- str_replace(string, "[0-9\\.]+e\\+[0-9]+", format(as.numeric(stringToReplace)))
+  sciRegex <- "[0-9.]+e[+-]?[0-9]+"
+  while(str_detect(string, sciRegex)){
+    stringToReplace <- str_extract(string, sciRegex)
+    replacement <- format(as.numeric(stringToReplace))
+    string <- str_replace(string, sciRegex, replacement)
   }
   
-  while(str_detect(string, "[0-9\\.]+e\\-[0-9]+")){
-    stringToReplace <- str_extract(string, "[0-9\\.]+e-[0-9]+")
-    string <- str_replace(string, "[0-9\\.]+e-[0-9]+", format(as.numeric(stringToReplace)))    
-  }
-    
   # break string into pieces of terms and joins
-  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,_]+")[[1]]
-  joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|_]+")[[1]]
-  if(joins[1] == "") joins <- joins[-1] 
-  if(joins[length(joins)] == "") joins <- joins[-length(joins)] 
+  terms <- str_extract_all(string, "[\\w^.,|\\[\\]]+")[[1]]
+  joins <- str_split(string, "[\\w^.,|\\[\\]]+")[[1]]
+  if(joins[1] == "") joins <- joins[-1]
+  if(joins[length(joins)] == "") joins <- joins[-length(joins)]
   if(length(joins) == 0L) return(string)
   
   # fix joins
   pureJoins <- str_replace_all(joins, "\\s", "")
   pureJoins[pureJoins == ""] <- "|"
-  if(any(nchar(pureJoins) > 3)) stop(
-    "arithmetic sign sequence of more than two detected.", call. = FALSE
-  )
-  cleanJoinMap <- c("-" = " - ", "+" = " + ", "--" = " + ", 
-    "++" = " + ", "+-" = " - ", "-+" = " - ", "|" = " "
+  if(any(nchar(pureJoins) > 3)) 
+    stop("Arithmetic sign sequence of more than two detected.", call. = FALSE)
+  cleanJoinMap <- c(
+    "-" = " + -1 ",  "+" = " + ", "--" = " + ", 
+    "++" = " + ", "+-" = " + -1 ", "-+" = " + -1 ", "|" = " "
   )
   cleanedJoins <- unname(cleanJoinMap[pureJoins]) # cbind(joins, cleanedJoins)
-
-  # reconstruct
-  n <- length(terms) + length(joins) # n always odd, first term always a [:alnum:]
-  temp <- character(n)
-  temp[seq(1, n, 2)] <- terms
-  temp[seq(2, n-1, 2)] <- cleanedJoins    
-  string <- paste(temp, collapse = "")
   
-  # kill minuses
-  string <- str_replace_all(string, fixed("-"), "+ -1")
+  # reconstruct
+  n <- length(terms) + length(joins) # n always odd, first term always a \\w
+  temp <- character(n)
+  temp[seq.int(1L, n, 2L)] <- terms
+  temp[seq.int(2L, n-1L, 2L)] <- cleanedJoins    
+  string <- str_c(temp, collapse = "")
   
   # strip leading "0 + " if needed
-  if(str_sub(string, 1, 4) == "0 + ") string <- str_sub(string, 5)
-   
+  if(str_sub(string, 1L, 4L) == "0 + ") string <- str_sub(string, 5L)
+  
   # return
   string
 }
@@ -485,7 +474,7 @@ fix_term_joins <- function(string){
 
 
 
-# string <- "-(x + y) + 2 x (x + y) + 3 y"
+# string <- "-(x + y)+ 2 x (x + y) + 3 y"
 # extract_polynomial_terms(string)
 extract_polynomial_terms <- function(string){
   
@@ -508,7 +497,7 @@ extract_polynomial_terms <- function(string){
   }
   
   # split
-  str_trim(str_split(piped_string, fixed("*"))[[1]])
+  str_split(piped_string, fixed("*"))[[1]]
 }
 
 
@@ -541,12 +530,9 @@ extract_polynomial_terms <- function(string){
 # extract_leftmost_inner_parenthetical("((x + 5)^10+2)^2")
 # extract_leftmost_inner_parenthetical("((x + 5)^10+2)", contents_only = TRUE)
 extract_leftmost_inner_parenthetical <- function(string, contents_only = FALSE){
-  string <- str_extract(string, "\\([^()]*\\)[\\^\\d]*")
-  if(contents_only){
-    str_sub(string, 2, str_locate(string, fixed(")"))[1,1]-1)
-  } else {
-    string
-  }  
+  string <- str_extract(string, "\\([^()]*\\)(?:\\^[0-9]+)?")
+  if(!contents_only) return(string)
+  str_extract(string, "\\(.*\\)") ->.; str_sub(., 2L, -2L) 
 }
 
 
@@ -561,11 +547,12 @@ blank_parentheticals <- function(string, char = "-"){
   # " -1 1 x ------------------------- 7 ------- -3 "
   # this blanks parentheticals from the inside out
   # inside parentheticals are done first
+  
   while(contains_parenthetical_expression(string)){
     bad <- extract_leftmost_inner_parenthetical(string)
     string <- str_replace(
       string, 
-      "\\([^()]*\\)[\\^\\d]*", 
+      "\\([^()]*\\)(?:\\^[0-9]+)?", 
       str_dup(char, nchar(bad))
     )
   }
@@ -580,40 +567,49 @@ blank_parentheticals <- function(string, char = "-"){
 
 # string <- " -3 -(x + y)^2 4 (x - y)x 4 "
 # collect_nonparenthetical_elements(string)
-# string <- " (x + y)^2   (x - y)(x)  "
+# string <- " (x + y)^2  (x - y)(x) "
 # collect_nonparenthetical_elements(string)
 collect_nonparenthetical_elements <- function(string){
   
   blanked_string <- blank_parentheticals(string, "|")  
-  blanked_string <-str_replace_all(blanked_string, fixed("-|"), "-1 |")
+  
+  # fix parentheticals like -(x+y) -> -1 (x+y)
+  # by way of -||||| -> -1 |||||
+  blanked_string <- str_replace_all(blanked_string, fixed("-|"), "-1 |")
+  
+  # erase pipes, leaving nonparenthetical parts of the term
   elements <- str_replace_all(blanked_string, "[|]+", "")
-  elements <- str_trim(str_replace_all(elements, "[\\s]+", " "))
-  if(str_detect(elements, "[:alnum:]")){
-    return(str_c("(", elements, ")"))
-  } else {
-    return("")
-  }
+  
+  # trim
+  elements <- str_trim(elements)
+  
+  # return parenthesized part or nothing
+  if(str_detect(elements, "\\w")){
+     return(str_c("(", elements, ")"))
+   } else {
+     return("")
+   }
   
 }
 
 # string <- " -3 (x + y)^2 4 (x - y)x 4 "
 # delete_nonparenthetical_elements(string)
-# string <- " (x + y)^2   (x - y)(x)  "
+# string <- " (x + y)^2 (x - y) (x) (y)  "
 # delete_nonparenthetical_elements(string)
 # string <- ".2 (x)"
 # delete_nonparenthetical_elements(string)
 delete_nonparenthetical_elements <- function(string){
   
   blanked_string <- blank_parentheticals(string, "*")  
-  erase_ndcs <- str_locate_all(blanked_string, "[[:alnum:][-][//^][.]]")[[1]][,1]
+  erase_ndcs <- str_locate_all(blanked_string, "[-\\w^.]")[[1]][,1]
   for(k in erase_ndcs) str_sub(string, k, k) <- " "
-  string
+  str_trim(str_replace_all(string, " {2,}", " "))
   
 }
 
 
 
-# string <- " -3 (x + y)^2 4 (x - y)(x) 4 "
+# string <- " -3 (x + y)^2 4 (x - y)(x)x 4 "
 # term_parentheticals(string)
 # string <- " -(x + y)^2   3(x - y)(x)  "
 # term_parentheticals(string)
@@ -624,10 +620,9 @@ term_parentheticals <- function(string){
   nonpars <- collect_nonparenthetical_elements(string)
   pars <- delete_nonparenthetical_elements(string)
   pars <- str_replace_all(pars, fixed(")("), ") (") # )( -> ) (
-  pars <- str_trim(str_replace_all(pars, "[\\s]+", " "))
   
   if(nonpars != ""){
-    bubbles <- paste(nonpars, pars)
+    bubbles <- str_c(nonpars, pars, sep = " ")
   } else {
     bubbles <- pars
   }
@@ -648,7 +643,7 @@ term_parentheticals <- function(string){
 
 
 contains_parenthetical_expression <- function(string){ 
-  any(str_detect(string, fixed(c("(",")"))))
+  any(str_detect(string, fixed("(")))
 }
 
 
@@ -668,17 +663,27 @@ contains_nested_parenthetical_expression <- function(string){
 
 unmatched_parentheses_stop <- function(string){
   if(contains_parenthetical_expression(string)){
-    if(str_count(string, fixed("(")) > str_count(string, fixed(")"))){
-      stop("not all parenthetical expressions closed.", call. = FALSE)
-    } else if(str_count(string, fixed("(")) < str_count(string, fixed(")"))){
-      stop('not all parenthetical expressions closed. (excess )"s detected)', call. = FALSE)
+    open_paren_count <- str_count(string, fixed("("))
+    closed_paren_count <- str_count(string, fixed(")"))
+    if (open_paren_count > closed_paren_count){
+      stop("Parenthetical error: excess ('s detected.", call. = FALSE)
+    } else if(open_paren_count < closed_paren_count) {
+      stop("Parenthetical error: excess )'s detected.", call. = FALSE)
     }
   }
   invisible()
 }
 
 
-str_rev <- function(string) paste(rev.default(str_split(string, "")[[1]]), collapse = "")
+empty_parenthetical_stop <- function(string) {
+  if (str_detect(string, "\\( *\\)")) {
+    stop("Expression contains empty parenthetical.", call. = FALSE)
+  }
+}
+
+
+
+str_rev <- function(string) str_c(rev.default(str_split(string, "")[[1]]), collapse = "")
 
 
 
