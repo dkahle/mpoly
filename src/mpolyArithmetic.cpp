@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+#include <reducepoly.h>
 #include <helpers.h>
 using namespace Rcpp;
 
@@ -19,10 +20,10 @@ List mpolyMult(const List& e1, const List& e2) {
 }
 
 // [[Rcpp::export]]
-List mpolyPow(const List& e1, int e2) {
+List mpolyPow(const List& e1, int e2, const CharacterVector& vars) {
   List res = List::create(NumericVector::create(Named("coef", 1)));
   for (int i = 0; i < e2; i++) {
-    res = mpolyMult(res, e1);
+    res = reducePoly(mpolyMult(res, e1), vars);
   }
   return res;
 }

@@ -30,14 +30,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // mpolyPow
-List mpolyPow(const List& e1, int e2);
-RcppExport SEXP _mpoly_mpolyPow(SEXP e1SEXP, SEXP e2SEXP) {
+List mpolyPow(const List& e1, int e2, const CharacterVector& vars);
+RcppExport SEXP _mpoly_mpolyPow(SEXP e1SEXP, SEXP e2SEXP, SEXP varsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const List& >::type e1(e1SEXP);
     Rcpp::traits::input_parameter< int >::type e2(e2SEXP);
-    rcpp_result_gen = Rcpp::wrap(mpolyPow(e1, e2));
+    Rcpp::traits::input_parameter< const CharacterVector& >::type vars(varsSEXP);
+    rcpp_result_gen = Rcpp::wrap(mpolyPow(e1, e2, vars));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -45,7 +46,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_mpoly_reducePoly", (DL_FUNC) &_mpoly_reducePoly, 2},
     {"_mpoly_mpolyMult", (DL_FUNC) &_mpoly_mpolyMult, 2},
-    {"_mpoly_mpolyPow", (DL_FUNC) &_mpoly_mpolyPow, 2},
+    {"_mpoly_mpolyPow", (DL_FUNC) &_mpoly_mpolyPow, 3},
     {NULL, NULL, 0}
 };
 

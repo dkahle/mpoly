@@ -1,5 +1,5 @@
-#ifndef mpoly_ADD_H
-#define mpoly_ADD_H
+#ifndef mpoly_HELPERS_H
+#define mpoly_HELPERS_H
 
 using namespace Rcpp;
 

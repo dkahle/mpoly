@@ -9,7 +9,7 @@ mpolyMult <- function(e1, e2) {
     .Call('_mpoly_mpolyMult', PACKAGE = 'mpoly', e1, e2)
 }
 
-mpolyPow <- function(e1, e2) {
-    .Call('_mpoly_mpolyPow', PACKAGE = 'mpoly', e1, e2)
+mpolyPow <- function(e1, e2, vars) {
+    .Call('_mpoly_mpolyPow', PACKAGE = 'mpoly', e1, e2, vars)
 }
 

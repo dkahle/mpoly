@@ -131,7 +131,7 @@ NULL
 
   if(e2 == 0) return(out)
 
-  out <- mpolyPow(e1, e2)
+  out <- mpolyPow(e1, e2, vars(e1))
 
   mpoly(out)
 }
