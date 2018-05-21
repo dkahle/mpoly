@@ -59,9 +59,15 @@ mp <- function(string, varorder){
   # switch *'s for " "'s
   string <- str_replace_all(string, fixed("*"), " ")
   
+  # fix leading -
+  string <- str_replace(string, "^(\\s*-)", "0 + -1 ")
+  
   # clean whitespace
   string <- str_replace_all(string, " {2,}", " ")
   string <- str_replace_all(string, "[\\n\\t]", " ")
+  
+  # clean -(x + y) -> -1 (x + y)
+  string <- str_replace_all(string, "- *\\(", "-1 (")
   
   # clean double parens
   string <- str_replace_all(string, fixed(")("), ") (")
@@ -407,8 +413,7 @@ parse_nonparenthetical_term <- function(string){
 fix_term_joins <- function(string){
   
   # make sure last char is not a sign
-  if(str_detect(string, "[+-]$"))
-    stop(sprintf("Term %s does not terminate.", string), call. = FALSE)
+  if(str_detect(string, "[+-]$")) stop(sprintf("Term %s does not terminate.", string), call. = FALSE)
   
   # zero trick for leading symbol, e.g. "-1 + x" -> "0 + -1 + x"
   if (str_detect(string, "^[+-]")) {
@@ -437,8 +442,7 @@ fix_term_joins <- function(string){
   # fix joins
   pureJoins <- str_replace_all(joins, "\\s", "")
   pureJoins[pureJoins == ""] <- "|"
-  if(any(nchar(pureJoins) > 3)) 
-    stop("Arithmetic sign sequence of more than two detected.", call. = FALSE)
+  if(any(nchar(pureJoins) > 3)) stop("Arithmetic sign sequence of more than two detected.", call. = FALSE)
   cleanJoinMap <- c(
     "-" = " + -1 ",  "+" = " + ", "--" = " + ", 
     "++" = " + ", "+-" = " + -1 ", "-+" = " + -1 ", "|" = " "
@@ -474,13 +478,16 @@ fix_term_joins <- function(string){
 
 
 
-# string <- "-(x + y)+ 2 x (x + y) + 3 y"
+# string <- "-1 (x + y)+ 2 x (x + y) + 3 y"
+# string <- "2 (1 + x + (x - y))+ 2 x (x + y) + 3 y"
 # extract_polynomial_terms(string)
 extract_polynomial_terms <- function(string){
   
+  str_split(string, " *(?<!\\([\\w ]+)[+-] *")
+  
   # run fix_term_joins on blanked strings to get protect parentheticals
   blanked_string <- blank_parentheticals(string, "|")
-  piped_string <- fix_term_joins(blanked_string)
+  piped_string   <- fix_term_joins(blanked_string)
   
   # change +"s to *"s for breaking later
   # they distinguish polynomial terms
@@ -565,31 +572,24 @@ blank_parentheticals <- function(string, char = "-"){
 
 
 
-# string <- " -3 -(x + y)^2 4 (x - y)x 4 "
-# collect_nonparenthetical_elements(string)
+# string <- " -3 -1 (x + y)^2 4 (x - y)x 4 "
+# extract_nonparenthetical_elements(string)
 # string <- " (x + y)^2  (x - y)(x) "
-# collect_nonparenthetical_elements(string)
-collect_nonparenthetical_elements <- function(string){
+# extract_nonparenthetical_elements(string)
+extract_nonparenthetical_elements <- function(string){
   
-  blanked_string <- blank_parentheticals(string, "|")  
+  # remove parenthetical stuff
+  parenthetical_regex <- "\\([-+*a-zA-Z0-9 ]+\\)(\\^\\d+)?"
+  nonparem_elts <- str_remove_all(string, parenthetical_regex)
+  nonparem_elts <- str_replace_all(nonparem_elts, "\\s+", " ")
+  nonparem_elts <- str_trim(nonparem_elts)
   
-  # fix parentheticals like -(x+y) -> -1 (x+y)
-  # by way of -||||| -> -1 |||||
-  blanked_string <- str_replace_all(blanked_string, fixed("-|"), "-1 |")
-  
-  # erase pipes, leaving nonparenthetical parts of the term
-  elements <- str_replace_all(blanked_string, "[|]+", "")
-  
-  # trim
-  elements <- str_trim(elements)
-  
-  # return parenthesized part or nothing
-  if(str_detect(elements, "\\w")){
-     return(str_c("(", elements, ")"))
-   } else {
-     return("")
-   }
-  
+  # parenthesize and return
+  if (nonparem_elts == "") {
+    ""
+  } else {
+    str_c("(", str_trim(nonparem_elts), ")")
+  }  
 }
 
 # string <- " -3 (x + y)^2 4 (x - y)x 4 "
@@ -598,12 +598,10 @@ collect_nonparenthetical_elements <- function(string){
 # delete_nonparenthetical_elements(string)
 # string <- ".2 (x)"
 # delete_nonparenthetical_elements(string)
-delete_nonparenthetical_elements <- function(string){
+extract_parenthetical_elements <- function(string){
   
-  blanked_string <- blank_parentheticals(string, "*")  
-  erase_ndcs <- str_locate_all(blanked_string, "[-\\w^.]")[[1]][,1]
-  for(k in erase_ndcs) str_sub(string, k, k) <- " "
-  str_trim(str_replace_all(string, " {2,}", " "))
+  parenthetical_regex <- "\\([-+*a-zA-Z0-9. ]+\\)(\\^\\d+)?"
+  str_extract_all(string, parenthetical_regex)[[1]]
   
 }
 
@@ -614,23 +612,13 @@ delete_nonparenthetical_elements <- function(string){
 # string <- " -(x + y)^2   3(x - y)(x)  "
 # term_parentheticals(string)
 # string <- ".2 (x)"
-# term_parentheticals(string)
+# term_parentheticals(string) 
 term_parentheticals <- function(string){
   
-  nonpars <- collect_nonparenthetical_elements(string)
-  pars <- delete_nonparenthetical_elements(string)
-  pars <- str_replace_all(pars, fixed(")("), ") (") # )( -> ) (
+  nonparens <- extract_nonparenthetical_elements(string)
+  parens    <-    extract_parenthetical_elements(string)
+  c(nonparens, parens)
   
-  if(nonpars != ""){
-    bubbles <- str_c(nonpars, pars, sep = " ")
-  } else {
-    bubbles <- pars
-  }
-  
-  blank_bubbles <- blank_parentheticals(bubbles)
-  real_spaces <- str_locate_all(blank_bubbles, fixed(" "))[[1]][,1]
-  for(k in real_spaces) str_sub(bubbles, k, k) <- "|"
-  str_split(bubbles, fixed("|"))[[1]]
 }
 
 
