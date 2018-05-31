@@ -483,7 +483,7 @@ fix_term_joins <- function(string){
 # extract_polynomial_terms(string)
 extract_polynomial_terms <- function(string){
   
-  str_split(string, " *(?<!\\([\\w ]+)[+-] *")
+  # str_split(string, " *(?<!\\([\\w ]+)[+-] *")
   
   # run fix_term_joins on blanked strings to get protect parentheticals
   blanked_string <- blank_parentheticals(string, "|")
