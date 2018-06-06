@@ -8,6 +8,7 @@
 #'   will be provided (default vars(mpoly))
 #' @param vector whether the function should take a vector argument 
 #'   (TRUE) or a series of arguments (FALSE)
+#' @param silent suppress messages
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpolyList}(x, varorder = vars(x), 
 #'   vector = TRUE, ...)
@@ -90,7 +91,7 @@
 #' rownames(mat) <- sprintf("p = %.2f", s)
 #' mat
 #' 
-as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
+as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ...){
   
   # argument checking
   stopifnot(is.character(varorder))
@@ -152,7 +153,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
       )      
     }
     v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
-    if(missing(vector) || missing(varorder)) message("f(.) with . = ", v)
+    if((silent == FALSE) && (missing(vector) || missing(varorder))) message("f(.) with . = ", v)
     mpoly_string <- paste("function(.){ c(", mpoly_string, ") }")    
     return(eval(parse(text = mpoly_string)))
   }
@@ -161,7 +162,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, ...){
   if(!vector){
     mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
     mpoly_string <- paste(mpoly_string, collapse = ", ")
-    if(missing(vector) || missing(varorder)) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
+    if((silent == FALSE) && (missing(vector) || missing(varorder))) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(
       "function(", 
       paste(varorder, collapse = ", "),

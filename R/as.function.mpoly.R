@@ -8,6 +8,7 @@
 #'   will be provided
 #' @param vector whether the function should take a vector argument
 #'   (TRUE) or a series of arguments (FALSE)
+#' @param silent suppress messages
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
 #'   = TRUE, ...)
@@ -44,7 +45,7 @@
 #' 
 #' 
 #' 
-as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
+as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ...){
 	
   # argument checking
   stopifnot(is.character(varorder))
@@ -65,7 +66,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   if(p == 1){
     mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
     mpoly_string <- gsub(vars(x), ".", mpoly_string)
-    message("f(.) with . = ", vars(x))
+    if(!silent) message("f(.) with . = ", vars(x))
     f <- function(){}
     formals(f) <- alist(. = )
     #expression(if(length(.) > 1) return(sapply(., f))),
@@ -97,7 +98,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
       )      
     }
     v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
-    message("f(.) with . = ", v)
+    if(!silent) message("f(.) with . = ", v)
     mpoly_string <- paste("function(.){", mpoly_string, "}")    
     return(eval(parse(text = mpoly_string)))
   }
@@ -105,7 +106,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   # general polynomials as a bunch of arguments
   if(!vector){
     mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
-    message("f(", paste(varorder, collapse = ", "), ")", sep = "")
+    if(!silent) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(
       "function(", 
       paste(varorder, collapse = ", "),

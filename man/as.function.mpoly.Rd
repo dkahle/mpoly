@@ -16,6 +16,8 @@ will be provided}
 \item{vector}{whether the function should take a vector argument
 (TRUE) or a series of arguments (FALSE)}
 
+\item{silent}{suppress messages}
+
 \item{...}{any additional arguments}
 }
 \description{
