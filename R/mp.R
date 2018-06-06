@@ -153,10 +153,8 @@ parse_parenthetical_polynomial <- function(string){
 
 
 # parse_parenthetical_term("3 y")
-# parse_parenthetical_term("-(x + y)")
 # parse_parenthetical_term(" 3 (x + y) 4 (x - y) ")
 # parse_parenthetical_term("(x + y) (x - y)")
-# parse_parenthetical_term("-(x + y) (x - y)")
 # parse_parenthetical_term("(x + y)")
 # parse_parenthetical_term("(x + y)^2")
 # parse_parenthetical_term("(x + y)(x-y)")
@@ -177,6 +175,7 @@ parse_parenthetical_term <- function(string){
   
   # break into parenthetical pieces ("bubbles")
   pieces <- term_parentheticals(string)
+  pieces <- pieces[pieces != ""]
   
   # mpoly pieces
   mpolys <- lapply(pieces, function(piece){
@@ -579,7 +578,7 @@ blank_parentheticals <- function(string, char = "-"){
 extract_nonparenthetical_elements <- function(string){
   
   # remove parenthetical stuff
-  parenthetical_regex <- "\\([-+*a-zA-Z0-9 ]+\\)(\\^\\d+)?"
+  parenthetical_regex <- "\\([-+*a-zA-Z0-9.^ ]+\\)(\\^\\d+)?"
   nonparem_elts <- str_remove_all(string, parenthetical_regex)
   nonparem_elts <- str_replace_all(nonparem_elts, "\\s+", " ")
   nonparem_elts <- str_trim(nonparem_elts)
@@ -600,7 +599,7 @@ extract_nonparenthetical_elements <- function(string){
 # delete_nonparenthetical_elements(string)
 extract_parenthetical_elements <- function(string){
   
-  parenthetical_regex <- "\\([-+*a-zA-Z0-9. ]+\\)(\\^\\d+)?"
+  parenthetical_regex <- "\\([-+*a-zA-Z0-9.^ ]+\\)(\\^\\d+)?"
   str_extract_all(string, parenthetical_regex)[[1]]
   
 }

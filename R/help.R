@@ -4,7 +4,7 @@
 #'
 #' @importFrom stringr str_c str_detect str_sub str_replace_all str_replace
 #'   str_count str_dup str_extract str_extract_all str_locate str_locate_all
-#'   str_split str_sub<- str_trim fixed
+#'   str_split str_sub<- str_trim fixed str_remove str_remove_all
 #' @importFrom partitions parts
 #' @importFrom plyr ddply
 #' @importFrom stats deriv reorder coef
