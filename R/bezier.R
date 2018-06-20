@@ -43,6 +43,8 @@
 #' 
 #' s <- seq(0, 1, length.out = 101) 
 #' 
+#' 
+#' 
 #' ## example 1
 #' points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 #' (bezPolys <- bezier(points))
@@ -51,7 +53,7 @@
 #' df <- as.data.frame(f(s))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
-#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_point(data = points, color = "red") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_path()
 #'   
@@ -63,7 +65,7 @@
 #' df <- as.data.frame(f(s))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
-#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_point(data = points, color = "red") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_path()
 #'   
@@ -78,7 +80,7 @@
 #' df <- as.data.frame(f(s))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
-#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_point(data = points, color = "red") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_path()
 #' 
@@ -92,7 +94,7 @@
 #' df <- as.data.frame(f(s))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
-#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_point(data = points, color = "red") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_path()
 #'   
@@ -106,7 +108,7 @@
 #' df <- as.data.frame(f(s))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
-#'   geom_point(data = points, color = "red", size = 8) +
+#'   geom_point(data = points, color = "red") +
 #'   geom_path(data = points, color = "red") +
 #'   geom_path()
 #'   

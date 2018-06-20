@@ -1,109 +1,176 @@
 #' Define a multivariate polynomial.
-#' 
-#' mp is a smart function which attempts to create a formal mpoly
-#' object from a character string containing the usual
-#' representation  of a multivariate polynomial.
-#' 
-#' @param string a character string containing a polynomial, see
-#'   examples
+#'
+#' mp is a smart function which attempts to create a formal mpoly object from a
+#' character string containing the usual representation  of a multivariate
+#' polynomial.
+#'
+#' @param string a character string containing a polynomial, see examples
 #' @param varorder (optional) order of variables in string
+#' @param stars_only only useful after version 2.0; if you format your
+#'   multiplications using asterisks, setting this to \code{TRUE} will reduce
+#'   preprocessing time
 #' @return An object of class mpoly.
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mpoly}}
-#' @export mp
+#' @name mp
 #' @examples
 #' ( m <- mp("x + y + x y") )
 #' is.mpoly( m )
 #' unclass(m)
-#' 
-#' 
-#' mp("x + 2 y + x^2 y + x y z") 
-#' mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x")) 
+#'
+#'
+#' mp("x + 2 y + x^2 y + x y z")
+#' mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x"))
 #' # mp("x + 2 y + x^2 y", varorder = c("q", "p")) # -> error
-#' 
+#'
 #' ( ms <- mp(c("x + y", "2 x")) )
 #' is.mpolyList(ms)
-#' 
-#' 
-#' gradient( mp("x + 2 y + x^2 y + x y z") ) 
-#' gradient( mp("(x + y)^10") ) 
-#' 
+#'
+#'
+#' gradient( mp("x + 2 y + x^2 y + x y z") )
+#' gradient( mp("(x + y)^10") )
+#'
 #' # mp and the print methods are kinds of inverses of each other
 #' ( polys <- mp(c("x + y", "x - y")) )
 #' strings <- print(polys, silent = TRUE)
 #' strings
 #' mp(strings)
+#'
+#'
+#'
+#'
+#'
+#'
+#'
 #' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-mp <- function(string, varorder){
+
+
+#' @export
+#' @rdname mp
+make_indeterminate_list <- function (vars) {
   
-  stopifnot(is.character(string))
+  make_indeterminate <- function(var, ...) {
+    v <- c(1, 1)
+    names(v) <- c(var, "coef")
+    structure(list(v), class = "mpoly")
+  }
+
+  uvars <- unique(vars)
+  l <- lapply(uvars, make_indeterminate)
+  names(l) <- uvars
+  l
   
-  # if string is a vector of polys, return mpolyList
-  if(length(string) > 1){
-    if(missing(varorder)){
-      mpolyList <- lapply(string, mp)
-    } else {
-      mpolyList <- lapply(string, mp, varorder = varorder)
-    }
-    class(mpolyList) <- "mpolyList"
-    return(mpolyList)
+}
+# make_indeterminate_list("a")
+# make_indeterminate_list(letters) 
+
+
+
+#' @export
+#' @rdname mp
+mp <- function (string, varorder, stars_only = FALSE) {
+ 
+  # clean spaces if needed
+  if(!stars_only)  {
+    # put *s in for spaces, twice for situations like "x y z"
+    string <- str_replace_all(string, "([\\w\\^.*\\(\\)]+) +([\\w\\^.*\\(\\)]+)", "\\1*\\2")
+    string <- str_replace_all(string, "([\\w\\^.*\\(\\)]+) +([\\w\\^.*\\(\\)]+)", "\\1*\\2")
+    
+    # fix )('s and situations like 2(x+1)
+    # string <- str_replace_all(string, pattern = "\\)\\(", replacement = ")*(")
+    # string <- str_replace_all(string, "([\\w\\^.*\\(\\)]+)(\\(\\))", "\\1*\\2")
+    
+    # fix things like "-x"
+    string <- str_replace_all(string, "^-([\\w\\^.*\\(]+)", "-1*\\1")
   }
   
-  # switch *'s for " "'s
-  string <- str_replace_all(string, fixed("*"), " ")
-  
-  # fix leading -
-  string <- str_replace(string, "^(\\s*-)", "0 + -1 ")
-  
-  # clean whitespace
-  string <- str_replace_all(string, " {2,}", " ")
-  string <- str_replace_all(string, "[\\n\\t]", " ")
-  
-  # clean -(x + y) -> -1 (x + y)
-  string <- str_replace_all(string, "- *\\(", "-1 (")
-  
-  # clean double parens
-  string <- str_replace_all(string, fixed(")("), ") (")
-  
-  # check for bad things
-  unmatched_parentheses_stop(string)
-  empty_parenthetical_stop(string)
-  
-  # compute
-  out <- parse_parenthetical_polynomial(string)
-  
-  # check varorder argument
-  if(!missing(varorder)){
-    
-    vars <- vars(out)
-    
-    if(!all(vars %in% varorder)){
-      error <- sprintf(
-        "If specified, varorder must contain all computed vars - %s",
-        str_c(vars, collapse = ", ")
-      )
-      stop(error, call. = FALSE)
-    }
-    
-    # order vars appropriately
-    vars <- intersect(varorder, vars)
-    out  <- reorder.mpoly(out, varorder = vars)
+  # deal with mpolyLists
+  if (length(string) > 1) {
+    return(structure(lapply(string, mp), class = "mpolyList"))
   } 
   
-  # return
-  out
+  # parse using R's parser and mpoly arithmetic
+  expr <- parse(text = string)[[1]]
+  vars <- stringr::str_extract_all( deparse(expr),  "(?<!\\d)[a-zA-Z]\\w*" )[[1]]
+  p <- eval(expr, envir = make_indeterminate_list(vars))
+  
+  # if constant, make an mpoly
+  if (is.numeric(p)) return( structure(list(c(coef = p)), class = "mpoly") )
+  
+  # reorder if needed and return
+  if (!missing(varorder)) p <- reorder.mpoly(p)
+  p
   
 }
 
 
 
+# 
+# 
+# 
+# mp <- function(string, varorder){
+# 
+#   stopifnot(is.character(string))
+# 
+#   # if string is a vector of polys, return mpolyList
+#   if(length(string) > 1){
+#     if(missing(varorder)){
+#       mpolyList <- lapply(string, mp)
+#     } else {
+#       mpolyList <- lapply(string, mp, varorder = varorder)
+#     }
+#     class(mpolyList) <- "mpolyList"
+#     return(mpolyList)
+#   }
+# 
+#   # switch *'s for " "'s
+#   string <- str_replace_all(string, fixed("*"), " ")
+# 
+#   # fix leading -
+#   string <- str_replace(string, "^(\\s*-)", "0 + -1 ")
+# 
+#   # clean whitespace
+#   string <- str_replace_all(string, " {2,}", " ")
+#   string <- str_replace_all(string, "[\\n\\t]", " ")
+# 
+#   # clean -(x + y) -> -1 (x + y)
+#   string <- str_replace_all(string, "^ *- *\\(", "-1 (")
+# 
+#   # clean double parens
+#   string <- str_replace_all(string, fixed(")("), ") (")
+# 
+#   # check for bad things
+#   unmatched_parentheses_stop(string)
+#   empty_parenthetical_stop(string)
+# 
+#   # compute
+#   out <- parse_parenthetical_polynomial(string)
+# 
+#   # check varorder argument
+#   if(!missing(varorder)){
+# 
+#     vars <- vars(out)
+# 
+#     if(!all(vars %in% varorder)){
+#       error <- sprintf(
+#         "If specified, varorder must contain all computed vars - %s",
+#         str_c(vars, collapse = ", ")
+#       )
+#       stop(error, call. = FALSE)
+#     }
+# 
+#     # order vars appropriately
+#     vars <- intersect(varorder, vars)
+#     out  <- reorder.mpoly(out, varorder = vars)
+#   }
+# 
+#   # return
+#   out
+# 
+# }
+# 
+# 
+# 
 
 
 
@@ -535,6 +602,7 @@ extract_polynomial_terms <- function(string){
 # extract_leftmost_inner_parenthetical("(x + 5)^10", contents_only = TRUE)
 # extract_leftmost_inner_parenthetical("((x + 5)^10+2)^2")
 # extract_leftmost_inner_parenthetical("((x + 5)^10+2)", contents_only = TRUE)
+# extract_leftmost_inner_parenthetical("(1 + (x + 5)^10+2)^2")
 extract_leftmost_inner_parenthetical <- function(string, contents_only = FALSE){
   string <- str_extract(string, "\\([^()]*\\)(?:\\^[0-9]+)?")
   if(!contents_only) return(string)
@@ -578,7 +646,7 @@ blank_parentheticals <- function(string, char = "-"){
 extract_nonparenthetical_elements <- function(string){
   
   # remove parenthetical stuff
-  parenthetical_regex <- "\\([-+*a-zA-Z0-9.^ ]+\\)(\\^\\d+)?"
+  parenthetical_regex <- "\\([-+*a-zA-Z0-9.^ ()]+\\)(\\^\\d+)?"
   nonparem_elts <- str_remove_all(string, parenthetical_regex)
   nonparem_elts <- str_replace_all(nonparem_elts, "\\s+", " ")
   nonparem_elts <- str_trim(nonparem_elts)
@@ -599,7 +667,7 @@ extract_nonparenthetical_elements <- function(string){
 # delete_nonparenthetical_elements(string)
 extract_parenthetical_elements <- function(string){
   
-  parenthetical_regex <- "\\([-+*a-zA-Z0-9.^ ]+\\)(\\^\\d+)?"
+  parenthetical_regex <- "\\([-+*a-zA-Z0-9.^ ()]+\\)(\\^\\d+)?"
   str_extract_all(string, parenthetical_regex)[[1]]
   
 }

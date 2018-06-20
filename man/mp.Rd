@@ -2,23 +2,30 @@
 % Please edit documentation in R/mp.R
 \name{mp}
 \alias{mp}
+\alias{make_indeterminate_list}
+\alias{mp}
 \title{Define a multivariate polynomial.}
 \usage{
-mp(string, varorder)
+make_indeterminate_list(vars)
+
+mp(string, varorder, stars_only = FALSE)
 }
 \arguments{
-\item{string}{a character string containing a polynomial, see
-examples}
+\item{string}{a character string containing a polynomial, see examples}
 
 \item{varorder}{(optional) order of variables in string}
+
+\item{stars_only}{only useful after version 2.0; if you format your
+multiplications using asterisks, setting this to \code{TRUE} will reduce
+preprocessing time}
 }
 \value{
 An object of class mpoly.
 }
 \description{
-mp is a smart function which attempts to create a formal mpoly
-object from a character string containing the usual
-representation  of a multivariate polynomial.
+mp is a smart function which attempts to create a formal mpoly object from a
+character string containing the usual representation  of a multivariate
+polynomial.
 }
 \examples{
 ( m <- mp("x + y + x y") )
@@ -26,16 +33,16 @@ is.mpoly( m )
 unclass(m)
 
 
-mp("x + 2 y + x^2 y + x y z") 
-mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x")) 
+mp("x + 2 y + x^2 y + x y z")
+mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x"))
 # mp("x + 2 y + x^2 y", varorder = c("q", "p")) # -> error
 
 ( ms <- mp(c("x + y", "2 x")) )
 is.mpolyList(ms)
 
 
-gradient( mp("x + 2 y + x^2 y + x y z") ) 
-gradient( mp("(x + y)^10") ) 
+gradient( mp("x + 2 y + x^2 y + x y z") )
+gradient( mp("(x + y)^10") )
 
 # mp and the print methods are kinds of inverses of each other
 ( polys <- mp(c("x + y", "x - y")) )

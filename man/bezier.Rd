@@ -52,6 +52,8 @@ library(ggplot2); theme_set(theme_bw())
 
 s <- seq(0, 1, length.out = 101) 
 
+
+
 ## example 1
 points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 (bezPolys <- bezier(points))
@@ -60,7 +62,7 @@ f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red") +
   geom_path(data = points, color = "red") +
   geom_path()
   
@@ -72,7 +74,7 @@ f <- as.function(bezPolys, weights = c(1,5,5,1))
 df <- as.data.frame(f(s))
 
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red") +
   geom_path(data = points, color = "red") +
   geom_path()
   
@@ -87,7 +89,7 @@ f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red") +
   geom_path(data = points, color = "red") +
   geom_path()
 
@@ -101,7 +103,7 @@ f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red") +
   geom_path(data = points, color = "red") +
   geom_path()
   
@@ -115,7 +117,7 @@ f <- as.function(bezPolys)
 df <- as.data.frame(f(s))
 
 ggplot(aes(x = x, y = y), data = df) + 
-  geom_point(data = points, color = "red", size = 8) +
+  geom_point(data = points, color = "red") +
   geom_path(data = points, color = "red") +
   geom_path()
   

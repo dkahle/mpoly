@@ -1,9 +1,10 @@
-Version 1.0.6
+Version 2.0.0
 -------------------------------------------------------------------------
 
 CHANGES
 
 * Packages are now imported from more nicely (@importFrom in all cases).
+* mp() is now based on R's parser and mpoly arithmetic.
 
 FIXES
 
