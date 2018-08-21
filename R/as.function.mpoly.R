@@ -11,7 +11,7 @@
 #' @param silent suppress messages
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
-#'   = TRUE, ...)
+#'   = TRUE, silent = FALSE, ...)
 #' @seealso \code{\link{plug}}
 #' @export
 #' @examples

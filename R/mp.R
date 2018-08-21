@@ -9,6 +9,7 @@
 #' @param stars_only only useful after version 2.0; if you format your
 #'   multiplications using asterisks, setting this to \code{TRUE} will reduce
 #'   preprocessing time
+#' @param vars a character vector of indeterminates
 #' @return An object of class mpoly.
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mpoly}}

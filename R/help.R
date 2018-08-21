@@ -15,6 +15,7 @@
 #'   hermite.h.polynomials hermite.he.polynomials jacobi.g.polynomials
 #'   jacobi.p.polynomials legendre.polynomials
 #' @importFrom tidyr gather
+#' @importFrom utils capture.output
 #' @docType package
 #' @name mpoly
 #' @aliases mpoly package-mpoly

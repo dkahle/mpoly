@@ -11,6 +11,8 @@ make_indeterminate_list(vars)
 mp(string, varorder, stars_only = FALSE)
 }
 \arguments{
+\item{vars}{a character vector of indeterminates}
+
 \item{string}{a character string containing a polynomial, see examples}
 
 \item{varorder}{(optional) order of variables in string}

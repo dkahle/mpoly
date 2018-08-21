@@ -6,7 +6,7 @@
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
 \method{as.function}{mpolyList}(x, varorder = vars(x), 
-  vector = TRUE, ...)
+  vector = TRUE, silent = FALSE, ...)
 
 \method{as.function}{bezier}(x, ...)
 }

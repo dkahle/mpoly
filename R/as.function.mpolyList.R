@@ -11,7 +11,7 @@
 #' @param silent suppress messages
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpolyList}(x, varorder = vars(x), 
-#'   vector = TRUE, ...)
+#'   vector = TRUE, silent = FALSE, ...)
 #' @export
 #' @examples
 #' 
