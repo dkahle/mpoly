@@ -68,9 +68,9 @@ term <- structure(
   class = "mpoly_term"
 )
 
-term
+# term
 # 2 x y^2 z
-print(term, stars = TRUE)
+# print(term, stars = TRUE)
 # 2*x*y^2*z
 
 
@@ -168,11 +168,19 @@ structure(
         core = c("x" = 2L, "y" = 1L)
       ),
       class = "mpoly_term"
+    ),
+    structure(
+      list(
+        coef = complex(real = -1),
+        core = c("x" = 2L, "y" = 1L)
+      ),
+      class = "mpoly_term"
     )
   ),
   class = "bare_mpoly"
 )
-# -5+1i - x^2 y
+# -5+1i - x^2 y - x^2 y
+
 
 
 structure(
@@ -207,8 +215,7 @@ print.mpoly <- function (x, silent = FALSE, ...) {
   # make printouts of bare_mpolys
   printed_strings <- vapply(x, print.bare_mpoly, character(1), silent = TRUE)
   
-  # add back dimensions
-  # (if dimensionless, assumed to be a column/row vector)
+  # add back dimensions (if dimensionless, assumed to be a column/row vector)
   if (!is.null(dim(x))) dim(printed_strings) <- dim(x)
   
   # replace "'s with spaces

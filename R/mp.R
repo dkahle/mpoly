@@ -69,6 +69,9 @@ make_indeterminate_list <- function (vars) {
 #' @export
 #' @rdname mp
 mp <- function (string, varorder, stars_only = FALSE) {
+  
+  # remove line breaks
+  string <- str_replace_all(string, "\\n", "")
  
   # clean spaces if needed
   if(!stars_only)  {
@@ -91,7 +94,8 @@ mp <- function (string, varorder, stars_only = FALSE) {
   
   # parse using R's parser and mpoly arithmetic
   expr <- parse(text = string)[[1]]
-  vars <- stringr::str_extract_all( deparse(expr),  "(?<!\\d)[a-zA-Z]\\w*" )[[1]]
+  vars <- stringr::str_extract_all( deparse(expr),  "(?<!\\d)[a-zA-Z]\\w*" )
+  vars <- unique(unlist(vars))
   p <- eval(expr, envir = make_indeterminate_list(vars))
   
   # if constant, make an mpoly
