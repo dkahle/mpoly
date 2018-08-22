@@ -15,7 +15,7 @@
 #' plug(p, "x", 5)
 #' plug(p, "x", "t")
 #' plug(p, "x", "y")
-#' plug(p, "x", mp("2y"))
+#' plug(p, "x", mp("2 y"))
 #' 
 #' plug(p, "x", mp("x + y"))
 #' mp("((x+y)+y)^3")

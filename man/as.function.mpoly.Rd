@@ -5,7 +5,7 @@
 \title{Change a multivariate polynomial into a function.}
 \usage{
 \method{as.function}{mpoly}(x, varorder = vars(x), vector
-  = TRUE, ...)
+  = TRUE, silent = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class mpoly}

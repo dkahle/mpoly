@@ -4,7 +4,8 @@
 \alias{chebyshev}
 \title{Chebyshev polynomials}
 \usage{
-chebyshev(degree, kind = "t", indeterminate = "x", normalized = FALSE)
+chebyshev(degree, kind = "t", indeterminate = "x",
+  normalized = FALSE)
 }
 \arguments{
 \item{degree}{degree of polynomial}

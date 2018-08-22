@@ -3,7 +3,6 @@
 \name{mp}
 \alias{mp}
 \alias{make_indeterminate_list}
-\alias{mp}
 \title{Define a multivariate polynomial.}
 \usage{
 make_indeterminate_list(vars)
@@ -11,6 +10,8 @@ make_indeterminate_list(vars)
 mp(string, varorder, stars_only = FALSE)
 }
 \arguments{
+\item{vars}{a character vector of indeterminates}
+
 \item{string}{a character string containing a polynomial, see examples}
 
 \item{varorder}{(optional) order of variables in string}
