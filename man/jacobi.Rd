@@ -4,8 +4,8 @@
 \alias{jacobi}
 \title{Jacobi polynomials}
 \usage{
-jacobi(degree, alpha = 1, beta = 1, kind = "p", indeterminate = "x",
-  normalized = FALSE)
+jacobi(degree, alpha = 1, beta = 1, kind = "p",
+  indeterminate = "x", normalized = FALSE)
 }
 \arguments{
 \item{degree}{degree of polynomial}

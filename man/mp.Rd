@@ -3,7 +3,6 @@
 \name{mp}
 \alias{mp}
 \alias{make_indeterminate_list}
-\alias{mp}
 \title{Define a multivariate polynomial.}
 \usage{
 make_indeterminate_list(vars)
