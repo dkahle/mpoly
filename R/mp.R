@@ -74,8 +74,9 @@ mp <- function (string, varorder, stars_only = FALSE) {
   # clean spaces if needed
   if(!stars_only)  {
     # put *s in for spaces, twice for situations like "x y z"
-    string <- str_replace_all(string, "([\\w\\^.*\\(\\)]+) +([\\w\\^.*\\(\\)]+)", "\\1*\\2")
-    string <- str_replace_all(string, "([\\w\\^.*\\(\\)]+) +([\\w\\^.*\\(\\)]+)", "\\1*\\2")
+    while (str_detect(string, "([\\w\\^.*\\(\\)]+) +([\\w\\^.*\\(\\)]+)")) {
+      string <- str_replace_all(string, "([\\w\\^.*\\(\\)]+) +([\\w\\^.*\\(\\)]+)", "\\1*\\2")
+    }
     
     # fix )('s and situations like 2(x+1)
     # string <- str_replace_all(string, pattern = "\\)\\(", replacement = ")*(")

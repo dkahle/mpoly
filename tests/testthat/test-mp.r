@@ -16,6 +16,16 @@ test_that("mp() splices *'s properly", {
   )
   
   expect_equal(
+    mp("x y z"),
+    mpoly(list(c(x = 1, y = 1, z = 1, coef = 1)))
+  )
+  
+  expect_equal(
+    mp("a b c d e"),
+    mpoly(list(c(a = 1, b = 1, c = 1, d = 1, e = 1, coef = 1)))
+  )
+  
+  expect_equal(
     mp("x1 x2"),
     mpoly(list(c(x1 = 1, x2 = 1, coef = 1)))
   )
