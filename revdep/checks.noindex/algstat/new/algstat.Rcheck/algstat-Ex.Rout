@@ -10236,7 +10236,7 @@ Class  Male Female
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.111 0.289 1.555 0.004 0.008 
+Time elapsed:  0.774 0.209 1.004 0.003 0.004 
 > grDevices::dev.off()
 null device 
           1 

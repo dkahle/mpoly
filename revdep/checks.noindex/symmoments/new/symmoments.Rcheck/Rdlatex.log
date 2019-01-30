@@ -281,7 +281,7 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
 /urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (23 pages, 124479 bytes).
+Output written on Rd2.pdf (23 pages, 124480 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2017] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (34 entries accepted, 0 rejected).
@@ -428,4 +428,4 @@ Output written on Rd2.pdf (23 pages, 125305 bytes).
 Transcript written on Rd2.log.
 Saving output to ‘symmoments-manual.pdf’ ...
 Done
-You may want to clean up by 'rm -Rf /var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T//RtmptQtvWn/Rd2pdf11e04a3048f7'
+You may want to clean up by 'rm -Rf /var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T//Rtmpjey5j5/Rd2pdfd0ca4aad9668'

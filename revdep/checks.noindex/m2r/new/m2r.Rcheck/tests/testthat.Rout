@@ -21,9 +21,9 @@ Loading required package: mpoly
 M2 found in /Applications/Macaulay2-1.10/bin
 > 
 > test_check("m2r")
-══ testthat results  ══════════════════════════════════════════════
+══ testthat results  ═════════════════════════════════════════════
 OK: 5 SKIPPED: 43 FAILED: 0
 > 
 > proc.time()
    user  system elapsed 
-  1.165   0.224   1.397 
+  0.861   0.168   1.024 

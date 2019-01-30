@@ -965,7 +965,7 @@ M2 found in /Applications/Macaulay2-1.10/bin
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.845 0.089 1.089 0.043 0.08 
+Time elapsed:  0.557 0.055 0.717 0.034 0.058 
 > grDevices::dev.off()
 null device 
           1 
