@@ -1,0 +1,196 @@
+Version 1.0.5
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* Add is.unipoly(), a predicate for univariate polynomials.
+* Add solve_unipoly(), a mpoly wrapper for polyroot().
+* plug() now works on mpolyLists.
+
+CHANGES
+
+* as.function.mpoly() and as.function.mpolyList() no longer message
+  when the resulting function arguments are clear.
+
+
+
+Version 1.0.4
+-------------------------------------------------------------------------
+
+FIXES
+
+* A bug in scientific notation causing mp() to hang has been fixed. 
+  (Thanks @sommars)
+* Move README from figures/ to tools/
+* Add https:// for paper reference
+
+
+
+Version 1.0.3
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* as.mpoly() methods for lm objects using poly(, raw = TRUE) statements
+  now works properly.
+
+CHANGES
+
+* the print.mpoly and print.mpolyList methods now print with cat() instead 
+  of message().  they also accept a silent argument, in which case the 
+  output is suppressed; characters are returned silently. the argument order
+  has changed so that stars follows varorder and order.
+  
+FIXES
+
+* a stray browser() statement was removed from as.mpoly().
+
+
+
+Version 1.0.2
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* you can now pass * for multiplication in mp, so that mp("x*x") works 
+  properly.
+
+CHANGES
+
+* all java stuff has been removed; see the m2r package for grobner basis
+  computations.
+
+
+
+
+Version 1.0.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* mpoly now provided functions for extracting the leading term (LT),
+  leading coefficient (LC), leading monomial (LM), and arbitrary 
+  term (as in p[3]).  You can also compute the multidegree of a 
+  polynomial (multideg).
+* new function exponents extracts the exponents of an mpoly.
+* new functions homogenize, dehomogenize, homogeneous_components extract
+  those components of a multivariate polynomial.
+* as.function() now returns vectorized functions when the polynomial(s) 
+  are only of one variable.
+
+CHANGES
+
+* terms.mpoly is now deprecated, use monomials.
+* reorder.mpoly now defaults to the lex order.
+
+
+
+
+Version 1.0.0
+-------------------------------------------------------------------------
+
+CHANGES
+
+* Versioned directly modulo very minor CRAN changes from 0.1.1 for CRAN 
+  consistency.
+
+
+
+
+Version 0.1.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* A new function called plug allows users to plug values into indeterminates in mpoly objects.
+* mpoly now imports the polynom and orthopolynom packages, and has as.mpoly methods to parse their objects into mpoly objects.
+* mpoly now imports reshape2 for some visualization stuff.
+* A new function called chebyshev allows users to compute Chebyshev polynomials.  This is based on orthopolynom.
+* New functions called bernstein and bernsteinApprox allow users to compute Bernstein polynomials and approximate functions with Bernstein polynomials, see examples.  A special as.function method exists for evaluating these in a numerically stable way.
+* A new function called bezier allows users to compute the polynomials associated with Bezier curves.  A special as.function method exists for evaluating these in a numerically stable way via de Casteljau's algorithm, based on a new function called bezierFunction (exported).
+* Several new predicate functions are exported.
+* ggplot2 is now imported.
+
+CHANGES
+
+* The internals of tuples have been changed, but the user shouldn't expect to see them.
+
+
+FIXES 
+
+* A bug in mp functions where non-parenthetical exponents in parenthetical expressions were mis-parsed has been fixed.
+* round.mpoly now drops terms rounded to have 0 coefficients.
+* mpolyList now can be used inside functions and other environments (thanks @gitlongor)
+
+
+Version 0.1.0
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* is.linear function.
+* round now has a method applicable to mpoly objects that rounds the coefficients.  this is particularly nice in combination with as.mpoly.lm.
+* Hard braces are now allowed for variables, e.g. x[1,1]
+
+CHANGES
+
+* Vastly enhanced mp parser based on stringr 9.0.0 (now dependent on stringi).
+* Tests added.
+* Description file updated for CRAN's standards.
+
+
+
+Version 0.0.5
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* Parenthetical expressions are now handled.
+
+CHANGES
+
+* Permutations now returns a better ordered listing of the permutations of a set.  It also allows for the more flexible specification of (e.g.) permutations(5) for permutations(1:5).
+
+FIXES
+
+* Some negative parsing in mp has been fixed.
+
+
+
+Version 0.0.4
+-------------------------------------------------------------------------
+
+CHANGES
+
+* Division symbols in mp now return an error.
+* mpoly now has a GPL-2 license.
+
+FIXES
+
+* Fixed a glitch in print.mpoly that made mp("-1 + y") print as "-1 1  +  y".
+* mpolyList now works on single elements, either a mpoly object (converting it to a mpolyList) or a call to mp.
+* mp now properly handles constants raised to powers.
+
+
+Version 0.0.3
+-------------------------------------------------------------------------
+
+FIXES
+
+* Fixed an issue with as.mpoly (and is.mpoly.lm).
+
+
+
+Version 0.0.2
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* as.mpoly method now defined for lm objects which makes an mpoly object out of a linear model.
+
+
+
+Version 0.0.1
+-------------------------------------------------------------------------
+
+PACKAGE GENESIS

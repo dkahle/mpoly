@@ -15,6 +15,7 @@
 #' @seealso \code{\link{mpoly}}
 #' @name mp
 #' @examples
+#' 
 #' ( m <- mp("x + y + x y") )
 #' is.mpoly( m )
 #' unclass(m)
@@ -22,7 +23,6 @@
 #'
 #' mp("x + 2 y + x^2 y + x y z")
 #' mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x"))
-#' # mp("x + 2 y + x^2 y", varorder = c("q", "p")) # -> error
 #'
 #' ( ms <- mp(c("x + y", "2 x")) )
 #' is.mpolyList(ms)
@@ -37,13 +37,10 @@
 #' strings
 #' mp(strings)
 #'
-#'
-#'
-#'
-#'
-#'
-#'
-#' 
+
+
+
+
 
 
 #' @export
@@ -70,6 +67,11 @@ make_indeterminate_list <- function (vars) {
 #' @export
 #' @rdname mp
 mp <- function (string, varorder, stars_only = FALSE) {
+  
+  # deal with mpolyLists
+  if (length(string) > 1) {
+    return(structure(lapply(string, mp), class = "mpolyList"))
+  } 
  
   # clean spaces if needed
   if(!stars_only)  {
@@ -85,11 +87,6 @@ mp <- function (string, varorder, stars_only = FALSE) {
     # fix things like "-x"
     string <- str_replace_all(string, "^-([\\w\\^.*\\(]+)", "-1*\\1")
   }
-  
-  # deal with mpolyLists
-  if (length(string) > 1) {
-    return(structure(lapply(string, mp), class = "mpolyList"))
-  } 
   
   # parse using R's parser and mpoly arithmetic
   expr <- parse(text = string)[[1]]

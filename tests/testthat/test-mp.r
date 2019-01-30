@@ -8,6 +8,7 @@ test_that("mpoly() flags non-list arguments",{
 
 context("mp() is working properly")
 
+
 test_that("mp() splices *'s properly", {
   
   expect_equal(
@@ -39,6 +40,44 @@ test_that("mp() splices *'s properly", {
     mp("x1a^2 x2a^3"),
     mpoly(list(c(x1a = 2, x2a = 3, coef = 1)))
   )
+  
+})
+
+
+
+
+
+
+
+
+
+
+test_that("mp() parses character vectors properly", {
+  
+  expect_equal(
+    mp(c("2 x y", "-3 x y z")),
+    structure(
+      list(
+        structure(list(c(x = 1, y = 1, coef = 2)), class = "mpoly"), 
+        structure(list(c(x = 1, y = 1, z = 1, coef = -3)), class = "mpoly")
+      ),
+      class = "mpolyList"
+    )
+  )
+  
+  expect_equal(
+    mp(c("x y", "x y z", "a^3 b c^2 d")),
+    structure(
+      list(
+        structure(list(c(x = 1, y = 1, coef = 1)), class = "mpoly"), 
+        structure(list(c(x = 1, y = 1, z = 1, coef = 1)), class = "mpoly"),
+        structure(list(c(a = 3, b = 1, c = 2, d = 1, coef = 1)), class = "mpoly")
+      ),
+      class = "mpolyList"
+    )
+  )
+  
+  
   
 })
 

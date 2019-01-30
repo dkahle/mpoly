@@ -1,0 +1,50 @@
+LCM                     Compute the least common multiple of two
+                        numbers.
+as.function.mpoly       Change a multivariate polynomial into a
+                        function.
+as.function.mpolyList   Change a vector of multivariate polynomials
+                        into a function.
+as.mpoly                Convert an object to an mpoly
+bernstein               Bernstein polynomials
+bernsteinApprox         Bernstein polynomial approximation
+bezier                  Bezier polynomials
+bezierFunction          Bezier function
+burst                   Enumerate integer r-vectors summing to n
+chebyshev               Chebyshev polynomials
+components              Polynomial components
+deriv.mpoly             Compute partial derivatives of a multivariate
+                        polynomial.
+gradient                Compute gradient of a multivariate polynomial.
+grobner                 REMOVED - Compute a grobner basis of a list of
+                        multivariate polynomials.
+hermite                 Hermite polynomials
+homogenize              Homogenize a polynomial
+insert                  Insert an element into a vector.
+is.wholenumber          Test whether an object is a whole number
+jacobi                  Jacobi polynomials
+laguerre                Generalized Laguerre polynomials
+legendre                Legendre polynomials
+mp                      Define a multivariate polynomial.
+mpoly                   Multivariate polynomials in R.
+mpolyArithmetic         Arithmetic with multivariate polynomials
+mpolyEqual              Determine whether two multivariate polynomials
+                        are equal.
+mpolyList               Define a collection of multivariate
+                        polynomials.
+mpolyListArithmetic     Element-wise arithmetic with vectors of
+                        multivariate polynomials.
+partitions              Enumerate the partitions of an integer
+permutations            Determine all permutations of a set.
+plug                    Switch indeterminates in a polynomial
+predicates              mpoly predicate functions
+print.mpoly             Pretty printing of multivariate polynomials.
+print.mpolyList         Pretty printing of a list of multivariate
+                        polynomials.
+reorder.mpoly           Reorder a multivariate polynomial.
+round.mpoly             Round the coefficients of a polynomial
+solve_unipoly           Solve a univariate mpoly with polyroot
+swap                    Swap polynomial indeterminates
+terms.mpoly             Extract the terms of a multivariate polynomial.
+tuples                  Determine all n-tuples using the elements of a
+                        set.
+vars                    Determine the variables in a mpoly object.
