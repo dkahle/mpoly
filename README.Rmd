@@ -25,7 +25,7 @@ __mpoly__ is a simple collection of tools to help deal with multivariate polynom
 ```{r mp, echo = TRUE}
 library(mpoly)
 mp("x + y")
-mp("(x + 4y)^2 (x - .25)")
+mp("(x + 4 y)^2 (x - .25)")
 ```
 
 [Term orders](http://en.wikipedia.org/wiki/Lexicographical_order#Monomials) are available with the reorder function:
@@ -80,7 +80,7 @@ p1^2
 ... and vectors of polynomials:
 ```{r vectorArithmetic}
 (ps1 <- mp(c("x", "y")))
-(ps2 <- mp(c("2x", "y+z")))
+(ps2 <- mp(c("2 x", "y + z")))
 ps1 + ps2
 ps1 - ps2
 ps1 * ps2
