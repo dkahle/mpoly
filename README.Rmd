@@ -18,6 +18,11 @@ knitr::opts_chunk$set(
 
 # mpoly
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
+<!-- badges: end -->
+
+
 ## Specifying polynomials
 
 __mpoly__ is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  Polynomials are defined with the `mp()` function:
