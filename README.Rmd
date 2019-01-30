@@ -362,3 +362,8 @@ as.mpoly(mod)
 # install.packages("devtools")
 devtools::install_github("dkahle/mpoly")
 ```
+
+
+## Acknowledgements
+
+This material is based upon work partially supported by the National Science Foundation under Grant No. [1622449](https://nsf.gov/awardsearch/showAward?AWD_ID=1622449).

@@ -558,7 +558,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 1.976 x  -  0.988 x^2  -  3.032
+# 2.061 x  -  0.964 x^2  -  3.098
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -578,19 +578,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                              0.052248  
+#                             -0.022848  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                              0.008894  
+#                             -0.004783  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              1.000142  
+#                              0.999084  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                              0.010057  
+#                              0.011694  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              2.994984  
+#                              2.994753  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -1.005899
+#                             -0.999115
 as.mpoly(mod)
-# 0.008894483 x  +  1.000142 x^2  +  0.01005651 y  +  2.994984 x y  -  1.005899 y^2  +  0.05224829
+# -0.004783382 x  +  0.9990843 x^2  +  0.01169415 y  +  2.994753 x y  -  0.9991152 y^2  -  0.022848
 ```
 
 Installation
@@ -604,3 +604,10 @@ Installation
 # install.packages("devtools")
 devtools::install_github("dkahle/mpoly")
 ```
+
+Acknowledgements
+----------------
+
+This material is based upon work partially supported by the National
+Science Foundation under Grant
+No. [1622449](https://nsf.gov/awardsearch/showAward?AWD_ID=1622449).
