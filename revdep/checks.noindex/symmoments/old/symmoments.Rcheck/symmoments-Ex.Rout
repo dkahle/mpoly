@@ -595,7 +595,7 @@ E[ X1^3 X2^1 X3^2 ]:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.073 0.106 1.206 0 0 
+Time elapsed:  1.524 0.147 1.747 0 0 
 > grDevices::dev.off()
 null device 
           1 
