@@ -7,6 +7,8 @@ mpoly
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
+[![Travis build
+status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://travis-ci.org/dkahle/mpoly)
 <!-- badges: end -->
 
 Specifying polynomials
@@ -558,7 +560,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 2.061 x  -  0.964 x^2  -  3.098
+# 2.04 x  -  1.008 x^2  -  2.955
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -578,19 +580,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                             -0.022848  
+#                              0.078009  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                             -0.004783  
+#                              0.000606  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              0.999084  
+#                              1.001773  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                              0.011694  
+#                             -0.004435  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              2.994753  
+#                              2.999466  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -0.999115
+#                             -1.003590
 as.mpoly(mod)
-# -0.004783382 x  +  0.9990843 x^2  +  0.01169415 y  +  2.994753 x y  -  0.9991152 y^2  -  0.022848
+# 0.0006059845 x  +  1.001773 x^2  -  0.004435017 y  +  2.999466 x y  -  1.00359 y^2  +  0.07800872
 ```
 
 Installation
