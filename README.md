@@ -254,7 +254,7 @@ library(ggplot2); theme_set(theme_classic())
 qplot(x, f(x), geom = "line")
 ```
 
-![](tools/README-asFunction-1.png)
+![](tools/README-as-function-1.png)
 
 For multivariate polynomials, it’s a little more complicated:
 
@@ -267,7 +267,7 @@ df$f <- apply(df, 1, f)
 qplot(x, y, data = df, geom = "tile", fill = f)
 ```
 
-![](tools/README-asFuntionMulti-1.png)
+![](tools/README-as-funtion-multi-1.png)
 
 Algebraic geometry
 ------------------
@@ -514,7 +514,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](tools/README-bezierPlot-1.png)
+![](tools/README-bezier-plot-1.png)
 
 Weighting is available also:
 
@@ -531,7 +531,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](tools/README-bezierWeighting-1.png)
+![](tools/README-bezier-weighting-1.png)
 
 To make the evaluation of the Bezier polynomials stable, `as.function()`
 has a special method for Bezier polynomials that makes use of [de
@@ -546,7 +546,7 @@ qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 ```
 
-![](tools/README-bezierSmooth-1.png)
+![](tools/README-bezier-smooth-1.png)
 
 Other stuff
 -----------
@@ -560,7 +560,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 2.04 x  -  1.008 x^2  -  2.955
+# 2.041 x  -  1.045 x^2  -  2.538
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -580,19 +580,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                              0.078009  
+#                              0.008102  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                              0.000606  
+#                              0.010227  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              1.001773  
+#                              1.003252  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                             -0.004435  
+#                              0.004330  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              2.999466  
+#                              3.005018  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -1.003590
+#                             -1.006317
 as.mpoly(mod)
-# 0.0006059845 x  +  1.001773 x^2  -  0.004435017 y  +  2.999466 x y  -  1.00359 y^2  +  0.07800872
+# 0.01022673 x  +  1.003252 x^2  +  0.004329615 y  +  3.005018 x y  -  1.006317 y^2  +  0.008102464
 ```
 
 Installation
