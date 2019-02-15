@@ -58,6 +58,7 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 }
 
+
 }
 \author{
 David Kahle

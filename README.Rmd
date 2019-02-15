@@ -317,10 +317,10 @@ mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
 ```
 
-You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function.  Here's an approximation to the standard normal density:
+You can use the `bernstein_approx()` function to compute the Bernstein polynomial approximation to a function.  Here's an approximation to the standard normal density:
 
-```{r bernsteinApprox, fig.height=3}
-p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
+```{r bernstein-approx, fig.height=3}
+p <- bernstein_approx(dnorm, 15, -1.25, 1.25)
 round(p, 4)
 
 x <- seq(-3, 3, length.out = 101)

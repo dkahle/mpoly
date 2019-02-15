@@ -517,12 +517,12 @@ qplot(x, value, data = mdf, geom = "path", color = degree)
 
 ![](tools/README-bernstein-1.png)
 
-You can use the `bernsteinApprox()` function to compute the Bernstein
+You can use the `bernstein_approx()` function to compute the Bernstein
 polynomial approximation to a function. Here’s an approximation to the
 standard normal density:
 
 ``` r
-p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
+p <- bernstein_approx(dnorm, 15, -1.25, 1.25)
 round(p, 4)
 # -0.1624 x^2  +  0.0262 x^4  -  0.002 x^6  +  0.0001 x^8  +  0.3796
 
@@ -536,7 +536,7 @@ df <- data.frame(
 qplot(x, y, data = df, geom = "path", color = which)
 ```
 
-![](tools/README-bernsteinApprox-1.png)
+![](tools/README-bernstein-approx-1.png)
 
 [Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
 --------------------------------------------------------------------------
