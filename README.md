@@ -9,6 +9,8 @@ mpoly
 status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
 [![Travis build
 status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://travis-ci.org/dkahle/mpoly)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/dkahle/mpoly?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/mpoly)
 <!-- badges: end -->
 
 Specifying polynomials
@@ -241,16 +243,14 @@ f(1:3)
 You can use this to visualize a univariate polynomials like this:
 
 ``` r
+library("tidyverse"); theme_set(theme_classic())
+```
+
+``` r
 f <- as.function(mp("(x-2) x (x+2)"))
 # f(.) with . = x
 x <- seq(-2.5, 2.5, .1)
 
-library(ggplot2); theme_set(theme_classic())
-# 
-# Attaching package: 'ggplot2'
-# The following object is masked from 'package:mpoly':
-# 
-#     vars
 qplot(x, f(x), geom = "line")
 ```
 
@@ -269,11 +269,28 @@ qplot(x, y, data = df, geom = "tile", fill = f)
 
 ![](tools/README-as-funtion-multi-1.png)
 
+Using [tidyversestyle coding](https://www.tidyverse.org) (install
+tidyverse packages with `install.packages("tidyverse")`), this looks a
+bit cleaner:
+
+``` r
+f <- as.function(mp("x^2 - y^2"), vector = FALSE)
+# f(x, y)
+seq(-2.5, 2.5, .1) %>% 
+  list("x" = ., "y" = .) %>% 
+  cross_df() %>% 
+  mutate(f = f(x, y)) %>% 
+  ggplot(aes(x, y, fill = f)) + 
+    geom_raster()
+```
+
+![](tools/README-as-funtion-multi-tidy-1.png)
+
 Algebraic geometry
 ------------------
 
-**Grobner bases are no longer implemented, see
-[m2r](https://github.com/musicman3320/m2r)**
+**Grobner bases are no longer implemented in mpoly; they’re now in
+[m2r](https://github.com/musicman3320/m2r).**
 
 ``` r
 # polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
@@ -331,10 +348,6 @@ chebyshev(0:5)
 And you can visualize them:
 
 ``` r
-library(tidyr); library(dplyr)
-```
-
-``` r
 s <- seq(-1, 1, length.out = 201); N <- 5
 (chebPolys <- chebyshev(0:N))
 # 1
@@ -344,8 +357,7 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 # 8 x^4  -  8 x^2  +  1
 # 16 x^5  -  20 x^3  +  5 x
 
-
-df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame
+df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame()
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
@@ -554,13 +566,14 @@ Other stuff
 I’m starting to put in methods for some other R functions:
 
 ``` r
+set.seed(1)
 n <- 101
 df <- data.frame(x = seq(-5, 5, length.out = n))
 df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 2.041 x  -  1.045 x^2  -  2.538
+# 1.983 x  -  1.01 x^2  -  2.709
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -580,19 +593,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                              0.008102  
+#                             -0.070512  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                              0.010227  
+#                             -0.004841  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              1.003252  
+#                              1.005307  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                              0.004330  
+#                              0.001334  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              3.005018  
+#                              3.003755  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -1.006317
+#                             -0.999536
 as.mpoly(mod)
-# 0.01022673 x  +  1.003252 x^2  +  0.004329615 y  +  3.005018 x y  -  1.006317 y^2  +  0.008102464
+# -0.004840798 x  +  1.005307 x^2  +  0.001334122 y  +  3.003755 x y  -  0.9995356 y^2  -  0.07051218
 ```
 
 Installation
