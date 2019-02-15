@@ -86,21 +86,29 @@ monomials(p)
 Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)...
 ```{r arithmetic}
 p1 <- mp("x + y")
+
 p2 <- mp("x - y")
 
 p1 + p2
+
 p1 - p2
+
 p1 * p2
+
 p1^2
 ```
 
 ... and vectors of polynomials:
 ```{r vector-arithmetic}
 (ps1 <- mp(c("x", "y")))
+
 (ps2 <- mp(c("2 x", "y + z")))
+
 ps1 + ps2
+
 ps1 - ps2
-ps1 * ps2
+
+ps1 * ps2 
 ```
 
 
@@ -177,16 +185,16 @@ qplot(x, f(x), geom = "line")
 
 
 For multivariate polynomials, it's a little more complicated:
-```{r as-funtion-multi}
+```{r as-function-multi}
 f <- as.function(mp("x^2 - y^2")) 
 s <- seq(-2.5, 2.5, .1)
 df <- expand.grid(x = s, y = s)
 df$f <- apply(df, 1, f)
-qplot(x, y, data = df, geom = "tile", fill = f)
+qplot(x, y, data = df, geom = "raster", fill = f)
 ```
 
 Using [tidyverse-style coding](https://www.tidyverse.org) (install tidyverse packages with `install.packages("tidyverse")`), this looks a bit cleaner:
-```{r as-funtion-multi-tidy}
+```{r as-function-multi-tidy}
 f <- as.function(mp("x^2 - y^2"), vector = FALSE)
 seq(-2.5, 2.5, .1) %>% 
   list("x" = ., "y" = .) %>% 
@@ -208,8 +216,11 @@ __Grobner bases are no longer implemented in mpoly; they're now in [m2r](https:/
 Homogenization and dehomogenization:
 ```{r homogenization}
 (p <- mp("x + 2 x y + y - z^3"))
+
 (hp <- homogenize(p))
+
 dehomogenize(hp, "t")
+
 homogeneous_components(p)
 ```
 
@@ -223,7 +234,9 @@ __mpoly__ can make use of many pieces of the __polynom__ and __orthopolynom__ pa
 You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
 ```{r chebyshev1}
 chebyshev(1)
+
 chebyshev(2)
+
 chebyshev(0:5)
 ```
 

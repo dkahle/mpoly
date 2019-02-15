@@ -134,14 +134,18 @@ Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)…
 
 ``` r
 p1 <- mp("x + y")
+
 p2 <- mp("x - y")
 
 p1 + p2
 # 2 x
+
 p1 - p2
 # 2 y
+
 p1 * p2
 # x^2  -  y^2
+
 p1^2
 # x^2  +  2 x y  +  y^2
 ```
@@ -152,16 +156,20 @@ p1^2
 (ps1 <- mp(c("x", "y")))
 # x
 # y
+
 (ps2 <- mp(c("2 x", "y + z")))
 # 2 x
 # y  +  z
+
 ps1 + ps2
 # 3 x
 # 2 y  +  z
+
 ps1 - ps2
 # -1 x
 # -1 z
-ps1 * ps2
+
+ps1 * ps2 
 # 2 x^2
 # y^2  +  y z
 ```
@@ -288,10 +296,10 @@ f <- as.function(mp("x^2 - y^2"))
 s <- seq(-2.5, 2.5, .1)
 df <- expand.grid(x = s, y = s)
 df$f <- apply(df, 1, f)
-qplot(x, y, data = df, geom = "tile", fill = f)
+qplot(x, y, data = df, geom = "raster", fill = f)
 ```
 
-![](tools/README-as-funtion-multi-1.png)
+![](tools/README-as-function-multi-1.png)
 
 Using [tidyverse-style coding](https://www.tidyverse.org) (install
 tidyverse packages with `install.packages("tidyverse")`), this looks a
@@ -308,7 +316,7 @@ seq(-2.5, 2.5, .1) %>%
     geom_raster()
 ```
 
-![](tools/README-as-funtion-multi-tidy-1.png)
+![](tools/README-as-function-multi-tidy-1.png)
 
 Algebraic geometry
 ------------------
@@ -326,10 +334,13 @@ Homogenization and dehomogenization:
 ``` r
 (p <- mp("x + 2 x y + y - z^3"))
 # x  +  2 x y  +  y  -  z^3
+
 (hp <- homogenize(p))
 # x t^2  +  2 x y t  +  y t^2  -  z^3
+
 dehomogenize(hp, "t")
 # x  +  2 x y  +  y  -  z^3
+
 homogeneous_components(p)
 # x  +  y
 # 2 x y
@@ -358,8 +369,10 @@ chebyshev(1)
 # 
 #     LCM
 # x
+
 chebyshev(2)
 # -1  +  2 x^2
+
 chebyshev(0:5)
 # 1
 # x
