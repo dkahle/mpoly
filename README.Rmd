@@ -30,15 +30,18 @@ knitr::opts_chunk$set(
 __mpoly__ is a simple collection of tools to help deal with multivariate polynomials _symbolically_ and functionally in R.  Polynomials are defined with the `mp()` function:
 
 ```{r mp, echo = TRUE}
-library(mpoly)
+library("mpoly")
 mp("x + y")
+
 mp("(x + 4 y)^2 (x - .25)")
 ```
 
 [Term orders](http://en.wikipedia.org/wiki/Lexicographical_order#Monomials) are available with the reorder function:
 ```{r reordering}
 (p <- mp("(x + y)^2 (1 + x)"))
+
 reorder(p, varorder = c("y","x"), order = "lex")
+
 reorder(p, varorder = c("x","y"), order = "glex")
 ```
 
@@ -52,22 +55,29 @@ mp(c("(x+y)^2", "z"))
 You can extract pieces of polynoimals using the standard `[` operator, which works on its terms:
 ```{r subsetting}
 p[1]
+
 p[1:3]
+
 p[-1]
 ```
 
 There are also many other functions that can be used to piece apart polynomials, for example the leading term (default lex order):
 ```{r lt_lc_lm}
 LT(p)
+
 LC(p)
+
 LM(p)
 ```
 
 You can also extract information about exponents:
 ```{r degs}
 exponents(p)
+
 multideg(p)
+
 totaldeg(p)
+
 monomials(p)
 ```
 
@@ -99,7 +109,9 @@ ps1 * ps2
 You can compute derivatives easily:
 ```{r calculus}
 p <- mp("x + x y + x y^2")
+
 deriv(p, "y")
+
 gradient(p)
 ```
 
@@ -109,17 +121,24 @@ gradient(p)
 You can turn polynomials and vectors of polynomials into functions you can evaluate with `as.function()`.  Here's a basic example using a single multivariate polynomial:
 ```{r as-function-basic-single}
 f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
+
 f(c(1,1))
+
 f <- as.function(mp("x + 2 y"), vector = FALSE) # makes a function with all arguments
+
 f(1, 1)
 ```
 
 Here's a basic example with a vector of multivariate polynomials:
 ```{r as-function-basic-vector}
 (p <- mp(c("x", "2 y")))
+
 f <- as.function(p) 
+
 f(c(1,1))
+
 f <- as.function(p, vector = FALSE) 
+
 f(1, 1)
 ```
 
@@ -127,16 +146,21 @@ f(1, 1)
 Whether you're working with a single multivariate polynomial or a vector of them (`mpolyList`), if it/they are actually univariate polynomial(s), the resulting function is vectorized.  Here's an example with a single univariate polynomial.
 ```{r as-function-vectorized}
 f <- as.function(mp("x^2"))
+
 f(1:3)
+
 (mat <- matrix(1:4, 2))
+
 f(mat) # it's vectorized properly over arrays
 ```
 
 Here's an example with a vector of univariate polynomials:
 ```{r as-function-vectorized2}
 (p <- mp(c("t", "t^2")))
+
 f <- as.function(p)
 f(1)
+
 f(1:3)
 ```
 
@@ -161,7 +185,7 @@ df$f <- apply(df, 1, f)
 qplot(x, y, data = df, geom = "tile", fill = f)
 ```
 
-Using [tidyversestyle coding](https://www.tidyverse.org) (install tidyverse packages with `install.packages("tidyverse")`), this looks a bit cleaner:
+Using [tidyverse-style coding](https://www.tidyverse.org) (install tidyverse packages with `install.packages("tidyverse")`), this looks a bit cleaner:
 ```{r as-funtion-multi-tidy}
 f <- as.function(mp("x^2 - y^2"), vector = FALSE)
 seq(-2.5, 2.5, .1) %>% 

@@ -21,9 +21,10 @@ polynomials *symbolically* and functionally in R. Polynomials are
 defined with the `mp()` function:
 
 ``` r
-library(mpoly)
+library("mpoly")
 mp("x + y")
 # x  +  y
+
 mp("(x + 4 y)^2 (x - .25)")
 # x^3  -  0.25 x^2  +  8 x^2 y  -  2 x y  +  16 x y^2  -  4 y^2
 ```
@@ -35,8 +36,10 @@ are available with the reorder function:
 ``` r
 (p <- mp("(x + y)^2 (1 + x)"))
 # x^3  +  x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
+
 reorder(p, varorder = c("y","x"), order = "lex")
 # y^2 x  +  y^2  +  2 y x^2  +  2 y x  +  x^3  +  x^2
+
 reorder(p, varorder = c("x","y"), order = "glex")
 # x^3  +  2 x^2 y  +  x y^2  +  x^2  +  2 x y  +  y^2
 ```
@@ -58,8 +61,10 @@ which works on its terms:
 ``` r
 p[1]
 # x^3
+
 p[1:3]
 # x^3  +  x^2  +  2 x^2 y
+
 p[-1]
 # x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
 ```
@@ -70,8 +75,10 @@ polynomials, for example the leading term (default lex order):
 ``` r
 LT(p)
 # x^3
+
 LC(p)
 # [1] 1
+
 LM(p)
 # x^3
 ```
@@ -103,11 +110,14 @@ exponents(p)
 # [[6]]
 # x y 
 # 0 2
+
 multideg(p)
 # x y 
 # 3 0
+
 totaldeg(p)
 # [1] 3
+
 monomials(p)
 # x^3
 # x^2
@@ -163,8 +173,10 @@ You can compute derivatives easily:
 
 ``` r
 p <- mp("x + x y + x y^2")
+
 deriv(p, "y")
 # x  +  2 x y
+
 gradient(p)
 # y^2  +  y  +  1
 # 2 y x  +  x
@@ -180,10 +192,13 @@ multivariate polynomial:
 ``` r
 f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
 # f(.) with . = (x, y)
+
 f(c(1,1))
 # [1] 3
+
 f <- as.function(mp("x + 2 y"), vector = FALSE) # makes a function with all arguments
 # f(x, y)
+
 f(1, 1)
 # [1] 3
 ```
@@ -194,12 +209,16 @@ Here’s a basic example with a vector of multivariate polynomials:
 (p <- mp(c("x", "2 y")))
 # x
 # 2 y
+
 f <- as.function(p) 
 # f(.) with . = (x, y)
+
 f(c(1,1))
 # [1] 1 2
+
 f <- as.function(p, vector = FALSE) 
 # f(x, y)
+
 f(1, 1)
 # [1] 1 2
 ```
@@ -212,12 +231,15 @@ univariate polynomial.
 ``` r
 f <- as.function(mp("x^2"))
 # f(.) with . = x
+
 f(1:3)
 # [1] 1 4 9
+
 (mat <- matrix(1:4, 2))
 #      [,1] [,2]
 # [1,]    1    3
 # [2,]    2    4
+
 f(mat) # it's vectorized properly over arrays
 #      [,1] [,2]
 # [1,]    1    9
@@ -230,9 +252,11 @@ Here’s an example with a vector of univariate polynomials:
 (p <- mp(c("t", "t^2")))
 # t
 # t^2
+
 f <- as.function(p)
 f(1)
 # [1] 1 1
+
 f(1:3)
 #      [,1] [,2]
 # [1,]    1    1
@@ -269,7 +293,7 @@ qplot(x, y, data = df, geom = "tile", fill = f)
 
 ![](tools/README-as-funtion-multi-1.png)
 
-Using [tidyversestyle coding](https://www.tidyverse.org) (install
+Using [tidyverse-style coding](https://www.tidyverse.org) (install
 tidyverse packages with `install.packages("tidyverse")`), this looks a
 bit cleaner:
 
