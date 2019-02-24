@@ -11,7 +11,7 @@
 #'   preprocessing time
 #' @param vars a character vector of indeterminates
 #' @return An object of class mpoly.
-#' @author David Kahle \email{david.kahle@@gmail.com}
+#' @author David Kahle \email{david@@kahle.io}
 #' @seealso \code{\link{mpoly}}
 #' @name mp
 #' @examples

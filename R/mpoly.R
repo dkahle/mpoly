@@ -8,7 +8,7 @@
 #' @param varorder (optional) a character vector setting the
 #'   intrinsic variable order of the polynomial
 #' @return Object of class mpoly.
-#' @author David Kahle \email{david.kahle@@gmail.com}
+#' @author David Kahle \email{david@@kahle.io}
 #' @seealso \code{\link{mp}}
 #' @export
 #' @examples

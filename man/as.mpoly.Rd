@@ -76,5 +76,5 @@ qplot(x, y, data = df, geom = "raster", fill = z - fit) # residuals
 \code{\link{mp}}
 }
 \author{
-David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david@kahle.io}
 }

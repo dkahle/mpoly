@@ -6,7 +6,7 @@
 #' @param x an object
 #' @param ... additional arguments to pass to methods
 #' @return the object formated as a mpoly object.
-#' @author David Kahle \email{david.kahle@@gmail.com}
+#' @author David Kahle \email{david@@kahle.io}
 #' @seealso \code{\link{mp}}
 #' @export
 #' @examples

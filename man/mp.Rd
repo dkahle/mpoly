@@ -56,5 +56,5 @@ mp(strings)
 \code{\link{mpoly}}
 }
 \author{
-David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david@kahle.io}
 }
