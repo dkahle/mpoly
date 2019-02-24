@@ -1,0 +1,32 @@
+#' Convert an equation to a polynomial
+#'
+#' Convert characters of the form \code{"p1 = p2"} (or similar) to an mpoly
+#' object representing \code{p1 - p2}.
+#'
+#' @param string a character string containing a polynomial, see examples
+#' @param ... arguments to pass to \code{\link[mpoly::mpoly]{mpoly()}}
+#' @return An object of class mpoly or mpolyList.
+#' @author David Kahle \email{david@@kahle.io}
+#' @seealso \code{\link{mpoly}}
+#' @examples
+#'
+#' eq_to_mp(c("y = x", "y ==  (x + 2)"))
+#' 
+#' 
+#' 
+
+eq_to_mp <- function (string, ...) {
+  
+  # "y = x" -> "(y) - (x)"
+  strings <- vapply(
+    str_split(string, "\\s*==?\\s*"),
+    function(x) str_c("(", x[1], ") - (", x[2], ")"),
+    character(1)
+  )
+  
+  # parse and output
+  mp(strings, ...)
+  
+}
+
+

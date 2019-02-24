@@ -16,9 +16,8 @@ mp(string, varorder, stars_only = FALSE)
 
 \item{varorder}{(optional) order of variables in string}
 
-\item{stars_only}{only useful after version 2.0; if you format your
-multiplications using asterisks, setting this to \code{TRUE} will reduce
-preprocessing time}
+\item{stars_only}{if you format your multiplications using asterisks, setting
+this to \code{TRUE} will reduce preprocessing time}
 }
 \value{
 An object of class mpoly.

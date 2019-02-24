@@ -6,9 +6,8 @@
 #'
 #' @param string a character string containing a polynomial, see examples
 #' @param varorder (optional) order of variables in string
-#' @param stars_only only useful after version 2.0; if you format your
-#'   multiplications using asterisks, setting this to \code{TRUE} will reduce
-#'   preprocessing time
+#' @param stars_only if you format your multiplications using asterisks, setting
+#'   this to \code{TRUE} will reduce preprocessing time
 #' @param vars a character vector of indeterminates
 #' @return An object of class mpoly.
 #' @author David Kahle \email{david@@kahle.io}
