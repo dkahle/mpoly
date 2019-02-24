@@ -9,7 +9,7 @@ eq_to_mp(string, ...)
 \arguments{
 \item{string}{a character string containing a polynomial, see examples}
 
-\item{...}{arguments to pass to \code{\link[mpoly::mpoly]{mpoly()}}}
+\item{...}{arguments to pass to \code{\link[mpoly:mpoly]{mpoly()}}}
 }
 \value{
 An object of class mpoly or mpolyList.
