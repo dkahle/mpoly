@@ -11,12 +11,12 @@
 #' @export
 #' @examples
 #'
-#' eq_to_mp(c("y = x", "y ==  (x + 2)"))
+#' eq_mp(c("y = x", "y ==  (x + 2)"))
 #' 
 #' 
 #' 
 
-eq_to_mp <- function (string, ...) {
+eq_mp <- function (string, ...) {
   
   # "y = x" -> "(y) - (x)"
   strings <- vapply(
