@@ -68,7 +68,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' This is a wrapper for deriv.mpoly.
 #'
 #' @param mpoly an object of class mpoly
-#' @seealso \code{\link{deriv.mpoly}}
+#' @seealso [deriv.mpoly()]
 #' @return An object of class mpoly or mpolyList.
 #' @export
 #' @examples

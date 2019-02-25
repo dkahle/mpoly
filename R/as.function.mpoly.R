@@ -12,7 +12,7 @@
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
 #'   = TRUE, silent = FALSE, ...)
-#' @seealso \code{\link{plug}}
+#' @seealso [plug()]
 #' @export
 #' @examples
 #' 

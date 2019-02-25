@@ -7,7 +7,7 @@
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
-#' @seealso \code{\link{legendre.polynomials}}, 
+#' @seealso [orthopolynom::legendre.polynomials()], 
 #'   \url{http://en.wikipedia.org/wiki/Legendre_polynomials}
 #' @export
 #' @examples

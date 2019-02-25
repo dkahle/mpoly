@@ -15,7 +15,7 @@ burst(n, r = n)
 a matrix whose rows are the n-tuples
 }
 \description{
-Determine all r-vectors with nonnegative integer entries summing 
+Determine all r-vectors with nonnegative integer entries summing
 to n.  Note that this is intended to be optimized.
 }
 \examples{

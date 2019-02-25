@@ -8,7 +8,7 @@
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
-#' @seealso \code{\link{glaguerre.polynomials}}, 
+#' @seealso [orthopolynom::glaguerre.polynomials()], 
 #'   \url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
 #' @export
 #' @examples

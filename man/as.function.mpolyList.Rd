@@ -13,10 +13,10 @@
 \arguments{
 \item{x}{an object of class mpolyList}
 
-\item{varorder}{the order in which the arguments of the function 
+\item{varorder}{the order in which the arguments of the function
 will be provided (default vars(mpoly))}
 
-\item{vector}{whether the function should take a vector argument 
+\item{vector}{whether the function should take a vector argument
 (TRUE) or a series of arguments (FALSE)}
 
 \item{silent}{suppress messages}
@@ -24,7 +24,7 @@ will be provided (default vars(mpoly))}
 \item{...}{any additional arguments}
 }
 \description{
-Transforms an mpolyList object into a function which can be 
+Transforms an mpolyList object into a function which can be
 evaluated.
 }
 \examples{

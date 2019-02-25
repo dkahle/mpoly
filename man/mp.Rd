@@ -52,7 +52,7 @@ mp(strings)
 
 }
 \seealso{
-\code{\link{mpoly}}
+\code{\link[=mpoly]{mpoly()}}
 }
 \author{
 David Kahle \email{david@kahle.io}

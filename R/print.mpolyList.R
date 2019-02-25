@@ -8,7 +8,7 @@
 #' @param order a total order used to order the monomials in the 
 #'   printing
 #' @param silent logical; if TRUE, suppresses output
-#' @param ... arguments to pass to \code{\link{print.mpoly}}
+#' @param ... arguments to pass to [print.mpoly()]
 #' @usage \method{print}{mpolyList}(x, varorder = vars(x), order,
 #'   silent = FALSE, ...)
 #' @return Invisible character vector of the printed objects.

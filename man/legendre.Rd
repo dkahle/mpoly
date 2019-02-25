@@ -59,8 +59,8 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 }
 \seealso{
-\code{\link{legendre.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Legendre_polynomials}
+\code{\link[orthopolynom:legendre.polynomials]{orthopolynom::legendre.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Legendre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

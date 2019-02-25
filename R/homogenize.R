@@ -2,7 +2,7 @@
 #' 
 #' Homogenize a polynomial.
 #' 
-#' @param x an \code{\link{mpoly}} object
+#' @param x an mpoly object, see [mpoly()]
 #' @param var name of homogenization
 #' @return a (de/homogenized) mpoly or an mpolyList
 #' @name homogenize

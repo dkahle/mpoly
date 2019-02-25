@@ -4,10 +4,10 @@
 #' object representing \code{p1 - p2}.
 #'
 #' @param string a character string containing a polynomial, see examples
-#' @param ... arguments to pass to \code{\link[mpoly:mpoly]{mpoly()}}
+#' @param ... arguments to pass to [mpoly()]
 #' @return An object of class mpoly or mpolyList.
 #' @author David Kahle \email{david@@kahle.io}
-#' @seealso \code{\link{mpoly}}
+#' @seealso [mpoly()]
 #' @export
 #' @examples
 #'

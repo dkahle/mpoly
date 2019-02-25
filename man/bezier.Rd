@@ -17,11 +17,11 @@ polynomial}
 a mpoly object
 }
 \description{
-Compute the Bezier polynomials of a given collection of points. 
-Note that using \code{\link{as.function}} on the resulting Bezier
+Compute the Bezier polynomials of a given collection of points.
+Note that using \code{\link[mpoly:as.function.mpoly]{mpoly::as.function.mpoly()}} on the resulting Bezier
 polynomials is made numerically stable by taking advantage of de
 Casteljau's algorithm; it does not use the polynomial that is
-printed to the screen.  See \code{\link{bezierFunction}} for
+printed to the screen.  See \code{\link[=bezierFunction]{bezierFunction()}} for
 details.
 }
 \examples{
@@ -147,7 +147,7 @@ qplot(speed, dist, data = cars) +
 
 }
 \seealso{
-\code{\link{bezierFunction}}
+\code{\link[=bezierFunction]{bezierFunction()}}
 }
 \author{
 David Kahle

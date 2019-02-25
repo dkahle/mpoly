@@ -63,8 +63,8 @@ qplot(x, value, data = mdf, geom = "line", color = degree) +
 
 }
 \seealso{
-\code{\link{glaguerre.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
+\code{\link[orthopolynom:glaguerre.polynomials]{orthopolynom::glaguerre.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

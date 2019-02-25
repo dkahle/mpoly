@@ -1,10 +1,10 @@
 #' Bezier polynomials
 #' 
 #' Compute the Bezier polynomials of a given collection of points. 
-#' Note that using \code{\link{as.function}} on the resulting Bezier
+#' Note that using [mpoly::as.function.mpoly()] on the resulting Bezier
 #' polynomials is made numerically stable by taking advantage of de
 #' Casteljau's algorithm; it does not use the polynomial that is
-#' printed to the screen.  See \code{\link{bezierFunction}} for
+#' printed to the screen.  See [bezierFunction()] for
 #' details.
 #' 
 #' @param ... either a sequence of points or a matrix/data frame of
@@ -13,7 +13,7 @@
 #'   polynomial
 #' @return a mpoly object
 #' @author David Kahle
-#' @seealso \code{\link{bezierFunction}}
+#' @seealso [bezierFunction()]
 #' @export
 #' @examples
 #' 
@@ -246,7 +246,7 @@ bezier <- function(..., indeterminate = "t"){
 #' @author David Kahle
 #' @references \url{http://en.wikipedia.org/wiki/Bezier_curve}, 
 #'   \url{http://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
-#' @seealso \code{\link{bezier}}
+#' @seealso [bezier()]
 #' @export
 #' @examples
 #' 

@@ -21,4 +21,5 @@ Suggests:
     dplyr
 License: GPL-2
 RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

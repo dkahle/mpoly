@@ -12,15 +12,15 @@
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the monomials in the 
+\item{order}{a total order used to order the monomials in the
 printing}
 
-\item{stars}{print the multivariate polynomial in the more 
+\item{stars}{print the multivariate polynomial in the more
 computer-friendly asterisk notation (default FALSE)}
 
 \item{silent}{logical; if TRUE, suppresses output}
 
-\item{...}{additional parameters to go to \code{\link{cat}}}
+\item{...}{additional parameters to go to \code{\link[base:cat]{base::cat()}}}
 }
 \value{
 Invisible string of the printed object.

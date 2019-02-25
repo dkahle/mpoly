@@ -57,5 +57,5 @@ f(10) # -> 24
 
 }
 \seealso{
-\code{\link{plug}}
+\code{\link[=plug]{plug()}}
 }

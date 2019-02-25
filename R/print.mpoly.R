@@ -9,7 +9,7 @@
 #' @param stars print the multivariate polynomial in the more 
 #'   computer-friendly asterisk notation (default FALSE)
 #' @param silent logical; if TRUE, suppresses output
-#' @param ... additional parameters to go to \code{\link{cat}}
+#' @param ... additional parameters to go to [base::cat()]
 #' @usage \method{print}{mpoly}(x, varorder, order, stars = FALSE,
 #'   silent = FALSE, ...)
 #' @return Invisible string of the printed object.

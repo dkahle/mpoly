@@ -10,8 +10,8 @@
 #' @param normalized provide normalized coefficients
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
-#' @seealso \code{\link{jacobi.g.polynomials}}, 
-#'   \code{\link{jacobi.p.polynomials}} 
+#' @seealso [orthopolynom::jacobi.g.polynomials()], 
+#'   [orthopolynom::jacobi.p.polynomials()], 
 #'   \url{http://en.wikipedia.org/wiki/Jacobi_polynomials}
 #' @export
 #' @examples

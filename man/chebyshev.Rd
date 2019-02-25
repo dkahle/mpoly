@@ -64,11 +64,11 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 }
 \seealso{
-\code{\link{chebyshev.t.polynomials}}, 
-  \code{\link{chebyshev.u.polynomials}}, 
-  \code{\link{chebyshev.c.polynomials}}, 
-  \code{\link{chebyshev.s.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
+\code{\link[orthopolynom:chebyshev.t.polynomials]{orthopolynom::chebyshev.t.polynomials()}},
+\code{\link[orthopolynom:chebyshev.u.polynomials]{orthopolynom::chebyshev.u.polynomials()}},
+\code{\link[orthopolynom:chebyshev.c.polynomials]{orthopolynom::chebyshev.c.polynomials()}},
+\code{\link[orthopolynom:chebyshev.s.polynomials]{orthopolynom::chebyshev.s.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

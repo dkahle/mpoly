@@ -73,7 +73,7 @@ qplot(x, y, data = df, geom = "raster", fill = z - fit) # residuals
 
 }
 \seealso{
-\code{\link{mp}}
+\code{\link[=mp]{mp()}}
 }
 \author{
 David Kahle \email{david@kahle.io}

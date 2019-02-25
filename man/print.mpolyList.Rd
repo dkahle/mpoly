@@ -12,18 +12,18 @@
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the monomials in the 
+\item{order}{a total order used to order the monomials in the
 printing}
 
 \item{silent}{logical; if TRUE, suppresses output}
 
-\item{...}{arguments to pass to \code{\link{print.mpoly}}}
+\item{...}{arguments to pass to \code{\link[=print.mpoly]{print.mpoly()}}}
 }
 \value{
 Invisible character vector of the printed objects.
 }
 \description{
-This function iterates print.mpoly on an object of class 
+This function iterates print.mpoly on an object of class
 mpolyList.
 }
 \examples{

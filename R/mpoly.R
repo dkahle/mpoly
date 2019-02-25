@@ -9,7 +9,7 @@
 #'   intrinsic variable order of the polynomial
 #' @return Object of class mpoly.
 #' @author David Kahle \email{david@@kahle.io}
-#' @seealso \code{\link{mp}}
+#' @seealso [mp()]
 #' @export
 #' @examples
 #' list <- list(

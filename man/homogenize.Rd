@@ -16,7 +16,7 @@ is.homogeneous(x)
 homogeneous_components(x)
 }
 \arguments{
-\item{x}{an \code{\link{mpoly}} object}
+\item{x}{an mpoly object, see \code{\link[=mpoly]{mpoly()}}}
 
 \item{var}{name of homogenization}
 }

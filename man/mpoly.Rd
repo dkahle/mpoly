@@ -49,7 +49,7 @@ mpoly(list)
 
 }
 \seealso{
-\code{\link{mp}}
+\code{\link[=mp]{mp()}}
 }
 \author{
 David Kahle \email{david@kahle.io}

@@ -43,10 +43,10 @@ exponents(x, reduced = FALSE)
 }
 \value{
 An object of class mpoly or mpolyList, depending on the
-  context
+context
 }
 \description{
-Compute quantities/expressions related to a multivariate 
+Compute quantities/expressions related to a multivariate
 polynomial.
 }
 \examples{

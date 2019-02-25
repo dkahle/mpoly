@@ -9,7 +9,7 @@ eq_mp(string, ...)
 \arguments{
 \item{string}{a character string containing a polynomial, see examples}
 
-\item{...}{arguments to pass to \code{\link[mpoly:mpoly]{mpoly()}}}
+\item{...}{arguments to pass to \code{\link[=mpoly]{mpoly()}}}
 }
 \value{
 An object of class mpoly or mpolyList.
@@ -26,7 +26,7 @@ eq_mp(c("y = x", "y ==  (x + 2)"))
 
 }
 \seealso{
-\code{\link{mpoly}}
+\code{\link[=mpoly]{mpoly()}}
 }
 \author{
 David Kahle \email{david@kahle.io}

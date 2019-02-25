@@ -15,7 +15,7 @@ LCM(x, y)
 The least common multiple of x and y.
 }
 \description{
-A simple algorithm to compute the least common multiple of two 
+A simple algorithm to compute the least common multiple of two
 numbers
 }
 \examples{

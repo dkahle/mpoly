@@ -6,7 +6,7 @@
 #' @param digits number of digits to round to
 #' @return the rounded mpoly object
 #' @author David Kahle \email{david@@kahle.io}
-#' @seealso \code{\link{mp}}
+#' @seealso [mp()]
 #' @export
 #' @examples
 #' 
