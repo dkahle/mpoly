@@ -21,7 +21,7 @@ Compute the Bezier polynomials of a given collection of points.
 Note that using \code{\link[mpoly:as.function.mpoly]{mpoly::as.function.mpoly()}} on the resulting Bezier
 polynomials is made numerically stable by taking advantage of de
 Casteljau's algorithm; it does not use the polynomial that is
-printed to the screen.  See \code{\link[=bezierFunction]{bezierFunction()}} for
+printed to the screen.  See \code{\link[=bezier_function]{bezier_function()}} for
 details.
 }
 \examples{
@@ -147,7 +147,7 @@ qplot(speed, dist, data = cars) +
 
 }
 \seealso{
-\code{\link[=bezierFunction]{bezierFunction()}}
+\code{\link[=bezier_function]{bezier_function()}}
 }
 \author{
 David Kahle

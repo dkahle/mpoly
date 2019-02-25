@@ -4,7 +4,7 @@
 #' Note that using [mpoly::as.function.mpoly()] on the resulting Bezier
 #' polynomials is made numerically stable by taking advantage of de
 #' Casteljau's algorithm; it does not use the polynomial that is
-#' printed to the screen.  See [bezierFunction()] for
+#' printed to the screen.  See [bezier_function()] for
 #' details.
 #' 
 #' @param ... either a sequence of points or a matrix/data frame of
@@ -13,7 +13,7 @@
 #'   polynomial
 #' @return a mpoly object
 #' @author David Kahle
-#' @seealso [bezierFunction()]
+#' @seealso [bezier_function()]
 #' @export
 #' @examples
 #' 
@@ -247,7 +247,7 @@ bezier <- function(..., indeterminate = "t"){
 #' @references \url{http://en.wikipedia.org/wiki/Bezier_curve}, 
 #'   \url{http://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
 #' @seealso [bezier()]
-#' @export
+#' @name bezier_function
 #' @examples
 #' 
 #' library(ggplot2); theme_set(theme_bw())
@@ -257,7 +257,7 @@ bezier <- function(..., indeterminate = "t"){
 #' points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 #' 
 #' 
-#' f <- bezierFunction(points)
+#' f <- bezier_function(points)
 #' df <- as.data.frame(f(t))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
@@ -268,7 +268,7 @@ bezier <- function(..., indeterminate = "t"){
 #'   
 #'   
 #'   
-#' f <- bezierFunction(points, weights = c(1,5,5,1))
+#' f <- bezier_function(points, weights = c(1,5,5,1))
 #' df <- as.data.frame(f(t))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
@@ -279,7 +279,7 @@ bezier <- function(..., indeterminate = "t"){
 #'   
 #'   
 #'   
-#' f <- bezierFunction(points, weights = c(1,10,10,1))
+#' f <- bezier_function(points, weights = c(1,10,10,1))
 #' df <- as.data.frame(f(t))
 #' 
 #' ggplot(aes(x = x, y = y), data = df) + 
@@ -296,8 +296,13 @@ bezier <- function(..., indeterminate = "t"){
 #'   
 #'   
 #'   
-#' 
-bezierFunction <- function(points, weights = rep(1L, nrow(points))){
+
+
+
+
+#' @rdname bezier_function
+#' @export
+bezier_function <- function(points, weights = rep(1L, nrow(points))){
   
   n <- nrow(points)
   degree <- n-1
@@ -318,8 +323,12 @@ bezierFunction <- function(points, weights = rep(1L, nrow(points))){
 }
 
 
-
-
+#' @rdname bezier_function
+#' @export
+bezierFunction <- function(...) {
+  .Deprecated("bezier_function")
+  bezier_function(...)
+}
 
 
 
@@ -328,7 +337,7 @@ bezierFunction <- function(points, weights = rep(1L, nrow(points))){
 
 #' @export 
 #' @rdname as.function.mpolyList
-as.function.bezier <- function(x, ...) bezierFunction(attr(x, "bezier")$points, ...)
+as.function.bezier <- function(x, ...) bezier_function(attr(x, "bezier")$points, ...)
 
 
 
