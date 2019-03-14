@@ -5,7 +5,7 @@
 \title{Change a multivariate polynomial into a function.}
 \usage{
 \method{as.function}{mpoly}(x, varorder = vars(x), vector
-  = TRUE, silent = FALSE, ...)
+  = TRUE, silent = FALSE, ..., plus_pad = 0L, times_pad = 1L)
 }
 \arguments{
 \item{x}{an object of class mpoly}
@@ -19,6 +19,10 @@ will be provided}
 \item{silent}{suppress messages}
 
 \item{...}{any additional arguments}
+
+\item{plus_pad}{number of spaces to the left and right of plus sign}
+
+\item{times_pad}{number of spaces to the left and right of multiplication sign}
 }
 \description{
 Transforms an mpoly object into a function which can be

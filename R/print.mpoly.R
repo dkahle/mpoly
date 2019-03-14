@@ -13,7 +13,7 @@
 #' @param plus_pad number of spaces to the left and right of plus sign
 #' @param times_pad number of spaces to the left and right of multiplication sign
 #' @usage \method{print}{mpoly}(x, varorder, order, stars = FALSE,
-#'   silent = FALSE, ...)
+#'   silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
 #' @return Invisible string of the printed object.
 #' @export
 #' @examples

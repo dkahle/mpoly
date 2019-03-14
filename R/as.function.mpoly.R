@@ -10,8 +10,9 @@
 #'   (TRUE) or a series of arguments (FALSE)
 #' @param silent suppress messages
 #' @param ... any additional arguments
+#' @inheritParams print.mpoly
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
-#'   = TRUE, silent = FALSE, ...)
+#'   = TRUE, silent = FALSE, ..., plus_pad = 0L, times_pad = 1L)
 #' @seealso [plug()]
 #' @export
 #' @examples

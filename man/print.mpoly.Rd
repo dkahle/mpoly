@@ -5,7 +5,7 @@
 \title{Pretty printing of multivariate polynomials.}
 \usage{
 \method{print}{mpoly}(x, varorder, order, stars = FALSE,
-  silent = FALSE, ...)
+  silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
 }
 \arguments{
 \item{x}{an object of class mpoly}
