@@ -242,6 +242,7 @@ bezier <- function(..., indeterminate = "t"){
 #' @param points a matrix or data frame of numerics.  the rows
 #'   represent points.
 #' @param weights the weights in a weighted Bezier curve
+#' @param ... ...; used internally
 #' @return function of a single parameter
 #' @author David Kahle
 #' @references \url{http://en.wikipedia.org/wiki/Bezier_curve}, 

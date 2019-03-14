@@ -14,6 +14,8 @@ bezierFunction(...)
 represent points.}
 
 \item{weights}{the weights in a weighted Bezier curve}
+
+\item{...}{...; used internally}
 }
 \value{
 function of a single parameter
