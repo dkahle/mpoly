@@ -2,9 +2,12 @@
 % Please edit documentation in R/bezier.R
 \name{bezier_function}
 \alias{bezier_function}
+\alias{bezierFunction}
 \title{Bezier function}
 \usage{
 bezier_function(points, weights = rep(1L, nrow(points)))
+
+bezierFunction(...)
 }
 \arguments{
 \item{points}{a matrix or data frame of numerics.  the rows
@@ -75,7 +78,6 @@ ggplot(aes(x = x, y = y), data = df) +
   
   
   
-
 }
 \references{
 \url{http://en.wikipedia.org/wiki/Bezier_curve},
