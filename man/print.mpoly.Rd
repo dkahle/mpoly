@@ -21,6 +21,10 @@ computer-friendly asterisk notation (default FALSE)}
 \item{silent}{logical; if TRUE, suppresses output}
 
 \item{...}{additional parameters to go to \code{\link[base:cat]{base::cat()}}}
+
+\item{plus_pad}{number of spaces to the left and right of plus sign}
+
+\item{times_pad}{number of spaces to the left and right of multiplication sign}
 }
 \value{
 Invisible string of the printed object.
@@ -41,5 +45,9 @@ print(p, order = "lex", varorder = c("y","x")) # -> y^3 x  -  3 y^2  +  2 x^5
 print(p, varorder = c("y","x")) # -> 2 x^5  -  3 y^2  +  y^3 x
 
 print(p, stars = TRUE)
+
+#' # this is mostly used internally
+print(p, plus_pad = 1L)
+print(p, plus_pad = 0L, stars = TRUE, times_pad = 0L)
 
 }

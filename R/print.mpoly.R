@@ -10,6 +10,8 @@
 #'   computer-friendly asterisk notation (default FALSE)
 #' @param silent logical; if TRUE, suppresses output
 #' @param ... additional parameters to go to [base::cat()]
+#' @param plus_pad number of spaces to the left and right of plus sign
+#' @param times_pad number of spaces to the left and right of multiplication sign
 #' @usage \method{print}{mpoly}(x, varorder, order, stars = FALSE,
 #'   silent = FALSE, ...)
 #' @return Invisible string of the printed object.
@@ -28,7 +30,11 @@
 #' 
 #' print(p, stars = TRUE)
 #' 
-print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ...){
+#' #' # this is mostly used internally
+#' print(p, plus_pad = 1L)
+#' print(p, plus_pad = 0L, stars = TRUE, times_pad = 0L)
+#' 
+print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., plus_pad = 2L, times_pad = 1L) {
 	
   ## argument checking and basic variable setting
   stopifnot(is.mpoly(x))  
@@ -92,7 +98,8 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ...){
     })
   
     ## merge and pretty
-    s <- paste(terms, collapse = "  +  ")
+    plus_pad <- paste(rep(" ", plus_pad), collapse = "")
+    s <- paste(terms, collapse = paste0(plus_pad, "+", plus_pad))
     s <- paste(" ", s, " ", sep = "") # insert " " pads
     s <- gsub("\\^1 ", " ", s)        # remove ^1"s  
     s <- gsub("\\+  -", "-  ", s)     # fix subtractions                       
@@ -109,15 +116,17 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ...){
     terms <- sapply(x, function(v){
       if(length(v) == 1) return(format(v[["coef"]], scientific=FALSE)) # if a constant term
       p <- length(v) - 1
-      s <- paste(names(v[1:p]), v[1:p], sep = "**", collapse = " * ")
-      s <- paste(format(v[["coef"]], scientific=FALSE), s, sep = " * ")
+      times_pad <- paste(rep(" ", times_pad), collapse = "")
+      s <- paste(names(v[1:p]), v[1:p], sep = "**", collapse = paste0(times_pad, "*", times_pad))
+      s <- paste(format(v[["coef"]], scientific=FALSE), s, sep = paste0(times_pad, "*", times_pad))
       if(substr(s, 1, 4) == "1 * ") s <- substr(s, 5, nchar(s))
       if(substr(s, 1, 5) == "-1 * ") s <- paste("-", substr(s, 6, nchar(s)), sep = "")
       s      
     })
   
     ## merge and pretty
-    s <- paste(terms, collapse = "  +  ")
+    plus_pad <- paste(rep(" ", plus_pad), collapse = "")
+    s <- paste(terms, collapse = paste0(plus_pad, "+", plus_pad))
     s <- paste(" ", s, " ", sep = "") # insert " " pads
     s <- gsub("\\*\\*1 ", " ", s)     # remove ^1"s  
     s <- gsub("\\+  -", "-  ", s)     # fix subtractions      

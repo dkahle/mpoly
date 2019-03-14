@@ -45,7 +45,7 @@
 #' 
 #' 
 #' 
-as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ...){
+as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ..., plus_pad = 0L, times_pad = 1L){
 	
   # argument checking
   stopifnot(is.character(varorder))
@@ -64,7 +64,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
     
   # univariate polynomial
   if(p == 1){
-    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
     mpoly_string <- gsub(vars(x), ".", mpoly_string)
     if(!silent) message("f(.) with . = ", vars(x))
     f <- function(){}
@@ -83,7 +83,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
   
   # general polynomials as a vector argument
   if(vector){
-    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
     mpoly_string <- paste(" ", mpoly_string, " ", sep = "")
     for(k in 1:p){
       mpoly_string <- gsub(
@@ -105,7 +105,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
   
   # general polynomials as a bunch of arguments
   if(!vector){
-    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
     if(!silent) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(
       "function(", 
