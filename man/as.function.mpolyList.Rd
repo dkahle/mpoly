@@ -5,19 +5,19 @@
 \alias{as.function.bezier}
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
-\method{as.function}{mpolyList}(x, varorder = vars(x), 
-  vector = TRUE, silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
+\method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
+  silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
 
 \method{as.function}{bezier}(x, ...)
 }
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{varorder}{the order in which the arguments of the function
-will be provided}
+\item{varorder}{the order in which the arguments of the function will be
+provided}
 
-\item{vector}{whether the function should take a vector argument
-(TRUE) or a series of arguments (FALSE)}
+\item{vector}{whether the function should take a vector argument (TRUE) or a
+series of arguments (FALSE)}
 
 \item{silent}{suppress messages}
 
@@ -28,8 +28,7 @@ will be provided}
 \item{times_pad}{number of spaces to the left and right of multiplication sign}
 }
 \description{
-Transforms an mpolyList object into a function which can be
-evaluated.
+Transforms an mpolyList object into a function which can be evaluated.
 }
 \examples{
 
@@ -86,17 +85,17 @@ dbinom(0:2, 2, .5)
 f(.75) # P[X = 0], P[X = 1], and P[X = 2] for X ~ Bin(2, .75)
 dbinom(0:2, 2, .75)
 
-# as the degree gets larger, you'll need to be careful when evaluating 
-# the polynomial.  as.function() is not currently optimized for 
-# stable numerical evaluation of polynomials; it evaluates them in 
+# as the degree gets larger, you'll need to be careful when evaluating
+# the polynomial.  as.function() is not currently optimized for
+# stable numerical evaluation of polynomials; it evaluates them in
 # the naive way
-all.equal( 
-  as.function(abinom(10))(.5), 
+all.equal(
+  as.function(abinom(10))(.5),
   dbinom(0:10, 10, .5)
 )
 
-all.equal( 
-  as.function(abinom(30))(.5), 
+all.equal(
+  as.function(abinom(30))(.5),
   dbinom(0:30, 20, .5)
 )
 
@@ -109,4 +108,7 @@ colnames(mat) <- sprintf("P[X = \%d]", 0:2)
 rownames(mat) <- sprintf("p = \%.2f", s)
 mat
 
+}
+\seealso{
+\code{\link[=plug]{plug()}}, \code{\link[=as.function.mpolyList]{as.function.mpolyList()}}
 }
