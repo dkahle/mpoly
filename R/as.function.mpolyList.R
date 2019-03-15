@@ -3,15 +3,9 @@
 #' Transforms an mpolyList object into a function which can be 
 #' evaluated.
 #' 
-#' @param x an object of class mpolyList
-#' @param varorder the order in which the arguments of the function 
-#'   will be provided (default vars(mpoly))
-#' @param vector whether the function should take a vector argument 
-#'   (TRUE) or a series of arguments (FALSE)
-#' @param silent suppress messages
-#' @param ... any additional arguments
+#' @inheritParams as.function.mpoly
 #' @usage \method{as.function}{mpolyList}(x, varorder = vars(x), 
-#'   vector = TRUE, silent = FALSE, ...)
+#'   vector = TRUE, silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
 #' @export
 #' @examples
 #' 
@@ -91,26 +85,20 @@
 #' rownames(mat) <- sprintf("p = %.2f", s)
 #' mat
 #' 
-as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ...){
+as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ..., plus_pad = 2L, times_pad = 1L){
   
   # argument checking
   stopifnot(is.character(varorder))
   stopifnot(is.logical(vector))  	
 
-  if(!is.mpolyList(x)){
-    stop("x must be of class mpolyList.", call. = FALSE)
-  }
-	
-  if(!missing(varorder) && !all( vars(x) %in% varorder )){
-    stop("varorder must contain all of the variables of mpoly.",
-      call. = FALSE)
-  }
+  if (!is.mpolyList(x)) stop("x must be of class mpolyList.", call. = FALSE) 
+  if (!missing(varorder) && !all( vars(x) %in% varorder )) stop("varorder must contain all of the variables of mpoly.", call. = FALSE)
   
   p <- length(varorder)
     
   # univariate polynomial - vectorize
   if(p == 1){
-    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
     mpoly_string <- paste(" ", mpoly_string, " ", sep = "", collapse = ",")
     for(k in 1:p){
       mpoly_string <- gsub(
@@ -138,7 +126,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
   
   # general polynomials as a vector argument
   if(vector){
-    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
     mpoly_string <- paste(" ", mpoly_string, " ", sep = "", collapse = ",")
     for(k in 1:p){
       mpoly_string <- gsub(
@@ -160,7 +148,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
   
   # general polynomials as a bunch of arguments
   if(!vector){
-    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE)
+    mpoly_string <- print.mpolyList(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
     mpoly_string <- paste(mpoly_string, collapse = ", ")
     if((silent == FALSE) && (missing(vector) || missing(varorder))) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(

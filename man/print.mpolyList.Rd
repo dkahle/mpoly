@@ -4,11 +4,11 @@
 \alias{print.mpolyList}
 \title{Pretty printing of a list of multivariate polynomials.}
 \usage{
-\method{print}{mpolyList}(x, varorder = vars(x), order,
-  silent = FALSE, ...)
+\method{print}{mpolyList}(x, varorder = vars(x), order, silent = FALSE,
+  ..., plus_pad = 2L, times_pad = 0L)
 }
 \arguments{
-\item{x}{an object of class mpolyList}
+\item{x}{an object of class mpoly}
 
 \item{varorder}{the order of the variables}
 
@@ -17,7 +17,11 @@ printing}
 
 \item{silent}{logical; if TRUE, suppresses output}
 
-\item{...}{arguments to pass to \code{\link[=print.mpoly]{print.mpoly()}}}
+\item{...}{additional parameters to go to \code{\link[base:cat]{base::cat()}}}
+
+\item{plus_pad}{number of spaces to the left and right of plus sign}
+
+\item{times_pad}{number of spaces to the left and right of multiplication sign}
 }
 \value{
 Invisible character vector of the printed objects.
@@ -28,19 +32,19 @@ mpolyList.
 }
 \examples{
 
-mL <- mp(c('x + 1', 'y - 1', 'x y^2 z  +  x^2 z^2  +  z^2  +  x^3'))
+mL <- mp(c("x + 1", "y - 1", "x y^2 z  +  x^2 z^2  +  z^2  +  x^3"))
 mL
 
-ps <- print(mL, silent = TRUE)
+ps <- print(mL, silent = TRUE, plus_pad = 1L)
 ps
 
-print(mL, order = 'lex')
-print(mL, order = 'glex')
-print(mL, order = 'grlex')
-print(mL, order = 'glex', varorder = c('z','y','x'))
-print(mL, order = 'grlex', varorder = c('z','y','x'))
-print(mL, varorder = c('z','y','x'))
-s <- print(mL, varorder = c('z','y','x'))
+print(mL, order = "lex")
+print(mL, order = "glex")
+print(mL, order = "grlex")
+print(mL, order = "glex", varorder = c("z","y","x"))
+print(mL, order = "grlex", varorder = c("z","y","x"))
+print(mL, varorder = c("z","y","x"))
+s <- print(mL, varorder = c("z","y","x"), plus_pad = 1L)
 str(s)
 
 }

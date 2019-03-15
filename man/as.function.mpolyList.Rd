@@ -6,15 +6,15 @@
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
 \method{as.function}{mpolyList}(x, varorder = vars(x), 
-  vector = TRUE, silent = FALSE, ...)
+  vector = TRUE, silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
 
 \method{as.function}{bezier}(x, ...)
 }
 \arguments{
-\item{x}{an object of class mpolyList}
+\item{x}{an object of class mpoly}
 
 \item{varorder}{the order in which the arguments of the function
-will be provided (default vars(mpoly))}
+will be provided}
 
 \item{vector}{whether the function should take a vector argument
 (TRUE) or a series of arguments (FALSE)}
@@ -22,6 +22,10 @@ will be provided (default vars(mpoly))}
 \item{silent}{suppress messages}
 
 \item{...}{any additional arguments}
+
+\item{plus_pad}{number of spaces to the left and right of plus sign}
+
+\item{times_pad}{number of spaces to the left and right of multiplication sign}
 }
 \description{
 Transforms an mpolyList object into a function which can be
