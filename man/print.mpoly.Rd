@@ -4,19 +4,18 @@
 \alias{print.mpoly}
 \title{Pretty printing of multivariate polynomials.}
 \usage{
-\method{print}{mpoly}(x, varorder, order, stars = FALSE,
-  silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
+\method{print}{mpoly}(x, varorder, order, stars = FALSE, silent =
+  FALSE, ..., plus_pad = 2L, times_pad = 1L)
 }
 \arguments{
 \item{x}{an object of class mpoly}
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the monomials in the
-printing}
+\item{order}{a total order used to order the monomials in the printing}
 
-\item{stars}{print the multivariate polynomial in the more
-computer-friendly asterisk notation (default FALSE)}
+\item{stars}{print the multivariate polynomial in the more computer-friendly
+asterisk notation (default FALSE)}
 
 \item{silent}{logical; if TRUE, suppresses output}
 
@@ -24,7 +23,8 @@ computer-friendly asterisk notation (default FALSE)}
 
 \item{plus_pad}{number of spaces to the left and right of plus sign}
 
-\item{times_pad}{number of spaces to the left and right of multiplication sign}
+\item{times_pad}{number of spaces to the left and right of multiplication
+sign}
 }
 \value{
 Invisible string of the printed object.

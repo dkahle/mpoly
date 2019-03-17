@@ -34,7 +34,7 @@ laguerre(6)
 laguerre(2)
 laguerre(2, normalized = TRUE)
 
-laguerre(0:5) 
+laguerre(0:5)
 laguerre(0:5, normalized = TRUE)
 laguerre(0:5, indeterminate = "t")
 

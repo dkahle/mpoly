@@ -9,8 +9,7 @@ plug(p, indeterminate, value)
 \arguments{
 \item{p}{a polynomial}
 
-\item{indeterminate}{the indeterminate in the polynomial to
-switch}
+\item{indeterminate}{the indeterminate in the polynomial to switch}
 
 \item{value}{the value/indeterminate to substitute}
 }

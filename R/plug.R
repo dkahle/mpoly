@@ -1,25 +1,24 @@
 #' Switch indeterminates in a polynomial
-#' 
+#'
 #' Switch indeterminates in a polynomial
-#' 
+#'
 #' @param p a polynomial
-#' @param indeterminate the indeterminate in the polynomial to
-#'   switch
+#' @param indeterminate the indeterminate in the polynomial to switch
 #' @param value the value/indeterminate to substitute
 #' @return an mpoly object
 #' @export
 #' @examples
-#' 
+#'
 #' # on an mpoly
 #' (p <- mp("(x+y)^3"))
 #' plug(p, "x", 5)
 #' plug(p, "x", "t")
 #' plug(p, "x", "y")
 #' plug(p, "x", mp("2 y"))
-#' 
+#'
 #' plug(p, "x", mp("x + y"))
 #' mp("((x+y)+y)^3")
-#' 
+#'
 #' # on an mpolyList
 #' ps <- mp(c("x+y", "x+1"))
 #' plug(ps, "x", 1)

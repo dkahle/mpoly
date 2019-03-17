@@ -1,19 +1,19 @@
 #' Pretty printing of multivariate polynomials.
-#' 
+#'
 #' This is the major function used to view multivariate polynomials.
-#' 
+#'
 #' @param x an object of class mpoly
 #' @param varorder the order of the variables
-#' @param order a total order used to order the monomials in the 
-#'   printing
-#' @param stars print the multivariate polynomial in the more 
-#'   computer-friendly asterisk notation (default FALSE)
+#' @param order a total order used to order the monomials in the printing
+#' @param stars print the multivariate polynomial in the more computer-friendly
+#'   asterisk notation (default FALSE)
 #' @param silent logical; if TRUE, suppresses output
 #' @param ... additional parameters to go to [base::cat()]
 #' @param plus_pad number of spaces to the left and right of plus sign
-#' @param times_pad number of spaces to the left and right of multiplication sign
-#' @usage \method{print}{mpoly}(x, varorder, order, stars = FALSE,
-#'   silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
+#' @param times_pad number of spaces to the left and right of multiplication
+#'   sign
+#' @usage \method{print}{mpoly}(x, varorder, order, stars = FALSE, silent =
+#'   FALSE, ..., plus_pad = 2L, times_pad = 1L)
 #' @return Invisible string of the printed object.
 #' @export
 #' @examples
@@ -23,13 +23,13 @@
 #' print(p, silent = TRUE)
 #' s <- print(p, silent = TRUE)
 #' s
-#' 
+#'
 #' print(p, order = "lex") # -> 2 x^5  +  x y^3  -  3 y^2
 #' print(p, order = "lex", varorder = c("y","x")) # -> y^3 x  -  3 y^2  +  2 x^5
 #' print(p, varorder = c("y","x")) # -> 2 x^5  -  3 y^2  +  y^3 x
-#' 
+#'
 #' print(p, stars = TRUE)
-#' 
+#'
 #' #' # this is mostly used internally
 #' print(p, plus_pad = 1L)
 #' print(p, plus_pad = 0L, stars = TRUE, times_pad = 0L)

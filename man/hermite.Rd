@@ -9,8 +9,8 @@ hermite(degree, kind = "he", indeterminate = "x", normalized = FALSE)
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{"he" (default, probabilists', see Wikipedia article)
-or "h" (physicists)}
+\item{kind}{"he" (default, probabilists', see Wikipedia article) or "h"
+(physicists)}
 
 \item{indeterminate}{indeterminate}
 
@@ -33,7 +33,7 @@ hermite(5)
 hermite(6)
 hermite(10)
 
-hermite(0:5) 
+hermite(0:5)
 hermite(0:5, normalized = TRUE)
 hermite(0:5, indeterminate = "t")
 

@@ -1,13 +1,13 @@
 #' Element-wise arithmetic with vectors of multivariate polynomials.
-#' 
+#'
 #' Element-wise arithmetic with vectors of multivariate polynomials.
-#' 
+#'
 #' @param e1 an object of class mpolyList
 #' @param e2 an object of class mpolyList
 #' @return An object of class mpolyList.
 #' @name mpolyListArithmetic
 #' @examples
-#' 
+#'
 #' ( ms1 <- mp( c('x + 1', 'x + 2') ) )
 #' ( ms2 <- mp( c('x + 1', 'y + 2') ) )
 #' ms1 + ms2

@@ -1,7 +1,7 @@
 #' Swap polynomial indeterminates
-#' 
+#'
 #' Swap polynomial indeterminates
-#' 
+#'
 #' @param p polynomial
 #' @param variable the variable in the polynomial to replace
 #' @param replacement the replacement variable
@@ -9,19 +9,19 @@
 #' @author David Kahle
 #' @export
 #' @examples
-#' 
+#'
 #' (p <- mp("(x + y)^2"))
 #' swap(p, "x", "t")
-#' 
+#'
 #' ## the meta data is retained
 #' (p <- bernstein(3, 5))
 #' (p2 <- swap(p, "x", "t"))
 #' is.bernstein(p2)
-#' 
+#'
 #' (p <- chebyshev(3))
 #' (p2 <- swap(p, "x", "t"))
 #' is.chebyshev(p2)
-#' 
+#'
 #' 
 swap <- function(p, variable, replacement){
 

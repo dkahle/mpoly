@@ -18,7 +18,7 @@ An object of class mpoly or mpolyList.
 }
 \description{
 This is a deriv method for mpoly objects.  It does not call the
-deriv function (from package stats).
+\code{\link[stats:deriv]{stats::deriv()}}.
 }
 \examples{
 m <- mp('x y + y z + z^2')

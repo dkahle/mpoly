@@ -14,7 +14,7 @@
 #' @seealso [mpoly()]
 #' @name mp
 #' @examples
-#' 
+#'
 #' ( m <- mp("x + y + x y") )
 #' is.mpoly( m )
 #' unclass(m)
@@ -35,7 +35,7 @@
 #' strings <- print(polys, silent = TRUE)
 #' strings
 #' mp(strings)
-#'
+#' 
 
 
 

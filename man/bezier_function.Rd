@@ -10,8 +10,7 @@ bezier_function(points, weights = rep(1L, nrow(points)))
 bezierFunction(...)
 }
 \arguments{
-\item{points}{a matrix or data frame of numerics.  the rows
-represent points.}
+\item{points}{a matrix or data frame of numerics.  the rows represent points.}
 
 \item{weights}{the weights in a weighted Bezier curve}
 
@@ -21,16 +20,14 @@ represent points.}
 function of a single parameter
 }
 \description{
-Compute the Bezier function of a collection of polynomials.  By
-Bezier function we mean the Bezier curve function, a parametric
-map running from t = 0, the first point, to t = 1, the last
-point, where the coordinate mappings are linear combinations of
-Bernstein polynomials.
+Compute the Bezier function of a collection of polynomials.  By Bezier
+function we mean the Bezier curve function, a parametric map running from t =
+0, the first point, to t = 1, the last point, where the coordinate mappings
+are linear combinations of Bernstein polynomials.
 }
 \details{
-The function returned is vectorized and evaluates the Bezier
-curve in a numerically stable way with de Castlejau's algorithm
-(implemented in R).
+The function returned is vectorized and evaluates the Bezier curve in a
+numerically stable way with de Castlejau's algorithm (implemented in R).
 }
 \examples{
 
@@ -44,41 +41,41 @@ points <- data.frame(x = 0:3, y = c(0,1,-1,0))
 f <- bezier_function(points)
 df <- as.data.frame(f(t))
 
-ggplot(aes(x = x, y = y), data = df) + 
+ggplot(aes(x = x, y = y), data = df) +
   geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
   geom_path()
-  
-  
-  
-  
+
+
+
+
 f <- bezier_function(points, weights = c(1,5,5,1))
 df <- as.data.frame(f(t))
 
-ggplot(aes(x = x, y = y), data = df) + 
+ggplot(aes(x = x, y = y), data = df) +
   geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
   geom_path()
-  
-  
-  
-  
+
+
+
+
 f <- bezier_function(points, weights = c(1,10,10,1))
 df <- as.data.frame(f(t))
 
-ggplot(aes(x = x, y = y), data = df) + 
+ggplot(aes(x = x, y = y), data = df) +
   geom_point(data = points, color = "red", size = 8) +
   geom_path(data = points, color = "red") +
   geom_path()
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
   
 }
 \references{

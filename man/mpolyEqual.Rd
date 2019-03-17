@@ -30,7 +30,7 @@ p2 <- reorder(p1, order = "lex", varorder = c("z","w","y","x"))
 p1 == p2
 p1 == ( 2 * p2 )
 
-p1 <- mp("x + 1") 
+p1 <- mp("x + 1")
 p2 <- mp("x + 1")
 identical(p1, p2)
 p1 == p2

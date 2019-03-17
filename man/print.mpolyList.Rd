@@ -12,8 +12,7 @@
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the monomials in the
-printing}
+\item{order}{a total order used to order the monomials in the printing}
 
 \item{silent}{logical; if TRUE, suppresses output}
 
@@ -21,14 +20,14 @@ printing}
 
 \item{plus_pad}{number of spaces to the left and right of plus sign}
 
-\item{times_pad}{number of spaces to the left and right of multiplication sign}
+\item{times_pad}{number of spaces to the left and right of multiplication
+sign}
 }
 \value{
 Invisible character vector of the printed objects.
 }
 \description{
-This function iterates print.mpoly on an object of class
-mpolyList.
+This function iterates print.mpoly on an object of class mpolyList.
 }
 \examples{
 

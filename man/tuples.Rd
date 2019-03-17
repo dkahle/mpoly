@@ -19,9 +19,8 @@ tuples(set, n = length(set), repeats = FALSE, list = FALSE)
 a matrix whose rows are the n-tuples
 }
 \description{
-Determine all n-tuples using the elements of a set.  This is
-really just a simple wrapper for expand.grid, so it is not
-optimized.
+Determine all n-tuples using the elements of a set.  This is really just a
+simple wrapper for expand.grid, so it is not optimized.
 }
 \examples{
 

@@ -1,8 +1,7 @@
 #' Compute the least common multiple of two numbers.
-#' 
-#' A simple algorithm to compute the least common multiple of two 
-#' numbers
-#' 
+#'
+#' A simple algorithm to compute the least common multiple of two numbers
+#'
 #' @param x an object of class numeric
 #' @param y an object of class numeric
 #' @return The least common multiple of x and y.

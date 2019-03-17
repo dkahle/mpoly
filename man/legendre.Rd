@@ -32,7 +32,7 @@ legendre(6)
 legendre(2)
 legendre(2, normalized = TRUE)
 
-legendre(0:5) 
+legendre(0:5)
 legendre(0:5, normalized = TRUE)
 legendre(0:5, indeterminate = "t")
 

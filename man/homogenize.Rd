@@ -55,9 +55,9 @@ p  <- mp("x^2 + 2 x + 3")
 (ph <- homogenize(p, "y"))
 lambda <- 3
 (d <- totaldeg(p))
-ph \%>\% 
-  plug("x", lambda*mp("x")) \%>\% 
+ph \%>\%
+  plug("x", lambda*mp("x")) \%>\%
   plug("y", lambda*mp("y"))
-lambda^d * ph 
+lambda^d * ph
 
 }

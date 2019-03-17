@@ -25,7 +25,8 @@ series of arguments (FALSE)}
 
 \item{plus_pad}{number of spaces to the left and right of plus sign}
 
-\item{times_pad}{number of spaces to the left and right of multiplication sign}
+\item{times_pad}{number of spaces to the left and right of multiplication
+sign}
 }
 \description{
 Transforms an mpolyList object into a function which can be evaluated.

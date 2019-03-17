@@ -1,35 +1,33 @@
 #' Polynomial components
-#' 
-#' Compute quantities/expressions related to a multivariate 
-#' polynomial.
-#' 
+#'
+#' Compute quantities/expressions related to a multivariate polynomial.
+#'
 #' @param x an object of class mpoly
 #' @param ndx a subsetting index
 #' @param varorder the order of the variables
 #' @param order a total order used to order the terms
 #' @param reduced if TRUE, don't include zero degrees
 #' @param ... additional arguments
-#' @return An object of class mpoly or mpolyList, depending on the
-#'   context
+#' @return An object of class mpoly or mpolyList, depending on the context
 #' @name components
 #' @examples
 #' (p <- mp("x y^2 + x (x+1) (x+2) x z + 3 x^10"))
 #' p[2]
 #' p[-2]
 #' p[2:3]
-#' 
+#'
 #' LT(p)
 #' LC(p)
 #' LM(p)
-#' 
+#'
 #' multideg(p)
 #' totaldeg(p)
 #' monomials(p)
-#' 
+#'
 #' exponents(p)
 #' exponents(p, reduce = TRUE)
 #' lapply(exponents(p), is.integer)
-#' 
+#'
 #' homogeneous_components(p)
 #' 
 

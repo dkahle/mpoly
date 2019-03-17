@@ -16,11 +16,14 @@ A character vector of the variable names.
 Determine the variables in a mpoly object.
 }
 \examples{
+
 list <- list(
-  c(x = 5, coef = 2), 
-  c(y = 2, coef = -3), 
+  c(x = 5, coef = 2),
+  c(y = 2, coef = -3),
   c(x = 1, y = 3, coef = 1)
 )
+
 p <- mpoly(list)
 vars(p)
+
 }

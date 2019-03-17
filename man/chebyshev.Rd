@@ -10,8 +10,8 @@ chebyshev(degree, kind = "t", indeterminate = "x",
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{"t" or "u" (Chebyshev polynomials of the first and
-second kinds), or "c" or "s"}
+\item{kind}{\code{"t"} or \code{"u"} (Chebyshev polynomials of the first and
+second kinds), or \code{"c"} or \code{"s"}}
 
 \item{indeterminate}{indeterminate}
 
@@ -34,7 +34,7 @@ chebyshev(5)
 chebyshev(6)
 chebyshev(10)
 
-chebyshev(0:5) 
+chebyshev(0:5)
 chebyshev(0:5, normalized = TRUE)
 chebyshev(0:5, kind = "u")
 chebyshev(0:5, kind = "c")

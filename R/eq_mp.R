@@ -12,8 +12,8 @@
 #' @examples
 #'
 #' eq_mp(c("y = x", "y ==  (x + 2)"))
-#' 
-#' 
+#'
+#'
 #' 
 
 eq_mp <- function (string, ...) {

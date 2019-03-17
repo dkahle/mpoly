@@ -13,9 +13,8 @@ partitions(n)
 a matrix whose rows are the n-tuples
 }
 \description{
-Determine all unrestricted partitions of an integer.  This
-function is equivalent to the function parts in the partitions
-package.
+Determine all unrestricted partitions of an integer.  This function is
+equivalent to the function parts in the partitions package.
 }
 \examples{
 partitions(5)

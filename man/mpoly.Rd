@@ -12,8 +12,8 @@ mpoly(list, varorder)
 \arguments{
 \item{list}{a list from which to construct an mpoly object}
 
-\item{varorder}{(optional) a character vector setting the
-intrinsic variable order of the polynomial}
+\item{varorder}{(optional) a character vector setting the intrinsic variable
+order of the polynomial}
 }
 \value{
 Object of class mpoly.
@@ -21,16 +21,15 @@ Object of class mpoly.
 \description{
 A package for symbolic computation and more with multivariate polynomials
 
-mpoly is the most basic function used to create objects of class
-mpoly. However, it is not a general purpose function; for that
-see mp.
+mpoly is the most basic function used to create objects of class mpoly.
+However, it is not a general purpose function; for that see \code{\link[=mp]{mp()}}.
 }
 \examples{
 list <- list(
   c(x = 1, coef = 1, y = 0),
-  c(x = 0, y = 1, coef = 2),  
-  c(y = 1, coef = -6),  
-  c(z = 1, coef = -3, x = 2),  
+  c(x = 0, y = 1, coef = 2),
+  c(y = 1, coef = -6),
+  c(z = 1, coef = -3, x = 2),
   c(x = 1, coef = 0, x = 3),
   c(t = 1, coef = 4, t = 2, y = 4),
   c(x = 1),
