@@ -20,8 +20,7 @@
 
 \item{plus_pad}{number of spaces to the left and right of plus sign}
 
-\item{times_pad}{number of spaces to the left and right of multiplication
-sign}
+\item{times_pad}{number of spaces to the left and right of times sign}
 }
 \value{
 Invisible character vector of the printed objects.
