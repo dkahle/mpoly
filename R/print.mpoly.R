@@ -34,25 +34,25 @@
 #' print(p, stars = TRUE)
 #' print(p, stars = TRUE, times_pad = 0L)
 #' print(p, stars = TRUE, times_pad = 0L, plus_pad = 1L)
+#' print(p, stars = TRUE, times_pad = 0L, plus_pad = 0L)
 #' print(p, plus_pad = 1L)
-#' print(p, plus_pad = 0L, stars = TRUE, times_pad = 0L)
 #' 
 print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., plus_pad = 2L, times_pad = 1L) {
 	
-  ## argument checking and basic variable setting
+  # argument checking and basic variable setting
   stopifnot(is.mpoly(x))  
   stopifnot(is.logical(stars)) 
   vars <- vars(x) 
   
   
-  ## deal with constant mpolys
+  # deal with constant mpolys
   if (length(vars) == 0) {
     if (!silent) cat(x[[1]], ...)
   	return(invisible(as.character(x[[1]])))
   }  
   
   
-  ## check variable order
+  # check variable order
   if (!missing(varorder)) {
     stopifnot(is.character(varorder))
     if(!all(vars %in% varorder)) {
@@ -67,7 +67,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   if (!missing(order)) match.arg(order, c("lex", "glex", "grlex"))    
   
   
-  ## reorder
+  # reorder
   if (!missing(order) && !missing(varorder)) {
     x <- reorder(x, varorder = varorder, order = order)
   } else if(!missing(varorder)){
@@ -77,7 +77,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   }  
  
   
-  ## set delimiters
+  # set delimiters
   if (!stars) { 
     
     times <- " "
@@ -92,19 +92,31 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   } 
   
   
-  ## print terms
+  # now ready to start constructing the string. we don't do this by growing
+  # the entire mpoly because growing in R is slow, so we print each of the terms,
+  # merge them together, and take care of edge cases
+  # one of the challenges here is to figure out where edge cases should be handled:
+  # in the term printing or after the merging. we try to take a practical approach.
+  # some things are fixed in term printing (e.g. ^1 or 1 x) and others 
+  # (e.g. ?) are done in tidying the final result.
+  
+  
+  # print terms
   terms <- vapply(x, print_term, character(1L), times = times, exp = expo) 
 
   
-  ## merge and pretty
+  # merge terms with +'s and -'s
   plus_pad <- stringi::stri_dup(" ", plus_pad)
   plus <- stri_c(plus_pad, "+", plus_pad)
   s <- stri_c(terms, collapse = plus)
-  s <- stringi::stri_replace_all_regex(s, stri_c("\\", expo, "1(?!\\d)"), "")  # remove ^1"s  
   s <- stri_replace_all_fixed(s, stri_c("+", plus_pad, "-"), stri_c("-", plus_pad)) # fix subtractions 
   
   
-  ## print
+  # do final cleaning
+  
+  
+  
+  # print
   if(!silent) cat(s, ...)
   
   
@@ -113,7 +125,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   
 }
 
-
+# mp("y - x")
 
 
 
@@ -127,23 +139,34 @@ print_term <- function(term, times = " ", expo = "^") {
   if (length(term) == 1L) return(format(term[["coef"]], scientific=FALSE))
   
   # split vars + exps from coef
-  coef_ndx <- which(names(term) == "coef")
+  coef_ndx <- length(term)
   coef <- term[[ coef_ndx]]
   mono <- term [-coef_ndx]
-  formatted_coef <- format(coef, scientific = FALSE)
   
-  # squeeze together to, e.g. x^1 y^2
-  s <- stri_c(names(mono), mono, sep = expo, collapse = times)
-  
-  # paste on formatted coefficient, e.g. 3.14 x^1 y^2
-  s <- stri_c(formatted_coef, s, sep = times)
+  # build term
+  out <- format(coef, scientific = FALSE)
+  for (k in seq_along(mono)) {
+    if (mono[k] == 1L) {
+      out <- stri_c(out, times, names(mono)[k])
+    } else {
+      out <- stri_c(out, times, stri_c(names(mono)[k], expo, mono[k]))
+    }  
+  }
 
   # clean 1 and -1 from front
-  if (abs(term[["coef"]] - 1) < sqrt(.Machine$double.eps) ) s <- stri_sub(s, stri_length(times) + 2L)
-  if (abs(term[["coef"]] + 1) < sqrt(.Machine$double.eps) ) s <- stri_c("-", stri_sub(s, 4L))
+  if (abs(term[["coef"]] - 1) < sqrt(.Machine$double.eps) ) out <- stri_sub(out, stri_length(times) + 2L)
+  # if (abs(term[["coef"]] + 1) < sqrt(.Machine$double.eps) ) out <- stri_c("-", stri_sub(out, 4L))
   
   # return
-  s
+  out
   
 }
+
+# vapply(mp("y - x"), print_term, character(1L))
+# vapply(mp("y - x"), print_term, character(1L))
+
+
+
+
+
 

@@ -50,7 +50,7 @@ print(p, varorder = c("y","x")) # -> y^3 x  -  3 y^2  +  2 x^5
 print(p, stars = TRUE)
 print(p, stars = TRUE, times_pad = 0L)
 print(p, stars = TRUE, times_pad = 0L, plus_pad = 1L)
+print(p, stars = TRUE, times_pad = 0L, plus_pad = 0L)
 print(p, plus_pad = 1L)
-print(p, plus_pad = 0L, stars = TRUE, times_pad = 0L)
 
 }
