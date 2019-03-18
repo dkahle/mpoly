@@ -8,6 +8,7 @@ Authors@R: person("David", "Kahle", email = "david@kahle.io", role = c("aut", "c
 Description: Symbolic computing with multivariate polynomials in R.
 Imports:
     stringr (>= 1.0.0),
+    stringi,
     partitions,
     plyr,
     stats,
