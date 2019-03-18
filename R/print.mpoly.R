@@ -86,7 +86,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   } else {
   	
     times_pad <- stringi::stri_dup(" ", times_pad)
-    times <- stringi::stri_c(times_pad, "*", times_pad)
+    times <- stri_c(times_pad, "*", times_pad)
     expo  <- "**"
       	
   } 
@@ -94,17 +94,14 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   
   ## print terms
   terms <- vapply(x, print_term, character(1L), times = times, exp = expo) 
-  
+
   
   ## merge and pretty
   plus_pad <- stringi::stri_dup(" ", plus_pad)
-  plus <- stringi::stri_c(plus_pad, "+", plus_pad)
-  s <- stringi::stri_c(terms, collapse = plus)
-  s <- stringi::stri_replace_all_fixed(s, stringi::stri_c(expo, "1", times), times)  # remove ^1"s  
-  s <- stringi::stri_replace_all_fixed(s,              # fix subtractions 
-    stringi::stri_c("+", plus_pad, "-"), 
-    stringi::stri_c("-", plus_pad)
-  )  
+  plus <- stri_c(plus_pad, "+", plus_pad)
+  s <- stri_c(terms, collapse = plus)
+  s <- stri_replace_all_fixed(s, stri_c(expo, "1", times), times)                   # remove ^1"s  
+  s <- stri_replace_all_fixed(s, stri_c("+", plus_pad, "-"), stri_c("-", plus_pad)) # fix subtractions 
   
   
   ## print
@@ -136,14 +133,14 @@ print_term <- function(term, times = " ", exp = "^") {
   formatted_coef <- format(coef, scientific = FALSE)
   
   # squeeze together to, e.g. x^1 y^2
-  s <- stringi::stri_c(names(mono), mono, sep = exp, collapse = times)
+  s <- stri_c(names(mono), mono, sep = exp, collapse = times)
   
   # paste on formatted coefficient, e.g. 3.14 x^1 y^2
-  s <- stringi::stri_c(formatted_coef, s, sep = times)
+  s <- stri_c(formatted_coef, s, sep = times)
 
   # clean 1 and -1 from front
   if (abs(term[["coef"]] - 1) < sqrt(.Machine$double.eps) ) s <- stringi::stri_sub(s, stringi::stri_length(times) + 2L)
-  # if (abs(term[["coef"]] + 1) < sqrt(.Machine$double.eps) ) s <- stringi::stri_c("-", stringi::stri_sub(s, 4L))
+  # if (abs(term[["coef"]] + 1) < sqrt(.Machine$double.eps) ) s <- stri_c("-", stringi::stri_sub(s, 4L))
   
   # return
   s
