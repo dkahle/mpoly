@@ -52,9 +52,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
   stopifnot(is.logical(vector))  	
   stopifnot(is.mpoly(x))
 	
-  if(!setequal(varorder, vars(x))){
-    stop("varorder must contain all of the variables of x.", call. = FALSE)
-  }
+  if (!setequal(varorder, vars(x))) stop("varorder must contain all of the variables of x.", call. = FALSE)
   
   # determine the number of variables
   p <- length(vars(x))
