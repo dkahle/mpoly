@@ -2,22 +2,24 @@
 #'
 #' Transforms an mpoly object into a function which can be evaluated.
 #'
-#' @param x an object of class mpoly
-#' @param varorder the order in which the arguments of the function will be
-#'   provided
+#' @inheritParams print.mpoly
 #' @param vector whether the function should take a vector argument (TRUE) or a
 #'   series of arguments (FALSE)
-#' @param silent suppress messages
 #' @param ... any additional arguments
-#' @inheritParams print.mpoly
+#' @param squeeze minify code in the created function
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE,
-#'   silent = FALSE, ..., plus_pad = 0L, times_pad = 1L)
+#'   silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
 #' @seealso [plug()], [as.function.mpolyList()]
 #' @export
 #' @examples
+#' 
+#' p <- mp("(x - 1)^2")
+#' (f <- as.function(p))
+#' f(1)
+#' f(seq(0, 2, .1))
 #'
 #' p <- mp("x + 3 x y + z^2 x")
-#' f <- as.function(p)
+#' (f <- as.function(p))
 #' f(1:3) # -> 16
 #' f(c(1,1,1)) # -> 5
 #'
@@ -43,9 +45,11 @@
 #' f(10) # -> 24
 #'
 #'
+#' as.function(mp("x + xx"))
+#' as.function(mp("x + xx"), squeeze = FALSE)
 #'
 #' 
-as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ..., plus_pad = 0L, times_pad = 1L){
+as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE){
 	
   # argument checking
   stopifnot(is.character(varorder))
@@ -54,17 +58,24 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
 	
   if (!setequal(varorder, vars(x))) stop("varorder must contain all of the variables of x.", call. = FALSE)
   
+  
   # determine the number of variables
   p <- length(vars(x))
  
+  
   # deal with constant polynomials
-  if(is.constant(x)) return( function(.) unlist(x)[["coef"]] )
-    
+  if (is.constant(x)) return( function(.) unlist(x)[["coef"]] )
+  
+  
+  # print poly with stars
+  mp_str <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
+  
+  
   # univariate polynomial
-  if(p == 1){
-    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
-    mpoly_string <- gsub(vars(x), ".", mpoly_string)
-    if(!silent) message("f(.) with . = ", vars(x))
+  if (p == 1L) {
+    mp_str <- stri_replace_all_fixed(mp_str, vars(x), ".")
+    if (squeeze) mp_str <- stri_replace_all_fixed(mp_str, " ", "")
+    if (!silent) message("f(.) with . = ", vars(x))
     f <- function(){}
     formals(f) <- alist(. = )
     #expression(if(length(.) > 1) return(sapply(., f))),
@@ -74,48 +85,51 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
         .[] <- sapply(., f)
         return(.)
       }),
-      parse(text = mpoly_string)
+      parse(text = mp_str)
     ))
     return(f)
   }
   
+  
   # general polynomials as a vector argument
-  if(vector){
-    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
-    mpoly_string <- paste(" ", mpoly_string, " ", sep = "")
-    for(k in 1:p){
-      mpoly_string <- gsub(
-        paste(" ", varorder[k], " ", sep = ""),
-        paste(" .[", k, "] ", sep = ""),
-        mpoly_string
-      )
-      mpoly_string <- gsub(
-        paste(" ", varorder[k], "\\*\\*", sep = ""),
-        paste(" .[", k, "]**", sep = ""),
-        mpoly_string
-      )      
+  if (vector) {
+    
+    mp_str <- stri_c(" ", mp_str, " ") # pad to make parsing easier
+    
+    for (k in 1L:p) {
+      mp_str <- stri_replace_all_fixed(mp_str, "**", " ^")
+      mp_str <- stri_replace_all_fixed(mp_str, stri_c(" ", varorder[k], " "), stri_c(" .[", k, "] "))
+      mp_str <- stri_replace_all_fixed(mp_str, " ^", "**")
     }
-    v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
+    
+    if (squeeze) mp_str <- stri_replace_all_fixed(mp_str, " ", "")
+    
+    v <- stri_c("(", stri_c(varorder, collapse = ", "), ")")
+    
     if(!silent) message("f(.) with . = ", v)
-    mpoly_string <- paste("function(.){", mpoly_string, "}")    
-    return(eval(parse(text = mpoly_string)))
+    
+    mp_str <- stri_c("function(.) {", mp_str, "}")    
+    
+    return(eval(parse(text = mp_str)))
   }
   
+  
   # general polynomials as a bunch of arguments
-  if(!vector){
-    mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
-    if(!silent) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
-    mpoly_string <- paste(
-      "function(", 
-      paste(varorder, collapse = ", "),
-      "){", 
-      mpoly_string, 
+  if (!vector) {
+    
+    if(!silent) message("f(", stri_c(varorder, collapse = ", "), ")", sep = "")
+    
+    mp_str <- stri_c(
+      "function(", stri_c(varorder, collapse = ", "), ") {", 
+        mp_str, 
       "}",
       sep = ""
     )
-    return(eval(parse(text = mpoly_string)))
+    
+    return(eval(parse(text = mp_str)))
   }  
-  
+ 
+   
 }
 
 
