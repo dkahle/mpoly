@@ -20,8 +20,8 @@ eq_mp <- function (string, ...) {
   
   # "y = x" -> "(y) - (x)"
   strings <- vapply(
-    str_split(string, "\\s*==?\\s*"),
-    function(x) str_c("(", x[1], ") - (", x[2], ")"),
+    stringi::stri_split_regex(string, "\\s*==?\\s*"),
+    function(x) stringi::stri_c("(", x[1], ") - (", x[2], ")"),
     character(1)
   )
   
