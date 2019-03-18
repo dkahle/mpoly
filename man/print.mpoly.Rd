@@ -23,8 +23,7 @@ asterisk notation (default FALSE)}
 
 \item{plus_pad}{number of spaces to the left and right of plus sign}
 
-\item{times_pad}{number of spaces to the left and right of multiplication
-sign}
+\item{times_pad}{number of spaces to the left and right of times sign}
 }
 \value{
 Invisible string of the printed object.
@@ -33,8 +32,11 @@ Invisible string of the printed object.
 This is the major function used to view multivariate polynomials.
 }
 \examples{
-p <- mp("2 x^5  -  3 y^2  +  x y^3")
-p
+
+mp("-x^5 - 3 y^2 + x y^3 - 1")
+
+
+(p <- mp("2 x^5  -  3 y^2  +  x y^3"))
 print(p) # same
 print(p, silent = TRUE)
 s <- print(p, silent = TRUE)
@@ -42,11 +44,12 @@ s
 
 print(p, order = "lex") # -> 2 x^5  +  x y^3  -  3 y^2
 print(p, order = "lex", varorder = c("y","x")) # -> y^3 x  -  3 y^2  +  2 x^5
-print(p, varorder = c("y","x")) # -> 2 x^5  -  3 y^2  +  y^3 x
+print(p, varorder = c("y","x")) # -> y^3 x  -  3 y^2  +  2 x^5
 
+# this is mostly used internally
 print(p, stars = TRUE)
-
-#' # this is mostly used internally
+print(p, stars = TRUE, times_pad = 0L)
+print(p, stars = TRUE, times_pad = 0L, plus_pad = 1L)
 print(p, plus_pad = 1L)
 print(p, plus_pad = 0L, stars = TRUE, times_pad = 0L)
 
