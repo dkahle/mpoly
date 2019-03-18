@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
 [![Travis build status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://travis-ci.org/dkahle/mpoly)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/dkahle/mpoly?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/mpoly)
+[![Coverage status](https://codecov.io/gh/dkahle/mpoly/branch/master/graph/badge.svg)](https://codecov.io/github/dkahle/mpoly?branch=master)
 <!-- badges: end -->
 
 

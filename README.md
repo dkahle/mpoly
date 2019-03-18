@@ -11,6 +11,8 @@ status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/
 status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://travis-ci.org/dkahle/mpoly)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/dkahle/mpoly?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/mpoly)
+[![Coverage
+status](https://codecov.io/gh/dkahle/mpoly/branch/master/graph/badge.svg)](https://codecov.io/github/dkahle/mpoly?branch=master)
 <!-- badges: end -->
 
 Specifying polynomials
@@ -144,7 +146,7 @@ p1 - p2
 # 2 y
 
 p1 * p2
-# x^2  -  y^2
+# x^2  -  1 y^2
 
 p1^2
 # x^2  +  2 x y  +  y^2
@@ -202,7 +204,7 @@ f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
 # f(.) with . = (x, y)
 
 f(c(1,1))
-# [1] 3
+# x  +  2 y  +  2
 
 f <- as.function(mp("x + 2 y"), vector = FALSE) # makes a function with all arguments
 # f(x, y)
@@ -333,13 +335,13 @@ Homogenization and dehomogenization:
 
 ``` r
 (p <- mp("x + 2 x y + y - z^3"))
-# x  +  2 x y  +  y  -  z^3
+# x  +  2 x y  +  y  -  1 z^3
 
 (hp <- homogenize(p))
-# x t^2  +  2 x y t  +  y t^2  -  z^3
+# x t^2  +  2 x y t  +  y t^2  -  1 z^3
 
 dehomogenize(hp, "t")
-# x  +  2 x y  +  y  -  z^3
+# x  +  2 x y  +  y  -  1 z^3
 
 homogeneous_components(p)
 # x  +  y

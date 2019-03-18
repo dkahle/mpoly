@@ -8,3 +8,6 @@ jobs:
   include:
   - r: devel
   - r: release
+  
+after_success:
+    - Rscript -e 'covr::codecov()'
