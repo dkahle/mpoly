@@ -78,7 +78,6 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
     if (!silent) message("f(.) with . = ", vars(x))
     f <- function(){}
     formals(f) <- alist(. = )
-    #expression(if(length(.) > 1) return(sapply(., f))),
     body(f) <- as.call(c(
       as.name("{"),
       expression(if(length(.) > 1){
@@ -92,40 +91,30 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
   
   
   # general polynomials as a vector argument
-  if (vector) {
-    
-    mp_str <- stri_c(" ", mp_str, " ") # pad to make parsing easier
-    
+  if (vector) { 
+    mp_str <- stri_c(" ", mp_str, " ") # pad to make parsing easier 
     for (k in 1L:p) {
       mp_str <- stri_replace_all_fixed(mp_str, "**", " ^")
       mp_str <- stri_replace_all_fixed(mp_str, stri_c(" ", varorder[k], " "), stri_c(" .[", k, "] "))
       mp_str <- stri_replace_all_fixed(mp_str, " ^", "**")
-    }
-    
-    if (squeeze) mp_str <- stri_replace_all_fixed(mp_str, " ", "")
-    
-    v <- stri_c("(", stri_c(varorder, collapse = ", "), ")")
-    
-    if(!silent) message("f(.) with . = ", v)
-    
-    mp_str <- stri_c("function(.) {", mp_str, "}")    
-    
+    } 
+    if (squeeze) mp_str <- stri_replace_all_fixed(mp_str, " ", "") 
+    v <- stri_c("(", stri_c(varorder, collapse = ", "), ")") 
+    if(!silent) message("f(.) with . = ", v) 
+    mp_str <- stri_c("function(.) {", mp_str, "}")     
     return(eval(parse(text = mp_str)))
   }
   
   
   # general polynomials as a bunch of arguments
-  if (!vector) {
-    
-    if(!silent) message("f(", stri_c(varorder, collapse = ", "), ")", sep = "")
-    
+  if (!vector) { 
+    if(!silent) message("f(", stri_c(varorder, collapse = ", "), ")", sep = "") 
     mp_str <- stri_c(
       "function(", stri_c(varorder, collapse = ", "), ") {", 
         mp_str, 
       "}",
       sep = ""
-    )
-    
+    ) 
     return(eval(parse(text = mp_str)))
   }  
  

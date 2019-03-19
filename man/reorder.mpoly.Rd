@@ -11,7 +11,7 @@
 
 \item{varorder}{the order of the variables}
 
-\item{order}{a total order used to order the terms}
+\item{order}{a total order used to order the terms, \code{"lex"}, \code{"glex"}, or \code{"grlex"}}
 
 \item{...}{additional arguments}
 }

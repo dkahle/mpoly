@@ -65,10 +65,10 @@ laguerre <- function(degree, alpha = 0, indeterminate = "x", normalized = FALSE)
     p <- as.mpoly.polynomial(coefs, indeterminate)
     class(p) <- c("laguerre", "mpoly")
     attr(p, "laguerre") <- list(
-      degree = length(coefs)-1, 
-      alpha = alpha, 
-      indeterminate = indeterminate, 
-      normalized = normalized
+      "degree" = length(coefs)-1, 
+      "alpha" = alpha, 
+      "indeterminate" = indeterminate, 
+      "normalized" = normalized
     )
     return(p)
   }
@@ -79,10 +79,10 @@ laguerre <- function(degree, alpha = 0, indeterminate = "x", normalized = FALSE)
     p <- as.mpoly.polynomial(polynomial, indeterminate)
     class(p) <- c("laguerre", "mpoly")
     attr(p, "laguerre") <- list(
-      degree = length(coefs)-1, 
-      alpha = alpha, 
-      indeterminate = indeterminate, 
-      normalized = normalized
+      "degree" = length(coefs)-1, 
+      "alpha" = alpha, 
+      "indeterminate" = indeterminate, 
+      "normalized" = normalized
     )
     p
   })

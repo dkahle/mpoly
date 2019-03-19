@@ -307,14 +307,14 @@ bezier_function <- function(points, weights = rep(1L, nrow(points))){
   
   combineTwo <- function(vec, t) t*vec[-length(vec)] + (1-t)*vec[-1]  
   
-  singlePointBezier <- function(.){
+  single_point_bezier <- function(.){
     for(i in 1:degree) points <- apply(points, 2, combineTwo, t = .)
     points[-1] / points[1]
   }  
   
   function(.){
-    if(length(.) > 1) return(t(sapply(., singlePointBezier)))
-    singlePointBezier(.)
+    if(length(.) > 1) return(t(sapply(., single_point_bezier)))
+    single_point_bezier(.)
   }
 }
 

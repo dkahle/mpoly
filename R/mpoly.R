@@ -93,10 +93,7 @@ mpoly <- function(list, varorder){
   # deal with varorder argument
   if(!missing(varorder)){  	
     if( !setequal(vars, varorder) ){
-      stop(paste(
-        "if specified varorder must be a permutation of",
-        paste(vars, collapse = ", ")        
-      ), call. = FALSE)	
+      stop("If specified varorder must be a permutation of ", stri_c(vars, collapse = ", "), call. = FALSE)	
     }    
     vars <- varorder
   }

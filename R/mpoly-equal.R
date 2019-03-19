@@ -7,8 +7,7 @@
 #' @method == mpoly
 #' @aliases ==.mpoly ==
 #' @return A logical value.
-#' @name mpolyEqual
-#' @export
+#' @name mpoly-equal
 #' @examples
 #'
 #' p1 <- mp("x + y + 2 z")
@@ -30,11 +29,14 @@
 #' mp("1") == mp("1")
 #' mp("0") == mp("-0")
 #' 
-`==.mpoly` <- function(e1, e2){
+#' 
+
+
+#' @rdname mpoly-equal
+#' @export
+`==.mpoly` <- function(e1, e2) {
 	
-  if(!is.mpoly(e1)  || !is.mpoly(e2)){
-    stop("e1 and e2 must be of class mpoly.", call. = FALSE)
-  }
+  if(!is.mpoly(e1)  || !is.mpoly(e2)) stop("e1 and e2 must be of class mpoly.", call. = FALSE)
   
   diff <- e1 - e2
   
@@ -51,5 +53,7 @@
 }
 
 
-
+#' @rdname mpoly-equal
+#' @export
+`!=.mpoly` <- function(e1, e2) !(e1 == e2)
 

@@ -6,7 +6,7 @@
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
 \method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
-  silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
+  silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
 
 \method{as.function}{bezier}(x, ...)
 }
@@ -25,6 +25,8 @@ series of arguments (FALSE)}
 \item{plus_pad}{number of spaces to the left and right of plus sign}
 
 \item{times_pad}{number of spaces to the left and right of times sign}
+
+\item{squeeze}{minify code in the created function}
 }
 \description{
 Transforms an mpolyList object into a function which can be evaluated.
@@ -32,8 +34,8 @@ Transforms an mpolyList object into a function which can be evaluated.
 \examples{
 
 # basic examples
-mpolyList <- mp(c("2 x + 1", "x - z^2"))
-f <- as.function(mpolyList)
+(mpolyList <- mp(c("2 x + 1", "x - z^2")))
+(f <- as.function(mpolyList))
 f(c(1,2)) # -> (2*1 + 1, 1-2^2) = 3 -3
 
 f <- as.function(mpolyList, varorder = c("x","y","z"))

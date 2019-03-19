@@ -19,14 +19,8 @@
 #' is.mpolyList( deriv(m, c('x','y','z')) )
 deriv.mpoly <- function(expr, var, ...){
 
-  if(missing(var)){
-  	stop('var must be specified, see ?deriv.mpoly', call. = FALSE)
-  }
-	
   # argument checks	
-  if(!is.mpoly(expr)){
-    stop('expr must be of class mpoly.', call. = FALSE)
-  }
+  if (missing(var)) stop('var must be specified, see ?deriv.mpoly', call. = FALSE)
   stopifnot(is.character(var))
   
   

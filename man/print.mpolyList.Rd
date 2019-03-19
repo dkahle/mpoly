@@ -4,13 +4,16 @@
 \alias{print.mpolyList}
 \title{Pretty printing of a list of multivariate polynomials.}
 \usage{
-\method{print}{mpolyList}(x, varorder = vars(x), order, silent = FALSE,
-  ..., plus_pad = 2L, times_pad = 0L)
+\method{print}{mpolyList}(x, varorder = vars(x), stars = FALSE, order,
+  silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
 }
 \arguments{
 \item{x}{an object of class mpoly}
 
 \item{varorder}{the order of the variables}
+
+\item{stars}{print the multivariate polynomial in the more computer-friendly
+asterisk notation (default FALSE)}
 
 \item{order}{a total order used to order the monomials in the printing}
 
@@ -32,17 +35,15 @@ This function iterates print.mpoly on an object of class mpolyList.
 
 mL <- mp(c("x + 1", "y - 1", "x y^2 z  +  x^2 z^2  +  z^2  +  x^3"))
 mL
-
-ps <- print(mL, silent = TRUE, plus_pad = 1L)
-ps
-
 print(mL, order = "lex")
 print(mL, order = "glex")
 print(mL, order = "grlex")
 print(mL, order = "glex", varorder = c("z","y","x"))
 print(mL, order = "grlex", varorder = c("z","y","x"))
 print(mL, varorder = c("z","y","x"))
-s <- print(mL, varorder = c("z","y","x"), plus_pad = 1L)
-str(s)
+
+(print(mL, varorder = c("z","y","x"), plus_pad = 1L, silent = TRUE))
+
+(print(mL, silent = TRUE, stars = TRUE, plus_pad = 1L, times_pad = 0L))
 
 }

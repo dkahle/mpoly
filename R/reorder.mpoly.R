@@ -6,7 +6,7 @@
 #'
 #' @param x an object of class mpoly
 #' @param varorder the order of the variables
-#' @param order a total order used to order the terms
+#' @param order a total order used to order the terms, \code{"lex"}, \code{"glex"}, or \code{"grlex"}
 #' @param ... additional arguments
 #' @usage \method{reorder}{mpoly}(x, varorder = vars(x), order, ...)
 #' @return An object of class mpoly.
