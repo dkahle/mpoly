@@ -16,7 +16,7 @@ An object of class mpoly or mpolyList.
 This is a wrapper for deriv.mpoly.
 }
 \examples{
-m <- mp('x y + y z + z^2')
+m <- mp("x y + y z + z^2")
 gradient(m)
 
 

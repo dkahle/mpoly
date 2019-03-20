@@ -9,18 +9,18 @@
 #' @return An object of class mpoly or mpolyList.
 #' @export
 #' @examples
-#' m <- mp('x y + y z + z^2')
-#' deriv(m, 'x')
-#' deriv(m, 'y')
-#' deriv(m, 'z')
-#' deriv(m, c('x','y','z'))
-#' deriv(m, 'a')
-#' is.mpoly(deriv(m, 'x'))
-#' is.mpolyList( deriv(m, c('x','y','z')) )
+#' m <- mp("x y + y z + z^2")
+#' deriv(m, "x")
+#' deriv(m, "y")
+#' deriv(m, "z")
+#' deriv(m, c("x","y","z"))
+#' deriv(m, "a")
+#' is.mpoly(deriv(m, "x"))
+#' is.mpolyList( deriv(m, c("x","y","z")) )
 deriv.mpoly <- function(expr, var, ...){
 
   # argument checks	
-  if (missing(var)) stop('var must be specified, see ?deriv.mpoly', call. = FALSE)
+  if (missing(var)) stop("var must be specified, see ?deriv.mpoly", call. = FALSE)
   stopifnot(is.character(var))
   
   
@@ -29,7 +29,7 @@ deriv.mpoly <- function(expr, var, ...){
     mpolyList <- lapply(as.list(var), function(var){
       deriv(expr, var = var, ...)
     })
-    class(mpolyList) <- 'mpolyList'  
+    class(mpolyList) <- "mpolyList"  
     return(mpolyList)    
   }
   
@@ -46,7 +46,7 @@ deriv.mpoly <- function(expr, var, ...){
   	if(length(v) == 1) return(c(coef = 0))
     p <- length(v)
     if(!(var %in% names(v[1:p]))) return(c(coef = 0))
-    v['coef'] <- unname(v[var]) * v['coef']
+    v["coef"] <- unname(v[var]) * v["coef"]
     v[var] <- v[var] - 1
     v
   })
@@ -66,7 +66,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' @return An object of class mpoly or mpolyList.
 #' @export
 #' @examples
-#' m <- mp('x y + y z + z^2')
+#' m <- mp("x y + y z + z^2")
 #' gradient(m)
 #' 
 #' 
@@ -127,8 +127,6 @@ deriv.mpoly <- function(expr, var, ...){
 #'   scale_fill_continuous(trans = "log10") 
 #'   
 #' 
-gradient <- function(mpoly){
-  deriv(mpoly, var = vars(mpoly))
-}
+gradient <- function(mpoly) deriv(mpoly, var = vars(mpoly))
 
 

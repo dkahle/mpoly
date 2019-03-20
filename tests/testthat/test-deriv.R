@@ -35,6 +35,18 @@ test_that("basic", {
 
 
 
+test_that("vector indeterminates", {
+  
+  expect_equal(
+    deriv(mp("x y + y z + z^2"), c("x", "y")),
+    mp(c("y", "x + z"))
+  )
+  
+})
+
+
+
+
 test_that("gradient", {
   
   expect_equal(
