@@ -58,7 +58,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
     if(!all(vars %in% varorder)) {
       stop(
         "if specified, varorder must contain all computed vars - ", 
-        paste(vars, collapse = ", "),
+        stri_c(vars, collapse = ", "),
         call. = FALSE
       )
     }
@@ -104,7 +104,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   # print terms
   terms <- vapply(x, print_term, character(1L), times = times, exp = expo) 
 
-  
+
   # merge terms with +'s and -'s
   plus_pad <- stringi::stri_dup(" ", plus_pad)
   plus <- stri_c(plus_pad, "+", plus_pad)
@@ -112,8 +112,8 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   s <- stri_replace_all_fixed(s, stri_c("+", plus_pad, "-"), stri_c("-", plus_pad)) # fix subtractions 
   
   
-  # do final cleaning
-  
+  # final cleaning - clean "2 x  -  1 y^2"
+  s <- stri_replace_all_fixed(s, stri_c("-", plus_pad, "1", times), stri_c("-", plus_pad))  
   
   
   # print
@@ -125,7 +125,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   
 }
 
-# mp("y - x")
+
 
 
 
@@ -153,17 +153,13 @@ print_term <- function(term, times = " ", expo = "^") {
     }  
   }
 
-  # clean 1 and -1 from front
+  # clean 1 from front
   if (abs(term[["coef"]] - 1) < sqrt(.Machine$double.eps) ) out <- stri_sub(out, stri_length(times) + 2L)
-  # if (abs(term[["coef"]] + 1) < sqrt(.Machine$double.eps) ) out <- stri_c("-", stri_sub(out, 4L))
   
   # return
   out
   
 }
-
-# vapply(mp("y - x"), print_term, character(1L))
-# vapply(mp("y - x"), print_term, character(1L))
 
 
 
