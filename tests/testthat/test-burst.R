@@ -1,4 +1,4 @@
-context("burst() is working properly")
+context("burst()")
 
 
 test_that("basic burst works", {

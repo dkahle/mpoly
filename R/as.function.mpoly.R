@@ -44,6 +44,14 @@
 #' f <- as.function(p)
 #' f(10) # -> 24
 #'
+#' bernstein(1, 2)
+#' s <- seq(0, 1, .01)
+#' as.function(bernstein(1, 2))(s)
+#' plot(
+#'   s,
+#'   as.function(bernstein(1, 2))(s)
+#' )
+#'
 #'
 #' as.function(mp("x + xx"))
 #' as.function(mp("x + xx"), squeeze = FALSE)
@@ -64,7 +72,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
  
   
   # deal with constant polynomials
-  if (is.constant(x)) return( function(.) unlist(x)[["coef"]] )
+  if (is.constant(x)) return( function(.) 0*. + unlist(x)[["coef"]] )
   
   
   # print poly with stars
@@ -136,8 +144,21 @@ as.function.bernstein <- function(x, ...){
   k <- attr(x, "bernstein")$k
   n <- attr(x, "bernstein")$n
   
-  # return exp"d log function
-  function(.) exp(lchoose(n, k) + k*log(.) + (n-k)*log(1-.))
+  # return exp'd log function
+  function(.) {
+    
+    out <- vector("numeric", length = length(.))
+
+    non_pos_ndcs <- (. <= 0)
+    sup_one_ndcs <- (. >= 1)
+    if (any(non_pos_ndcs)) out[non_pos_ndcs] <- choose(n, k) * .[non_pos_ndcs]^k * (1 - .[non_pos_ndcs])^(n-k)
+    if (any(sup_one_ndcs)) out[sup_one_ndcs] <- choose(n, k) * .[sup_one_ndcs]^k * (1 - .[sup_one_ndcs])^(n-k)
+    if (!all(sup_one_ndcs | sup_one_ndcs)) out[0 < . & . < 1] <- exp(
+      lchoose(n, k)  +  k*log(.[0 < . & . < 1])  +  (n-k)*log(1-.[0 < . & . < 1])
+    )
+    
+    out
+  }
   
 }
 
@@ -147,23 +168,23 @@ as.function.bernstein <- function(x, ...){
 
 
 
-as.function.jacobi <- function(x, ...){
-  return(as.function.mpoly(x)) ## below is broken.
-  
-  # grab bernstein values
-  d <- attr(x, "jacobi")$degree
-  k <- attr(x, "jacobi")$kind
-  i <- attr(x, "jacobi")$indeterminate
-  n <- attr(x, "jacobi")$normalized
-  a <- attr(x, "jacobi")$alpha
-  b <- attr(x, "jacobi")$beta
-  
-  # return exp'd log function #
-  #http://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
-  #pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1,
-  #(1-.)/2)
-  
-}
+# as.function.jacobi <- function(x, ...){
+#   return(as.function.mpoly(x)) ## below is broken.
+#   
+#   # grab bernstein values
+#   d <- attr(x, "jacobi")$degree
+#   k <- attr(x, "jacobi")$kind
+#   i <- attr(x, "jacobi")$indeterminate
+#   n <- attr(x, "jacobi")$normalized
+#   a <- attr(x, "jacobi")$alpha
+#   b <- attr(x, "jacobi")$beta
+#   
+#   # return exp'd log function #
+#   #http://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
+#   #pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1,
+#   #(1-.)/2)
+#   
+# }
 
 
 

@@ -1,4 +1,4 @@
-context("mpoly() is working properly")
+context("mpoly()")
 
 test_that("mpoly() flags non-list arguments",{
   expect_error(mpoly(1:5), "input to mpoly must be a list.")
@@ -80,6 +80,29 @@ test_that("mp() parses character vectors properly", {
   
   
 })
+
+
+
+
+
+
+
+
+
+test_that("mp() obeys varorder", {
+  
+  expect_equal(
+    mp("3 y^2 x^3", varorder = c("x", "y")),
+    structure(list(c(x = 3, y = 2, coef = 3)), class = "mpoly")
+  )
+  
+})
+
+
+
+
+
+
 
 
 

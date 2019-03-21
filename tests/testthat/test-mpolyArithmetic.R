@@ -1,4 +1,4 @@
-context("Arithmetic with constants works properly")
+context("mpoly arithmetic")
 
 test_that("Addition works", {
   

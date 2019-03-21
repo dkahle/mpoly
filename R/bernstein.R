@@ -59,6 +59,8 @@
 #' @export
 bernstein <- function(k, n, indeterminate = "x"){  
   
+  stopifnot(k <= n)
+  
   ## make it possible for vector k args
   if(length(k) > 1){
     listOPolys <- lapply(k, function(.) bernstein(., n, indeterminate))

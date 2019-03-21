@@ -1,4 +1,4 @@
-context("plug() works properly")
+context("plug()")
 
 
 test_that("plug() inserts numbers properly", {

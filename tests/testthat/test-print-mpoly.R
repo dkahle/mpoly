@@ -1,4 +1,4 @@
-context("print_term() works properly")
+context("print_term()")
 
 
 
@@ -119,4 +119,125 @@ test_that("print_term() prints multivariate terms properly", {
 
 
 
+
+
+
+
+
+context("print.mpoly()")
+
+
+test_that("constants", {
+  
+  test_coef <- function(number) {
+    p <- structure(list(c("coef" = number)), class = "mpoly")
+    expect_equal(
+      print.mpoly(p, silent = TRUE),
+      as.character(number)
+    )
+  }
+  
+  test_coef(0)
+  test_coef(1)
+  test_coef(-1)
+  test_coef(1.1)
+  test_coef(-1.1) 
+  test_coef(1e-3)
+  test_coef(-1e-3)
+  
+})
+
+
+
+
+
+test_that("sums: no coefs", {
+  
+  p <- structure(
+    list(
+      c("x" = 1, "coef" = 1),
+      c("y" = 2, "coef" = 1)
+    ), 
+    class = "mpoly"
+  )
+  
+  expect_equal(
+    print.mpoly(p, silent = TRUE),
+    "x  +  y^2"
+  )
+  
+})
+
+
+
+test_that("sums: + coefs", {
+  
+  p <- structure(
+    list(
+      c("x" = 2, "coef" = 2),
+      c("y" = 3, "coef" = 3)
+    ), 
+    class = "mpoly"
+  )
+  
+  expect_equal(
+    print.mpoly(p, silent = TRUE),
+    "2 x^2  +  3 y^3"
+  )
+  
+})
+
+
+test_that("subtraction: ordinary", {
+  
+  p <- structure(
+    list(
+      c("x" = 1, "coef" = 2),
+      c("y" = 3, "coef" = -3)
+    ), 
+    class = "mpoly"
+  )
+  
+  expect_equal(
+    print.mpoly(p, silent = TRUE),
+    "2 x  -  3 y^3"
+  )
+  
+})
+
+
+test_that("subtraction: 2 x - y^2", {
+  
+  p <- structure(
+    list(
+      c("x" = 1, "coef" = 2),
+      c("y" = 2, "coef" = -1)
+    ), 
+    class = "mpoly"
+  )
+  
+  expect_equal(
+    print.mpoly(p, silent = TRUE),
+    "2 x  -  y^2"
+  )
+  
+})
+
+
+
+
+
+test_that("errors", {
+  
+  expect_error(
+    print.mpoly(
+      structure(list(c("x" = 1, "y" = 2, "coef" = 1)), class = "mpoly"),
+      varorder = "x",
+      silent = TRUE
+    ),
+    "if specified, varorder must contain all computed vars - x, y",
+    fixed = TRUE
+  )
+  
+})
 

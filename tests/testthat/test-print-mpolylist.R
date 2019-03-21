@@ -1,4 +1,4 @@
-context("print.mpolyList() works properly")
+context("print.mpolyList()")
 
 
 test_that("basic print.mpolyList() functionality", {

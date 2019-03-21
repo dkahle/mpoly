@@ -1,4 +1,4 @@
-context("Polynomial component extraction works properly")
+context("Polynomial component extraction")
 
 
 test_that("[.mpoly", {

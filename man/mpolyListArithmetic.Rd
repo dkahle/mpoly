@@ -26,8 +26,8 @@ Element-wise arithmetic with vectors of multivariate polynomials.
 }
 \examples{
 
-( ms1 <- mp( c('x + 1', 'x + 2') ) )
-( ms2 <- mp( c('x + 1', 'y + 2') ) )
+( ms1 <- mp( c("x", 'y') ) )
+( ms2 <- mp( c("y", '2 x^2') ) )
 ms1 + ms2
 ms1 - ms2
 ms1 * ms2

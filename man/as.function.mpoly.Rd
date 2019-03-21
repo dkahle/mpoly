@@ -61,6 +61,14 @@ p <- mp("1 2 3 4")
 f <- as.function(p)
 f(10) # -> 24
 
+bernstein(1, 2)
+s <- seq(0, 1, .01)
+as.function(bernstein(1, 2))(s)
+plot(
+  s,
+  as.function(bernstein(1, 2))(s)
+)
+
 
 as.function(mp("x + xx"))
 as.function(mp("x + xx"), squeeze = FALSE)

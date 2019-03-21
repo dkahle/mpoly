@@ -33,7 +33,7 @@ mpolyList <- function(...){
 
   out <- lapply(arguments, eval, parent.frame(1))
 
-  if(is.mpoly(out)) out <- list(out)
+  # if(is.mpoly(out)) out <- list(out)
   
   if(!all(vapply(out, is.mpoly, logical(1)))){
   	stop("Each argument must be of class mpoly.", call. = FALSE)

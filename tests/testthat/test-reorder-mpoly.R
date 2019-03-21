@@ -1,4 +1,4 @@
-context("reorder.mpoly() is working properly")
+context("reorder.mpoly()")
 
 
 # examples from cox little and o'shea, 3e, p.59
@@ -57,3 +57,30 @@ test_that("grlex works", {
   )
   
 })
+
+
+
+test_that("message when no order specified but varorder not", {
+  
+  expect_message(
+    reorder.mpoly(mp("x + y^2"), order = "glex"),
+    "Using variable ordering - x, y",
+    fixed = TRUE
+  )
+  
+})
+
+
+
+test_that("all vars in varorder", {
+  
+  expect_error(
+    reorder.mpoly(mp("x + y^2"), varorder = "x"),
+    "If specified, varorder must contain all computed vars - x, y",
+    fixed = TRUE
+  )
+  
+})
+
+
+

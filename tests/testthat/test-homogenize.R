@@ -1,4 +1,4 @@
-context("homogenize")
+context("homogenizing functions")
 
 
 test_that("is.homogeneous()", {

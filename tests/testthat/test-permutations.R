@@ -1,4 +1,4 @@
-context("permutations() is working properly")
+context("permutations()")
 
 test_that("permutations of a single integer works", {
   

@@ -66,8 +66,9 @@ as.mpoly <- function(x, ...) UseMethod("as.mpoly")
 
 
 #' @export  
-as.mpoly.default <- function(x, ...) 
-  stop("object not supported.  see ?as.mpoly for details.")
+as.mpoly.default <- function(x, ...) {
+  stop(sprintf("objects of class %s not supported by as.mpoly().", class(x)), call. = FALSE)
+}
 
 
 
@@ -116,7 +117,7 @@ parse_model_poly <- function(s) {
   inside <- str_sub(inside, 6, -2)
   inside <- str_split(inside, ", ")[[1]]
   if(!any(inside == "raw = TRUE")) {
-    stop("poly() statements currently must contain raw = TRUE.")
+    stop("poly() statements currently must contain raw = TRUE.", call. = FALSE)
   }
   vars <- inside[!(str_detect(inside, "=") | !str_detect(inside, "[:alpha:]"))]
   

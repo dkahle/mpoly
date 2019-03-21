@@ -1,4 +1,4 @@
-context("solve_unipoly() is working properly")
+context("solve_unipoly()")
 
 
 test_that("solve_unipoly() works with real roots", {

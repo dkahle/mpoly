@@ -1,4 +1,4 @@
-context("tuples() works properly")
+context("tuples()")
 
 
 test_that("basic tuples() functionality works", {

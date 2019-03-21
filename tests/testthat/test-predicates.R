@@ -1,4 +1,4 @@
-context("predicate functions are working properly")
+context("predicate functions")
 
 
 test_that("is.constant() works - single", {

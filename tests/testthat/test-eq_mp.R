@@ -1,4 +1,4 @@
-context("eq_mp() is working properly")
+context("eq_mp()")
 
 
 test_that("eq_mp() properly deals with spaces", {
