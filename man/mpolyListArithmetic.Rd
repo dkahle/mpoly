@@ -31,5 +31,6 @@ Element-wise arithmetic with vectors of multivariate polynomials.
 ms1 + ms2
 ms1 - ms2
 ms1 * ms2
+ms1^3
 
 }
