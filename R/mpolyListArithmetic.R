@@ -13,6 +13,7 @@
 #' ms1 + ms2
 #' ms1 - ms2
 #' ms1 * ms2
+#' ms1^3
 #' 
 NULL
 
@@ -155,4 +156,30 @@ NULL
 
 
 
+
+
+
+#' @rdname mpolyArithmetic
+#' @export
+`^.mpolyList` <- function(e1, e2){
+  
+  stopifnot(is.mpolyList(e1))
+  
+  if(!is.wholenumber(e2) || e2 < 0) stop("exponent must be a positive integer.", call. = FALSE)
+  
+  out <- structure(
+    replicate(
+      length(e1),
+      structure(list(c("coef" = 1L)), class = "mpoly"),
+      simplify = FALSE
+    ),
+    class = "mpolyList"
+  )
+  
+  if(e2 == 0) return(out)
+  
+  for(k in 1:e2) out <- out * e1
+  
+  out
+}
 

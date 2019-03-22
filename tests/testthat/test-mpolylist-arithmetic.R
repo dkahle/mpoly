@@ -185,3 +185,46 @@ test_that("multiplication", {
   )
   
 })
+
+
+
+
+
+
+
+
+
+
+
+test_that("exponentiation", {
+  
+  expect_equal(
+    mp(c("x", "y"))^2L,
+    structure(
+      list(
+        structure(list(c(x = 2, coef = 1)), class = "mpoly"), 
+        structure(list(c(y = 2, coef = 1)), class = "mpoly")
+      ), 
+      class = "mpolyList"
+    )
+  )
+  
+  
+  expect_equal(
+    mp(c("x", "y"))^0L,
+    structure(
+      list(
+        structure(list(c(coef = 1)), class = "mpoly"), 
+        structure(list(c(coef = 1)), class = "mpoly")
+      ), 
+      class = "mpolyList"
+    )
+  )
+  
+  expect_error(
+    mp(c("x", "y"))^1.5,
+    "exponent must be a positive integer.",
+    fixed = TRUE
+  )
+  
+})
