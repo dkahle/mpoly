@@ -17,7 +17,7 @@ Imports:
     orthopolynom,
     tidyr
 Suggests:
-    testthat,
+    testthat (>= 2.1.0),
     magrittr,
     dplyr,
     covr
