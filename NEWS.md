@@ -7,3 +7,4 @@
 *   `bezierFunction()` is now deprecatd in favor of `bezier_function()`.
 *   More arithmetic is available for `mpolyList` objects, such as single 
     constant times mpolyList.
+*   `lissajous()` now allows users to create lissajous polynomials.

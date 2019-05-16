@@ -1,7 +1,7 @@
 Package: mpoly
 Type: Package
 Title: Symbolic Computation and More with Multivariate Polynomials
-Version: 1.1.0.903
+Version: 1.1.0.904
 URL: https://github.com/dkahle/mpoly
 BugReports: https://github.com/dkahle/mpoly/issues
 Authors@R: person("David", "Kahle", email = "david@kahle.io", role = c("aut", "cre"))
