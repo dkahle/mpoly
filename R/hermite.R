@@ -1,6 +1,6 @@
 #' Hermite polynomials
 #'
-#' Hermite polynomials as computed by orthopolynom.
+#' Hermite polynomials as computed by orthopolynom. 123
 #'
 #' @param degree degree of polynomial
 #' @param kind "he" (default, probabilists', see Wikipedia article) or "h"
