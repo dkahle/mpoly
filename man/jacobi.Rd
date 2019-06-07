@@ -37,7 +37,7 @@ jacobi(5)
 jacobi(6)
 jacobi(10, 2, 2, normalized = TRUE)
 
-jacobi(0:5) 
+jacobi(0:5)
 jacobi(0:5, normalized = TRUE)
 jacobi(0:5, kind = "g")
 jacobi(0:5, indeterminate = "t")
@@ -57,7 +57,7 @@ df <- data.frame(s, as.function(jacPolys)(s))
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- gather(df, degree, value, -x)
 qplot(x, value, data = mdf, geom = "line", color = degree)
-  
+
 qplot(x, value, data = mdf, geom = "line", color = degree) +
   coord_cartesian(ylim = c(-30, 30))
 
@@ -65,9 +65,9 @@ qplot(x, value, data = mdf, geom = "line", color = degree) +
 
 }
 \seealso{
-\code{\link{jacobi.g.polynomials}}, 
-  \code{\link{jacobi.p.polynomials}} 
-  \url{http://en.wikipedia.org/wiki/Jacobi_polynomials}
+\code{\link[orthopolynom:jacobi.g.polynomials]{orthopolynom::jacobi.g.polynomials()}},
+\code{\link[orthopolynom:jacobi.p.polynomials]{orthopolynom::jacobi.p.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Jacobi_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

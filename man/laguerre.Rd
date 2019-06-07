@@ -34,7 +34,7 @@ laguerre(6)
 laguerre(2)
 laguerre(2, normalized = TRUE)
 
-laguerre(0:5) 
+laguerre(0:5)
 laguerre(0:5, normalized = TRUE)
 laguerre(0:5, indeterminate = "t")
 
@@ -63,8 +63,8 @@ qplot(x, value, data = mdf, geom = "line", color = degree) +
 
 }
 \seealso{
-\code{\link{glaguerre.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
+\code{\link[orthopolynom:glaguerre.polynomials]{orthopolynom::glaguerre.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

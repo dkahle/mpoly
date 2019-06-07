@@ -19,14 +19,13 @@ tuples(set, n = length(set), repeats = FALSE, list = FALSE)
 a matrix whose rows are the n-tuples
 }
 \description{
-Determine all n-tuples using the elements of a set.  This is
-really just a simple wrapper for expand.grid, so it is not
-optimized.
+Determine all n-tuples using the elements of a set.  This is really just a
+simple wrapper for expand.grid, so it is not optimized.
 }
 \examples{
 
-tuples(1:2, 5)
-tuples(1:2, 5, list = TRUE)
+tuples(1:2, 3)
+tuples(1:2, 3, list = TRUE)
 
 apply(tuples(c("x","y","z"), 3), 1, paste, collapse = "")
 
@@ -38,7 +37,7 @@ mp("x + y")^n
 
 r <- 2 # number of variables, e.g. x, y
 n <- 3 # power, e.g. (x+y)^3
-apply(burst(n,r), 1, function(v) factorial(n)/ prod(factorial(v))) # x, y, xy
+apply(burst(n,r), 1, function(v) factorial(n)/ prod(factorial(v)))
 mp("x + y")^n
 
 r <- 3 # number of variables, e.g. x, y, z

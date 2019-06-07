@@ -1,12 +1,12 @@
 #' Solve a univariate mpoly with polyroot
-#' 
+#'
 #' Solve a univariate mpoly with polyroot
-#' 
+#'
 #' @param mpoly an mpoly
 #' @param real_only return only real solutions?
 #' @export
 #' @examples
-#' 
+#'
 #' solve_unipoly(mp("x^2 - 1")) # check x = -1, 1
 #' solve_unipoly(mp("x^2 - 1"), real_only = TRUE)
 #' 

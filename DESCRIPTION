@@ -1,13 +1,14 @@
 Package: mpoly
 Type: Package
 Title: Symbolic Computation and More with Multivariate Polynomials
-Version: 1.0.5.905
+Version: 1.1.0.904
 URL: https://github.com/dkahle/mpoly
 BugReports: https://github.com/dkahle/mpoly/issues
-Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
+Authors@R: person("David", "Kahle", email = "david@kahle.io", role = c("aut", "cre"))
 Description: Symbolic computing with multivariate polynomials in R.
 Imports:
     stringr (>= 1.0.0),
+    stringi,
     partitions,
     plyr,
     stats,
@@ -16,8 +17,11 @@ Imports:
     orthopolynom,
     tidyr
 Suggests:
-    testthat,
+    testthat (>= 2.1.0),
     magrittr,
-    dplyr
+    dplyr,
+    covr
 License: GPL-2
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

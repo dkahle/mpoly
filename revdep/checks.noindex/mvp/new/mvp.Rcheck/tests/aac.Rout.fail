@@ -1,0 +1,36 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## Check aderiv(), which is not easily assessed in the checker()
+> ## framework of aaa.R:
+> 
+> library("mvp")
+
+Attaching package: 'mvp'
+
+The following object is masked from 'package:base':
+
+    drop
+
+> 
+> 
+> P <- as.mvp("1+x+x^3*z+4x^2*y+ 4*z^4")^3
+Error in is_ok_mvp(vars, powers, coeffs) : <text>:1:12: unexpected symbol
+1: 1+x+x^3*z+4x
+               ^
+Calls: as.mvp ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+Execution halted

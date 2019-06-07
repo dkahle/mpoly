@@ -1,10 +1,22 @@
-Version 2.0.0
+Version 1.2.0
 -------------------------------------------------------------------------
 
 CHANGES
 
-* Packages are now imported from more nicely (@importFrom in all cases).
-* mp() is now based on R's parser and mpoly arithmetic.
+* grobner is now truly defunct, pointing to m2r::gb.
+
+
+
+Version 1.1.0
+-------------------------------------------------------------------------
+
+CHANGES
+
+* Packages are now imported more nicely (@importFrom in all cases).
+* mp() is now based on R's parser and mpoly arithmetic. The performance 
+  boost varies with things like how many parenthetical expressions are 
+  used, but in basic cases ranged from one to a few orders of magnitude.
+  More importantly, many hard to catch tokenizing problems should be gone.
 
 FIXES
 

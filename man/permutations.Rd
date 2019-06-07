@@ -13,8 +13,7 @@ permutations(set)
 a matrix whose rows are the permutations of set
 }
 \description{
-An implementation of the Steinhaus-Johnson-Trotter permutation
-algorithm.
+An implementation of the Steinhaus-Johnson-Trotter permutation algorithm.
 }
 \examples{
 permutations(1:3)

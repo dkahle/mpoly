@@ -9,8 +9,8 @@ hermite(degree, kind = "he", indeterminate = "x", normalized = FALSE)
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{"he" (default, probabilists', see Wikipedia article)
-or "h" (physicists)}
+\item{kind}{"he" (default, probabilists', see Wikipedia article) or "h"
+(physicists)}
 
 \item{indeterminate}{indeterminate}
 
@@ -33,7 +33,7 @@ hermite(5)
 hermite(6)
 hermite(10)
 
-hermite(0:5) 
+hermite(0:5)
 hermite(0:5, normalized = TRUE)
 hermite(0:5, indeterminate = "t")
 
@@ -60,9 +60,9 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 }
 \seealso{
-\code{\link{hermite.h.polynomials}}, 
-  \code{\link{hermite.he.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Hermite_polynomials}
+\code{\link[orthopolynom:hermite.h.polynomials]{orthopolynom::hermite.h.polynomials()}},
+\code{\link[orthopolynom:hermite.he.polynomials]{orthopolynom::hermite.he.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Hermite_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

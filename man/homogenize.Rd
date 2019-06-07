@@ -7,18 +7,18 @@
 \alias{homogeneous_components}
 \title{Homogenize a polynomial}
 \usage{
-homogenize(x, var = "t")
+homogenize(x, indeterminate = "t")
 
-dehomogenize(x, var = "t")
+dehomogenize(x, indeterminate = "t")
 
 is.homogeneous(x)
 
 homogeneous_components(x)
 }
 \arguments{
-\item{x}{an \code{\link{mpoly}} object}
+\item{x}{an mpoly object, see \code{\link[=mpoly]{mpoly()}}}
 
-\item{var}{name of homogenization}
+\item{indeterminate}{name of homogenization}
 }
 \value{
 a (de/homogenized) mpoly or an mpolyList
@@ -38,7 +38,7 @@ homogeneous_components(x)
 homogenize(x, "o")
 
 xh <- homogenize(x)
-dehomogenize(xh) # assumes var = "t"
+dehomogenize(xh) # assumes indeterminate = "t"
 plug(xh, "t", 1) # same effect, but dehomogenize is faster
 
 
@@ -55,9 +55,9 @@ p  <- mp("x^2 + 2 x + 3")
 (ph <- homogenize(p, "y"))
 lambda <- 3
 (d <- totaldeg(p))
-ph \%>\% 
-  plug("x", lambda*mp("x")) \%>\% 
+ph \%>\%
+  plug("x", lambda*mp("x")) \%>\%
   plug("y", lambda*mp("y"))
-lambda^d * ph 
+lambda^d * ph
 
 }

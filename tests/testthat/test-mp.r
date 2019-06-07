@@ -1,4 +1,4 @@
-context("mpoly() is working properly")
+context("mpoly()")
 
 test_that("mpoly() flags non-list arguments",{
   expect_error(mpoly(1:5), "input to mpoly must be a list.")
@@ -8,11 +8,22 @@ test_that("mpoly() flags non-list arguments",{
 
 context("mp() is working properly")
 
+
 test_that("mp() splices *'s properly", {
   
   expect_equal(
     mp("x y"),
     mpoly(list(c(x = 1, y = 1, coef = 1)))
+  )
+  
+  expect_equal(
+    mp("x y z"),
+    mpoly(list(c(x = 1, y = 1, z = 1, coef = 1)))
+  )
+  
+  expect_equal(
+    mp("a b c d e"),
+    mpoly(list(c(a = 1, b = 1, c = 1, d = 1, e = 1, coef = 1)))
   )
   
   expect_equal(
@@ -31,6 +42,67 @@ test_that("mp() splices *'s properly", {
   )
   
 })
+
+
+
+
+
+
+
+
+
+
+test_that("mp() parses character vectors properly", {
+  
+  expect_equal(
+    mp(c("2 x y", "-3 x y z")),
+    structure(
+      list(
+        structure(list(c(x = 1, y = 1, coef = 2)), class = "mpoly"), 
+        structure(list(c(x = 1, y = 1, z = 1, coef = -3)), class = "mpoly")
+      ),
+      class = "mpolyList"
+    )
+  )
+  
+  expect_equal(
+    mp(c("x y", "x y z", "a^3 b c^2 d")),
+    structure(
+      list(
+        structure(list(c(x = 1, y = 1, coef = 1)), class = "mpoly"), 
+        structure(list(c(x = 1, y = 1, z = 1, coef = 1)), class = "mpoly"),
+        structure(list(c(a = 3, b = 1, c = 2, d = 1, coef = 1)), class = "mpoly")
+      ),
+      class = "mpolyList"
+    )
+  )
+  
+  
+  
+})
+
+
+
+
+
+
+
+
+
+test_that("mp() obeys varorder", {
+  
+  expect_equal(
+    mp("3 y^2 x^3", varorder = c("x", "y")),
+    structure(list(c(x = 3, y = 2, coef = 3)), class = "mpoly")
+  )
+  
+})
+
+
+
+
+
+
 
 
 

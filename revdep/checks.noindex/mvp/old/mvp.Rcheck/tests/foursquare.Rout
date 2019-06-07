@@ -1,0 +1,47 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # following check uses Euler's four-square identity:
+> 
+> library("mvp")
+
+Attaching package: 'mvp'
+
+The following object is masked from 'package:base':
+
+    drop
+
+> 
+> LHS <- as.mvp(
++   "
++   (a1^2 + a2^2 + a3^2 + a4^2)*
++   (b1^2 + b2^2 + b3^2 + b4^2)
++   "
++ )
+> 
+> RHS <- as.mvp("
++    (a1*b1-a2*b2-a3*b3-a4*b4)^2
++   +(a1*b2+a2*b1+a3*b4-a4*b3)^2
++   +(a1*b3-a2*b4+a3*b1+a4*b2)^2
++   +(a1*b4+a2*b3-a3*b2+a4*b1)^2
++ ")
+> 
+> stopifnot(LHS==RHS)
+> 
+> proc.time()
+   user  system elapsed 
+  0.733   0.091   0.811 

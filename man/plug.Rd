@@ -9,8 +9,7 @@ plug(p, indeterminate, value)
 \arguments{
 \item{p}{a polynomial}
 
-\item{indeterminate}{the indeterminate in the polynomial to
-switch}
+\item{indeterminate}{the indeterminate in the polynomial to switch}
 
 \item{value}{the value/indeterminate to substitute}
 }
@@ -28,7 +27,6 @@ plug(p, "x", 5)
 plug(p, "x", "t")
 plug(p, "x", "y")
 plug(p, "x", mp("2 y"))
-
 plug(p, "x", mp("x + y"))
 mp("((x+y)+y)^3")
 

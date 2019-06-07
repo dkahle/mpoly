@@ -6,7 +6,7 @@
 #'
 #' @param x an object of class mpoly
 #' @param varorder the order of the variables
-#' @param order a total order used to order the terms
+#' @param order a total order used to order the terms, \code{"lex"}, \code{"glex"}, or \code{"grlex"}
 #' @param ... additional arguments
 #' @usage \method{reorder}{mpoly}(x, varorder = vars(x), order, ...)
 #' @return An object of class mpoly.
@@ -49,10 +49,9 @@ reorder.mpoly <- function(x, varorder = vars(x), order = "lex", ...){
   
   if(!missing(varorder)){
     if(!all(vars %in% varorder)){
-      error <- paste(
-        "if specified, varorder must contain all computed vars - ",
-        paste(vars, collapse = ", "),
-        sep = ""
+      error <- stri_c(
+        "If specified, varorder must contain all computed vars - ",
+        paste(vars, collapse = ", ")
       )
       stop(error, call. = FALSE)
     }
@@ -69,10 +68,9 @@ reorder.mpoly <- function(x, varorder = vars(x), order = "lex", ...){
   }  
   
   if(missing(varorder) && !missing(order)){
-    message <- paste(
-      "using variable ordering - ",
-      paste(vars, collapse = ", "),
-      sep = ""
+    message <- stri_c(
+      "Using variable ordering - ",
+      paste(vars, collapse = ", ")
     )
     message(message)
   }

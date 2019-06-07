@@ -1,0 +1,614 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "mvp"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('mvp')
+
+Attaching package: ‘mvp’
+
+The following object is masked from ‘package:base’:
+
+    drop
+
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Ops.mvp")
+> ### * Ops.mvp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Ops.mvp
+> ### Title: Arithmetic Ops Group Methods for mvp objects
+> ### Aliases: Ops.mvp Ops mvp_negative mvp_times_mvp mvp_times_scalar
+> ###   mvp_plus_mvp mvp_plus_numeric mvp_plus_scalar mvp_power_scalar
+> ###   mvp_eq_mvp
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> p1 <- rmvp(3)
+> p2 <- rmvp(3)
+> 
+> p1*p2
+mvp object algebraically equal to
+3 a^3 b^9 c^4 d^12 e^10 f^2  +  6 a^4 b^7 c^8 d^6 e^10 f^3  +  4 a^4 c^9 e^21 f^5  +  2 a^6 b^9 c^9 e^11 f^11  +  3 a^6 b^16 c^8 d^6 f^9  +  2 a^7 b^9 c^3 d^4 e^10 f^2  +  a^9 b^18 c^3 d^4 f^8  +  9 b^7 c^9 d^14 e^10 f^3  +  6 c^10 d^8 e^21 f^5
+> 
+> p1+p2
+mvp object algebraically equal to
+a^3 b^9 d^4 f^2  +  2 a^4 c^3 e^10  +  a^6 b^9 c^3 f^6  +  3 b^7 c^5 d^6 f^3  +  3 c^4 d^8 e^10  +  2 c^6 e^11 f^5
+> 
+> p1^3
+mvp object algebraically equal to
+12 a^3 b^9 c^12 d^4 e^22 f^12  +  36 a^3 b^16 c^11 d^10 e^11 f^10  +  27 a^3 b^23 c^10 d^16 f^8  +  6 a^6 b^18 c^6 d^8 e^11 f^9  +  9 a^6 b^25 c^5 d^14 f^7  +  a^9 b^27 d^12 f^6  +  36 b^7 c^17 d^6 e^22 f^13  +  54 b^14 c^16 d^12 e^11 f^11  +  27 b^21 c^15 d^18 f^9  +  8 c^18 e^33 f^15
+> 
+> 
+> p1*(p1+p2) == p1^2+p1*p2  # should be TRUE
+[1] TRUE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("accessor")
+> ### * accessor
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: accessor
+> ### Title: Accessor methods for mvp objects
+> ### Aliases: accessors vars powers coeffs coeffs<- coeffs<-.mvp
+> ###   coefficients
+> 
+> ### ** Examples
+> 
+> a <- rmvp(5)
+> vars(a)
+[[1]]
+[1] "a" "b" "c" "f"
+
+[[2]]
+[1] "a" "b" "c" "d" "e" "f"
+
+[[3]]
+[1] "a" "b" "d" "f"
+
+[[4]]
+[1] "b" "c" "d" "f"
+
+[[5]]
+[1] "c" "e" "f"
+
+> powers(a)
+[[1]]
+[1] 2 1 8 4
+
+[[2]]
+[1] 2 6 5 3 5 3
+
+[[3]]
+[1] 3 9 6 5
+
+[[4]]
+[1] 8 4 3 7
+
+[[5]]
+[1]  9 10  3
+
+> coeffs(a)
+[1] 3 1 2 5 4
+> 
+> coeffs(a) <- 1  # A simpler object
+> coeffs(a) <- 0  # The zero polynomial
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("allvars")
+> ### * allvars
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: allvars
+> ### Title: All variables in a multivariate polynomial
+> ### Aliases: allvars
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> p <- rmvp(5)
+> allvars(p)
+[1] "a" "b" "c" "d" "e" "f"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("as.function")
+> ### * as.function
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.function.mvp
+> ### Title: Functional form for multivariate polynomials
+> ### Aliases: as.function.mvp
+> 
+> ### ** Examples
+> 
+> 
+> p <- as.mvp("1+a^2 + a*b^2 + c")
+> p
+mvp object algebraically equal to
+1  +  a b^2  +  a^2  +  c
+> f <- as.function(p)
+> 
+> f(a=1)
+mvp object algebraically equal to
+2  +  b^2  +  c
+> f(a=1,b=2)
+mvp object algebraically equal to
+6  +  c
+> f(a=1,b=2,c=3)
+[1] 9
+> f(a=1,b=2,c=3,drop=FALSE)
+mvp object algebraically equal to
+9
+> 
+> 
+> 
+> cleanEx()
+> nameEx("constant")
+> ### * constant
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: constant
+> ### Title: The constant term
+> ### Aliases: constant constant constant<- constant.mvp constant<-.mvp
+> ###   constant.numeric
+> 
+> ### ** Examples
+> 
+> a <- rmvp(5)+4
+> constant(a)
+[1] 4
+> constant(a) <- 33
+> a
+mvp object algebraically equal to
+33  +  3 a^2 b c^8 f^4  +  a^2 b^6 c^5 d^3 e^5 f^3  +  2 a^3 b^9 d^6 f^5  +  5 b^8 c^4 d^3 f^7  +  4 c^9 e^10 f^3
+> 
+> constant(0)  # the zero mvp
+mvp object algebraically equal to
+0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("deriv")
+> ### * deriv
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: deriv
+> ### Title: Differentiation of mvp objects
+> ### Aliases: deriv aderiv deriv.mvp deriv_mvp aderiv.mvp aderiv_mvp
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> p <- rmvp(10,9,9,letters[1:4])
+> deriv(p,letters[1:3])
+mvp object algebraically equal to
+1368 a b^5 c^18 d^12  +  1680 a b^20 c^9 d^12  +  2250 a^2 b^14 c^4 d^12  +  1728 a^7 b^3 c^17 d^21  +  1890 a^8 b^14 c^13 d^12  +  12768 a^11 b^18 c^7 d^6  +  1760 a^15 b^10 c^4 d^11  +  6912 a^17 b^11 c^3 d^15  +  26040 a^30 b^11 c^13 d^4
+> deriv(p,rev(letters[1:3]))  # should be the same
+mvp object algebraically equal to
+1368 a b^5 c^18 d^12  +  1680 a b^20 c^9 d^12  +  2250 a^2 b^14 c^4 d^12  +  1728 a^7 b^3 c^17 d^21  +  1890 a^8 b^14 c^13 d^12  +  12768 a^11 b^18 c^7 d^6  +  1760 a^15 b^10 c^4 d^11  +  6912 a^17 b^11 c^3 d^15  +  26040 a^30 b^11 c^13 d^4
+> 
+> aderiv(p,a=1,b=2,c=1)
+mvp object algebraically equal to
+6840 a b^4 c^18 d^12  +  33600 a b^19 c^9 d^12  +  31500 a^2 b^13 c^4 d^12  +  5184 a^7 b^2 c^17 d^21  +  26460 a^8 b^13 c^13 d^12  +  229824 a^11 b^17 c^7 d^6  +  17600 a^15 b^9 c^4 d^11  +  76032 a^17 b^10 c^3 d^15  +  286440 a^30 b^10 c^13 d^4
+> 
+> ## verify the chain rule:
+> x <- rmvp(7,symbols=6)
+> v <- allvars(x)[1]
+> s <- as.mvp("1  +  y  -  y^2 zz  +  y^3 z^2")
+> LHS <- subsmvp(deriv(x,v)*deriv(s,"y"),v,s)   # dx/ds*ds/dy
+> RHS <- deriv(subsmvp(x,v,s),"y")              # dx/dy
+> 
+> LHS - RHS # should be zero
+mvp object algebraically equal to
+0
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("drop")
+> ### * drop
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: drop
+> ### Title: Drop empty variables
+> ### Aliases: drop
+> 
+> ### ** Examples
+> 
+> 
+> m1 <- as.mvp("1+bish +bash^2 + bosh^3")
+> m2 <- as.mvp("bish +bash^2 + bosh^3")
+> 
+> m1-m2         # an mvp object
+mvp object algebraically equal to
+1
+> drop(m1-m2)   # numeric
+[1] 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("invert")
+> ### * invert
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: invert
+> ### Title: Replace symbols with their reciprocals
+> ### Aliases: invert
+> 
+> ### ** Examples
+> 
+> invert("x")
+mvp object algebraically equal to
+x^-1
+> 
+> invert(rmvp(10,7,7,letters[1:3]),"a")
+mvp object algebraically equal to
+8 a^-18 b^14  +  10 a^-17 b^11 c^8  +  6 a^-16 b^12 c^3  +  9 a^-12 b^11 c^9  +  7 a^-7 b^9 c^17  +  5 a^-7 b^15 c^11  +  a^-6 b^7 c^8  +  4 a^-5 b^10 c^5  +  3 a^-4 b^11 c^17  +  2 b^4 c^16
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("kahle")
+> ### * kahle
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: kahle
+> ### Title: A sparse multivariate polynomial
+> ### Aliases: kahle
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> kahle()  # a+b+...+z
+mvp object algebraically equal to
+a  +  b  +  c  +  d  +  e  +  f  +  g  +  h  +  i  +  j  +  k  +  l  +  m  +  n  +  o  +  p  +  q  +  r  +  s  +  t  +  u  +  v  +  w  +  x  +  y  +  z
+> kahle(r=2,p=1:2)  # Kahle's original example
+mvp object algebraically equal to
+a z^2  +  a^2 b  +  b^2 c  +  c^2 d  +  d^2 e  +  e^2 f  +  f^2 g  +  g^2 h  +  h^2 i  +  i^2 j  +  j^2 k  +  k^2 l  +  l^2 m  +  m^2 n  +  n^2 o  +  o^2 p  +  p^2 q  +  q^2 r  +  r^2 s  +  s^2 t  +  t^2 u  +  u^2 v  +  v^2 w  +  w^2 x  +  x^2 y  +  y^2 z
+> 
+> ## example where mvp runs faster than spray (mvp does not need a 200x200 matrix):
+> k <- kahle(200,r=3,p=1:3,symbols=paste("x",sprintf("%02d",1:200),sep=""))
+> system.time(ignore <- k^2)
+   user  system elapsed 
+  0.527   0.019   0.550 
+> #system.time(ignore <- mvp_to_spray(k)^2)   # needs spray package loaded
+> 
+> 
+> 
+> cleanEx()
+> nameEx("knight")
+> ### * knight
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: knight
+> ### Title: Chess knight
+> ### Aliases: knight_mvp knight
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> 
+> knight(2)      # regular chess knight on a regular chess board
+mvp object algebraically equal to
+a^-2 b^-1  +  a^-2 b  +  a^-1 b^-2  +  a^-1 b^2  +  a b^-2  +  a b^2  +  a^2 b^-1  +  a^2 b
+> knight(2,TRUE) # regular chess knight that can stay still
+mvp object algebraically equal to
+1  +  a^-2 b^-1  +  a^-2 b  +  a^-1 b^-2  +  a^-1 b^2  +  a b^-2  +  a b^2  +  a^2 b^-1  +  a^2 b
+> 
+> # Q: how many ways are there for a 4D knight to return to its starting
+> # square after four moves?
+> 
+> # A:
+> constant(knight(4)^4)
+[1] 12528
+> 
+> # Q ...and how many ways in four moves or fewer?
+> 
+> # A1:
+> constant(knight(4,TRUE)^4)
+[1] 12817
+> 
+> # A2:
+> constant((1+knight(4))^4)
+[1] 12817
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mpoly")
+> ### * mpoly
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mpoly
+> ### Title: Conversion to and from mpoly form
+> ### Aliases: mpoly mpoly_to_mvp mvp_to_mpoly as.mpoly.mvp
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> 
+> x <- rmvp(5)
+> 
+> x == mpoly_to_mvp(mpoly::as.mpoly(x))        # should be TRUE
+[1] TRUE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mvp")
+> ### * mvp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mvp
+> ### Title: Multivariate polynomials, mvp objects
+> ### Aliases: mvp is.mvp as.mvp is_ok_mvp
+> 
+> ### ** Examples
+> 
+> 
+> mvp(list("x" , c("x","y"), "a",c("y","x")),list(1,1:2,3,c(-1,4)),1:4)
+mvp object algebraically equal to
+3 a^3  +  x  +  2 x y^2  +  4 x^4 y^-1
+> 
+> ## Note how the terms appear in an arbitrary order, as do
+> ## the symbols within a term.
+> 
+> 
+> kahle  <- mvp(
++     vars   = split(cbind(letters,letters[c(26,1:25)]),rep(seq_len(26),each=2)),
++     powers = rep(list(1:2),26),
++     coeffs = 1:26
++ )
+> 
+> ## again note arbitrary order of terms and symbols within a term
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print")
+> ### * print
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print
+> ### Title: Print methods for mvp objects
+> ### Aliases: print.mvp print_mvp
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> 
+> a <- rmvp(4)
+> a
+mvp object algebraically equal to
+4 a^2 b^10 d^7 f^3  +  2 a^3 b^5 c^5 d e^4 f^4  +  3 b^8 c^3 d f^6  +  c^4 e^15 f^4
+> print(a)
+mvp object algebraically equal to
+4 a^2 b^10 d^7 f^3  +  2 a^3 b^5 c^5 d e^4 f^4  +  3 b^8 c^3 d f^6  +  c^4 e^15 f^4
+> print(a,stars=TRUE)
+mvp object algebraically equal to
+4 * a**2 * b**10 * d**7 * f**3  +  2 * a**3 * b**5 * c**5 * d * e**4 * f**4  +  3 * b**8 * c**3 * d * f**6  +  c**4 * e**15 * f**4
+> print(a,varorder=rev(letters))
+mvp object algebraically equal to
+3 f^6 d c^3 b^8  +  f^4 e^15 c^4  +  2 f^4 e^4 d c^5 b^5 a^3  +  4 f^3 d^7 b^10 a^2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rmvp")
+> ### * rmvp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rmvp
+> ### Title: Random multivariate polynomials
+> ### Aliases: rmvp
+> 
+> ### ** Examples
+> 
+> rmvp(5)
+mvp object algebraically equal to
+3 a^2 b c^8 f^4  +  a^2 b^6 c^5 d^3 e^5 f^3  +  2 a^3 b^9 d^6 f^5  +  5 b^8 c^4 d^3 f^7  +  4 c^9 e^10 f^3
+> rmvp(5,symbols=state.abb)
+mvp object algebraically equal to
+2 AZ^3 DE^4 ID^6 NC^3 RI^5 UT^2  +  3 CA^5 IL^5 KY^4 MS^3 RI^3 UT^4  +  4 CT HI IL^3 KY^3 OK^5 PA  +  5 KY^6 LA^2 MS^4 TN^3 UT VT^2  +  MD^6 MI^6 OK^5 RI^6 WI^4
+> 
+> 
+> 
+> cleanEx()
+> nameEx("special")
+> ### * special
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: special
+> ### Title: Various functions to create simple multivariate polynomials
+> ### Aliases: special product homog linear xyz numeric_to_mvp
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> product(1:3)        #      a * b^2 * c^3
+mvp object algebraically equal to
+a b^2 c^3
+> homog(3)            #      a + b + c
+mvp object algebraically equal to
+a  +  b  +  c
+> homog(3,2)          #      a^2  + a b + a c + b^2 + b c + c^2
+mvp object algebraically equal to
+a b  +  a c  +  a^2  +  b c  +  b^2  +  c^2
+> linear(1:3)         #      1*a + 2*b + 3*c
+mvp object algebraically equal to
+a  +  2 b  +  3 c
+> constant(5)         #      5
+mvp object algebraically equal to
+5
+> xyz(5)              #      a*b*c*d*e
+mvp object algebraically equal to
+a b c d e
+> 
+> 
+> 
+> cleanEx()
+> nameEx("spray")
+> ### * spray
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: spray
+> ### Title: Spray functionality
+> ### Aliases: spray spray_to_mvp mvp_to_spray
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> 
+> mvp_to_spray(rmvp(5))
+[[1]]
+     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    2    1    8    0    0    4
+[2,]    2    6    5    3    5    3
+[3,]    3    9    0    6    0    5
+[4,]    0    8    4    3    0    7
+[5,]    0    0    9    0   10    3
+
+[[2]]
+[1] 3 1 2 5 4
+
+attr(,"class")
+[1] "spray"
+> spray_to_mvp(spray::spray(diag(6),1:6))
+mvp object algebraically equal to
+a  +  2 b  +  3 c  +  4 d  +  5 e  +  6 f
+> 
+> 
+> 
+> cleanEx()
+> nameEx("subs")
+> ### * subs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: subs
+> ### Title: Substitution
+> ### Aliases: subs subsy substitute subsmvp subs_mvp mvp_subs_mvp
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> p <- rmvp(6,2,2,letters[1:3])
+> p
+mvp object algebraically equal to
+3 a b^2  +  2 a^2 b  +  a^2 c^2  +  4 a^3  +  11 b^2 c
+> subs(p,a=1)
+mvp object algebraically equal to
+4  +  2 b  +  3 b^2  +  11 b^2 c  +  c^2
+> subs(p,a=1,b=2)
+mvp object algebraically equal to
+20  +  44 c  +  c^2
+> 
+> subs(p,a="1+b x^3",b="1-y")
+mvp object algebraically equal to
+9  +  11 c  -  22 c y  +  11 c y^2  +  c^2  +  2 c^2 x^3  -  2 c^2 x^3 y  +  c^2 x^6  -  2 c^2 x^6 y  +  c^2 x^6 y^2  +  19 x^3  -  29 x^3 y  +  13 x^3 y^2  -  3 x^3 y^3  +  14 x^6  -  30 x^6 y  +  18 x^6 y^2  -  2 x^6 y^3  +  4 x^9  -  12 x^9 y  +  12 x^9 y^2  -  4 x^9 y^3  -  8 y  +  3 y^2
+> subs(p,a=1,b=2,c=3,drop=FALSE)
+mvp object algebraically equal to
+161
+> 
+> do.call(subs,c(list(as.mvp("z")),rep(c(z="C+z^2"),5)))
+mvp object algebraically equal to
+C  +  2 C z^16  +  4 C z^24  +  8 C z^28  +  16 C z^30  +  C^2  +  4 C^2 z^8  +  8 C^2 z^12  +  16 C^2 z^14  +  6 C^2 z^16  +  24 C^2 z^20  +  48 C^2 z^22  +  28 C^2 z^24  +  112 C^2 z^26  +  120 C^2 z^28  +  2 C^3  +  8 C^3 z^4  +  16 C^3 z^6  +  16 C^3 z^8  +  48 C^3 z^10  +  80 C^3 z^12  +  48 C^3 z^14  +  60 C^3 z^16  +  240 C^3 z^18  +  320 C^3 z^20  +  336 C^3 z^22  +  728 C^3 z^24  +  560 C^3 z^26  +  5 C^4  +  16 C^4 z^2  +  40 C^4 z^4  +  64 C^4 z^6  +  156 C^4 z^8  +  256 C^4 z^10  +  248 C^4 z^12  +  480 C^4 z^14  +  1150 C^4 z^16  +  1440 C^4 z^18  +  1848 C^4 z^20  +  2912 C^4 z^22  +  1820 C^4 z^24  +  14 C^5  +  48 C^5 z^2  +  120 C^5 z^4  +  304 C^5 z^6  +  560 C^5 z^8  +  816 C^5 z^10  +  1736 C^5 z^12  +  3440 C^5 z^14  +  4500 C^5 z^16  +  6160 C^5 z^18  +  8008 C^5 z^20  +  4368 C^5 z^22  +  26 C^6  +  112 C^6 z^2  +  360 C^6 z^4  +  832 C^6 z^6  +  1648 C^6 z^8  +  3696 C^6 z^10  +  7000 C^6 z^12  +  9888 C^6 z^14  +  13860 C^6 z^16  +  16016 C^6 z^18  +  8008 C^6 z^20  +  44 C^7  +  240 C^7 z^2  +  784 C^7 z^4  +  2048 C^7 z^6  +  5040 C^7 z^8  +  9968 C^7 z^10  +  15456 C^7 z^12  +  22176 C^7 z^14  +  24024 C^7 z^16  +  11440 C^7 z^18  +  69 C^8  +  416 C^8 z^2  +  1536 C^8 z^4  +  4480 C^8 z^6  +  9940 C^8 z^8  +  17280 C^8 z^10  +  25872 C^8 z^12  +  27456 C^8 z^14  +  12870 C^8 z^16  +  94 C^9  +  640 C^9 z^2  +  2520 C^9 z^4  +  6800 C^9 z^6  +  13740 C^9 z^8  +  22176 C^9 z^10  +  24024 C^9 z^12  +  11440 C^9 z^14  +  114 C^10  +  816 C^10 z^2  +  3040 C^10 z^4  +  7600 C^10 z^6  +  13860 C^10 z^8  +  16016 C^10 z^10  +  8008 C^10 z^12  +  116 C^11  +  800 C^11 z^2  +  2784 C^11 z^4  +  6160 C^11 z^6  +  8008 C^11 z^8  +  4368 C^11 z^10  +  94 C^12  +  608 C^12 z^2  +  1848 C^12 z^4  +  2912 C^12 z^6  +  1820 C^12 z^8  +  60 C^13  +  336 C^13 z^2  +  728 C^13 z^4  +  560 C^13 z^6  +  28 C^14  +  112 C^14 z^2  +  120 C^14 z^4  +  8 C^15  +  16 C^15 z^2  +  C^16  +  z^32
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zero")
+> ### * zero
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zero
+> ### Title: The zero polynomial
+> ### Aliases: zero is.zero
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> 
+> constant(0)
+mvp object algebraically equal to
+0
+> 
+> t1 <- as.mvp("x+y")
+> t2 <- as.mvp("x-y")
+> 
+> stopifnot(is.zero(t1*t2-as.mvp("x^2-y^2")))
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  3.434 0.127 3.599 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

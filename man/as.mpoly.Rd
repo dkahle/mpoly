@@ -15,8 +15,7 @@ as.mpoly(x, ...)
 the object formated as a mpoly object.
 }
 \description{
-mpoly is the most basic function used to create objects of class
-mpoly.
+mpoly is the most basic function used to create objects of class mpoly.
 }
 \examples{
 
@@ -30,20 +29,20 @@ s <- seq(-5, 5, length.out = n)
 
 # one dimensional case
 
-df <- data.frame(x = seq(-5, 5, length.out = n)) \%>\% 
+df <- data.frame(x = seq(-5, 5, length.out = n)) \%>\%
   mutate(y = -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 (mod <- lm(y ~ x + I(x^2), data = df))
 (p <- as.mpoly(mod))
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = "red", size = 1)
-  
-(mod <- lm(y ~ poly(x, 2, raw = TRUE), data = df))  
+
+(mod <- lm(y ~ poly(x, 2, raw = TRUE), data = df))
 (p <- as.mpoly(mod))
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = "red", size = 1)
-  
-(mod <- lm(y ~ poly(x, 1, raw = TRUE), data = df))  
+
+(mod <- lm(y ~ poly(x, 1, raw = TRUE), data = df))
 (p <- as.mpoly(mod))
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = "red", size = 1)
@@ -52,7 +51,7 @@ qplot(x, y, data = df) +
 
 # two dimensional case with ggplot2
 
-df <- expand.grid(x = s, y = s) \%>\% 
+df <- expand.grid(x = s, y = s) \%>\%
   mutate(z = x^2 - y^2 + 3*x*y + rnorm(n^2, 0, 3))
 qplot(x, y, data = df, geom = "raster", fill = z)
 
@@ -73,8 +72,8 @@ qplot(x, y, data = df, geom = "raster", fill = z - fit) # residuals
 
 }
 \seealso{
-\code{\link{mp}}
+\code{\link[=mp]{mp()}}
 }
 \author{
-David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david@kahle.io}
 }

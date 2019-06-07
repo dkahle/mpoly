@@ -1,0 +1,977 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "m2r"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('m2r')
+Loading required package: mpoly
+M2 found in /Applications/Macaulay2-1.10/bin
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("enter_m2")
+> ### * enter_m2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: enter_m2
+> ### Title: Enter a Macaulay2 session
+> ### Aliases: enter_m2
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2 be installed and an interactive session
+> ##D 
+> ##D enter_m2()
+> ##D 
+> ##D # m2 code below
+> ##D 1 + 1
+> ##D a = 1
+> ##D a
+> ##D R = QQ[t,x,y,z]
+> ##D I = ideal(t^4  -  x, t^3  -  y, t^2  -  z)
+> ##D gens gb I
+> ##D exit
+> ##D 
+> ##D # back in R, the variable persists using m2()
+> ##D m2("a")
+> ##D m2("I")
+> ##D 
+> ##D 
+> ##D # we can also define variables in R that persist in m2
+> ##D m2("b = 5")
+> ##D 
+> ##D enter_m2()
+> ##D b
+> ##D exit
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("factor_n")
+> ### * factor_n
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: factor_n
+> ### Title: Factor an integer into primes
+> ### Aliases: factor_n factor_n.
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D 2^2 * 3^7 * 5^2 # = 218700
+> ##D factor_n(218700)
+> ##D factor_n.(218700)
+> ##D 
+> ##D (df <- factor_n(218700))
+> ##D df$prime
+> ##D df$power
+> ##D str(df)
+> ##D 
+> ##D 
+> ##D factor_n(218700, code = TRUE)
+> ##D 
+> ##D 
+> ##D ##### other options
+> ##D ########################################
+> ##D 
+> ##D (integer_pointer <- m2.("218700"))
+> ##D m2_name(integer_pointer)
+> ##D factor_n(integer_pointer, code = TRUE)
+> ##D factor_n(integer_pointer)
+> ##D 
+> ##D 
+> ##D 
+> ##D factor_n(3234432540)
+> ##D factor_n(323443254223453)
+> ##D factor_n(rpois(1, 1e4))
+> ##D 
+> ##D 
+> ##D ##### known issues
+> ##D ########################################
+> ##D 
+> ##D # R doesn't handle big ints well. note in the following
+> ##D # the m2 code number is different than the supplied number
+> ##D factor_n(32344325422364353453, code = TRUE)
+> ##D 
+> ##D # this can be circumvented by passing a string instead
+> ##D factor_n("32344325422364353453", code = TRUE)
+> ##D 
+> ##D # but if the factors are large, R can't handle the parsing well
+> ##D factor_n("32344325422364353453")
+> ##D 
+> ##D # here's a workaround:
+> ##D factor_pointer <- factor_n.("32344325422364353453")
+> ##D m2_meta(factor_pointer, "ext_str")
+> ##D extract_factors <- function(pointer) {
+> ##D   require(stringr)
+> ##D   str <- m2_meta(pointer, "ext_str")
+> ##D   str <- str_sub(str, 19, -2)
+> ##D   str <- str_extract_all(str, "\\{[0-9]+,[0-9]+\\}")[[1]]
+> ##D   str <- str_sub(str, 2, -2)
+> ##D   str <- str_split(str, ",")
+> ##D   df <- as.data.frame(t(simplify2array(str)))
+> ##D   names(df) <- c("prime", "power")
+> ##D   df
+> ##D }
+> ##D (df <- extract_factors(factor_pointer))
+> ##D 
+> ##D 
+> ##D # using gmp (currently broken)
+> ##D # factor_n("32344325422364353453", gmp = TRUE)
+> ##D m2("11 * 479 * 6138607975396537")
+> ##D 11 * 479 * 6138607975396537
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("factor_poly")
+> ### * factor_poly
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: factor_poly
+> ### Title: Factor a polynomial
+> ### Aliases: factor_poly factor_poly.
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2 be installed and an interactive session
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y", coefring = "QQ")
+> ##D factor_poly("x^4 - y^4")
+> ##D 
+> ##D # reference function
+> ##D factor_poly.("x^4 - y^4")
+> ##D 
+> ##D 
+> ##D ##### different inputs
+> ##D ########################################
+> ##D 
+> ##D # factor_poly accepts mpoly objects:
+> ##D (p <- mp("x^4 - y^4"))
+> ##D factor_poly.(p)
+> ##D factor_poly(p)
+> ##D mp("(x-y) (x+y) (x^2+y^2)")
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### other examples
+> ##D ########################################
+> ##D 
+> ##D ring("x","y", "z", coefring = "QQ")
+> ##D (p <- mp("(x^2 - y) (x^2 + y) (x + y)^2 (x - z)^2"))
+> ##D factor_poly.(p)
+> ##D factor_poly(p)
+> ##D 
+> ##D (p <- mp("(x-1)^3 (y-1)^3"))
+> ##D factor_poly.(p)
+> ##D factor_poly(p)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gb")
+> ### * gb
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gb
+> ### Title: Compute a Grobner basis with Macaulay2
+> ### Aliases: gb gb. gb_ gb_.
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D # the last ring evaluated is the one used in the computation
+> ##D ring("t","x","y","z", coefring = "QQ")
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D 
+> ##D # here's the code it's running in M2
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z", code = TRUE)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### different versions of gb
+> ##D ########################################
+> ##D 
+> ##D # standard evaluation version
+> ##D poly_chars <- c("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D gb_(poly_chars)
+> ##D 
+> ##D # reference nonstandard evaluation version
+> ##D gb.("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D 
+> ##D # reference standard evaluation version
+> ##D gb_.(poly_chars)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### different inputs to gb
+> ##D ########################################
+> ##D 
+> ##D # ideals can be passed to gb
+> ##D I <- ideal("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D gb_(I)
+> ##D 
+> ##D # note that gb() works here, too, since there is only one input
+> ##D gb(I)
+> ##D 
+> ##D # ideal pointers can be passed to gb
+> ##D I. <- ideal.("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D gb_(I.)
+> ##D 
+> ##D # setting raw_chars is a bit faster, because it doesn't use ideal()
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z", raw_chars = TRUE, code = TRUE)
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z", raw_chars = TRUE)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### more advanced usage
+> ##D ########################################
+> ##D 
+> ##D # the control argument accepts a named list with additional
+> ##D # options
+> ##D gb_(
+> ##D   c("t^4 - x", "t^3 - y", "t^2 - z"),
+> ##D   control = list(StopWithMinimalGenerators = TRUE),
+> ##D   code = TRUE
+> ##D )
+> ##D 
+> ##D gb_(
+> ##D   c("t^4 - x", "t^3 - y", "t^2 - z"),
+> ##D   control = list(StopWithMinimalGenerators = TRUE)
+> ##D )
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### potential issues
+> ##D ########################################
+> ##D 
+> ##D # when specifying raw_chars, be sure to add asterisks
+> ##D # between variables to create monomials; that's the M2 way
+> ##D ring("x", "y", "z", coefring = "QQ")
+> ##D gb("x y", "x z", "x", raw_chars = TRUE, code = TRUE) # errors without code = TRUE
+> ##D gb("x*y", "x*z", "x", raw_chars = TRUE, code = TRUE) # correct way
+> ##D gb("x*y", "x*z", "x", raw_chars = TRUE)
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ideal")
+> ### * ideal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ideal
+> ### Title: Create a new ideal in Macaulay2
+> ### Aliases: ideal ideal. ideal_ ideal_. print.m2_ideal print.m2_ideal_list
+> ###   radical radical. saturate saturate. quotient quotient.
+> ###   primary_decomposition primary_decomposition. dimension +.m2_ideal
+> ###   *.m2_ideal ==.m2_ideal ^.m2_ideal
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y", coefring = "QQ")
+> ##D ideal("x + y", "x^2 + y^2")
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### different versions of gb
+> ##D ########################################
+> ##D 
+> ##D # standard evaluation version
+> ##D poly_chars <- c("x + y", "x^2 + y^2")
+> ##D ideal_(poly_chars)
+> ##D 
+> ##D # reference nonstandard evaluation version
+> ##D ideal.("x + y", "x^2 + y^2")
+> ##D 
+> ##D # reference standard evaluation version
+> ##D ideal_.(poly_chars)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### different inputs to gb
+> ##D ########################################
+> ##D 
+> ##D ideal_(   c("x + y", "x^2 + y^2") )
+> ##D ideal_(mp(c("x + y", "x^2 + y^2")))
+> ##D ideal_(list("x + y", "x^2 + y^2") )
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### predicate functions
+> ##D ########################################
+> ##D 
+> ##D I  <- ideal ("x + y", "x^2 + y^2")
+> ##D I. <- ideal.("x + y", "x^2 + y^2")
+> ##D is.m2_ideal(I)
+> ##D is.m2_ideal(I.)
+> ##D is.m2_ideal_pointer(I)
+> ##D is.m2_ideal_pointer(I.)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### ideal radical
+> ##D ########################################
+> ##D 
+> ##D I <- ideal("(x^2 + 1)^2 y", "y + 1")
+> ##D radical(I)
+> ##D radical.(I)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### ideal dimension
+> ##D ########################################
+> ##D 
+> ##D I <- ideal_(c("(x^2 + 1)^2 y", "y + 1"))
+> ##D dimension(I)
+> ##D 
+> ##D # dimension of a line
+> ##D ring("x", "y", coefring = "QQ")
+> ##D I <- ideal("y - (x+1)")
+> ##D dimension(I)
+> ##D 
+> ##D # dimension of a plane
+> ##D ring("x", "y", "z", coefring = "QQ")
+> ##D I <- ideal("z - (x+y+1)")
+> ##D dimension(I)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### ideal quotients and saturation
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y", "z", coefring = "QQ")
+> ##D (I <- ideal("x^2", "y^4", "z + 1"))
+> ##D (J <- ideal("x^6"))
+> ##D 
+> ##D quotient(I, J)
+> ##D quotient.(I, J)
+> ##D 
+> ##D saturate(I)
+> ##D saturate.(I)
+> ##D saturate(I, J)
+> ##D saturate(I, mp("x"))
+> ##D saturate(I, "x")
+> ##D 
+> ##D 
+> ##D ring("x", "y", coefring = "QQ")
+> ##D saturate(ideal("x y"), "x^2")
+> ##D 
+> ##D # saturation removes parts of varieties
+> ##D # solution over R is x = -1, 0, 1
+> ##D ring("x", coefring = "QQ")
+> ##D I <- ideal("(x-1) x (x+1)")
+> ##D saturate(I, "x") # remove x = 0 from solution
+> ##D ideal("(x-1) (x+1)")
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### primary decomposition
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y", "z", coefring = "QQ")
+> ##D I <- ideal("(x^2 + 1) (x^2 + 2)", "y + 1")
+> ##D primary_decomposition(I)
+> ##D primary_decomposition.(I)
+> ##D 
+> ##D I <- ideal("x (x + 1)", "y")
+> ##D primary_decomposition(I)
+> ##D 
+> ##D # variety = z axis union x-y plane
+> ##D (I <- ideal("x z", "y z"))
+> ##D dimension(I) # =  max dimension of irreducible components
+> ##D (Is <- primary_decomposition(I))
+> ##D dimension(Is)
+> ##D 
+> ##D 
+> ##D 
+> ##D ##### ideal arithmetic
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y", "z", coefring = "RR")
+> ##D 
+> ##D # sums (cox et al., 184)
+> ##D (I <- ideal("x^2 + y"))
+> ##D (J <- ideal("z"))
+> ##D I + J
+> ##D 
+> ##D # products (cox et al., 185)
+> ##D (I <- ideal("x", "y"))
+> ##D (J <- ideal("z"))
+> ##D I * J
+> ##D 
+> ##D # equality
+> ##D (I <- ideal("x", "y"))
+> ##D (J <- ideal("z"))
+> ##D I == J
+> ##D I == I
+> ##D 
+> ##D # powers
+> ##D (I <- ideal("x", "y"))
+> ##D I^3
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("is")
+> ### * is
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: is
+> ### Title: Macaulay2 object tests
+> ### Aliases: is is.m2 is.m2_pointer is.ring is.m2_polynomialring
+> ###   is.m2_polynomialring_pointer is.m2_grobner_basis is.m2_ideal
+> ###   is.m2_ideal_pointer is.m2_ideal_list is.m2_ideal_list_pointer
+> ###   is.m2_module is.m2_option is.m2_matrix is.m2_matrix_pointer
+> ###   is.m2_list is.m2_array is.m2_sequence
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D R <- ring(c("x1", "x2", "x3"))
+> ##D is.m2(R)
+> ##D is.ring(R)
+> ##D is.ring(10)
+> ##D is.ring(mp("x+1"))
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("m2_call")
+> ### * m2_call
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: m2_call
+> ### Title: Call and reset a Macaulay2 process
+> ### Aliases: m2_call m2r_version_number start_m2 stop_m2 reset_m2 m2 m2.
+> ###   print.m2_pointer
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D m2("1 + 1")
+> ##D m2.("1 + 1")
+> ##D 
+> ##D m2("factor 32004")
+> ##D 
+> ##D # run a chunk of m2 code, only pulling the end value back into R
+> ##D m2("
+> ##D   R = QQ[a..d]
+> ##D   I = ideal(a^3-b^2*c, b*c^2-c*d^2, c^3)
+> ##D   G = gens gb I
+> ##D ")
+> ##D 
+> ##D # illustrate the persistent connection
+> ##D m2("a = 1 + 1")
+> ##D m2("a")
+> ##D reset_m2()
+> ##D m2("a")
+> ##D 
+> ##D 
+> ##D 
+> ##D m2.("peek(QQ[x,y,z])")
+> ##D m2("peek(QQ[x,y,z])")
+> ##D 
+> ##D # m2 returns in its ext_str position the result of running
+> ##D # toExternalString on the return value of the chunk of code
+> ##D # you run. in principle, toExternalString provides the code
+> ##D # needed to recreate the m2 object of interest. however,
+> ##D # does not work for all objects represtable in the m2 language.
+> ##D # in particular, mutable objects are not supported.
+> ##D # this is what happens when you look at those:
+> ##D m2.("new MutableList from {1,2,3}")
+> ##D m2("new MutableList from {1,2,3}")
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("m2_matrix")
+> ### * m2_matrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: m2_matrix
+> ### Title: Create a new matrix in Macaulay2
+> ### Aliases: m2_matrix m2_matrix. m2_numrows m2_numcols m2_length
+> ###   print.m2_matrix print.m2_image m2_kernel m2_kernel.
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D (mat <- m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
+> ##D m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
+> ##D 
+> ##D m2_name(mat)
+> ##D m2(m2_name(mat))
+> ##D m2(sprintf("class(%s)", m2_name(mat)))
+> ##D (mat <- m2_matrix.(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2)))
+> ##D 
+> ##D ##### known issues
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y", "z", coefring = "QQ")
+> ##D mat <- matrix(mp(c("x","y","x+y","y-2","x-3","y-z")), nrow = 2, ncol = 3)
+> ##D m2_matrix(mat, code = TRUE)
+> ##D m2_matrix(mat)
+> ##D # the above is an mpoly problem, not a m2r problem
+> ##D # mpoly does not have a data structure for matrices (as of 12/2016)
+> ##D 
+> ##D mat_chars <- sapply(m2_matrix(mat), print, silent = TRUE)
+> ##D dim(mat_chars) <- c(2, 3)
+> ##D mat_chars
+> ##D 
+> ##D 
+> ##D m2_numrows(mat)
+> ##D m2_numcols(mat)
+> ##D m2_parse(mat)
+> ##D 
+> ##D (mat <- m2_matrix(matrix(c(1,2),nrow=1)))
+> ##D m2_kernel(mat)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("m2_parser")
+> ### * m2_parser
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: m2_parser
+> ### Title: Convert a M2 object into an R object
+> ### Aliases: m2_parser m2_parse print.m2_integer print.m2_float
+> ###   print.m2_complex print.m2_string print.m2_boolean print.m2_list
+> ###   print.m2_array print.m2_sequence print.m2_symbol print.m2_option
+> ###   print.m2_hashtable print.m2_module m2_toggle_gmp get_m2_gmp
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D m2("1+1")
+> ##D m2.("1+1")
+> ##D m2_parse(m2.("1+1"))
+> ##D 
+> ##D m2("QQ[x,y]")
+> ##D m2.("QQ[x,y]")
+> ##D m2_parse(m2.("QQ[x,y]"))
+> ##D 
+> ##D get_m2_gmp()
+> ##D m2("3/2") %>% m2_parse()
+> ##D m2_toggle_gmp() # gmp on
+> ##D m2("3/2") %>% m2_parse()
+> ##D m2("6/4") %>% m2_parse()
+> ##D m2("3345234524352435432/223454325235432524352433245") %>% m2_parse()
+> ##D m2_toggle_gmp() # gmp off
+> ##D 
+> ##D 
+> ##D 
+> ##D m2("50!") %>% m2_parse()
+> ##D m2_toggle_gmp() # gmp on
+> ##D m2("50!") %>% m2_parse()
+> ##D m2_toggle_gmp() # gmp off
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("m2_path")
+> ### * m2_path
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: m2_path
+> ### Title: Set path to Macaulay2 (M2)
+> ### Aliases: m2_path set_m2_path get_m2_path get_m2_con get_m2_procid
+> ###   get_m2_port
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D 
+> ##D getOption("m2r")
+> ##D get_m2_path()
+> ##D set_m2_path()
+> ##D 
+> ##D 
+> ##D ## each of these functions can be used statically as well
+> ##D (m2_path <- get_m2_path())
+> ##D set_m2_path("/path/to/m2/directory")
+> ##D get_m2_path()
+> ##D set_m2_path(m2_path) # undoes example
+> ##D 
+> ##D 
+> ##D # if you'd like to use the cloud, after you library(m2r)
+> ##D # and before you use m2() type
+> ##D set_m2_path(NULL)
+> ##D 
+> ##D # alternatively, if you have already been using m2, do:
+> ##D stop_m2()
+> ##D set_m2_path(NULL)
+> ##D m2("1+1")
+> ##D 
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("m2_utility")
+> ### * m2_utility
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: m2_utility
+> ### Title: Utility tools for M2
+> ### Aliases: m2_utility m2_name m2_name<- m2_meta m2_meta<- m2_structure
+> ###   m2_exists m2_ls m2_rm m2_getwd
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D m2("a = 5")
+> ##D m2_ls()
+> ##D m2_exists("a")
+> ##D m2("b = 1")
+> ##D m2_exists(c("a","b","c"))
+> ##D 
+> ##D m2_getwd()
+> ##D 
+> ##D x <- 1
+> ##D class(x) <- "m2"
+> ##D attr(x, "m2_meta") <- list(a = 1, b = 2)
+> ##D m2_meta(x)
+> ##D m2_meta(x, "b")
+> ##D m2_meta(x, "b") <- 5
+> ##D m2_meta(x, "b")
+> ##D 
+> ##D # R <- ring(c("x1", "x2", "x3"))
+> ##D # m2_name(R)
+> ##D # m2(sprintf("class %s", m2_name(R)))
+> ##D # m2_ls()
+> ##D # m2_rm(m2_name(R))
+> ##D # m2_ls()
+> ##D # m2(paste("class", m2_name(R)))
+> ##D 
+> ##D m2_ls()
+> ##D m2_ls(all.names = TRUE)
+> ##D 
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("phc")
+> ### * phc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: phc
+> ### Title: PHCpack
+> ### Aliases: phc solve_system solve_system. mixed_volume
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D # for this to work, you need to have modified your
+> ##D # init-PHCpack.m2 file instead of changing your .bashrc
+> ##D # file to establish the path of phc
+> ##D # (**clarify**, maybe checkout algstat::polySolve)
+> ##D 
+> ##D (mpolyList <- mp(c("t^4 - x", "t^3 - y", "t^2 - z", "x+y+z")))
+> ##D solve_system(mpolyList)
+> ##D mixed_volume(mpolyList)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ring")
+> ### * ring
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ring
+> ### Title: Create a new ring in Macaulay2
+> ### Aliases: ring ring. ring_ ring_. m2_coefrings m2_termorders
+> ###   print.m2_polynomialring
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D ring("x", "y")
+> ##D ring("x", "y", coefring = "QQ")
+> ##D 
+> ##D 
+> ##D ##### standard evaluation
+> ##D ########################################
+> ##D 
+> ##D ring_(c("x", "y"))
+> ##D ring_(c("x", "y"), code = TRUE)
+> ##D 
+> ##D (myring <- ring_(c("x1","x2","x3","y"), coefring = "QQ", order = "lex"))
+> ##D 
+> ##D m2_name(myring)
+> ##D m2_meta(myring, "vars")
+> ##D m2_meta(myring, "coefring")
+> ##D m2_meta(myring, "order")
+> ##D 
+> ##D ##### other options
+> ##D ########################################
+> ##D 
+> ##D ring_.(c("x", "y"))
+> ##D ring_.(c("x", "y"), code = TRUE)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("snf")
+> ### * snf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: snf
+> ### Title: Smith normal form
+> ### Aliases: snf snf.
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D M <- matrix(c(
+> ##D    2,  4,   4,
+> ##D   -6,  6,  12,
+> ##D   10, -4, -16
+> ##D ), nrow = 3, byrow = TRUE)
+> ##D 
+> ##D snf(M)
+> ##D 
+> ##D (mats <- snf(M))
+> ##D P <- mats$P; D <- mats$D; Q <- mats$Q
+> ##D 
+> ##D P %*% M %*% Q                # = D
+> ##D solve(P) %*% D %*% solve(Q)  # = M
+> ##D 
+> ##D det(P)
+> ##D det(Q)
+> ##D 
+> ##D 
+> ##D M <- matrix(c(
+> ##D      1,    2,    3,
+> ##D      1,   34,   45,
+> ##D   2213, 1123, 6543,
+> ##D      0,    0,    0
+> ##D ), nrow = 4, byrow = TRUE)
+> ##D (mats <- snf(M))
+> ##D P <- mats$P; D <- mats$D; Q <- mats$Q
+> ##D P %*% M %*% Q                # = D
+> ##D 
+> ##D 
+> ##D ##### other options
+> ##D ########################################
+> ##D 
+> ##D snf.(M)
+> ##D snf(M, code = TRUE)
+> ##D 
+> ##D 
+> ##D 
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("str_m2")
+> ### * str_m2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: str_m2
+> ### Title: Give the structure of a Macaulay2 ring
+> ### Aliases: str_m2
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D a <- m2("1")
+> ##D 
+> ##D R <- ring(c("x1", "x2", "x3"))
+> ##D str_m2(R)
+> ##D str_m2.default(R)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("use_ring")
+> ### * use_ring
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: use_ring
+> ### Title: Set Macaulay2 ring
+> ### Aliases: use_ring
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D  requires Macaulay2
+> ##D 
+> ##D 
+> ##D ##### basic usage
+> ##D ########################################
+> ##D 
+> ##D ring("x", coefring = "QQ")
+> ##D factor_poly("x^4 + 1")
+> ##D 
+> ##D QQtxyz <- ring("t","x","y","z", coefring = "QQ")
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D 
+> ##D ring("x", "y", "z", "t", coefring = "QQ")
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D 
+> ##D use_ring(QQtxyz)
+> ##D gb("t^4 - x", "t^3 - y", "t^2 - z")
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.745 0.08 0.937 0.035 0.058 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

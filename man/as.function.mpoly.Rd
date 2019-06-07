@@ -4,30 +4,39 @@
 \alias{as.function.mpoly}
 \title{Change a multivariate polynomial into a function.}
 \usage{
-\method{as.function}{mpoly}(x, varorder = vars(x), vector
-  = TRUE, silent = FALSE, ...)
+\method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE,
+  silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
 }
 \arguments{
 \item{x}{an object of class mpoly}
 
-\item{varorder}{the order in which the arguments of the function
-will be provided}
+\item{varorder}{the order of the variables}
 
-\item{vector}{whether the function should take a vector argument
-(TRUE) or a series of arguments (FALSE)}
+\item{vector}{whether the function should take a vector argument (TRUE) or a
+series of arguments (FALSE)}
 
-\item{silent}{suppress messages}
+\item{silent}{logical; if TRUE, suppresses output}
 
 \item{...}{any additional arguments}
+
+\item{plus_pad}{number of spaces to the left and right of plus sign}
+
+\item{times_pad}{number of spaces to the left and right of times sign}
+
+\item{squeeze}{minify code in the created function}
 }
 \description{
-Transforms an mpoly object into a function which can be
-evaluated.
+Transforms an mpoly object into a function which can be evaluated.
 }
 \examples{
 
+p <- mp("(x - 1)^2")
+(f <- as.function(p))
+f(1)
+f(seq(0, 2, .1))
+
 p <- mp("x + 3 x y + z^2 x")
-f <- as.function(p)
+(f <- as.function(p))
 f(1:3) # -> 16
 f(c(1,1,1)) # -> 5
 
@@ -52,10 +61,20 @@ p <- mp("1 2 3 4")
 f <- as.function(p)
 f(10) # -> 24
 
+bernstein(1, 2)
+s <- seq(0, 1, .01)
+as.function(bernstein(1, 2))(s)
+plot(
+  s,
+  as.function(bernstein(1, 2))(s)
+)
 
+
+as.function(mp("x + xx"))
+as.function(mp("x + xx"), squeeze = FALSE)
 
 
 }
 \seealso{
-\code{\link{plug}}
+\code{\link[=plug]{plug()}}, \code{\link[=as.function.mpolyList]{as.function.mpolyList()}}
 }

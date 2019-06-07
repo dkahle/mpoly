@@ -16,9 +16,8 @@ mp(string, varorder, stars_only = FALSE)
 
 \item{varorder}{(optional) order of variables in string}
 
-\item{stars_only}{only useful after version 2.0; if you format your
-multiplications using asterisks, setting this to \code{TRUE} will reduce
-preprocessing time}
+\item{stars_only}{if you format your multiplications using asterisks, setting
+this to \code{TRUE} will reduce preprocessing time}
 }
 \value{
 An object of class mpoly.
@@ -29,6 +28,7 @@ character string containing the usual representation  of a multivariate
 polynomial.
 }
 \examples{
+
 ( m <- mp("x + y + x y") )
 is.mpoly( m )
 unclass(m)
@@ -36,7 +36,6 @@ unclass(m)
 
 mp("x + 2 y + x^2 y + x y z")
 mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x"))
-# mp("x + 2 y + x^2 y", varorder = c("q", "p")) # -> error
 
 ( ms <- mp(c("x + y", "2 x")) )
 is.mpolyList(ms)
@@ -51,17 +50,10 @@ strings <- print(polys, silent = TRUE)
 strings
 mp(strings)
 
-
-
-
-
-
-
-
 }
 \seealso{
-\code{\link{mpoly}}
+\code{\link[=mpoly]{mpoly()}}
 }
 \author{
-David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david@kahle.io}
 }

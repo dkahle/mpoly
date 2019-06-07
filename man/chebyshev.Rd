@@ -10,8 +10,8 @@ chebyshev(degree, kind = "t", indeterminate = "x",
 \arguments{
 \item{degree}{degree of polynomial}
 
-\item{kind}{"t" or "u" (Chebyshev polynomials of the first and
-second kinds), or "c" or "s"}
+\item{kind}{\code{"t"} or \code{"u"} (Chebyshev polynomials of the first and
+second kinds), or \code{"c"} or \code{"s"}}
 
 \item{indeterminate}{indeterminate}
 
@@ -34,7 +34,7 @@ chebyshev(5)
 chebyshev(6)
 chebyshev(10)
 
-chebyshev(0:5) 
+chebyshev(0:5)
 chebyshev(0:5, normalized = TRUE)
 chebyshev(0:5, kind = "u")
 chebyshev(0:5, kind = "c")
@@ -64,11 +64,11 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 }
 \seealso{
-\code{\link{chebyshev.t.polynomials}}, 
-  \code{\link{chebyshev.u.polynomials}}, 
-  \code{\link{chebyshev.c.polynomials}}, 
-  \code{\link{chebyshev.s.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
+\code{\link[orthopolynom:chebyshev.t.polynomials]{orthopolynom::chebyshev.t.polynomials()}},
+\code{\link[orthopolynom:chebyshev.u.polynomials]{orthopolynom::chebyshev.u.polynomials()}},
+\code{\link[orthopolynom:chebyshev.c.polynomials]{orthopolynom::chebyshev.c.polynomials()}},
+\code{\link[orthopolynom:chebyshev.s.polynomials]{orthopolynom::chebyshev.s.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

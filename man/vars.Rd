@@ -4,10 +4,10 @@
 \alias{vars}
 \title{Determine the variables in a mpoly object.}
 \usage{
-vars(mpoly)
+vars(p)
 }
 \arguments{
-\item{mpoly}{an object of class mpoly}
+\item{p}{An mpoly or mpolyList object.}
 }
 \value{
 A character vector of the variable names.
@@ -16,11 +16,11 @@ A character vector of the variable names.
 Determine the variables in a mpoly object.
 }
 \examples{
-list <- list(
-  c(x = 5, coef = 2), 
-  c(y = 2, coef = -3), 
-  c(x = 1, y = 3, coef = 1)
-)
-p <- mpoly(list)
+
+p <- mp("x + y^2")
 vars(p)
+
+p <- mp(c("x + y^2", "y - 2 x"))
+vars(p)
+
 }

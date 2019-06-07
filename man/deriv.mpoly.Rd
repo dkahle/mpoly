@@ -18,15 +18,15 @@ An object of class mpoly or mpolyList.
 }
 \description{
 This is a deriv method for mpoly objects.  It does not call the
-deriv function (from package stats).
+\code{\link[stats:deriv]{stats::deriv()}}.
 }
 \examples{
-m <- mp('x y + y z + z^2')
-deriv(m, 'x')
-deriv(m, 'y')
-deriv(m, 'z')
-deriv(m, c('x','y','z'))
-deriv(m, 'a')
-is.mpoly(deriv(m, 'x'))
-is.mpolyList( deriv(m, c('x','y','z')) )
+m <- mp("x y + y z + z^2")
+deriv(m, "x")
+deriv(m, "y")
+deriv(m, "z")
+deriv(m, c("x","y","z"))
+deriv(m, "a")
+is.mpoly(deriv(m, "x"))
+is.mpolyList( deriv(m, c("x","y","z")) )
 }
