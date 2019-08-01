@@ -24,6 +24,11 @@ defined with the `mp()` function:
 
 ``` r
 library("mpoly")
+# Registered S3 methods overwritten by 'ggplot2':
+#   method         from 
+#   [.quosures     rlang
+#   c.quosures     rlang
+#   print.quosures rlang
 mp("x + y")
 # x  +  y
 
@@ -146,7 +151,7 @@ p1 - p2
 # 2 y
 
 p1 * p2
-# x^2  -  1 y^2
+# x^2  -  y^2
 
 p1^2
 # x^2  +  2 x y  +  y^2
@@ -204,7 +209,7 @@ f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
 # f(.) with . = (x, y)
 
 f(c(1,1))
-# x  +  2 y  +  2
+# [1] 3
 
 f <- as.function(mp("x + 2 y"), vector = FALSE) # makes a function with all arguments
 # f(x, y)
@@ -335,13 +340,13 @@ Homogenization and dehomogenization:
 
 ``` r
 (p <- mp("x + 2 x y + y - z^3"))
-# x  +  2 x y  +  y  -  1 z^3
+# x  +  2 x y  +  y  -  z^3
 
 (hp <- homogenize(p))
-# x t^2  +  2 x y t  +  y t^2  -  1 z^3
+# x t^2  +  2 x y t  +  y t^2  -  z^3
 
 dehomogenize(hp, "t")
-# x  +  2 x y  +  y  -  1 z^3
+# x  +  2 x y  +  y  -  z^3
 
 homogeneous_components(p)
 # x  +  y
