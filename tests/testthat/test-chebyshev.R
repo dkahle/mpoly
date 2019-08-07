@@ -20,7 +20,17 @@ test_that("basic", {
     )
   )
   
+  
+  expect_equal(
+    chebyshev_roots(1:3, 3),
+    cos((1:3 - .5) * pi / 3)
+  )
+  
 })
+
+
+
+
 
 
 
