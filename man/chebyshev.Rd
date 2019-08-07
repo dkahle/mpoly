@@ -2,10 +2,13 @@
 % Please edit documentation in R/chebyshev.R
 \name{chebyshev}
 \alias{chebyshev}
+\alias{chebyshev_roots}
 \title{Chebyshev polynomials}
 \usage{
 chebyshev(degree, kind = "t", indeterminate = "x",
   normalized = FALSE)
+
+chebyshev_roots(k, n)
 }
 \arguments{
 \item{degree}{degree of polynomial}
@@ -16,6 +19,8 @@ second kinds), or \code{"c"} or \code{"s"}}
 \item{indeterminate}{indeterminate}
 
 \item{normalized}{provide normalized coefficients}
+
+\item{k, n}{the k'th root of the n'th chebyshev polynomial}
 }
 \value{
 a mpoly object or mpolyList object
@@ -50,16 +55,40 @@ library(tidyr)
 
 s <- seq(-1, 1, length.out = 201)
 N <- 5 # number of chebyshev polynomials to plot
-(chebPolys <- chebyshev(0:N))
+(cheb_polys <- chebyshev(0:N))
 
 # see ?bernstein for a better understanding of
 # how the code below works
 
-df <- data.frame(s, as.function(chebPolys)(s))
+df <- data.frame(s, as.function(cheb_polys)(s))
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- gather(df, degree, value, -x)
 qplot(x, value, data = mdf, geom = "line", color = degree)
 
+
+
+# roots of chebyshev polynomials
+N <- 5
+cheb_roots <- chebyshev_roots(1:N, N)
+cheb_fun <- as.function(chebyshev(N))
+cheb_fun(cheb_roots)
+
+
+
+# chebyshev polynomials are orthogonal in two ways:
+T2 <- as.function(chebyshev(2))
+T3 <- as.function(chebyshev(3))
+T4 <- as.function(chebyshev(4))
+
+w <- function(x) 1 / sqrt(1 - x^2)
+integrate(function(x) T2(x) * T3(x) * w(x), lower = -1, upper = 1)
+integrate(function(x) T2(x) * T4(x) * w(x), lower = -1, upper = 1)
+integrate(function(x) T3(x) * T4(x) * w(x), lower = -1, upper = 1)
+
+(cheb_roots <- chebyshev_roots(1:4, 4))
+sum(T2(cheb_roots) * T4(cheb_roots))
+sum(T2(cheb_roots) * T4(cheb_roots))
+sum(T3(cheb_roots) * T4(cheb_roots))
 
 
 }
