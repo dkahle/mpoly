@@ -44,24 +44,6 @@
 }
 
 
-#' 
-#' 
-#' #' @rdname components
-#' #' @export
-#' `[.mpolyList` <- function(x, ndx){
-#'   structure(x[ndx], class = "mpolyList")
-#' }
-#' 
-#' 
-#' 
-#' #' @rdname components
-#' #' @export
-#' `[[.mpolyList` <- function(x, ndx){
-#'   structure(x[[ndx]], class = "mpolyList")
-#' }
-#' 
-
-
 
 
 #' @rdname components
