@@ -47,6 +47,21 @@
 #' qplot(x, value, data = mdf, geom = "line", color = degree)
 #'
 #'
+#' # legendre polynomials and the QR decomposition
+#' n <- 201
+#' x <- seq(-1, 1, length.out = n)
+#' mat <- cbind(1, x, x^2, x^3, x^4, x^5)
+#' Q <- qr.Q(qr(mat))
+#' df <- as.data.frame(cbind(x, Q))
+#' names(df) <- c("x", 0:5)
+#' mdf <- gather(df, degree, value, -x)
+#' qplot(x, value, data = mdf, geom = "line", color = degree)
+#' 
+#' Q <- apply(Q, 2, function(x) x / x[n])
+#' df <- as.data.frame(cbind(x, Q))
+#' names(df) <- c("x", 0:5)
+#' mdf <- gather(df, degree, value, -x)
+#' qplot(x, value, data = mdf, geom = "line", color = degree)
 #' 
 legendre <- function(degree, indeterminate = "x", normalized = FALSE){
   
