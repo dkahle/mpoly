@@ -57,6 +57,16 @@ mdf <- gather(df, degree, value, -x)
 qplot(x, value, data = mdf, geom = "line", color = degree)
 
 
+# hermite polynomials are orthogonal with respect to the gaussian kernel:
+He2 <- as.function(hermite(2))
+He3 <- as.function(hermite(3))
+He4 <- as.function(hermite(4))
+
+integrate(function(x) He2(x) * He3(x) * dnorm(x), lower = -1, upper = 1)
+integrate(function(x) He2(x) * He4(x) * dnorm(x), lower = -1, upper = 1)
+integrate(function(x) He3(x) * He4(x) * dnorm(x), lower = -1, upper = 1)
+
+
 
 }
 \seealso{
