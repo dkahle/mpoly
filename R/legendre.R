@@ -63,6 +63,26 @@
 #' mdf <- gather(df, degree, value, -x)
 #' qplot(x, value, data = mdf, geom = "line", color = degree)
 #' 
+#' 
+#' # chebyshev polynomials are orthogonal in two ways:
+#' P2 <- as.function(legendre(2))
+#' P3 <- as.function(legendre(3))
+#' P4 <- as.function(legendre(4))
+#' 
+#' integrate(function(x) P2(x) * P3(x), lower = -1, upper = 1)
+#' integrate(function(x) P2(x) * P4(x), lower = -1, upper = 1)
+#' integrate(function(x) P3(x) * P4(x), lower = -1, upper = 1)
+#' 
+#' n <- 10000L
+#' u <- runif(n, -1, 1)
+#' 2 * mean(P2(u) * P3(u))
+#' 2 * mean(P2(u) * P4(u))
+#' 2 * mean(P3(u) * P4(u))
+#' 
+#' (2/n) * sum(P2(u) * P3(u))
+#' (2/n) * sum(P2(u) * P4(u))
+#' (2/n) * sum(P3(u) * P4(u))
+#' 
 legendre <- function(degree, indeterminate = "x", normalized = FALSE){
   
   stopifnot(all(is.wholenumber(degree)))
