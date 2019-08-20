@@ -62,9 +62,10 @@ He2 <- as.function(hermite(2))
 He3 <- as.function(hermite(3))
 He4 <- as.function(hermite(4))
 
-integrate(function(x) He2(x) * He3(x) * dnorm(x), lower = -Inf, upper = Inf)
-integrate(function(x) He2(x) * He4(x) * dnorm(x), lower = -Inf, upper = Inf)
-integrate(function(x) He3(x) * He4(x) * dnorm(x), lower = -Inf, upper = Inf)
+w <- dnorm
+integrate(function(x) He2(x) * He3(x) * w(x), lower = -Inf, upper = Inf)
+integrate(function(x) He2(x) * He4(x) * w(x), lower = -Inf, upper = Inf)
+integrate(function(x) He3(x) * He4(x) * w(x), lower = -Inf, upper = Inf)
 
 
 
