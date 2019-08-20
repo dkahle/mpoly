@@ -68,7 +68,7 @@ qplot(x, value, data = mdf, geom = "line", color = degree)
 
 Q <- apply(Q, 2, function(x) x / x[n])
 df <- as.data.frame(cbind(x, Q))
-names(df) <- c("x", 0:5)
+names(df) <- c("x", paste0("P_", 0:5))
 mdf <- gather(df, degree, value, -x)
 qplot(x, value, data = mdf, geom = "line", color = degree)
 
