@@ -50,6 +50,17 @@
 #' qplot(x, value, data = mdf, geom = "line", color = degree) +
 #'   coord_cartesian(ylim = c(-25, 25))
 #'
+#'
+#' # laguerre polynomials are orthogonal with respect to the exponential kernel:
+#' L2 <- as.function(laguerre(2))
+#' L3 <- as.function(laguerre(3))
+#' L4 <- as.function(laguerre(4))
+#'
+#' w <- dexp
+#' integrate(function(x) L2(x) * L3(x) * w(x), lower = 0, upper = Inf)
+#' integrate(function(x) L2(x) * L4(x) * w(x), lower = 0, upper = Inf)
+#' integrate(function(x) L3(x) * L4(x) * w(x), lower = 0, upper = Inf)
+#'
 #' 
 laguerre <- function(degree, alpha = 0, indeterminate = "x", normalized = FALSE){
   
