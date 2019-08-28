@@ -74,7 +74,11 @@
 #' integrate(function(x) T3(x) * T4(x) * w(x), lower = -1, upper = 1)
 #' 
 #' (cheb_roots <- chebyshev_roots(1:4, 4))
-#' sum(T2(cheb_roots) * T4(cheb_roots))
+#' sum(T2(cheb_roots) * T3(cheb_roots) * w(cheb_roots))
+#' sum(T2(cheb_roots) * T4(cheb_roots) * w(cheb_roots))
+#' sum(T3(cheb_roots) * T4(cheb_roots) * w(cheb_roots))
+#' 
+#' sum(T2(cheb_roots) * T3(cheb_roots))
 #' sum(T2(cheb_roots) * T4(cheb_roots))
 #' sum(T3(cheb_roots) * T4(cheb_roots))
 #' 
@@ -137,7 +141,12 @@ chebyshev <- function(degree, kind = "t", indeterminate = "x", normalized = FALS
 
 #' @rdname chebyshev
 #' @export
-chebyshev_roots <- function(k, n) cos((k - .5) * pi / n)
+chebyshev_roots <- function(k, n) {
+  stopifnot( is.wholenumber(k) )
+  stopifnot( is.wholenumber(n) )
+  stopifnot( round(k) %in% 1:n )
+  cos((k - .5) * pi / n)
+}
 
 
 
