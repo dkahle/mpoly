@@ -4,8 +4,16 @@
 \alias{print.mpolyList}
 \title{Pretty printing of a list of multivariate polynomials.}
 \usage{
-\method{print}{mpolyList}(x, varorder = vars(x), stars = FALSE, order,
-  silent = FALSE, ..., plus_pad = 2L, times_pad = 1L)
+\method{print}{mpolyList}(
+  x,
+  varorder = vars(x),
+  stars = FALSE,
+  order,
+  silent = FALSE,
+  ...,
+  plus_pad = 2L,
+  times_pad = 1L
+)
 }
 \arguments{
 \item{x}{an object of class mpoly}

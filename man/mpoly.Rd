@@ -4,7 +4,6 @@
 \name{mpoly}
 \alias{mpoly}
 \alias{package-mpoly}
-\alias{mpoly-package}
 \title{Multivariate polynomials in R.}
 \usage{
 mpoly(list, varorder)
