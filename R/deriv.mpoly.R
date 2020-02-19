@@ -71,7 +71,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' 
 #' 
 #' # gradient descent illustration using the symbolically
-#' # computed gradient of the rosenbrock function
+#' # computed gradient of the rosenbrock function (shifted)
 #' rosenbrock <- mp("(1 - x)^2 + 100 (y - x^2)^2")
 #' fn <- as.function(rosenbrock)
 #' (rosenbrock_gradient <- gradient(rosenbrock))
@@ -83,7 +83,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' df <- expand.grid(x = s, y = s)
 #' df$z <- apply(df, 1, fn)
 #' ggplot(df, aes(x = x, y = y)) +
-#'   geom_raster(aes(fill = z)) +
+#'   geom_raster(aes(fill = z + 1e-10)) +
 #'   scale_fill_continuous(trans = "log10")
 #'   
 #' # run the gradient descent algorithm using line-search
@@ -107,7 +107,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' # visualize steps, note the optim at c(1,1)
 #' # the routine took 5748 steps
 #' ggplot(df, aes(x = x, y = y)) +
-#'   geom_raster(aes(fill = z)) +
+#'   geom_raster(aes(fill = z + 1e-10)) +
 #'   geom_path(data = steps, color = "red") +
 #'   geom_point(data = steps, color = "red", size = .5) +
 #'   scale_fill_continuous(trans = "log10")
