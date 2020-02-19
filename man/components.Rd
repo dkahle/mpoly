@@ -38,8 +38,6 @@ exponents(x, reduced = FALSE)
 \item{order}{a total order used to order the terms}
 
 \item{reduced}{if TRUE, don't include zero degrees}
-
-\item{...}{additional arguments}
 }
 \value{
 An object of class mpoly or mpolyList, depending on the context

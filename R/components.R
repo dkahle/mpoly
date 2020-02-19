@@ -7,7 +7,6 @@
 #' @param varorder the order of the variables
 #' @param order a total order used to order the terms
 #' @param reduced if TRUE, don't include zero degrees
-#' @param ... additional arguments
 #' @return An object of class mpoly or mpolyList, depending on the context
 #' @name components
 #' @examples
