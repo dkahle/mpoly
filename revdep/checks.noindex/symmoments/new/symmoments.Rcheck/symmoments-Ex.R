@@ -36,15 +36,14 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-# create an mpoly object here
+# create an mpoly object here (requires library mpoly) (not run)
 
 # convert from mpoly to list representation
-library(mpoly)
-t0 <- mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
-                   c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1)))  
-t1 <- convert.mpoly(t0)    
+# t0 <- mpoly::mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
+#                   c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1)))  
+# t1 <- convert.mpoly(t0)    
 # convert from list representation back to an mpoly object
-t2 <- convert.mpoly(t1) 
+# t2 <- convert.mpoly(t1) 
 
 
 
@@ -62,17 +61,20 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-# create an mpoly object to work with
-library(mpoly)
-t0 <- mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
-                   c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1))) 
+# create an mpoly object to work with (requires library mpoly) (not run)
 
-# convert from mpoly to list representation
-t1 <- convert.mpoly(t0)    
-# convert from list representation to a multipol object
-t2 <- convert.multipol(t1) 
-# convert back to a list representation
-t3 <- convert.multipol(t2) 
+
+# t0 <- mpoly::mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
+#                   c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1))) 
+
+# convert from mpoly to list representation (not run)
+# t1 <- convert.mpoly(t0)    
+# convert from list representation to a multipol object(not run)
+
+# t2 <- convert.multipol(t1) 
+# convert back to a list representation (not run)
+
+# t3 <- convert.multipol(t2) 
 
 
 
@@ -242,10 +244,10 @@ nameEx("symmoments-package")
 
 flush(stderr()); flush(stdout())
 
-### Name: symmomentsv2-package
+### Name: symmoments-package
 ### Title: Symbolically compute and numerically evaluate multivariate
 ###   central moments
-### Aliases: ' symmomentsv2-package' ' symmomentsv2'
+### Aliases: ' symmoments-package' ' symmoments'
 
 ### ** Examples
 

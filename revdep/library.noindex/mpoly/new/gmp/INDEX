@@ -1,0 +1,39 @@
+==.bigq                 Relational Operators
+==.bigz                 Relational Operators
+Eulerian                Eulerian and Stirling Numbers of First and
+                        Second Kind
+Oakley                  RFC 2409 Oakley Groups - Parameters for
+                        Diffie-Hellman Key Exchange
+[.bigz                  Extract or Replace Parts of an Object
+add.bigq                Basic arithmetic operators for large rationals
+add.bigz                Basic Arithmetic Operators for Large Integers
+                        ("bigz")
+apply                   Apply Functions Over Matrix Margins (Rows or
+                        Columns)
+asNumeric               Coerce to 'numeric', not Loosing Dimensions
+bigq                    Large sized rationals
+bigz                    Large Sized Integer Values
+cumsum.bigz             (Cumulative) Sums, Products of Large Integers
+                        and Rationals
+factorialZ              Factorial and Binomial Coefficient as Big
+                        Integer
+factorize               Factorize a number
+formatN                 Format Numbers Keeping Classes Distinguishable
+frexpZ                  Split Number into Fractional and Exponent of 2
+                        Parts
+gcd.bigz                Greatest Common Divisor (GCD) and Least Common
+                        Multiple (LCM)
+gcdex                   Compute Bezoult Coefficient
+gmpVersion              GMP Number Utilities
+is.whole                Whole ("Integer") Numbers
+isprime                 Determine if number is (very probably) prime
+lucnum                  Compute Fibonacci and Lucas numbers
+matrix                  Matrix manipulation with gmp
+max.bigz                Extrema (Maxima and Minima)
+modulus                 Modulus of a Big Integer
+nextprime               Next Prime Number
+outer                   Base Functions in 'gmp'-ified Versions
+powm                    Exponentiation function
+sizeinbase              Compute size of a bigz in a base
+solve.bigz              Solve a system of equation
+urand.bigz              Generate a random number

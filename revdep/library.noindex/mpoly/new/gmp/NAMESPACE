@@ -1,0 +1,242 @@
+useDynLib(gmp, .registration=TRUE)
+
+importMethodsFrom("methods", coerce)
+importFrom("methods",
+           setOldClass, setGeneric, setMethod)
+
+## instead of exportPattern() :
+## MM: but *really* should export considerably less !! (i.e. use  S3method(.) more !
+export(
+       "%*%", # unfortunately need to make it into an S3 generic
+       "crossprod", "tcrossprod",#<- *STILL* needed .. unless S4 and we exportMethods() for them
+       ## "abs.bigq", "abs.bigz",
+       "add.bigq", "add.bigz",
+       "apply", "apply.bigq", "apply.bigz", "apply.default",
+       "as.bigq", "as.bigz", "as.bigz.bigq",
+       ## "as.character.bigq", "as.character.bigz",
+       ## "as.double.bigq", "as.double.bigz",
+       ## "as.matrix.bigq", "as.matrix.bigz",
+       ## this should be a deprecated use:
+       "as.vector.bigq", "as.vector.bigz",
+       ## "c.bigq", "c.bigz", "cbind.bigq", "cbind.bigz",  "rbind.bigq", "rbind.bigz",
+       ## "cumsum.bigq", "cumsum.bigz",
+       "denominator", "denominator<-",
+       ## "dim<-.bigq", "dim.bigq", "dim<-.bigz", "dim.bigz",
+       "div.bigq", "div.bigz", "divq.bigz",
+       "Eulerian", "Eulerian.all",
+       "Stirling1", "Stirling1.all", "Stirling2", "Stirling2.all",
+       "factorize",
+       "factorialZ", "chooseZ", "frexpZ",
+       "fibnum", "fibnum2", "formatN",
+       "gcd", "gcd.bigz", "gcd.default", "gcdex",
+       "gmpVersion",
+       "inv.bigz", ## "inv",
+       ## "is.na.bigq", "is.na.bigz",
+       "is.bigz", "is.bigq", "is.matrixZQ",
+       "isprime", "is.whole",
+       "lcm.bigz", "lcm.default",
+       ## "length<-.bigq", "length.bigq", "length<-.bigz", "length.bigz",
+       "log10.bigz", "log2.bigz", "log.bigz",
+       "lucnum", "lucnum2",
+       "matrix", "matrix.bigq", "matrix.bigz", "matrix.default",
+       "max.bigq", "max.bigz", "min.bigq", "min.bigz",
+       "mod.bigz",
+       "modulus", "modulus<-", # "modulus<-.bigz", "modulus.bigz",
+       "mul.bigq", "mul.bigz",
+       "ncol.bigq", "ncol.bigz", "nrow.bigq", "nrow.bigz",
+       "nextprime",
+       "numerator", "numerator<-",
+    outer, # our own
+       ## "pow",
+       "pow.bigz", "powm", "pow.bigq",
+       ## "print.bigq", "print.bigz",
+       ## "prod", "prod.default",
+       "prod.bigq", "prod.bigz",
+       "rep.bigq", "rep.bigz",
+       ## "sign.bigq", "sign.bigz",
+       "sizeinbase",
+       "solve.bigq", "solve.bigz",
+       "sub.bigq", "sub.bigz",
+       "sum.bigq", "sum.bigz",
+       ## "t.bigq", "t.bigz",
+       "urand.bigz")
+
+## For Rmpfr (and possibly similar packages)
+export(.as.bigz, ..as.bigz, .as.char.bigz)
+## C routines for other packages to .Call(..) .. hmm, convenient
+## but then also needs mention on a help page:
+## FIXME (2013-09-11): drop these after a while {when dependent packages
+## ----- all use the .as.* and ..as.* substitutes:
+export(biginteger_as, biginteger_as_character)
+
+S3method(gcd,default)
+#S3method(lcm,default)
+S3method(is.whole,default)
+
+S3method("+",bigz)
+S3method("-",bigz)
+S3method("*",bigz)
+S3method("/",bigz)
+S3method("%%",bigz)
+S3method("%/%",bigz)
+S3method("^",bigz)
+S3method("<",bigz)
+S3method("<=",bigz)
+S3method("==",bigz)
+S3method(">=",bigz)
+S3method(">",bigz)
+S3method("!=",bigz)
+S3method("[<-",bigz)
+S3method("[",bigz)
+S3method("[[<-",bigz)
+S3method("[[",bigz)
+##S3method(add,bigz)
+S3method(sum,bigz)
+S3method(sum,bigq)
+#S3method(pow,bigz)
+S3method(gcd,bigz)
+#S3method(lcm,bigz)
+#S3method(inv,bigz)
+S3method(log,bigz)
+S3method(log10,bigz)
+S3method(log2,bigz)
+S3method(c,bigz)
+S3method(cbind,bigz)
+S3method(rbind,bigz)
+S3method(dim,bigz)
+S3method("dim<-", bigz)
+S3method(is.finite,bigz)
+S3method(is.infinite,bigz)
+S3method(is.na,bigz)
+S3method(is.whole,bigz)
+S3method(length,bigz)
+S3method("length<-", bigz)
+S3method(max,bigz)
+S3method(min,bigz)
+S3method(rep,bigz)
+S3method(print,bigz)
+##S3method(urand,bigz)
+S3method(duplicated,bigz)
+S3method(unique,bigz)
+S3method(all.equal,bigz)
+
+S3method(modulus, bigz)
+S3method("modulus<-", bigz)
+
+S3method("+",bigq)
+S3method("-",bigq)
+S3method("*",bigq)
+S3method("/",bigq)
+S3method("^",bigq)
+S3method("<",bigq)
+S3method("<=",bigq)
+S3method("==",bigq)
+S3method(">=",bigq)
+S3method(">",bigq)
+S3method("!=",bigq)
+S3method("[<-",bigq)
+S3method("[",bigq)
+S3method("[[<-",bigq)
+S3method("[[",bigq)
+##S3method(add,bigq)
+S3method(c,bigq)
+S3method(cbind,bigq)
+S3method(rbind,bigq)
+S3method(dim,bigq)
+S3method("dim<-", bigq)
+S3method(is.finite,bigq)
+S3method(is.infinite,bigq)
+S3method(is.na,bigq)
+S3method(is.whole,bigq)
+S3method(length,bigq)
+S3method("length<-", bigq)
+S3method(max,bigq)
+S3method(min,bigq)
+S3method(rep,bigq)
+S3method(print,bigq)
+S3method(duplicated,bigq)
+S3method(unique,bigq)
+S3method(mean,bigq)
+S3method(all.equal,bigq)
+
+S3method(matrix, default)
+S3method(matrix, bigq)
+S3method(matrix, bigz)
+
+## unfortunately, using S4 methods and setOldClass("bigz") is not enough
+## and so we need S3 methods and mask base (see also R/matrix-prods.R):
+S3method("%*%",default)
+S3method("%*%",bigq)
+S3method("%*%",bigz)
+S3method("crossprod",default)
+S3method("crossprod",bigq)
+S3method("crossprod",bigz)
+S3method("tcrossprod",default)
+S3method("tcrossprod",bigq)
+S3method("tcrossprod",bigz)
+
+S3method(apply,default)
+S3method(apply,bigq)
+S3method(apply,bigz)
+
+#S3method(as,bigq)
+#S3method(as,bigz)
+S3method(as.character,bigq)
+S3method(as.character,bigz)
+S3method(as.double,bigq)
+S3method(as.double,bigz)
+S3method(as.integer,bigq)
+S3method(as.integer,bigz)
+S3method(as.matrix,bigq)
+S3method(as.matrix,bigz)
+S3method(as.vector,bigz)
+S3method(as.vector,bigq)
+
+S3method(formatN,default)
+S3method(formatN,integer)
+S3method(formatN,double)
+S3method(formatN,bigq)
+S3method(formatN,bigz)
+
+##----'Math'--------most give "not yet implemented":
+S3method(Math,bigq)
+S3method(Math,bigz)
+
+S3method(abs,bigz)
+S3method(abs,bigq)
+S3method(sign,bigq)
+S3method(sign,bigz)
+
+S3method(floor,bigq)
+S3method(floor,bigz)
+S3method(round,bigq)
+S3method(round,bigz)
+S3method(trunc,bigq)
+S3method(trunc,bigz)
+
+S3method(gamma,bigz)
+
+S3method(cumsum,bigz)
+S3method(cumsum,bigq)
+
+S3method(prod,bigz)
+S3method(prod,bigq)
+
+##-- end{'Math'}-------------------
+
+S3method(solve,bigq)
+S3method(solve,bigz)
+
+S3method(t,bigq)
+S3method(t,bigz)
+
+## S4 generic .. also imported in Rmpfr
+export(asNumeric)
+exportMethods(asNumeric)
+
+exportMethods(which.max, which.min)
+
+exportClasses("bigz", "bigq")# setOldClass()'ed, needed in  Rmpfr
+## unfortunately, using S4 methods and setOldClass("bigz") is not enough,
+## see R/matrix-prods.R :
+## exportMethods("%*%", "crossprod", "tcrossprod")#-> also exports S4 generics

@@ -1,6 +1,6 @@
 
-R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,12 +21,13 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('mvp')
+Loading required package: magrittr
 
 Attaching package: ‘mvp’
 
 The following object is masked from ‘package:base’:
 
-    drop
+    trunc
 
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -38,7 +39,7 @@ The following object is masked from ‘package:base’:
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: Ops.mvp
-> ### Title: Arithmetic Ops Group Methods for mvp objects
+> ### Title: Arithmetic Ops Group Methods for 'mvp' objects
 > ### Aliases: Ops.mvp Ops mvp_negative mvp_times_mvp mvp_times_scalar
 > ###   mvp_plus_mvp mvp_plus_numeric mvp_plus_scalar mvp_power_scalar
 > ###   mvp_eq_mvp
@@ -51,15 +52,15 @@ The following object is masked from ‘package:base’:
 > 
 > p1*p2
 mvp object algebraically equal to
-3 a^3 b^9 c^4 d^12 e^10 f^2  +  6 a^4 b^7 c^8 d^6 e^10 f^3  +  4 a^4 c^9 e^21 f^5  +  2 a^6 b^9 c^9 e^11 f^11  +  3 a^6 b^16 c^8 d^6 f^9  +  2 a^7 b^9 c^3 d^4 e^10 f^2  +  a^9 b^18 c^3 d^4 f^8  +  9 b^7 c^9 d^14 e^10 f^3  +  6 c^10 d^8 e^21 f^5
+3 a b^18 c^8 e^8 f^7  +  9 a^2 b^22 e^5 f^11  +  a^4 b^8 c^8 d^13 e^4 f^8  +  3 a^5 b^12 d^13 e f^12  +  6 a^6 b^17 c^5 d^5 e^10 f^2  +  2 a^9 b^7 c^5 d^18 e^6 f^3  +  2 a^13 b^3 c^12 d^4 e^4 f^8  +  6 a^14 b^7 c^4 d^4 e f^12  +  4 a^18 b^2 c^9 d^9 e^6 f^3
 > 
 > p1+p2
 mvp object algebraically equal to
-a^3 b^9 d^4 f^2  +  2 a^4 c^3 e^10  +  a^6 b^9 c^3 f^6  +  3 b^7 c^5 d^6 f^3  +  3 c^4 d^8 e^10  +  2 c^6 e^11 f^5
+a b^2 c^8 e^4 f^5  +  3 a^2 b^6 e f^9  +  a^3 b^6 d^13 f^3  +  2 a^6 b c^5 d^5 e^6  +  2 a^12 b c^4 d^4 f^3  +  3 b^16 e^4 f^2
 > 
 > p1^3
 mvp object algebraically equal to
-12 a^3 b^9 c^12 d^4 e^22 f^12  +  36 a^3 b^16 c^11 d^10 e^11 f^10  +  27 a^3 b^23 c^10 d^16 f^8  +  6 a^6 b^18 c^6 d^8 e^11 f^9  +  9 a^6 b^25 c^5 d^14 f^7  +  a^9 b^27 d^12 f^6  +  36 b^7 c^17 d^6 e^22 f^13  +  54 b^14 c^16 d^12 e^11 f^11  +  27 b^21 c^15 d^18 f^9  +  8 c^18 e^33 f^15
+a^3 b^6 c^24 e^12 f^15  +  9 a^4 b^10 c^16 e^9 f^19  +  27 a^5 b^14 c^8 e^6 f^23  +  27 a^6 b^18 e^3 f^27  +  6 a^8 b^5 c^21 d^5 e^14 f^10  +  36 a^9 b^9 c^13 d^5 e^11 f^14  +  54 a^10 b^13 c^5 d^5 e^8 f^18  +  12 a^13 b^4 c^18 d^10 e^16 f^5  +  36 a^14 b^8 c^10 d^10 e^13 f^9  +  8 a^18 b^3 c^15 d^15 e^18
 > 
 > 
 > p1*(p1+p2) == p1^2+p1*p2  # should be TRUE
@@ -84,38 +85,38 @@ mvp object algebraically equal to
 > a <- rmvp(5)
 > vars(a)
 [[1]]
-[1] "a" "b" "c" "f"
+[1] "a" "b" "c" "e" "f"
 
 [[2]]
-[1] "a" "b" "c" "d" "e" "f"
+[1] "a" "b" "c" "d" "e"
 
 [[3]]
-[1] "a" "b" "d" "f"
+[1] "a" "b" "e" "f"
 
 [[4]]
-[1] "b" "c" "d" "f"
+[1] "a" "b" "d" "e" "f"
 
 [[5]]
-[1] "c" "e" "f"
+[1] "a" "e" "f"
 
 > powers(a)
 [[1]]
-[1] 2 1 8 4
+[1] 2 4 8 4 6
 
 [[2]]
-[1] 2 6 5 3 5 3
+[1] 4 6 2 4 2
 
 [[3]]
-[1] 3 9 6 5
+[1] 6 7 1 5
 
 [[4]]
-[1] 8 4 3 7
+[1] 6 8 1 5 6
 
 [[5]]
-[1]  9 10  3
+[1] 8 7 6
 
 > coeffs(a)
-[1] 3 1 2 5 4
+[1] 5 3 2 4 1
 > 
 > coeffs(a) <- 1  # A simpler object
 > coeffs(a) <- 0  # The zero polynomial
@@ -167,9 +168,9 @@ mvp object algebraically equal to
 > f(a=1,b=2)
 mvp object algebraically equal to
 6  +  c
-> f(a=1,b=2,c=3)
+> f(a=1,b=2,c=3)             # coerces to a scalar
 [1] 9
-> f(a=1,b=2,c=3,drop=FALSE)
+> f(a=1,b=2,c=3,lose=FALSE)  # formal mvp object
 mvp object algebraically equal to
 9
 > 
@@ -183,8 +184,8 @@ mvp object algebraically equal to
 > 
 > ### Name: constant
 > ### Title: The constant term
-> ### Aliases: constant constant constant<- constant.mvp constant<-.mvp
-> ###   constant.numeric
+> ### Aliases: constant constant is.constant constant<- constant.mvp
+> ###   constant<-.mvp constant.numeric
 > 
 > ### ** Examples
 > 
@@ -194,7 +195,7 @@ mvp object algebraically equal to
 > constant(a) <- 33
 > a
 mvp object algebraically equal to
-33  +  3 a^2 b c^8 f^4  +  a^2 b^6 c^5 d^3 e^5 f^3  +  2 a^3 b^9 d^6 f^5  +  5 b^8 c^4 d^3 f^7  +  4 c^9 e^10 f^3
+33  +  5 a^2 b^4 c^8 e^4 f^6  +  3 a^4 b^6 c^2 d^4 e^2  +  2 a^6 b^7 e f^5  +  4 a^6 b^8 d e^5 f^6  +  a^8 e^7 f^6
 > 
 > constant(0)  # the zero mvp
 mvp object algebraically equal to
@@ -209,7 +210,7 @@ mvp object algebraically equal to
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: deriv
-> ### Title: Differentiation of mvp objects
+> ### Title: Differentiation of 'mvp' objects
 > ### Aliases: deriv aderiv deriv.mvp deriv_mvp aderiv.mvp aderiv_mvp
 > ### Keywords: symbolmath
 > 
@@ -218,14 +219,14 @@ mvp object algebraically equal to
 > p <- rmvp(10,9,9,letters[1:4])
 > deriv(p,letters[1:3])
 mvp object algebraically equal to
-1368 a b^5 c^18 d^12  +  1680 a b^20 c^9 d^12  +  2250 a^2 b^14 c^4 d^12  +  1728 a^7 b^3 c^17 d^21  +  1890 a^8 b^14 c^13 d^12  +  12768 a^11 b^18 c^7 d^6  +  1760 a^15 b^10 c^4 d^11  +  6912 a^17 b^11 c^3 d^15  +  26040 a^30 b^11 c^13 d^4
+5760 a b^14 c^23 d^10  +  663 a^2 b^16 c^12 d^3  +  3822 a^5 b^12 c^6 d^26  +  2860 a^10 b^12 c^4 d^9  +  29106 a^10 b^20 c^13  +  8925 a^16 b^6 c^14 d^7  +  2880 a^31 b c^14
 > deriv(p,rev(letters[1:3]))  # should be the same
 mvp object algebraically equal to
-1368 a b^5 c^18 d^12  +  1680 a b^20 c^9 d^12  +  2250 a^2 b^14 c^4 d^12  +  1728 a^7 b^3 c^17 d^21  +  1890 a^8 b^14 c^13 d^12  +  12768 a^11 b^18 c^7 d^6  +  1760 a^15 b^10 c^4 d^11  +  6912 a^17 b^11 c^3 d^15  +  26040 a^30 b^11 c^13 d^4
+5760 a b^14 c^23 d^10  +  663 a^2 b^16 c^12 d^3  +  3822 a^5 b^12 c^6 d^26  +  2860 a^10 b^12 c^4 d^9  +  29106 a^10 b^20 c^13  +  8925 a^16 b^6 c^14 d^7  +  2880 a^31 b c^14
 > 
 > aderiv(p,a=1,b=2,c=1)
 mvp object algebraically equal to
-6840 a b^4 c^18 d^12  +  33600 a b^19 c^9 d^12  +  31500 a^2 b^13 c^4 d^12  +  5184 a^7 b^2 c^17 d^21  +  26460 a^8 b^13 c^13 d^12  +  229824 a^11 b^17 c^7 d^6  +  17600 a^15 b^9 c^4 d^11  +  76032 a^17 b^10 c^3 d^15  +  286440 a^30 b^10 c^13 d^4
+80640 a b^13 c^23 d^10  +  10608 a^2 b^15 c^12 d^3  +  45864 a^5 b^11 c^6 d^26  +  34320 a^10 b^11 c^4 d^9  +  582120 a^10 b^19 c^13  +  53550 a^16 b^5 c^14 d^7  +  2880 a^31 c^14
 > 
 > ## verify the chain rule:
 > x <- rmvp(7,symbols=6)
@@ -242,26 +243,31 @@ mvp object algebraically equal to
 > 
 > 
 > cleanEx()
-> nameEx("drop")
-> ### * drop
+> nameEx("horner")
+> ### * horner
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: drop
-> ### Title: Drop empty variables
-> ### Aliases: drop
+> ### Name: horner
+> ### Title: Horner's method
+> ### Aliases: horner
+> ### Keywords: symbolmath
 > 
 > ### ** Examples
 > 
-> 
-> m1 <- as.mvp("1+bish +bash^2 + bosh^3")
-> m2 <- as.mvp("bish +bash^2 + bosh^3")
-> 
-> m1-m2         # an mvp object
+> horner("x",1:5)
 mvp object algebraically equal to
-1
-> drop(m1-m2)   # numeric
-[1] 1
+1  +  2 x  +  3 x^2  +  4 x^3  +  5 x^4
+> horner("x+y",1:3)
+mvp object algebraically equal to
+1  +  2 x  +  6 x y  +  3 x^2  +  2 y  +  3 y^2
+> 
+> w <- as.mvp("x+y^2")
+> stopifnot(1 + 2*w + 3*w^2 == horner(w,1:3))  # note off-by-one issue
+> 
+> "x+y+x*y" %>% horner(1:3) %>% horner(1:2)
+mvp object algebraically equal to
+3  +  4 x  +  16 x y  +  12 x y^2  +  6 x^2  +  12 x^2 y  +  6 x^2 y^2  +  4 y  +  6 y^2
 > 
 > 
 > 
@@ -283,7 +289,7 @@ x^-1
 > 
 > invert(rmvp(10,7,7,letters[1:3]),"a")
 mvp object algebraically equal to
-8 a^-18 b^14  +  10 a^-17 b^11 c^8  +  6 a^-16 b^12 c^3  +  9 a^-12 b^11 c^9  +  7 a^-7 b^9 c^17  +  5 a^-7 b^15 c^11  +  a^-6 b^7 c^8  +  4 a^-5 b^10 c^5  +  3 a^-4 b^11 c^17  +  2 b^4 c^16
+7 a^-22 b^6  +  6 a^-15 b^12 c^9  +  3 a^-12 b c^15  +  9 a^-11 b^11 c^10  +  5 a^-7 b^13 c^12  +  4 a^-6 b^12 c^12  +  10 a^-6 b^15 c^8  +  8 a^-2 b^13 c^3  +  a^-2 b^14 c^12  +  2 a^-1 b^9 c^16
 > 
 > 
 > 
@@ -312,7 +318,7 @@ a z^2  +  a^2 b  +  b^2 c  +  c^2 d  +  d^2 e  +  e^2 f  +  f^2 g  +  g^2 h  +  
 > k <- kahle(200,r=3,p=1:3,symbols=paste("x",sprintf("%02d",1:200),sep=""))
 > system.time(ignore <- k^2)
    user  system elapsed 
-  0.681   0.025   0.716 
+  0.683   0.031   0.749 
 > #system.time(ignore <- mvp_to_spray(k)^2)   # needs spray package loaded
 > 
 > 
@@ -359,6 +365,33 @@ mvp object algebraically equal to
 > 
 > 
 > cleanEx()
+> nameEx("lose")
+> ### * lose
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lose
+> ### Title: Drop empty variables
+> ### Aliases: lose lose.mvp drop
+> 
+> ### ** Examples
+> 
+> 
+> m1 <- as.mvp("1+bish +bash^2 + bosh^3")
+> m2 <- as.mvp("bish +bash^2 + bosh^3")
+> 
+> m1-m2         # an mvp object
+mvp object algebraically equal to
+1
+> lose(m1-m2)   # numeric
+[1] 1
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("mpoly")
 > ### * mpoly
 > 
@@ -376,6 +409,41 @@ mvp object algebraically equal to
 > 
 > x == mpoly_to_mvp(mpoly::as.mpoly(x))        # should be TRUE
 [1] TRUE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mvp-package")
+> ### * mvp-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mvp-package
+> ### Title: Fast Symbolic Multivariate Polynomials
+> ### Aliases: mvp-package
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> p <- as.mvp("1+x+x*y+x^5")
+> 
+> p + as.mvp("a+b^6")
+mvp object algebraically equal to
+1  +  a  +  b^6  +  x  +  x y  +  x^5
+> 
+> p^3
+mvp object algebraically equal to
+1  +  3 x  +  3 x y  +  3 x^2  +  6 x^2 y  +  3 x^2 y^2  +  x^3  +  3 x^3 y  +  3 x^3 y^2  +  x^3 y^3  +  3 x^5  +  6 x^6  +  6 x^6 y  +  3 x^7  +  6 x^7 y  +  3 x^7 y^2  +  3 x^10  +  3 x^11  +  3 x^11 y  +  x^15
+> 
+> subs(p^4,x="a+b^2")
+mvp object algebraically equal to
+1  +  4 a  +  12 a b^2  +  24 a b^2 y  +  12 a b^2 y^2  +  12 a b^4  +  36 a b^4 y  +  36 a b^4 y^2  +  12 a b^4 y^3  +  4 a b^6  +  16 a b^6 y  +  24 a b^6 y^2  +  16 a b^6 y^3  +  4 a b^6 y^4  +  20 a b^8  +  72 a b^10  +  72 a b^10 y  +  84 a b^12  +  168 a b^12 y  +  84 a b^12 y^2  +  32 a b^14  +  96 a b^14 y  +  96 a b^14 y^2  +  32 a b^14 y^3  +  60 a b^18  +  132 a b^20  +  132 a b^20 y  +  72 a b^22  +  144 a b^22 y  +  72 a b^22 y^2  +  60 a b^28  +  64 a b^30  +  64 a b^30 y  +  20 a b^38  +  4 a y  +  6 a^2  +  12 a^2 b^2  +  36 a^2 b^2 y  +  36 a^2 b^2 y^2  +  12 a^2 b^2 y^3  +  6 a^2 b^4  +  24 a^2 b^4 y  +  36 a^2 b^4 y^2  +  24 a^2 b^4 y^3  +  6 a^2 b^4 y^4  +  40 a^2 b^6  +  180 a^2 b^8  +  180 a^2 b^8 y  +  252 a^2 b^10  +  504 a^2 b^10 y  +  252 a^2 b^10 y^2  +  112 a^2 b^12  +  336 a^2 b^12 y  +  336 a^2 b^12 y^2  +  112 a^2 b^12 y^3  +  270 a^2 b^16  +  660 a^2 b^18  +  660 a^2 b^18 y  +  396 a^2 b^20  +  792 a^2 b^20 y  +  396 a^2 b^20 y^2  +  420 a^2 b^26  +  480 a^2 b^28  +  480 a^2 b^28 y  +  190 a^2 b^36  +  12 a^2 y  +  6 a^2 y^2  +  4 a^3  +  4 a^3 b^2  +  16 a^3 b^2 y  +  24 a^3 b^2 y^2  +  16 a^3 b^2 y^3  +  4 a^3 b^2 y^4  +  40 a^3 b^4  +  240 a^3 b^6  +  240 a^3 b^6 y  +  420 a^3 b^8  +  840 a^3 b^8 y  +  420 a^3 b^8 y^2  +  224 a^3 b^10  +  672 a^3 b^10 y  +  672 a^3 b^10 y^2  +  224 a^3 b^10 y^3  +  720 a^3 b^14  +  1980 a^3 b^16  +  1980 a^3 b^16 y  +  1320 a^3 b^18  +  2640 a^3 b^18 y  +  1320 a^3 b^18 y^2  +  1820 a^3 b^24  +  2240 a^3 b^26  +  2240 a^3 b^26 y  +  1140 a^3 b^34  +  12 a^3 y  +  12 a^3 y^2  +  4 a^3 y^3  +  a^4  +  20 a^4 b^2  +  180 a^4 b^4  +  180 a^4 b^4 y  +  420 a^4 b^6  +  840 a^4 b^6 y  +  420 a^4 b^6 y^2  +  280 a^4 b^8  +  840 a^4 b^8 y  +  840 a^4 b^8 y^2  +  280 a^4 b^8 y^3  +  1260 a^4 b^12  +  3960 a^4 b^14  +  3960 a^4 b^14 y  +  2970 a^4 b^16  +  5940 a^4 b^16 y  +  2970 a^4 b^16 y^2  +  5460 a^4 b^22  +  7280 a^4 b^24  +  7280 a^4 b^24 y  +  4845 a^4 b^32  +  4 a^4 y  +  6 a^4 y^2  +  4 a^4 y^3  +  a^4 y^4  +  4 a^5  +  72 a^5 b^2  +  72 a^5 b^2 y  +  252 a^5 b^4  +  504 a^5 b^4 y  +  252 a^5 b^4 y^2  +  224 a^5 b^6  +  672 a^5 b^6 y  +  672 a^5 b^6 y^2  +  224 a^5 b^6 y^3  +  1512 a^5 b^10  +  5544 a^5 b^12  +  5544 a^5 b^12 y  +  4752 a^5 b^14  +  9504 a^5 b^14 y  +  4752 a^5 b^14 y^2  +  12012 a^5 b^20  +  17472 a^5 b^22  +  17472 a^5 b^22 y  +  15504 a^5 b^30  +  12 a^6  +  84 a^6 b^2  +  168 a^6 b^2 y  +  84 a^6 b^2 y^2  +  112 a^6 b^4  +  336 a^6 b^4 y  +  336 a^6 b^4 y^2  +  112 a^6 b^4 y^3  +  1260 a^6 b^8  +  5544 a^6 b^10  +  5544 a^6 b^10 y  +  5544 a^6 b^12  +  11088 a^6 b^12 y  +  5544 a^6 b^12 y^2  +  20020 a^6 b^18  +  32032 a^6 b^20  +  32032 a^6 b^20 y  +  38760 a^6 b^28  +  12 a^6 y  +  12 a^7  +  32 a^7 b^2  +  96 a^7 b^2 y  +  96 a^7 b^2 y^2  +  32 a^7 b^2 y^3  +  720 a^7 b^6  +  3960 a^7 b^8  +  3960 a^7 b^8 y  +  4752 a^7 b^10  +  9504 a^7 b^10 y  +  4752 a^7 b^10 y^2  +  25740 a^7 b^16  +  45760 a^7 b^18  +  45760 a^7 b^18 y  +  77520 a^7 b^26  +  24 a^7 y  +  12 a^7 y^2  +  4 a^8  +  270 a^8 b^4  +  1980 a^8 b^6  +  1980 a^8 b^6 y  +  2970 a^8 b^8  +  5940 a^8 b^8 y  +  2970 a^8 b^8 y^2  +  25740 a^8 b^14  +  51480 a^8 b^16  +  51480 a^8 b^16 y  +  125970 a^8 b^24  +  12 a^8 y  +  12 a^8 y^2  +  4 a^8 y^3  +  60 a^9 b^2  +  660 a^9 b^4  +  660 a^9 b^4 y  +  1320 a^9 b^6  +  2640 a^9 b^6 y  +  1320 a^9 b^6 y^2  +  20020 a^9 b^12  +  45760 a^9 b^14  +  45760 a^9 b^14 y  +  167960 a^9 b^22  +  6 a^10  +  132 a^10 b^2  +  132 a^10 b^2 y  +  396 a^10 b^4  +  792 a^10 b^4 y  +  396 a^10 b^4 y^2  +  12012 a^10 b^10  +  32032 a^10 b^12  +  32032 a^10 b^12 y  +  184756 a^10 b^20  +  12 a^11  +  72 a^11 b^2  +  144 a^11 b^2 y  +  72 a^11 b^2 y^2  +  5460 a^11 b^8  +  17472 a^11 b^10  +  17472 a^11 b^10 y  +  167960 a^11 b^18  +  12 a^11 y  +  6 a^12  +  1820 a^12 b^6  +  7280 a^12 b^8  +  7280 a^12 b^8 y  +  125970 a^12 b^16  +  12 a^12 y  +  6 a^12 y^2  +  420 a^13 b^4  +  2240 a^13 b^6  +  2240 a^13 b^6 y  +  77520 a^13 b^14  +  60 a^14 b^2  +  480 a^14 b^4  +  480 a^14 b^4 y  +  38760 a^14 b^12  +  4 a^15  +  64 a^15 b^2  +  64 a^15 b^2 y  +  15504 a^15 b^10  +  4 a^16  +  4845 a^16 b^8  +  4 a^16 y  +  1140 a^17 b^6  +  190 a^18 b^4  +  20 a^19 b^2  +  a^20  +  4 b^2  +  4 b^2 y  +  6 b^4  +  12 b^4 y  +  6 b^4 y^2  +  4 b^6  +  12 b^6 y  +  12 b^6 y^2  +  4 b^6 y^3  +  b^8  +  4 b^8 y  +  6 b^8 y^2  +  4 b^8 y^3  +  b^8 y^4  +  4 b^10  +  12 b^12  +  12 b^12 y  +  12 b^14  +  24 b^14 y  +  12 b^14 y^2  +  4 b^16  +  12 b^16 y  +  12 b^16 y^2  +  4 b^16 y^3  +  6 b^20  +  12 b^22  +  12 b^22 y  +  6 b^24  +  12 b^24 y  +  6 b^24 y^2  +  4 b^30  +  4 b^32  +  4 b^32 y  +  b^40
+> aderiv(p^2,x=4)
+mvp object algebraically equal to
+240 x  +  720 x^2  +  720 x^2 y  +  5040 x^6
+> horner(p,1:3)
+mvp object algebraically equal to
+6  +  8 x  +  8 x y  +  3 x^2  +  6 x^2 y  +  3 x^2 y^2  +  8 x^5  +  6 x^6  +  6 x^6 y  +  3 x^10
 > 
 > 
 > 
@@ -415,13 +483,44 @@ mvp object algebraically equal to
 > 
 > 
 > cleanEx()
+> nameEx("ooom")
+> ### * ooom
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ooom
+> ### Title: One over one minus a multivariate polynomial
+> ### Aliases: ooom
+> 
+> ### ** Examples
+> 
+> ooom("x",5)
+mvp object algebraically equal to
+1  +  x  +  x^2  +  x^3  +  x^4  +  x^5
+> ooom("x",5) * as.mvp("1-x")  # zero through fifth order
+mvp object algebraically equal to
+1  -  x^6
+> 
+> 
+> ooom("x+y",4)
+mvp object algebraically equal to
+1  +  x  +  2 x y  +  3 x y^2  +  4 x y^3  +  x^2  +  3 x^2 y  +  6 x^2 y^2  +  x^3  +  4 x^3 y  +  x^4  +  y  +  y^2  +  y^3  +  y^4
+> 
+> "x+y" %>% ooom(5) %>% `-`(1) %>% ooom(3)
+mvp object algebraically equal to
+1  +  x  +  4 x y  +  12 x y^2  +  28 x y^3  +  55 x y^4  +  90 x y^5  +  133 x y^6  +  168 x y^7  +  189 x y^8  +  190 x y^9  +  165 x y^10  +  120 x y^11  +  78 x y^12  +  42 x y^13  +  15 x y^14  +  2 x^2  +  12 x^2 y  +  42 x^2 y^2  +  110 x^2 y^3  +  225 x^2 y^4  +  399 x^2 y^5  +  588 x^2 y^6  +  756 x^2 y^7  +  855 x^2 y^8  +  825 x^2 y^9  +  660 x^2 y^10  +  468 x^2 y^11  +  273 x^2 y^12  +  105 x^2 y^13  +  4 x^3  +  28 x^3 y  +  110 x^3 y^2  +  300 x^3 y^3  +  665 x^3 y^4  +  1176 x^3 y^5  +  1764 x^3 y^6  +  2280 x^3 y^7  +  2475 x^3 y^8  +  2200 x^3 y^9  +  1716 x^3 y^10  +  1092 x^3 y^11  +  455 x^3 y^12  +  7 x^4  +  55 x^4 y  +  225 x^4 y^2  +  665 x^4 y^3  +  1470 x^4 y^4  +  2646 x^4 y^5  +  3990 x^4 y^6  +  4950 x^4 y^7  +  4950 x^4 y^8  +  4290 x^4 y^9  +  3003 x^4 y^10  +  1365 x^4 y^11  +  11 x^5  +  90 x^5 y  +  399 x^5 y^2  +  1176 x^5 y^3  +  2646 x^5 y^4  +  4788 x^5 y^5  +  6930 x^5 y^6  +  7920 x^5 y^7  +  7722 x^5 y^8  +  6006 x^5 y^9  +  3003 x^5 y^10  +  15 x^6  +  133 x^6 y  +  588 x^6 y^2  +  1764 x^6 y^3  +  3990 x^6 y^4  +  6930 x^6 y^5  +  9240 x^6 y^6  +  10296 x^6 y^7  +  9009 x^6 y^8  +  5005 x^6 y^9  +  19 x^7  +  168 x^7 y  +  756 x^7 y^2  +  2280 x^7 y^3  +  4950 x^7 y^4  +  7920 x^7 y^5  +  10296 x^7 y^6  +  10296 x^7 y^7  +  6435 x^7 y^8  +  21 x^8  +  189 x^8 y  +  855 x^8 y^2  +  2475 x^8 y^3  +  4950 x^8 y^4  +  7722 x^8 y^5  +  9009 x^8 y^6  +  6435 x^8 y^7  +  21 x^9  +  190 x^9 y  +  825 x^9 y^2  +  2200 x^9 y^3  +  4290 x^9 y^4  +  6006 x^9 y^5  +  5005 x^9 y^6  +  19 x^10  +  165 x^10 y  +  660 x^10 y^2  +  1716 x^10 y^3  +  3003 x^10 y^4  +  3003 x^10 y^5  +  15 x^11  +  120 x^11 y  +  468 x^11 y^2  +  1092 x^11 y^3  +  1365 x^11 y^4  +  10 x^12  +  78 x^12 y  +  273 x^12 y^2  +  455 x^12 y^3  +  6 x^13  +  42 x^13 y  +  105 x^13 y^2  +  3 x^14  +  15 x^14 y  +  x^15  +  y  +  2 y^2  +  4 y^3  +  7 y^4  +  11 y^5  +  15 y^6  +  19 y^7  +  21 y^8  +  21 y^9  +  19 y^10  +  15 y^11  +  10 y^12  +  6 y^13  +  3 y^14  +  y^15
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("print")
 > ### * print
 > 
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: print
-> ### Title: Print methods for mvp objects
+> ### Title: Print methods for 'mvp' objects
 > ### Aliases: print.mvp print_mvp
 > ### Keywords: symbolmath
 > 
@@ -431,16 +530,16 @@ mvp object algebraically equal to
 > a <- rmvp(4)
 > a
 mvp object algebraically equal to
-4 a^2 b^10 d^7 f^3  +  2 a^3 b^5 c^5 d e^4 f^4  +  3 b^8 c^3 d f^6  +  c^4 e^15 f^4
+3 a^2 b^4 c^9 e^2 f  +  a^4 b^6 e^6 f^8  +  4 a^5 e^13 f  +  2 a^7 b^6 c^4 d^2 e
 > print(a)
 mvp object algebraically equal to
-4 a^2 b^10 d^7 f^3  +  2 a^3 b^5 c^5 d e^4 f^4  +  3 b^8 c^3 d f^6  +  c^4 e^15 f^4
+3 a^2 b^4 c^9 e^2 f  +  a^4 b^6 e^6 f^8  +  4 a^5 e^13 f  +  2 a^7 b^6 c^4 d^2 e
 > print(a,stars=TRUE)
 mvp object algebraically equal to
-4 * a**2 * b**10 * d**7 * f**3  +  2 * a**3 * b**5 * c**5 * d * e**4 * f**4  +  3 * b**8 * c**3 * d * f**6  +  c**4 * e**15 * f**4
+3 * a**2 * b**4 * c**9 * e**2 * f  +  a**4 * b**6 * e**6 * f**8  +  4 * a**5 * e**13 * f  +  2 * a**7 * b**6 * c**4 * d**2 * e
 > print(a,varorder=rev(letters))
 mvp object algebraically equal to
-3 f^6 d c^3 b^8  +  f^4 e^15 c^4  +  2 f^4 e^4 d c^5 b^5 a^3  +  4 f^3 d^7 b^10 a^2
+f^8 e^6 b^6 a^4  +  4 f e^13 a^5  +  3 f e^2 c^9 b^4 a^2  +  2 e d^2 c^4 b^6 a^7
 > 
 > 
 > 
@@ -458,10 +557,96 @@ mvp object algebraically equal to
 > 
 > rmvp(5)
 mvp object algebraically equal to
-3 a^2 b c^8 f^4  +  a^2 b^6 c^5 d^3 e^5 f^3  +  2 a^3 b^9 d^6 f^5  +  5 b^8 c^4 d^3 f^7  +  4 c^9 e^10 f^3
+5 a^2 b^4 c^8 e^4 f^6  +  3 a^4 b^6 c^2 d^4 e^2  +  2 a^6 b^7 e f^5  +  4 a^6 b^8 d e^5 f^6  +  a^8 e^7 f^6
 > rmvp(5,symbols=state.abb)
 mvp object algebraically equal to
-2 AZ^3 DE^4 ID^6 NC^3 RI^5 UT^2  +  3 CA^5 IL^5 KY^4 MS^3 RI^3 UT^4  +  4 CT HI IL^3 KY^3 OK^5 PA  +  5 KY^6 LA^2 MS^4 TN^3 UT VT^2  +  MD^6 MI^6 OK^5 RI^6 WI^4
+5 CO^6 HI^3 KY^6 RI^2 SC^2 UT^3  +  FL KY^3 MA^3 NM^2 PA^3 VT  +  2 IL^4 MO^7 OK^2 SC^3 WV^2  +  4 IL^5 MD^3 MN NH^2 RI^2 VA^3  +  3 MI^2 NC^6 NH^5 NV^4 UT^5 WV^4
+> 
+> 
+> 
+> cleanEx()
+> nameEx("series")
+> ### * series
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: series
+> ### Title: Decomposition of multivariate polynomials by powers
+> ### Aliases: series taylor trunc trunc1 print.series mvp_taylor_allvars
+> ###   mvp_taylor_onevar mvp_taylor_onepower_onevar mvp_to_series onevarpow
+> ### Keywords: symbolmath
+> 
+> ### ** Examples
+> 
+> trunc(as.mvp("1+x")^6,2)
+mvp object algebraically equal to
+1  +  6 x  +  15 x^2
+> 
+> trunc(as.mvp("1+x+y")^3,2)      # neglects all terms with total power>2
+mvp object algebraically equal to
+1  +  3 x  +  6 x y  +  3 x^2  +  3 y  +  3 y^2
+> trunc1(as.mvp("1+x+y")^3,x=2) # terms like y^3 are treated as constants
+mvp object algebraically equal to
+1  +  3 x  +  6 x y  +  3 x y^2  +  3 x^2  +  3 x^2 y  +  3 y  +  3 y^2  +  y^3
+> 
+> p <- horner("x+y",1:4)
+> 
+> onevarpow(p,x=2)   # coefficient of x^2
+mvp object algebraically equal to
+3  +  12 y
+> onevarpow(p,x=3)   # coefficient of x^3
+mvp object algebraically equal to
+4
+> 
+> onevarpow(as.mvp("1+x+x*y^2  + z*y^2*x"),x=1,y=2)
+mvp object algebraically equal to
+1  +  z
+> 
+> series(rmvp(10),"a")
+a^0(3 b^3 d^8 f^2  +  7 b^8 c^6 f^5)  + a^1(9 b^4 c^6 e^6 f)  + a^2(6 b^4 d^2 e 
+f^6)  + a^3(b^8 c^2 d^6 f^4)  + a^5(5 b^11 e^4 f^9)  + a^6(10 b e^3 f^17  +  8 
+e^14 f^5)  + a^8(2 d^5 f^10)  + a^9(4 b^4 c^3 d^3 e^6)
+
+> 
+> # Works well with pipes:
+> 
+> f <- function(n){as.mvp(sub('n',n,'1+x^n*y'))}
+> Reduce(`*`,lapply(1:6,f)) %>% series('y')
+y^0(1)  + y^1(x  +  x^2  +  x^3  +  x^4  +  x^5  +  x^6)  + y^2(x^3  +  x^4  +  
+2 x^5  +  2 x^6  +  3 x^7  +  2 x^8  +  2 x^9  +  x^10  +  x^11)  + y^3(x^6  +  
+x^7  +  2 x^8  +  3 x^9  +  3 x^10  +  3 x^11  +  3 x^12  +  2 x^13  +  x^14  + 
+ x^15)  + y^4(x^10  +  x^11  +  2 x^12  +  2 x^13  +  3 x^14  +  2 x^15  +  2 
+x^16  +  x^17  +  x^18)  + y^5(x^15  +  x^16  +  x^17  +  x^18  +  x^19  +  
+x^20)  + y^6(x^21)
+
+> Reduce(`*`,lapply(1:6,f)) %>% series('x')
+x^0(1)  + x^1(y)  + x^2(y)  + x^3(y  +  y^2)  + x^4(y  +  y^2)  + x^5(y  +  2 
+y^2)  + x^6(y  +  2 y^2  +  y^3)  + x^7(3 y^2  +  y^3)  + x^8(2 y^2  +  2 y^3)  
++ x^9(2 y^2  +  3 y^3)  + x^10(y^2  +  3 y^3  +  y^4)  + x^11(y^2  +  3 y^3  +  
+y^4)  + x^12(3 y^3  +  2 y^4)  + x^13(2 y^3  +  2 y^4)  + x^14(y^3  +  3 y^4)  
++ x^15(y^3  +  2 y^4  +  y^5)  + x^16(2 y^4  +  y^5)  + x^17(y^4  +  y^5)  + 
+x^18(y^4  +  y^5)  + x^19(y^5)  + x^20(y^5)  + x^21(y^6)
+
+> 
+> 
+> p %>% trunc(2)
+mvp object algebraically equal to
+1  +  2 x  +  6 x y  +  3 x^2  +  2 y  +  3 y^2
+> p %>% trunc1(x=2)
+mvp object algebraically equal to
+1  +  2 x  +  6 x y  +  12 x y^2  +  3 x^2  +  12 x^2 y  +  2 y  +  3 y^2  +  4 y^3
+> (p %>% subs(x="x+dx") -p) %>% trunc1(dx=2)
+mvp object algebraically equal to
+2 dx  +  6 dx x  +  24 dx x y  +  12 dx x^2  +  6 dx y  +  12 dx y^2  +  3 dx^2  +  12 dx^2 x  +  12 dx^2 y
+> 
+> 
+> ## Third order taylor expansion of f(x)=sin(x+y) for x=1.1, about x=1:
+> sinxpy <- horner("x+y",c(0,1,0,-1/6,0,+1/120,0,-1/5040,0,1/362880))  # sin(x+y)
+> dx <- as.mvp("dx")
+> t3 <- sinxpy  + aderiv(sinxpy,x=1)*dx + aderiv(sinxpy,x=2)*dx^2/2 + aderiv(sinxpy,x=3)*dx^3/6
+> t3 %<>% subs(x=1,dx=0.1)  # t3 = Taylor expansion of sin(y+1.1)
+> t3 %>% subs(y=0.3)  - sin(1.4)  # numeric; should be small
+[1] -3.039554e-06
 > 
 > 
 > 
@@ -516,14 +701,14 @@ a b c d e
 > mvp_to_spray(rmvp(5))
 [[1]]
      [,1] [,2] [,3] [,4] [,5] [,6]
-[1,]    2    1    8    0    0    4
-[2,]    2    6    5    3    5    3
-[3,]    3    9    0    6    0    5
-[4,]    0    8    4    3    0    7
-[5,]    0    0    9    0   10    3
+[1,]    2    4    8    0    4    6
+[2,]    4    6    2    4    2    0
+[3,]    6    7    0    0    1    5
+[4,]    6    8    0    1    5    6
+[5,]    8    0    0    0    7    6
 
 [[2]]
-[1] 3 1 2 5 4
+[1] 5 3 2 4 1
 
 attr(,"class")
 [1] "spray"
@@ -541,7 +726,8 @@ a  +  2 b  +  3 c  +  4 d  +  5 e  +  6 f
 > 
 > ### Name: subs
 > ### Title: Substitution
-> ### Aliases: subs subsy substitute subsmvp subs_mvp mvp_subs_mvp
+> ### Aliases: subs subsy subvec substitute subsmvp subs_mvp mvp_subs_mvp
+> ###   varchange varchange_formal namechanger
 > ### Keywords: symbolmath
 > 
 > ### ** Examples
@@ -549,25 +735,73 @@ a  +  2 b  +  3 c  +  4 d  +  5 e  +  6 f
 > p <- rmvp(6,2,2,letters[1:3])
 > p
 mvp object algebraically equal to
-3 a b^2  +  2 a^2 b  +  a^2 c^2  +  4 a^3  +  11 b^2 c
+5 a c  +  5 a^2 b^2  +  6 a^2 c^2  +  5 b c
 > subs(p,a=1)
 mvp object algebraically equal to
-4  +  2 b  +  3 b^2  +  11 b^2 c  +  c^2
+5 b c  +  5 b^2  +  5 c  +  6 c^2
 > subs(p,a=1,b=2)
 mvp object algebraically equal to
-20  +  44 c  +  c^2
+20  +  15 c  +  6 c^2
 > 
 > subs(p,a="1+b x^3",b="1-y")
 mvp object algebraically equal to
-9  +  11 c  -  22 c y  +  11 c y^2  +  c^2  +  2 c^2 x^3  -  2 c^2 x^3 y  +  c^2 x^6  -  2 c^2 x^6 y  +  c^2 x^6 y^2  +  19 x^3  -  29 x^3 y  +  13 x^3 y^2  -  3 x^3 y^3  +  14 x^6  -  30 x^6 y  +  18 x^6 y^2  -  2 x^6 y^3  +  4 x^9  -  12 x^9 y  +  12 x^9 y^2  -  4 x^9 y^3  -  8 y  +  3 y^2
-> subs(p,a=1,b=2,c=3,drop=FALSE)
+5  +  10 c  +  5 c x^3  -  5 c x^3 y  -  5 c y  +  6 c^2  +  12 c^2 x^3  -  12 c^2 x^3 y  +  6 c^2 x^6  -  12 c^2 x^6 y  +  6 c^2 x^6 y^2  +  10 x^3  -  30 x^3 y  +  30 x^3 y^2  -  10 x^3 y^3  +  5 x^6  -  20 x^6 y  +  30 x^6 y^2  -  20 x^6 y^3  +  5 x^6 y^4  -  10 y  +  5 y^2
+> subs(p,a=1,b=2,c=3,lose=FALSE)
 mvp object algebraically equal to
-161
+119
 > 
 > do.call(subs,c(list(as.mvp("z")),rep(c(z="C+z^2"),5)))
 mvp object algebraically equal to
 C  +  2 C z^16  +  4 C z^24  +  8 C z^28  +  16 C z^30  +  C^2  +  4 C^2 z^8  +  8 C^2 z^12  +  16 C^2 z^14  +  6 C^2 z^16  +  24 C^2 z^20  +  48 C^2 z^22  +  28 C^2 z^24  +  112 C^2 z^26  +  120 C^2 z^28  +  2 C^3  +  8 C^3 z^4  +  16 C^3 z^6  +  16 C^3 z^8  +  48 C^3 z^10  +  80 C^3 z^12  +  48 C^3 z^14  +  60 C^3 z^16  +  240 C^3 z^18  +  320 C^3 z^20  +  336 C^3 z^22  +  728 C^3 z^24  +  560 C^3 z^26  +  5 C^4  +  16 C^4 z^2  +  40 C^4 z^4  +  64 C^4 z^6  +  156 C^4 z^8  +  256 C^4 z^10  +  248 C^4 z^12  +  480 C^4 z^14  +  1150 C^4 z^16  +  1440 C^4 z^18  +  1848 C^4 z^20  +  2912 C^4 z^22  +  1820 C^4 z^24  +  14 C^5  +  48 C^5 z^2  +  120 C^5 z^4  +  304 C^5 z^6  +  560 C^5 z^8  +  816 C^5 z^10  +  1736 C^5 z^12  +  3440 C^5 z^14  +  4500 C^5 z^16  +  6160 C^5 z^18  +  8008 C^5 z^20  +  4368 C^5 z^22  +  26 C^6  +  112 C^6 z^2  +  360 C^6 z^4  +  832 C^6 z^6  +  1648 C^6 z^8  +  3696 C^6 z^10  +  7000 C^6 z^12  +  9888 C^6 z^14  +  13860 C^6 z^16  +  16016 C^6 z^18  +  8008 C^6 z^20  +  44 C^7  +  240 C^7 z^2  +  784 C^7 z^4  +  2048 C^7 z^6  +  5040 C^7 z^8  +  9968 C^7 z^10  +  15456 C^7 z^12  +  22176 C^7 z^14  +  24024 C^7 z^16  +  11440 C^7 z^18  +  69 C^8  +  416 C^8 z^2  +  1536 C^8 z^4  +  4480 C^8 z^6  +  9940 C^8 z^8  +  17280 C^8 z^10  +  25872 C^8 z^12  +  27456 C^8 z^14  +  12870 C^8 z^16  +  94 C^9  +  640 C^9 z^2  +  2520 C^9 z^4  +  6800 C^9 z^6  +  13740 C^9 z^8  +  22176 C^9 z^10  +  24024 C^9 z^12  +  11440 C^9 z^14  +  114 C^10  +  816 C^10 z^2  +  3040 C^10 z^4  +  7600 C^10 z^6  +  13860 C^10 z^8  +  16016 C^10 z^10  +  8008 C^10 z^12  +  116 C^11  +  800 C^11 z^2  +  2784 C^11 z^4  +  6160 C^11 z^6  +  8008 C^11 z^8  +  4368 C^11 z^10  +  94 C^12  +  608 C^12 z^2  +  1848 C^12 z^4  +  2912 C^12 z^6  +  1820 C^12 z^8  +  60 C^13  +  336 C^13 z^2  +  728 C^13 z^4  +  560 C^13 z^6  +  28 C^14  +  112 C^14 z^2  +  120 C^14 z^4  +  8 C^15  +  16 C^15 z^2  +  C^16  +  z^32
 > 
+> subvec(p,a=1,b=2,c=1:5)   # supply a named list of vectors
+[1]  41  74 119 176 245
+> 
+> M <- matrix(sample(1:3,26*3,replace=TRUE),ncol=26)
+> colnames(M) <- letters
+> rownames(M) <- c("Huey", "Dewie", "Louie")
+> subvec(kahle(r=3,p=1:3),M)  # supply a matrix
+ Huey Dewie Louie 
+ 3880  3547  1884 
+> 
+> varchange(as.mvp("1+x+xy + x*y"),x="newx") # variable xy unchanged
+mvp object algebraically equal to
+1  +  newx  +  newx y  +  xy
+> 
+> kahle(5,3,1:3) %>% subs(a="a + delta")
+mvp object algebraically equal to
+2 a b delta e^3  +  3 a b^2 c delta^2  +  a d^3 e^2  +  a^2 b e^3  +  3 a^2 b^2 c delta  +  a^3 b^2 c  +  b delta^2 e^3  +  b^2 c delta^3  +  b^3 c^2 d  +  c^3 d^2 e  +  d^3 delta e^2
+> 
+> pnew <- varchange(p,a="]")  # nonstandard variable names OK
+> p111 <- varchange_formal(p,"\\]","a")
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary")
+> ### * summary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary
+> ### Title: Summary methods for mvp objects
+> ### Aliases: summary nterms summary.mvp print.summary.mvp rtypical
+> ### Keywords: math
+> 
+> ### ** Examples
+> 
+> summary(rmvp(40))
+mvp object.
+Number of terms: 40 
+Number of distinct symbols: 6 
+Highest power: 17 
+Longest term:  5 
+Has negative powers:  FALSE 
+Constant:  0 
+> rtypical(rmvp(1000))
+mvp object algebraically equal to
+27 a^4 c^2 d^2 e^8  +  496 a^8 b^4 c^3 e  +  942 c^3 d^6 e^3 f^3
 > 
 > 
 > 
@@ -602,7 +836,7 @@ mvp object algebraically equal to
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  3.639 0.118 4.368 0 0 
+Time elapsed:  4.461 0.203 4.865 0.002 0.005 
 > grDevices::dev.off()
 null device 
           1 

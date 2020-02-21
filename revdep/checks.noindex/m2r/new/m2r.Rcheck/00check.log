@@ -1,7 +1,8 @@
 * using log directory ‘/Users/david_kahle/Dropbox/dev/mpoly/mpoly/revdep/checks.noindex/m2r/new/m2r.Rcheck’
-* using R version 3.5.2 (2018-12-20)
+* using R version 3.6.2 (2019-12-12)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘m2r/DESCRIPTION’ ... OK
 * checking extension type ... Package
 * this is package ‘m2r’ version ‘1.0.0’
@@ -45,6 +46,5 @@
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ... OK
   Running ‘testthat.R’
-* checking PDF version of manual ... OK
 * DONE
 Status: OK

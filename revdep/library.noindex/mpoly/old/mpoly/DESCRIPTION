@@ -1,20 +1,21 @@
 Package: mpoly
 Type: Package
 Title: Symbolic Computation and More with Multivariate Polynomials
-Version: 1.0.5
+Version: 1.1.1
 URL: https://github.com/dkahle/mpoly
 BugReports: https://github.com/dkahle/mpoly/issues
-Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
+Authors@R: person("David", "Kahle", email = "david@kahle.io", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9999-1558"))
 Description: Symbolic computing with multivariate polynomials in R.
-Depends: stringr (>= 1.0.0)
-Imports: partitions, plyr, stats, ggplot2, polynom, orthopolynom, tidyr
-Suggests: testthat, magrittr, dplyr
+Imports: stringr (>= 1.0.0), stringi, partitions, plyr, stats, ggplot2,
+        polynom, orthopolynom, tidyr
+Suggests: testthat (>= 2.1.0), magrittr, dplyr, covr
 License: GPL-2
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.2
+Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2017-06-21 15:56:48 UTC; david_kahle
-Author: David Kahle [aut, cre]
-Maintainer: David Kahle <david.kahle@gmail.com>
+Packaged: 2020-02-19 19:28:27 UTC; david_kahle
+Author: David Kahle [aut, cre] (<https://orcid.org/0000-0002-9999-1558>)
+Maintainer: David Kahle <david@kahle.io>
 Repository: CRAN
-Date/Publication: 2017-06-21 17:18:13 UTC
-Built: R 3.5.0; ; 2018-04-25 03:22:31 UTC; unix
+Date/Publication: 2020-02-20 07:00:08 UTC
+Built: R 3.6.2; ; 2020-02-21 15:25:59 UTC; unix

@@ -1,7 +1,8 @@
 * using log directory ‘/Users/david_kahle/Dropbox/dev/mpoly/mpoly/revdep/checks.noindex/algstat/old/algstat.Rcheck’
-* using R version 3.5.2 (2018-12-20)
+* using R version 3.6.2 (2019-12-12)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘algstat/DESCRIPTION’ ... OK
 * checking extension type ... Package
 * this is package ‘algstat’ version ‘0.0.2’
@@ -29,7 +30,11 @@
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking dependencies in R code ... OK
-* checking S3 generic/method consistency ... OK
+* checking S3 generic/method consistency ... NOTE
+Found the following apparent S3 methods exported but not registered:
+  print.spectral
+See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+manual.
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
@@ -66,6 +71,5 @@ to your NAMESPACE file.
 * checking line endings in C/C++/Fortran sources/headers ... OK
 * checking compiled code ... OK
 * checking examples ... OK
-* checking PDF version of manual ... OK
 * DONE
-Status: 1 NOTE
+Status: 2 NOTEs

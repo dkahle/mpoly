@@ -1,0 +1,102 @@
+* using log directory ‘/Users/david_kahle/Dropbox/dev/mpoly/mpoly/revdep/checks.noindex/latte/new/latte.Rcheck’
+* using R version 3.6.2 (2019-12-12)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘latte/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘latte’ version ‘0.2.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘latte’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... ERROR
+Running examples in ‘latte-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: latte-optim
+> ### Title: Solve an integer progam with LattE
+> ### Aliases: latte-optim latte_optim latte_max latte_min
+> 
+> ### ** Examples
+> 
+> 
+> 
+> if (has_latte()) {
++ 
++ latte_max(
++   "-2 x + 3 y", 
++   c("x + y <= 10", "x >= 0", "y >= 0")
++ )
++ 
++ latte_max(
++   "-2 x + 3 y", 
++   c("x + y <= 10", "x >= 0", "y >= 0"),
++   quiet = FALSE
++ )
++ 
++ 
++ df <- expand.grid("x" = 0:10, "y" = 0:10)
++ df <- subset(df, x + y <= 10L)
++ df$objective <- with(df, -2*x + 3*y)
++ library("ggplot2")
++ ggplot(df, aes(x, y, size = objective)) +
++   geom_point()
++ 
++ latte_min(
++   "-2 x + 3 y",
++   c("x + y <= 10", "x >= 0", "y >= 0"),
++   method = "cones"
++ )
++ 
++ 
++ 
++ latte_min("-2 x - 3 y - 4 z", c(
++   "3 x + 2 y + z <= 10",
++   "2 x + 5 y + 3 z <= 15",
++   "x >= 0", "y >= 0", "z >= 0"
++ ), "cones", quiet = FALSE)
++ 
++ 
++ 
++ 
++ 
++ }
+Error in vars(mpolyList) : is.mpoly(p) || is.mpolyList(p) is not TRUE
+Calls: latte_max ... latte_optim -> mpoly_list_to_mat -> vars -> stopifnot
+Execution halted
+* DONE
+Status: 1 ERROR

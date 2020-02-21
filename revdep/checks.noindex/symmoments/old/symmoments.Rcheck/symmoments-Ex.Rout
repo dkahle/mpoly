@@ -1,6 +1,6 @@
 
-R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -78,31 +78,19 @@ The following object is masked from ‘package:base’:
 > 
 > ### ** Examples
 > 
-> # create an mpoly object here
+> # create an mpoly object here (requires library mpoly) (not run)
 > 
 > # convert from mpoly to list representation
-> library(mpoly)
-Loading required package: stringr
-
-Attaching package: ‘mpoly’
-
-The following object is masked from ‘package:multipol’:
-
-    is.constant
-
-> t0 <- mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
-+                    c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1)))  
-> t1 <- convert.mpoly(t0)    
+> # t0 <- mpoly::mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
+> #                   c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1)))  
+> # t1 <- convert.mpoly(t0)    
 > # convert from list representation back to an mpoly object
-> t2 <- convert.mpoly(t1) 
+> # t2 <- convert.mpoly(t1) 
 > 
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:mpoly’, ‘package:stringr’
-
 > nameEx("convert.multipol")
 > ### * convert.multipol
 > 
@@ -115,32 +103,24 @@ detaching ‘package:mpoly’, ‘package:stringr’
 > 
 > ### ** Examples
 > 
-> # create an mpoly object to work with
-> library(mpoly)
-Loading required package: stringr
-
-Attaching package: ‘mpoly’
-
-The following object is masked from ‘package:multipol’:
-
-    is.constant
-
-> t0 <- mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
-+                    c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1))) 
+> # create an mpoly object to work with (requires library mpoly) (not run)
 > 
-> # convert from mpoly to list representation
-> t1 <- convert.mpoly(t0)    
-> # convert from list representation to a multipol object
-> t2 <- convert.multipol(t1) 
-> # convert back to a list representation
-> t3 <- convert.multipol(t2) 
+> 
+> # t0 <- mpoly::mpoly(list(c(coef=3,x1=2),c(coef=2,x1=1,x2=3),
+> #                   c(coef=-4,z=2),c(coef=1,x1=1,x2=2,z=1))) 
+> 
+> # convert from mpoly to list representation (not run)
+> # t1 <- convert.mpoly(t0)    
+> # convert from list representation to a multipol object(not run)
+> 
+> # t2 <- convert.multipol(t1) 
+> # convert back to a list representation (not run)
+> 
+> # t3 <- convert.multipol(t2) 
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:mpoly’, ‘package:stringr’
-
 > nameEx("evaluate.moment")
 > ### * evaluate.moment
 > 
@@ -313,10 +293,10 @@ E[ X1^1 X2^2 X3^3 ]:
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: symmomentsv2-package
+> ### Name: symmoments-package
 > ### Title: Symbolically compute and numerically evaluate multivariate
 > ###   central moments
-> ### Aliases: ' symmomentsv2-package' ' symmomentsv2'
+> ### Aliases: ' symmoments-package' ' symmoments'
 > 
 > ### ** Examples
 > 
@@ -417,7 +397,6 @@ E[ X1^1 X2^2 X3^3 X4^4 ]:
 > 
 > # Create an mpoly object 
 > library(mpoly)
-Loading required package: stringr
 
 Attaching package: ‘mpoly’
 
@@ -463,7 +442,7 @@ The following object is masked from ‘package:multipol’:
 > 
 > cleanEx()
 
-detaching ‘package:ape’, ‘package:mpoly’, ‘package:stringr’
+detaching ‘package:ape’, ‘package:mpoly’
 
 > nameEx("toLatex.moment")
 > ### * toLatex.moment
@@ -595,7 +574,7 @@ E[ X1^3 X2^1 X3^2 ]:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.524 0.147 1.747 0 0 
+Time elapsed:  1.537 0.169 2.834 0.002 0.005 
 > grDevices::dev.off()
 null device 
           1 

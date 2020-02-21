@@ -1,0 +1,412 @@
+
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "latte"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('latte')
+  Please cite latte! See citation("latte") for details.
+  - 4ti2 was not set in .Renviron. Use set_4ti2_path() to set it.
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("genmodel")
+> ### * genmodel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: genmodel
+> ### Title: Generate a configuration matrix
+> ### Aliases: genmodel
+> 
+> ### ** Examples
+> 
+> 
+> if (has_4ti2()) {
++ 
++ varlvls <- rep(2, 2)
++ facets <- list(1, 2)
++ genmodel(varlvls, facets)
++ genmodel(varlvls, facets, quiet = FALSE)
++ 
++ varlvls <- rep(3, 3)
++ facets <- list(1:2, 2:3, c(3,1))
++ genmodel(varlvls, facets)
++ 
++ # compare this to algstat's hmat function
++ 
++ }
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("kprod")
+> ### * kprod
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: kprod
+> ### Title: Iterated Kronecker product
+> ### Aliases: kprod
+> 
+> ### ** Examples
+> 
+> 
+> kprod(diag(2), t(ones(2)))
+     [,1] [,2] [,3] [,4]
+[1,]    1    1    0    0
+[2,]    0    0    1    1
+> kprod(t(ones(2)), diag(2))
+     [,1] [,2] [,3] [,4]
+[1,]    1    0    1    0
+[2,]    0    1    0    1
+> 
+> 
+> kprod(diag(2), t(ones(2)), t(ones(2)))
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+[1,]    1    1    1    1    0    0    0    0
+[2,]    0    0    0    0    1    1    1    1
+> kprod(t(ones(2)), diag(2), t(ones(2)))
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+[1,]    1    1    0    0    1    1    0    0
+[2,]    0    0    1    1    0    0    1    1
+> kprod(t(ones(2)), t(ones(2)), diag(2))
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+[1,]    1    0    1    0    1    0    1    0
+[2,]    0    1    0    1    0    1    0    1
+> 
+> 
+> # cf. aoki, hara, and takemura p.13
+> rbind(
++   kprod(diag(2), t(ones(2))),
++   kprod(t(ones(2)), diag(2))
++ ) 
+     [,1] [,2] [,3] [,4]
+[1,]    1    1    0    0
+[2,]    0    0    1    1
+[3,]    1    0    1    0
+[4,]    0    1    0    1
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("latte-count")
+> ### * latte-count
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: latte-count
+> ### Title: Count integer points in a polytope
+> ### Aliases: latte-count count_core latte_count latte_fcount
+> 
+> ### ** Examples
+> 
+> 
+> if (has_latte()) {
++ 
++ spec <- c("x + y <= 10", "x >= 1", "y >= 1")
++ latte_count(spec) # 45
++ latte_count(spec, quiet = FALSE) # 45
++ latte_count(spec, dilation = 10) # 3321
++ latte_count(spec, homog = TRUE) # 45
++ 
++ # by default, the output from LattE is in
++ list.files(tempdir())
++ list.files(tempdir(), recursive = TRUE)
++ 
++ # ehrhart polynomials
++ latte_count(spec, ehrhart_polynomial = TRUE)
++ latte_count(spec, ehrhart_polynomial = TRUE, mpoly = FALSE)
++ 
++ # ehrhart series (raw since mpoly can't handle rational functions)
++ latte_count(spec, ehrhart_series = TRUE)
++ 
++ # simplified ehrhart series - not yet implemented
++ #latte_count(spec, simplified_ehrhart_polynomial = TRUE)
++ 
++ # first terms of the ehrhart series
++ latte_count(spec, ehrhart_taylor = 1)
++ latte_count(spec, ehrhart_taylor = 2)
++ latte_count(spec, ehrhart_taylor = 3)
++ latte_count(spec, ehrhart_taylor = 4)
++ 
++ # multivariate generating function
++ latte_count(spec, multivariate_generating_function = TRUE)
++ 
++ 
++ # by vertices
++ spec <- list(c(1,1), c(10,1), c(1,10), c(10,10))
++ latte_count(spec)
++ latte_count(spec, vrep = TRUE)
++ 
++ code <- "
++ 5 3
++ 1 -1  0
++ 1  0 -1
++ 1 -1 -1
++ 0  1  0
++ 0  0  1
++ "
++ latte_count(code)
++ 
++ 
++ # for Ax <= b, see this example from the latte manual p.10
++ A <- matrix(c(
++    1,  0,
++    0,  1,
++    1,  1,
++   -1,  0,
++    0, -1
++ ), nrow = 5, byrow = TRUE)
++ b <- c(1, 1, 1, 0, 0)
++ latte_count(list(A = A, b = b))
++ 
++ 
++ 
++ 
++ 
++ 
++ 
++ 
++ 
++ }
+Ray Support Algorithm.
+The codimension is 3
+
+  Left =   1,  Col =   3,  Size =        3  Time:  0.00
+  Left =   1,  Col =   3,  Size =        3,  Time:  0.00                
+45
+This is LattE integrale 1.6
+Available from http://www.math.ucdavis.edu/~latte/
+
+Invocation: /Applications/latte/bin/count.bin /var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T//RtmpgCrfQf/2020_02_21_09_32_26_1TjgiouKOy/count_code.latte 
+Checking whether the input polytope is empty or not...size = 3 x 3
+Number Type = rational
+done.
+Removing redundant inequalities and finding hidden equalities using cddlib...done. 
+Ax <= b, given as (b|-A):
+=========================
+[10 -1 -1]
+[-1 1 0]
+[-1 0 1]
+
+Ax = b, given as (b|-A):
+========================
+[]
+
+Time for reading and preprocessing: 0 sec
+The polytope has 3 vertices.
+Time for computing vertices and supporting cones: 0 sec
+Time for dualizing general cones: 0 sec
+Dualizing all cones...All cones are now dualized.
+Time for dualizing general cones: 0 sec
+decomposeCones_Single: Decomposing all cones. (Memory Save on)
+3 cones total to be done!decomposeCones_Single: degree = 1
+Number of cones: 3
+Triangulating cone... done.
+0 vertex cones done. 
+Triangulating cone... done.
+1 vertex cones done. 
+Triangulating cone... done.
+2 vertex cones done. 
+
+Total Unimodular Cones: 3
+Maximum number of simplicial cones in memory at once: 0
+
+****  The number of lattice points is:   ****
+Total time: 0.01 sec
+Time for reading and preprocessing: 0 sec
+Time for computing vertices and supporting cones: 0 sec
+Time for irrationalizing general cones: 0 sec
+Time for dualizing general cones: 0 sec
+Time for triangulating cones into simplicial cones: 0 sec
+Time for Barvinok decomposition and residue calculation: 0 sec
+Total time: 0.01 sec
+Total number of simplicial cones: 3
+Total number of unimodular cones: 3
+Maximum depth of the decomposition tree: 0
+
+mpoly can't handle rational functions; reverting to raw output.
+Undeclared vertex specification, setting vrep = TRUE.
+[1] 3
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("latte-files")
+> ### * latte-files
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: latte-files
+> ### Title: Format/read/write a matrix in latte's style
+> ### Aliases: latte-files format_latte write_latte write.latte read_latte
+> ###   read.latte
+> 
+> ### ** Examples
+> 
+> 
+> 
+> (mat <- matrix(sample(9), 3, 3))
+     [,1] [,2] [,3]
+[1,]    9    1    3
+[2,]    4    2    8
+[3,]    7    6    5
+> 
+> format_latte(mat)
+[1] "3 3\n9 1 3\n4 2 8\n7 6 5"
+> cat(format_latte(mat))
+3 3
+9 1 3
+4 2 8
+7 6 5> 
+> (file <- file.path(tempdir(), "foo.hrep"))
+[1] "/var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T//RtmpgCrfQf/foo.hrep"
+> write_latte(mat, file)
+> file.show(file)
+3 3
+9 1 3
+4 2 8
+7 6 5
+
+> read_latte(file)
+     [,1] [,2] [,3]
+[1,]    9    1    3
+[2,]    4    2    8
+[3,]    7    6    5
+> read_latte(file, "Ab")
+$A
+     [,1] [,2]
+[1,]   -1   -3
+[2,]   -2   -8
+[3,]   -6   -5
+
+$b
+[1] 9 4 7
+
+> 
+> attr(mat, "linearity") <- c(1, 3)
+> attr(mat, "nonnegative") <- 2
+> mat
+     [,1] [,2] [,3]
+[1,]    9    1    3
+[2,]    4    2    8
+[3,]    7    6    5
+attr(,"linearity")
+[1] 1 3
+attr(,"nonnegative")
+[1] 2
+> format_latte(mat)
+[1] "3 3\n9 1 3\n4 2 8\n7 6 5\nlinearity 2 1 3\nnonnegative 1 2"
+> cat(format_latte(mat))
+3 3
+9 1 3
+4 2 8
+7 6 5
+linearity 2 1 3
+nonnegative 1 2> write_latte(mat, file)
+> file.show(file)
+3 3
+9 1 3
+4 2 8
+7 6 5
+linearity 2 1 3
+nonnegative 1 2
+
+> read_latte(file)
+     [,1] [,2] [,3]
+[1,]    9    1    3
+[2,]    4    2    8
+[3,]    7    6    5
+attr(,"linearity")
+[1] 1 3
+attr(,"nonnegative")
+[1] 2
+> 
+> file.remove(file)
+[1] TRUE
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("latte-optim")
+> ### * latte-optim
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: latte-optim
+> ### Title: Solve an integer progam with LattE
+> ### Aliases: latte-optim latte_optim latte_max latte_min
+> 
+> ### ** Examples
+> 
+> 
+> 
+> if (has_latte()) {
++ 
++ latte_max(
++   "-2 x + 3 y", 
++   c("x + y <= 10", "x >= 0", "y >= 0")
++ )
++ 
++ latte_max(
++   "-2 x + 3 y", 
++   c("x + y <= 10", "x >= 0", "y >= 0"),
++   quiet = FALSE
++ )
++ 
++ 
++ df <- expand.grid("x" = 0:10, "y" = 0:10)
++ df <- subset(df, x + y <= 10L)
++ df$objective <- with(df, -2*x + 3*y)
++ library("ggplot2")
++ ggplot(df, aes(x, y, size = objective)) +
++   geom_point()
++ 
++ latte_min(
++   "-2 x + 3 y",
++   c("x + y <= 10", "x >= 0", "y >= 0"),
++   method = "cones"
++ )
++ 
++ 
++ 
++ latte_min("-2 x - 3 y - 4 z", c(
++   "3 x + 2 y + z <= 10",
++   "2 x + 5 y + 3 z <= 15",
++   "x >= 0", "y >= 0", "z >= 0"
++ ), "cones", quiet = FALSE)
++ 
++ 
++ 
++ 
++ 
++ }
+Error in vars(mpolyList) : is.mpoly(p) || is.mpolyList(p) is not TRUE
+Calls: latte_max ... latte_optim -> mpoly_list_to_mat -> vars -> stopifnot
+Execution halted
