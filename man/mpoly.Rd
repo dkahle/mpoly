@@ -24,6 +24,14 @@ mpoly is the most basic function used to create objects of class mpoly.
 However, it is not a general purpose function; for that see \code{\link[=mp]{mp()}}.
 }
 \examples{
+
+list <- list(
+  c(coef = 1),
+  c(x = 1, coef = 1)
+)
+mpoly(list)
+
+
 list <- list(
   c(x = 1, coef = 1, y = 0),
   c(x = 0, y = 1, coef = 2),
