@@ -33,6 +33,8 @@ polynomial.
 is.mpoly( m )
 unclass(m)
 
+mp("1 + x")
+
 
 mp("x + 2 y + x^2 y + x y z")
 mp("x + 2 y + x^2 y + x y z", varorder = c("y", "z", "x"))
