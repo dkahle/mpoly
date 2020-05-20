@@ -41,12 +41,12 @@ NULL
   
   # if either is constant, mpoly it
   if(!is.list(e1)){
-    stopifnot(is.numeric(e1) && length(e1) == 1)
+    stopifnot(is.numeric(e1) && length(e1) == 1L)
     e1 <- list(c(coef = e1))
   }
   
   if(!is.list(e2)){
-    stopifnot(is.numeric(e2) && length(e2) == 1)
+    stopifnot(is.numeric(e2) && length(e2) == 1L)
     e2 <- list(c(coef = e2))
   }
 
