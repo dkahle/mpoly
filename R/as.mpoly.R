@@ -73,6 +73,31 @@ as.mpoly.default <- function(x, ...) {
 
 
 
+
+
+#' @export  
+as.mpoly.alm <- function(x, ...) {
+  
+  names <- names(coef(x))
+  if ("(Intercept)" %in% names) {
+    names[names == "(Intercept)"] <- "1"
+  }
+  
+  string <- paste(
+    unname(coef(x)),
+    names,
+    sep = "*",
+    collapse = " + "
+  )
+  
+  mp(string, stars_only = TRUE)
+  
+}
+
+
+
+
+
 #' @export  
 as.mpoly.lm <- function(x, ...){
   
