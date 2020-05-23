@@ -117,7 +117,7 @@ print.mpoly <- function(x, varorder, order, stars = FALSE, silent = FALSE, ..., 
   
   
   # print
-  if(!silent) cat(s, ...)
+  if(!silent) cat(s, "\n", ...)
   
   
   ## return
