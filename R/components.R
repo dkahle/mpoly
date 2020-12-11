@@ -116,9 +116,8 @@ totaldeg <- function(x){
 #' @export
 monomials <- function(x){
   if(!is.mpoly(x)) stop("monomials requires an mpoly or mpolyList object.", call. = FALSE)
-  xs <- lapply(1:length(x), function(ndx) `[.mpoly`(x,ndx))
-  class(xs) <- "mpolyList"
-  xs
+  vec_to_mpoly <- function(.) structure(list(.), class = "mpoly")
+  structure(lapply(x, vec_to_mpoly), class = "mpolyList")
 }
 
 
