@@ -19,7 +19,7 @@ Determine all r-vectors with nonnegative integer entries summing to n.  Note
 that this is not intended to be optimized.
 }
 \examples{
-burst(4)
+burst(3)
 
 burst(4, 4)
 burst(4, 3)

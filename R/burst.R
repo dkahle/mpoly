@@ -8,7 +8,7 @@
 #' @return a matrix whose rows are the n-tuples
 #' @export
 #' @examples
-#' burst(4)
+#' burst(3)
 #'
 #' burst(4, 4)
 #' burst(4, 3)
