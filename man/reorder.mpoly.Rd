@@ -25,13 +25,8 @@ terms.
 }
 \examples{
 
-list <- list(
-  c(x = 1, y = 2, z = 1, coef = 1),
-  c(x = 2, y = 0, z = 2, coef = 1),
-  c(x = 0, y = 0, z = 2, coef = 1),
-  c(x = 3, y = 0, z = 0, coef = 1)
-)
-(p <- mpoly(list)) # -> x y^2 z  +  x^2 z^2  +  z^2  +  x^3
+
+p <- mp("x y^2 z  +  x^2 z^2  +  z^2  +  x^3")	
 reorder(p) # -> x y^2 z  +  x^2 z^2  +  z^2  +  x^3
 reorder(p, varorder = c("x","y","z"), order = "lex")
     # -> x^3  +  x^2 z^2  +  x y^2 z  +  z^2
