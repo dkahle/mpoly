@@ -10,13 +10,15 @@
 #' @examples
 #' burst(3)
 #'
-#' burst(4, 4)
-#' burst(4, 3)
-#' burst(4, 2)
+#' burst(3, 1)
+#' burst(3, 2)
+#' burst(3, 3)
+#' burst(3, 4)
 #'
 #' rowSums(burst(4))
-#' rowSums(burst(4, 3))
-#' rowSums(burst(4, 2))
+#' rowSums( burst(3, 2) )
+#' rowSums( burst(3, 3) )
+#' rowSums( burst(3, 4) )
 #'
 #'
 #' burst(10, 4) # all possible 2x2 contingency tables with n=10
@@ -24,11 +26,13 @@
 #' 
 burst <- function(n, r = n){
   stopifnot(is.wholenumber(n))
-  stopifnot(n > 0)
+  stopifnot(n >= 0)
   stopifnot(is.wholenumber(r))
-  stopifnot(r > 0)
+  stopifnot(r >= 0)
   
-  if(r == 1) return(n)
+  if (n == 0) return(t(rep(0, r)))
+  
+  if (r == 1) return(n)
    
   ## compute all partitions of the number (order does not matter)
   parts <- partitions(n)
