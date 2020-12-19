@@ -1,5 +1,10 @@
 # mpoly 1.1.1
 
+## New features
+
+*   `as.function()` is now "vectorized" in a consistent way for both `mpoly` and 
+    `mpolyList` objects. See exampels in `?as.function.mpoly` for details.
+
 ## Minor improvements and fixes
 
 *   __mpoly__ now is extensively tested, and many bugs have been found and fixed.
