@@ -24,7 +24,7 @@ multideg(x, varorder = vars(x), order = "lex")
 
 totaldeg(x)
 
-monomials(x)
+monomials(x, unit = FALSE)
 
 exponents(x, reduced = FALSE)
 }
@@ -36,6 +36,8 @@ exponents(x, reduced = FALSE)
 \item{varorder}{the order of the variables}
 
 \item{order}{a total order used to order the terms}
+
+\item{unit}{for \code{\link[=monomials]{monomials()}}, should the monomials have coefficient 1?}
 
 \item{reduced}{if TRUE, don't include zero degrees}
 }
@@ -58,6 +60,7 @@ LM(p)
 multideg(p)
 totaldeg(p)
 monomials(p)
+monomials(p, unit = TRUE)
 
 exponents(p)
 exponents(p, reduce = TRUE)

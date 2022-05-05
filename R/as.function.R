@@ -38,6 +38,7 @@
 #' @inheritParams print.mpoly
 #' @param vector whether the function should take a vector argument (TRUE) or a
 #'   series of arguments (FALSE)
+#' @param name should the returned object be named? only for `mpolyList` objects
 #' @param ... any additional arguments
 #' @param squeeze minify code in the created function
 #' @name as-function
@@ -66,6 +67,9 @@
 #' (f <- as.function(p))
 #' f(2)
 #' f(1:3) # vectorized
+#' (f <- as.function(p, name = TRUE))
+#' f(2)
+#' f(1:3) # vectorized
 #' 
 #' 
 #' # m = 3, n = 2  (as.function.mpolyList())
@@ -74,6 +78,9 @@
 #' f(1:2) 
 #' (mat <- matrix(1:4, ncol = 2))
 #' f(mat) # vectorized across rows of input matrix
+#' (f <- as.function(p, name = TRUE))
+#' f(1:2) 
+#' f(mat)
 #' 
 #' 
 #'
@@ -90,6 +97,10 @@
 #' # m = 3, n = 2  (as.function.mpolyList())
 #' p <- mp(c("x", "y", "x y"))
 #' (f <- as.function(p, vector = FALSE))
+#' f(1, 2) 
+#' (mat <- matrix(1:4, ncol = 2))
+#' f(mat[,1], mat[,2]) # vectorized across rows of input matrix
+#' (f <- as.function(p, vector = FALSE, name = TRUE))
 #' f(1, 2) 
 #' (mat <- matrix(1:4, ncol = 2))
 #' f(mat[,1], mat[,2]) # vectorized across rows of input matrix
@@ -329,10 +340,10 @@ as.function.bernstein <- function(x, ...){
 
 
 #' @usage \method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
-#'   silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
+#'   silent = FALSE, name = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
 #' @export
 #' @rdname as-function
-as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE){
+as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, name = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE){
   
   # argument checking
   stopifnot(is.character(varorder))
@@ -348,6 +359,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
   
   # print polys with stars
   mp_str <- print.mpolyList(x, stars = TRUE, silent = TRUE, plus_pad = plus_pad, times_pad = times_pad)
+  if (name) printed_mps <- print.mpolyList(x, silent = TRUE)
   
 
   # univariate polynomial - vectorize
@@ -360,11 +372,12 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
     body(f) <- as.call(c(
       as.name("{"),
       expression(if(length(.) > 1) return(t(sapply(., f)))),
-      parse(text = stri_c("c(", mp_str, ")"))
+      parse(text = paste0("out <- c(", stri_c(mp_str, collapse = ", "), ")")),
+      expression(if (name) structure(out, names = printed_mps) else out)
     ))
     return(f)
   }
-
+  
   # general polynomials as a vector argument
   if (vector) {
     mp_str <- stri_c(" ", mp_str, " ") # pad to make parsing easier 
@@ -385,7 +398,8 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
           stop("`ncol(mat)` not equal to number of variables.", call. = FALSE)
         return(t(apply(., 1, f)))
       }),
-      parse(text = paste0("c(", stri_c(mp_str, collapse = ", "), ")"))
+      parse(text = paste0("out <- c(", stri_c(mp_str, collapse = ", "), ")")),
+      expression(if (name) structure(out, names = printed_mps) else out)
     ))
     return(f)
     
@@ -400,13 +414,18 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
     }
     mp_str <- stri_c(
       "function(", stri_c(varorder, collapse = ", "), ") {", 
-      "if (length(", varorder[1], ") > 1) return(unname(cbind(", mp_str, ")));", 
-      "c(", mp_str, ")",
+      "if (length(", varorder[1], ") > 1) {",
+      "out <- unname(cbind(", mp_str, ")); return(if (name) structure(out, dimnames = list(NULL, printed_mps)) else out) ",
+      "};", 
+      # "c(", mp_str, ")",
+      paste0("out <- c(", mp_str, ");"),
+      "if (name) structure(out, names = printed_mps) else out",
       "}"
     )
     return(eval(parse(text = mp_str)))
   }  
   
 }
+
 
 

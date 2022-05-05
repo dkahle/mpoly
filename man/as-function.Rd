@@ -10,7 +10,7 @@
   silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
 
 \method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
-  silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
+  silent = FALSE, name = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
 }
 \arguments{
 \item{x}{an object of class mpoly}
@@ -29,6 +29,8 @@ series of arguments (FALSE)}
 \item{times_pad}{number of spaces to the left and right of times sign}
 
 \item{squeeze}{minify code in the created function}
+
+\item{name}{should the returned object be named? only for \code{mpolyList} objects}
 }
 \description{
 Transform \code{mpoly} and \code{mpolyList} objects into function that can be
@@ -91,6 +93,9 @@ p <- mp(c("x", "x^2"))
 (f <- as.function(p))
 f(2)
 f(1:3) # vectorized
+(f <- as.function(p, name = TRUE))
+f(2)
+f(1:3) # vectorized
 
 
 # m = 3, n = 2  (as.function.mpolyList())
@@ -99,6 +104,9 @@ p <- mp(c("x", "y", "x y"))
 f(1:2) 
 (mat <- matrix(1:4, ncol = 2))
 f(mat) # vectorized across rows of input matrix
+(f <- as.function(p, name = TRUE))
+f(1:2) 
+f(mat)
 
 
 
@@ -115,6 +123,10 @@ f(mat[,1], mat[,2]) # vectorized across input vectors
 # m = 3, n = 2  (as.function.mpolyList())
 p <- mp(c("x", "y", "x y"))
 (f <- as.function(p, vector = FALSE))
+f(1, 2) 
+(mat <- matrix(1:4, ncol = 2))
+f(mat[,1], mat[,2]) # vectorized across rows of input matrix
+(f <- as.function(p, vector = FALSE, name = TRUE))
 f(1, 2) 
 (mat <- matrix(1:4, ncol = 2))
 f(mat[,1], mat[,2]) # vectorized across rows of input matrix

@@ -7,6 +7,7 @@
 #' @param varorder the order of the variables
 #' @param order a total order used to order the terms
 #' @param reduced if TRUE, don't include zero degrees
+#' @param unit for [monomials()], should the monomials have coefficient 1?
 #' @return An object of class mpoly or mpolyList, depending on the context
 #' @name components
 #' @examples
@@ -22,6 +23,7 @@
 #' multideg(p)
 #' totaldeg(p)
 #' monomials(p)
+#' monomials(p, unit = TRUE)
 #'
 #' exponents(p)
 #' exponents(p, reduce = TRUE)
@@ -114,9 +116,12 @@ totaldeg <- function(x){
 
 #' @rdname components
 #' @export
-monomials <- function(x){
+monomials <- function(x, unit = FALSE){
   if(!is.mpoly(x)) stop("monomials requires an mpoly or mpolyList object.", call. = FALSE)
-  vec_to_mpoly <- function(.) structure(list(.), class = "mpoly")
+  vec_to_mpoly <- function(.) {
+    if (unit) .["coef"] <- 1
+    structure(list(.), class = "mpoly")
+  }
   structure(lapply(x, vec_to_mpoly), class = "mpolyList")
 }
 
