@@ -10,6 +10,7 @@
 \alias{totaldeg}
 \alias{monomials}
 \alias{exponents}
+\alias{coef.mpoly}
 \title{Polynomial components}
 \usage{
 \method{[}{mpoly}(x, ndx)
@@ -27,6 +28,8 @@ totaldeg(x)
 monomials(x, unit = FALSE)
 
 exponents(x, reduced = FALSE)
+
+\method{coef}{mpoly}(object, ...)
 }
 \arguments{
 \item{x}{an object of class mpoly}
@@ -40,6 +43,11 @@ exponents(x, reduced = FALSE)
 \item{unit}{for \code{\link[=monomials]{monomials()}}, should the monomials have coefficient 1?}
 
 \item{reduced}{if TRUE, don't include zero degrees}
+
+\item{object}{mpoly object to pass to \code{\link[=coef]{coef()}}}
+
+\item{...}{In \code{\link[=coef]{coef()}}, additional arguments passed to \code{\link[=print.mpoly]{print.mpoly()}} for
+the names of the resulting vector}
 }
 \value{
 An object of class mpoly or mpolyList, depending on the context
@@ -61,6 +69,7 @@ multideg(p)
 totaldeg(p)
 monomials(p)
 monomials(p, unit = TRUE)
+coef(p)
 
 exponents(p)
 exponents(p, reduce = TRUE)

@@ -330,9 +330,8 @@ bezierFunction <- function(...) {
 
 
 
-
+#' @rdname as-function
 #' @export 
-#' @rdname as.function.mpolyList
 as.function.bezier <- function(x, ...) bezier_function(attr(x, "bezier")$points, ...)
 
 

@@ -111,4 +111,21 @@ test_that("exponents works", {
 
 
 
+test_that("coef works", {
+  
+  expect_equal(
+    coef(mp("x y^2 + 3 y^3 x^2 + 5")), 
+    c("x y^2" = 1, "x^2 y^3" = 3, "1" = 5)
+  )
+  
+  expect_equal(
+    coef(mp("x y^2 + 3 y^3 x^2 + 5"), stars = TRUE), 
+    c("x * y**2" = 1, "x**2 * y**3" = 3, "1" = 5)
+  )
+  
+  
+})
+
+
+
 

@@ -8,6 +8,9 @@
 #' @param order a total order used to order the terms
 #' @param reduced if TRUE, don't include zero degrees
 #' @param unit for [monomials()], should the monomials have coefficient 1?
+#' @param object mpoly object to pass to [coef()]
+#' @param ... In [coef()], additional arguments passed to [print.mpoly()] for
+#'   the names of the resulting vector
 #' @return An object of class mpoly or mpolyList, depending on the context
 #' @name components
 #' @examples
@@ -24,6 +27,7 @@
 #' totaldeg(p)
 #' monomials(p)
 #' monomials(p, unit = TRUE)
+#' coef(p)
 #'
 #' exponents(p)
 #' exponents(p, reduce = TRUE)
@@ -155,3 +159,18 @@ exponents <- function(x, reduced = FALSE){
     tmp
   })
 }
+
+
+
+#' @rdname components
+#' @exportS3Method 
+coef.mpoly <- function(object, ...) {
+  coef_vec <- vapply(object, `[[`, double(1), "coef")
+  names(coef_vec) <- print.mpolyList(monomials(object, unit = TRUE), silent = TRUE, ...)
+  coef_vec
+}
+
+
+
+
+
