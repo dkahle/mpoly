@@ -47,14 +47,14 @@
 #' 
 #' # basic usage. m = # polys/eqns, n = # vars
 #' 
-#' # m = 1, n = 1 (as.function.mpoly())
+#' # m = 1, n = 1, `as.function.mpoly()`
 #' p <- mp("x^2 + 1")
 #' (f <- as.function(p))
 #' f(2)
 #' f(1:3) # vectorized
 #' 
 #' 
-#' # m = 1, n = 2  (as.function.mpoly())
+#' # m = 1, n = 2 , `as.function.mpoly()`
 #' p <- mp("x y")
 #' (f <- as.function(p))
 #' f(1:2) 
@@ -62,22 +62,26 @@
 #' f(mat) # vectorized across rows of input matrix
 #' 
 #'  
-#' # m = 2, n = 1  (as.function.mpolyList())
+#' # m = 2, n = 1, `as.function.mpolyList()`
 #' p <- mp(c("x", "x^2"))
 #' (f <- as.function(p))
 #' f(2)
 #' f(1:3) # vectorized
+#' 
 #' (f <- as.function(p, name = TRUE))
 #' f(2)
 #' f(1:3) # vectorized
 #' 
 #' 
-#' # m = 3, n = 2  (as.function.mpolyList())
-#' p <- mp(c("x", "y", "x y"))
+#' # m = 3, n = 2, `as.function.mpolyList()`
+#' p <- mp("(x + y)^2")
+#' (p <- monomials(p))
+#' 
 #' (f <- as.function(p))
 #' f(1:2) 
-#' (mat <- matrix(1:4, ncol = 2))
+#' (mat <- cbind(x = 1:3, y = 4:6))
 #' f(mat) # vectorized across rows of input matrix
+#' 
 #' (f <- as.function(p, name = TRUE))
 #' f(1:2) 
 #' f(mat)
@@ -87,14 +91,14 @@
 #' # setting vector = FALSE changes the function to a sequence of arguments
 #' # this is only of interest if n = # of vars > 1
 #' 
-#' # m = 1, n = 2  (as.function.mpoly())
+#' # m = 1, n = 2, `as.function.mpoly()`
 #' p <- mp("x y")
 #' (f <- as.function(p, vector = FALSE))
 #' f(1, 2) 
 #' (mat <- matrix(1:6, ncol = 2))
 #' f(mat[,1], mat[,2]) # vectorized across input vectors
 #' 
-#' # m = 3, n = 2  (as.function.mpolyList())
+#' # m = 3, n = 2, `as.function.mpolyList()`
 #' p <- mp(c("x", "y", "x y"))
 #' (f <- as.function(p, vector = FALSE))
 #' f(1, 2) 
@@ -393,6 +397,7 @@ as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent =
     formals(f) <- alist(. = )
     body(f) <- as.call(c(
       as.name("{"),
+      expression(if (!name) . <- unname(.)),
       expression(if(is.matrix(.)) {
         if (ncol(.) != n) 
           stop("`ncol(mat)` not equal to number of variables.", call. = FALSE)

@@ -22,6 +22,6 @@ Suggests:
     dplyr,
     covr
 License: GPL-2
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
