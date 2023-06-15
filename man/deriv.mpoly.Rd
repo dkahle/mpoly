@@ -4,7 +4,7 @@
 \alias{deriv.mpoly}
 \title{Compute partial derivatives of a multivariate polynomial.}
 \usage{
-\method{deriv}{mpoly}(expr, var, ...)
+\method{deriv}{mpoly}(expr, var, ..., bring_power_down = TRUE)
 }
 \arguments{
 \item{expr}{an object of class mpoly}
@@ -12,6 +12,8 @@
 \item{var}{character - the partial derivative desired}
 
 \item{...}{any additional arguments}
+
+\item{bring_power_down}{if \code{FALSE}, x^n -> x^(n-1), not n x^(n-1)}
 }
 \value{
 An object of class mpoly or mpolyList.
@@ -21,12 +23,18 @@ This is a deriv method for mpoly objects.  It does not call the
 \code{\link[stats:deriv]{stats::deriv()}}.
 }
 \examples{
-m <- mp("x y + y z + z^2")
-deriv(m, "x")
-deriv(m, "y")
-deriv(m, "z")
-deriv(m, c("x","y","z"))
-deriv(m, "a")
-is.mpoly(deriv(m, "x"))
-is.mpolyList( deriv(m, c("x","y","z")) )
+p <- mp("x y + y z + z^2")
+deriv(p, "x")
+deriv(p, "y")
+deriv(p, "z")
+deriv(p, "t")
+deriv(p, c("x","y","z"))
+
+is.mpoly(deriv(p, "x"))
+is.mpolyList( deriv(p, c("x","y","z")) )
+
+p <- mp("x^5")
+deriv(p, "x")
+deriv(p, "x", bring_power_down = FALSE)
+
 }

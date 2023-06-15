@@ -47,6 +47,21 @@ test_that("vector indeterminates", {
 
 
 
+
+
+test_that("bring_down_power works", {
+  
+  p <- mp("x^5")
+  
+  expect_equal(
+    mp("x^4"),
+    deriv(p, "x", bring_power_down = FALSE)
+  )
+  
+})
+
+
+
 test_that("gradient", {
   
   expect_equal(

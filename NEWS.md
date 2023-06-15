@@ -4,6 +4,11 @@
 
 *   `coef()` allows you to extract the coefficients of an mpoly object (#25, 
     thanks @ggrothendieck).
+    
+*   `deriv()` now allows you to not bring the power down as a multiplier.
+
+*   `normalize_coefficients()` now allows you normalize term coefficients 
+    according to an input norm, defaulting to the Euclidean norm.
 
 
 

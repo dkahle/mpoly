@@ -129,3 +129,51 @@ test_that("coef works", {
 
 
 
+
+
+test_that("normalize_coefficients works", {
+  
+  p <- mp("(x + y)^2")
+  
+  expect_equal(
+    normalize_coefficients(p),
+    structure(
+      list(
+        c(x = 2, coef = 0.408248290463863), 
+        c(x = 1, y = 1, coef = 0.816496580927726), 
+        c(y = 2, coef = 0.408248290463863)
+      ), 
+      class = "mpoly"
+    )
+  )
+  
+  abs_norm <- function(x) sum(abs(x))
+  expect_equal(
+    normalize_coefficients(p, norm = abs_norm),
+    structure(
+      list(
+        c(x = 2, coef = 0.25), 
+        c(x = 1, y = 1, coef = 0.5), 
+        c(y = 2, coef = 0.25)
+      ), 
+      class = "mpoly"
+    )
+  )
+  
+  expect_equal(
+    sum(coef(normalize_coefficients(p))^2),
+    1
+  )
+  
+  expect_equal(
+    normalize_coefficients(mp(c("x", "5 y"))),
+    mp(c("x", "y"))
+  )
+  
+  
+  
+  
+})
+
+
+

@@ -11,6 +11,7 @@
 \alias{monomials}
 \alias{exponents}
 \alias{coef.mpoly}
+\alias{normalize_coefficients}
 \title{Polynomial components}
 \usage{
 \method{[}{mpoly}(x, ndx)
@@ -30,6 +31,8 @@ monomials(x, unit = FALSE)
 exponents(x, reduced = FALSE)
 
 \method{coef}{mpoly}(object, ...)
+
+normalize_coefficients(p, norm = function(x) sqrt(sum(x^2)))
 }
 \arguments{
 \item{x}{an object of class mpoly}
@@ -48,6 +51,11 @@ exponents(x, reduced = FALSE)
 
 \item{...}{In \code{\link[=coef]{coef()}}, additional arguments passed to \code{\link[=print.mpoly]{print.mpoly()}} for
 the names of the resulting vector}
+
+\item{p}{an object of class mpoly or mpolyList}
+
+\item{norm}{a norm (function) to normalize the coefficients of a polynomial,
+defaults to the Euclidean norm}
 }
 \value{
 An object of class mpoly or mpolyList, depending on the context
@@ -76,5 +84,17 @@ exponents(p, reduce = TRUE)
 lapply(exponents(p), is.integer)
 
 homogeneous_components(p)
+
+(p <- mp("(x + y)^2"))
+normalize_coefficients(p)
+norm <- function(v) sqrt(sum(v^2))
+norm(coef( normalize_coefficients(p) ))
+
+abs_norm <- function(x) sum(abs(x))
+normalize_coefficients(p, norm = abs_norm)
+
+p <- mp(c("x", "2 y"))
+normalize_coefficients(p)
+
 
 }

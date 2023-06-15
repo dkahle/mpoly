@@ -11,6 +11,9 @@
 #' @param object mpoly object to pass to [coef()]
 #' @param ... In [coef()], additional arguments passed to [print.mpoly()] for
 #'   the names of the resulting vector
+#' @param p an object of class mpoly or mpolyList
+#' @param norm a norm (function) to normalize the coefficients of a polynomial, 
+#'   defaults to the Euclidean norm
 #' @return An object of class mpoly or mpolyList, depending on the context
 #' @name components
 #' @examples
@@ -34,6 +37,18 @@
 #' lapply(exponents(p), is.integer)
 #'
 #' homogeneous_components(p)
+#' 
+#' (p <- mp("(x + y)^2"))
+#' normalize_coefficients(p)
+#' norm <- function(v) sqrt(sum(v^2))
+#' norm(coef( normalize_coefficients(p) ))
+#' 
+#' abs_norm <- function(x) sum(abs(x))
+#' normalize_coefficients(p, norm = abs_norm)
+#' 
+#' p <- mp(c("x", "2 y"))
+#' normalize_coefficients(p)
+#' 
 #' 
 
 
@@ -172,5 +187,18 @@ coef.mpoly <- function(object, ...) {
 
 
 
+
+
+
+
+#' @rdname components
+#' @export
+normalize_coefficients <- function(p, norm = function(x) sqrt(sum(x^2))) {
+  if (is.mpolyList(p)) return( structure(lapply(p, normalize_coefficients), class = "mpolyList") )
+  normalize <- function(x) x / norm(x)
+  c <- normalize(coef(p))
+  for (i in seq_along(p)) p[[i]]["coef"] <- c[i]
+  p
+}
 
 

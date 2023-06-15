@@ -6,18 +6,25 @@
 #' @param expr an object of class mpoly
 #' @param var character - the partial derivative desired
 #' @param ... any additional arguments
+#' @param bring_power_down if `FALSE`, x^n -> x^(n-1), not n x^(n-1)
 #' @return An object of class mpoly or mpolyList.
 #' @export
 #' @examples
-#' m <- mp("x y + y z + z^2")
-#' deriv(m, "x")
-#' deriv(m, "y")
-#' deriv(m, "z")
-#' deriv(m, c("x","y","z"))
-#' deriv(m, "a")
-#' is.mpoly(deriv(m, "x"))
-#' is.mpolyList( deriv(m, c("x","y","z")) )
-deriv.mpoly <- function(expr, var, ...){
+#' p <- mp("x y + y z + z^2")
+#' deriv(p, "x")
+#' deriv(p, "y")
+#' deriv(p, "z")
+#' deriv(p, "t")
+#' deriv(p, c("x","y","z"))
+#' 
+#' is.mpoly(deriv(p, "x"))
+#' is.mpolyList( deriv(p, c("x","y","z")) )
+#' 
+#' p <- mp("x^5")
+#' deriv(p, "x")
+#' deriv(p, "x", bring_power_down = FALSE)
+#' 
+deriv.mpoly <- function(expr, var, ..., bring_power_down = TRUE){
 
   # argument checks	
   if (missing(var)) stop("var must be specified, see ?deriv.mpoly", call. = FALSE)
@@ -46,7 +53,7 @@ deriv.mpoly <- function(expr, var, ...){
   	if(length(v) == 1) return(c(coef = 0))
     p <- length(v)
     if(!(var %in% names(v[1:p]))) return(c(coef = 0))
-    v["coef"] <- unname(v[var]) * v["coef"]
+    if (bring_power_down) v["coef"] <- unname(v[var]) * v["coef"]
     v[var] <- v[var] - 1
     v
   })
