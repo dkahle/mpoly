@@ -96,5 +96,8 @@ normalize_coefficients(p, norm = abs_norm)
 p <- mp(c("x", "2 y"))
 normalize_coefficients(p)
 
+# normalize_coefficients on the zero polynomial returns the zero polynomial
+normalize_coefficients(mp("0"))
+
 
 }

@@ -49,6 +49,9 @@
 #' p <- mp(c("x", "2 y"))
 #' normalize_coefficients(p)
 #' 
+#' # normalize_coefficients on the zero polynomial returns the zero polynomial
+#' normalize_coefficients(mp("0"))
+#' 
 #' 
 
 
@@ -196,7 +199,9 @@ coef.mpoly <- function(object, ...) {
 normalize_coefficients <- function(p, norm = function(x) sqrt(sum(x^2))) {
   if (is.mpolyList(p)) return( structure(lapply(p, normalize_coefficients), class = "mpolyList") )
   normalize <- function(x) x / norm(x)
-  c <- normalize(coef(p))
+  c <- coef(p)
+  if (is.constant(p) && c == 0) return(structure(c(coef = 0), class = "mpoly"))
+  c <- normalize(c)
   for (i in seq_along(p)) p[[i]]["coef"] <- c[i]
   p
 }

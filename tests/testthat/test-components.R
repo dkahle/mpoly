@@ -170,6 +170,11 @@ test_that("normalize_coefficients works", {
     mp(c("x", "y"))
   )
   
+  expect_equal(
+    normalize_coefficients(mp("0")),
+    structure(c(coef = 0), class = "mpoly")
+  )
+  
   
   
   
