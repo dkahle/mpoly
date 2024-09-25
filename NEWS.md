@@ -9,6 +9,8 @@
 
 *   `normalize_coefficients()` now allows you normalize term coefficients 
     according to an input norm, defaulting to the Euclidean norm.
+    
+*   `as.function()` methods are now exported.
 
 
 

@@ -3,12 +3,15 @@
 \name{as-function}
 \alias{as-function}
 \alias{as.function.mpoly}
+\alias{as.function.bernstein}
 \alias{as.function.mpolyList}
 \alias{as.function.bezier}
 \title{Change polynomials into functions.}
 \usage{
 \method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE,
   silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
+
+\method{as.function}{bernstein}(x, ...)
 
 \method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
   silent = FALSE, name = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
@@ -41,13 +44,15 @@ evaluated.
 }
 \details{
 Convert polynomials to functions mapping Rn to Rm that are vectorized in the
-following way \code{\link[=as.function.mpoly]{as.function.mpoly()}} governs this behavior:\itemize{
+following way \code{\link[=as.function.mpoly]{as.function.mpoly()}} governs this behavior:
 
-\item{[m = 1, n = 1, like f(x) = x^2 + 2x] }{Ordinary vectorized function
+\describe{
+
+\item{[m = 1, n = 1, e.g. f(x) = x^2 + 2x] }{Ordinary vectorized function
 returned, so that if you input a numeric vector x, the returned function is
 evaluated at each of the input values, and a numeric vector is returned.}
 
-\item{[m = 1, n = 2+, like f(x,y) = x^2 + 2x + 2xy] }{A function of a
+\item{[m = 1, n = 2+, e.g. f(x,y) = x^2 + 2x + 2xy] }{A function of a
 single vector argument f(v) = f(c(x,y)) is returned. If a N x n matrix is
 input to the returned function, the function will be applied across the rows
 and return a numeric vector of length N. If desired, setting \code{vector = FALSE}
@@ -58,14 +63,16 @@ it.
 
 }
 
-And \code{\link[=as.function.mpolyList]{as.function.mpolyList()}} governs this behavior:\itemize{
+And \code{\link[=as.function.mpolyList]{as.function.mpolyList()}} governs this behavior:
 
-\item{[m = 2+, n = 1, like f(x) = (x, x^2)] }{Ordinary vectorized function
+\describe{
+
+\item{[m = 2+, n = 1, e.g. f(x) = (x, x^2)] }{Ordinary vectorized function
 returned, so that if you input a numeric vector x, the function is evaluated
 at each of the input values, and a numeric matrix N x m, where N is the
 length of the input vector.}
 
-\item{[m = 2+, n = 2+, like f(x,y) = (1, x, y)] }{When \code{vector = FALSE}
+\item{[m = 2+, n = 2+, e.g. f(x,y) = (1, x, y)] }{When \code{vector = FALSE}
 (the default), the created function accepts a numeric vector and returns a
 numeric vector. The function will also accept an N x n matrix, in which case
 the function is applied to its rows to return a N x m matrix.}

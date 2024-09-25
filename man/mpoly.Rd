@@ -3,7 +3,7 @@
 \docType{package}
 \name{mpoly}
 \alias{mpoly}
-\alias{package-mpoly}
+\alias{mpoly-package}
 \title{Multivariate polynomials in R.}
 \usage{
 mpoly(list, varorder)
@@ -55,8 +55,19 @@ mpoly(list)
 
 }
 \seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/dkahle/mpoly}
+  \item Report bugs at \url{https://github.com/dkahle/mpoly/issues}
+}
+
+
 \code{\link[=mp]{mp()}}
 }
 \author{
+\strong{Maintainer}: David Kahle \email{david@kahle.io} (\href{https://orcid.org/0000-0002-9999-1558}{ORCID})
+
+
 David Kahle \email{david@kahle.io}
 }
+\keyword{internal}
