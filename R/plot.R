@@ -1,7 +1,7 @@
-#' Plot the variety
+#' Plot the (real) variety of a polynomial
 #'
-#' Determine all r-vectors with nonnegative integer entries summing to n.  Note
-#' that this is not intended to be optimized.
+#' The variety must have only 2 variables; it is plotted over a finite window;
+#' and it will not discover zero-dimensional components.
 #'
 #' @param x an mpoly object
 #' @param xlim,ylim numeric(2) vectors; x and y limits
@@ -18,24 +18,28 @@
 #' @return [NULL]
 #' @examples
 #'
-#' p <- mp("x^2 + 16 y^2 - 1")
+#' p <- mp("x^2 + y^2 - 1")
+#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1))
 #' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 #'
+#' p <- mp("x^2 + 16 y^2 - 1")
+#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1))
+#'
 #' p <- mp("u^2 + 16 v^2 - 1")
-#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
+#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1))
 #'
 #' p <- mp("v^2 + 16 u^2 - 1")
-#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
+#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1))
 #'
 #' p <- mp("u^2 + 16 v^2 - 1")
-#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), varorder = c("v","u"), asp = 1)
+#' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), varorder = c("v","u"))
 #'
 #' p <- mp("y^2 - (x^3 + x^2)")
 #' plot(p, xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5))
 #'
 #' plot(lissajous(3, 3, 0, 0), xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 #' plot(lissajous(5, 5, 0, 0), col = "red", add = TRUE)
-#' 
+#'
 #' 
 plot.mpoly <- function(x, xlim, ylim, varorder, add = FALSE, n = 251, nx = n, ny = n, f = 0.05, col = "#3366FF", ...) {
   
