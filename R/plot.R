@@ -14,7 +14,7 @@
 #' @param ... arguments to pass to [contour()]
 #' @usage \method{plot}{mpoly}(x, xlim, ylim, varorder, add = FALSE, n = 251, nx
 #'   = n, ny = n, f = 0.05, col = "#3366FF", ...)
-#' @export
+#' @exportS3Method base::plot
 #' @return [NULL]
 #' @examples
 #'

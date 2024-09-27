@@ -331,7 +331,7 @@ bezierFunction <- function(...) {
 
 
 #' @rdname as-function
-#' @export 
+#' @exportS3Method base::as.function
 as.function.bezier <- function(x, ...) bezier_function(attr(x, "bezier")$points, ...)
 
 
