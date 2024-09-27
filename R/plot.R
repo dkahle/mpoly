@@ -14,8 +14,8 @@
 #' @param ... arguments to pass to [contour()]
 #' @usage \method{plot}{mpoly}(x, xlim, ylim, varorder, add = FALSE, n = 251, nx
 #'   = n, ny = n, f = 0.05, col = "#3366FF", ...)
-#' @return [NULL]
 #' @export
+#' @return [NULL]
 #' @examples
 #'
 #' p <- mp("x^2 + 16 y^2 - 1")
@@ -36,10 +36,11 @@
 #' plot(lissajous(3, 3, 0, 0), xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 #' plot(lissajous(5, 5, 0, 0), col = "red", add = TRUE)
 #' 
+#' 
 plot.mpoly <- function(x, xlim, ylim, varorder, add = FALSE, n = 251, nx = n, ny = n, f = 0.05, col = "#3366FF", ...) {
   
   if (is.character(x)) x <- mp(x)
-  if (is.mpolyList(x)) Reduce(`+`, x^2)
+  stopifnot( is.mpoly(x) )
   if (length(vars(x)) != 2) stop("`poly` must have exactly 2 variables.")
   if (missing(varorder)) varorder <- sort(vars(x))
   x <- reorder(x, varorder = varorder)

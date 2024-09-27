@@ -52,4 +52,5 @@ plot(p, xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5))
 plot(lissajous(3, 3, 0, 0), xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 plot(lissajous(5, 5, 0, 0), col = "red", add = TRUE)
 
+
 }

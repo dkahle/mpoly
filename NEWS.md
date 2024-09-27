@@ -12,6 +12,8 @@
     
 *   `as.function()` methods are now exported.
 
+*   `mpoly` objects now get a plot method (2 variables only).
+
 
 
 # mpoly 1.1.1
