@@ -4,22 +4,11 @@
 \alias{plot.mpoly}
 \title{Plot the variety}
 \usage{
-\method{plot}{mpoly}(
-  poly,
-  xlim,
-  ylim,
-  varorder,
-  add = FALSE,
-  n = 251,
-  nx = n,
-  ny = n,
-  f = 0.05,
-  col = "#3366FF",
-  ...
-)
+\method{plot}{mpoly}(x, xlim, ylim, varorder, add = FALSE, n = 251, nx
+  = n, ny = n, f = 0.05, col = "#3366FF", ...)
 }
 \arguments{
-\item{poly}{an mpoly object}
+\item{x}{an mpoly object}
 
 \item{xlim, ylim}{numeric(2) vectors; x and y limits}
 

@@ -16,6 +16,7 @@
 #'   chebyshev.t.polynomials chebyshev.u.polynomials glaguerre.polynomials
 #'   hermite.h.polynomials hermite.he.polynomials jacobi.g.polynomials
 #'   jacobi.p.polynomials legendre.polynomials
+#' @importFrom graphics contour par
 #' @importFrom tidyr gather
 #' @name mpoly
 #' @aliases mpoly mpoly-package

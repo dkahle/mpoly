@@ -3,7 +3,7 @@
 #' Determine all r-vectors with nonnegative integer entries summing to n.  Note
 #' that this is not intended to be optimized.
 #'
-#' @param poly an mpoly object
+#' @param x an mpoly object
 #' @param xlim,ylim numeric(2) vectors; x and y limits
 #' @param varorder character(2); first element is x, second is y, defaults to
 #'   \code{sort(vars(poly))}
@@ -12,6 +12,8 @@
 #' @param f argument to pass to [extendrange()]
 #' @param col color of curve
 #' @param ... arguments to pass to [contour()]
+#' @usage \method{plot}{mpoly}(x, xlim, ylim, varorder, add = FALSE, n = 251, nx
+#'   = n, ny = n, f = 0.05, col = "#3366FF", ...)
 #' @return [NULL]
 #' @export
 #' @examples
@@ -21,26 +23,26 @@
 #'
 #' p <- mp("u^2 + 16 v^2 - 1")
 #' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
-#' 
+#'
 #' p <- mp("v^2 + 16 u^2 - 1")
 #' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
-#' 
+#'
 #' p <- mp("u^2 + 16 v^2 - 1")
 #' plot(p, xlim = c(-1, 1), ylim = c(-1, 1), varorder = c("v","u"), asp = 1)
 #'
 #' p <- mp("y^2 - (x^3 + x^2)")
 #' plot(p, xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5))
-#' 
+#'
 #' plot(lissajous(3, 3, 0, 0), xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 #' plot(lissajous(5, 5, 0, 0), col = "red", add = TRUE)
 #' 
-plot.mpoly <- function(poly, xlim, ylim, varorder, add = FALSE, n = 251, nx = n, ny = n, f = 0.05, col = "#3366FF", ...) {
+plot.mpoly <- function(x, xlim, ylim, varorder, add = FALSE, n = 251, nx = n, ny = n, f = 0.05, col = "#3366FF", ...) {
   
-  if (is.character(poly)) poly <- mp(poly)
-  if (is.mpolyList(poly)) Reduce(`+`, poly^2)
-  if (length(vars(poly)) != 2) stop("`poly` must have exactly 2 variables.")
-  if (missing(varorder)) varorder <- sort(vars(poly))
-  poly <- reorder(poly, varorder = varorder)
+  if (is.character(x)) x <- mp(x)
+  if (is.mpolyList(x)) Reduce(`+`, x^2)
+  if (length(vars(x)) != 2) stop("`poly` must have exactly 2 variables.")
+  if (missing(varorder)) varorder <- sort(vars(x))
+  x <- reorder(x, varorder = varorder)
   
   if (isTRUE(add)) {
     if (missing(xlim)) xlim <- par("usr")[1:2] #|> extendrange(r = _, f = f)
@@ -49,18 +51,16 @@ plot.mpoly <- function(poly, xlim, ylim, varorder, add = FALSE, n = 251, nx = n,
     if (missing(xlim) || missing(ylim)) {
       stop("If `add = FALSE`, `xlim` and `ylim` must be specified.", call. = FALSE)
     }
-    # xlim <- extendrange(r = xlim, f = f)
-    # ylim <- extendrange(r = ylim, f = f)
   }
   
-  x <- seq(xlim[1], xlim[2], length.out = nx)
-  y <- seq(ylim[1], ylim[2], length.out = ny)
+  xx <- seq(xlim[1], xlim[2], length.out = nx)
+  yy <- seq(ylim[1], ylim[2], length.out = ny)
 
-  df <- expand.grid(x = x, y = y)
-  df$z <- as.function(poly, varorder = varorder, silent = TRUE)(df)[,1]
+  df <- expand.grid(x = xx, y = yy)
+  df$z <- as.function(x, varorder = varorder, silent = TRUE)(df)[,1]
   
   contour(
-    x, y, matrix(df$z, nrow = nx), levels = 0, 
+    xx, yy, matrix(df$z, nrow = nx), levels = 0, 
     drawlabels = FALSE, col = col, 
     xlab = varorder[1], ylab = varorder[2],  
     add = add,
