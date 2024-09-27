@@ -204,8 +204,8 @@
 
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE,
 #'   silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
-#' @exportS3Method base::as.function
 #' @rdname as-function
+#' @export
 as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE){
   
   # argument checking
@@ -287,9 +287,8 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FAL
 
 
 
-
-#' @exportS3Method base::as.function
 #' @rdname as-function
+#' @export
 as.function.bernstein <- function(x, ...){
   
   # grab bernstein values
@@ -350,8 +349,8 @@ as.function.bernstein <- function(x, ...){
 
 #' @usage \method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE,
 #'   silent = FALSE, name = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE)
-#' @exportS3Method base::as.function
 #' @rdname as-function
+#' @export
 as.function.mpolyList <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, name = FALSE, ..., plus_pad = 1L, times_pad = 1L, squeeze = TRUE){
   
   # argument checking
