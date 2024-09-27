@@ -54,7 +54,19 @@ p <- mp("y^2 - (x^3 + x^2)")
 plot(p, xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5))
 
 plot(lissajous(3, 3, 0, 0), xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
-plot(lissajous(5, 5, 0, 0), col = "red", add = TRUE)
+plot(lissajous(5, 5, 0, 0), col = "steelblue", add = TRUE)
+
+# how it works - inefficient
+p <- lissajous(5, 5, 0, 0)
+df <- expand.grid(
+  x = seq(-1, 1, length.out = 26),
+  y = seq(-1, 1, length.out = 26)
+)
+pf <- as.function(p)
+df$z <- structure(pf(df), .Names = "p")
+head(df)
+with(df, plot(x, y, cex = .75, pch = 16, col = c("firebrick", "steelblue")[(z >= 0) + 1]))
+plot(lissajous(5, 5, 0, 0), col = "black", add = TRUE)
 
 
 }
