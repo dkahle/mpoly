@@ -13,7 +13,7 @@
 #' @param col color of curve
 #' @param ... arguments to pass to [contour()]
 #' @usage \method{plot}{mpoly}(x, xlim, ylim, varorder, add = FALSE, n = 251, nx
-#'   = n, ny = n, f = 0.05, col = "#3366FF", ...)
+#'   = n, ny = n, f = 0.05, col = "red", ...)
 #' @exportS3Method base::plot
 #' @return [NULL]
 #' @examples
@@ -41,7 +41,7 @@
 #' plot(lissajous(5, 5, 0, 0), col = "red", add = TRUE)
 #'
 #' 
-plot.mpoly <- function(x, xlim, ylim, varorder, add = FALSE, n = 251, nx = n, ny = n, f = 0.05, col = "#3366FF", ...) {
+plot.mpoly <- function(x, xlim, ylim, varorder, add = FALSE, n = 251, nx = n, ny = n, f = 0.05, col = "red", ...) {
   
   if (is.character(x)) x <- mp(x)
   stopifnot( is.mpoly(x) )

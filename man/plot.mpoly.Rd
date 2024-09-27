@@ -5,7 +5,7 @@
 \title{Plot the (real) variety of a polynomial}
 \usage{
 \method{plot}{mpoly}(x, xlim, ylim, varorder, add = FALSE, n = 251, nx
-  = n, ny = n, f = 0.05, col = "#3366FF", ...)
+  = n, ny = n, f = 0.05, col = "red", ...)
 }
 \arguments{
 \item{x}{an mpoly object}
