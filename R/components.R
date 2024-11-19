@@ -31,6 +31,9 @@
 #' monomials(p)
 #' monomials(p, unit = TRUE)
 #' coef(p)
+#' 
+#' p[1:2]
+#' coef_lift(p[1:2])
 #'
 #' exponents(p)
 #' exponents(p, reduce = TRUE)
@@ -205,5 +208,48 @@ normalize_coefficients <- function(p, norm = function(x) sqrt(sum(x^2))) {
   for (i in seq_along(p)) p[[i]]["coef"] <- c[i]
   p
 }
+
+
+
+#' @rdname components
+#' @export
+coef_lift <- function(p) {
+  
+  monos <- monomials(p, unit = TRUE)
+  printed_monos <- print(monos, silent = TRUE)
+  
+  # remove carats and spaces, e.g. x^2 y -> x2y
+  printed_monos <- gsub("\\^", "", printed_monos)
+  printed_monos <- gsub(" ", "", printed_monos)
+  
+  # add b
+  coefs_to_add <- paste0("b", printed_monos)
+  
+  # add coefs to mpoly
+  for (i in seq_along(p)) {
+    p[[i]]["coef"] <- 1
+    p[[i]] <- structure(
+      c(1, p[[i]]),
+      names = c(coefs_to_add[i], names(p[[i]]))
+    )
+  }
+  
+  # return p
+  p
+
+}
+
+
+# (p <- mp("-1 x^2 + 2 y^2 - 1"))
+
+# (p <- mp("x^2 + y^2 - 1"))
+# (p_vars <- vars(p))
+# p |> coef_lift()
+# dps <- p |> coef_lift() |> deriv(p_vars)
+# (sum_of_squared_partials <- Reduce(`+`, dps^2))
+# plug(sum_of_squared_partials, "bx2", 1)
+# 
+# coef_lift: R[x,y] -> R[x,y][bx2]
+
 
 

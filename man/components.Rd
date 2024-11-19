@@ -12,6 +12,7 @@
 \alias{exponents}
 \alias{coef.mpoly}
 \alias{normalize_coefficients}
+\alias{coef_lift}
 \title{Polynomial components}
 \usage{
 \method{[}{mpoly}(x, ndx)
@@ -33,6 +34,8 @@ exponents(x, reduced = FALSE)
 \method{coef}{mpoly}(object, ...)
 
 normalize_coefficients(p, norm = function(x) sqrt(sum(x^2)))
+
+coef_lift(p)
 }
 \arguments{
 \item{x}{an object of class mpoly}

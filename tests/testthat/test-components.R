@@ -129,7 +129,7 @@ test_that("coef works", {
 
 
 
-
+context("normalize_coefficients()")
 
 test_that("normalize_coefficients works", {
   
@@ -181,4 +181,22 @@ test_that("normalize_coefficients works", {
 })
 
 
+
+
+
+context("coef_lift()")
+
+test_that("coef_lift() works", {
+  
+  expect_equal(
+    coef_lift( mp("x + y") ), 
+    mp("bx x + by y")
+  )
+  
+  expect_equal(
+    coef_lift( mp("2 x - y") ), 
+    mp("bx x + by y")
+  )
+  
+})
 
