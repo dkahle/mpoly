@@ -240,16 +240,7 @@ coef_lift <- function(p) {
 }
 
 
-# (p <- mp("-1 x^2 + 2 y^2 - 1"))
 
-# (p <- mp("x^2 + y^2 - 1"))
-# (p_vars <- vars(p))
-# p |> coef_lift()
-# dps <- p |> coef_lift() |> deriv(p_vars)
-# (sum_of_squared_partials <- Reduce(`+`, dps^2))
-# plug(sum_of_squared_partials, "bx2", 1)
-# 
-# coef_lift: R[x,y] -> R[x,y][bx2]
 
 
 
