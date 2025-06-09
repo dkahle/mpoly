@@ -75,7 +75,7 @@ integrate(function(x) L3(x) * L4(x) * w(x), lower = 0, upper = Inf)
 }
 \seealso{
 \code{\link[orthopolynom:glaguerre.polynomials]{orthopolynom::glaguerre.polynomials()}},
-\url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
+\url{https://en.wikipedia.org/wiki/Laguerre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

@@ -73,7 +73,7 @@ qplot(x, value, data = mdf, geom = "line", color = degree) +
 \seealso{
 \code{\link[orthopolynom:jacobi.g.polynomials]{orthopolynom::jacobi.g.polynomials()}},
 \code{\link[orthopolynom:jacobi.p.polynomials]{orthopolynom::jacobi.p.polynomials()}},
-\url{http://en.wikipedia.org/wiki/Jacobi_polynomials}
+\url{https://en.wikipedia.org/wiki/Jacobi_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

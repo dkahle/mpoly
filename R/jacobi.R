@@ -12,7 +12,7 @@
 #' @author David Kahle calling code from the orthopolynom package
 #' @seealso [orthopolynom::jacobi.g.polynomials()],
 #'   [orthopolynom::jacobi.p.polynomials()],
-#'   \url{http://en.wikipedia.org/wiki/Jacobi_polynomials}
+#'   \url{https://en.wikipedia.org/wiki/Jacobi_polynomials}
 #' @export
 #' @examples
 #'

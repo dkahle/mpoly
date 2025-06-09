@@ -9,7 +9,7 @@
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
 #' @seealso [orthopolynom::glaguerre.polynomials()],
-#'   \url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
+#'   \url{https://en.wikipedia.org/wiki/Laguerre_polynomials}
 #' @export
 #' @examples
 #'

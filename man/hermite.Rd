@@ -73,7 +73,7 @@ integrate(function(x) He3(x) * He4(x) * w(x), lower = -Inf, upper = Inf)
 \seealso{
 \code{\link[orthopolynom:hermite.h.polynomials]{orthopolynom::hermite.h.polynomials()}},
 \code{\link[orthopolynom:hermite.he.polynomials]{orthopolynom::hermite.he.polynomials()}},
-\url{http://en.wikipedia.org/wiki/Hermite_polynomials}
+\url{https://en.wikipedia.org/wiki/Hermite_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

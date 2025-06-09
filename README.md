@@ -1,22 +1,20 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-mpoly
-=====
+# mpoly
 
 <!-- badges: start -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
 [![Travis build
-status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://travis-ci.org/dkahle/mpoly)
+status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://app.travis-ci.com/dkahle/mpoly)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/dkahle/mpoly?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/mpoly)
 [![Coverage
-status](https://codecov.io/gh/dkahle/mpoly/branch/master/graph/badge.svg)](https://codecov.io/github/dkahle/mpoly?branch=master)
+status](https://codecov.io/gh/dkahle/mpoly/branch/master/graph/badge.svg)](https://app.codecov.io/github/dkahle/mpoly?branch=master)
 <!-- badges: end -->
 
-Specifying polynomials
-----------------------
+## Specifying polynomials
 
 **mpoly** is a simple collection of tools to help deal with multivariate
 polynomials *symbolically* and functionally in R. Polynomials are
@@ -24,11 +22,6 @@ defined with the `mp()` function:
 
 ``` r
 library("mpoly")
-# Registered S3 methods overwritten by 'ggplot2':
-#   method         from 
-#   [.quosures     rlang
-#   c.quosures     rlang
-#   print.quosures rlang
 mp("x + y")
 # x  +  y
 
@@ -37,7 +30,7 @@ mp("(x + 4 y)^2 (x - .25)")
 ```
 
 [Term
-orders](http://en.wikipedia.org/wiki/Lexicographical_order#Monomials)
+orders](https://en.wikipedia.org/wiki/Lexicographical_order#Monomials)
 are available with the reorder function:
 
 ``` r
@@ -59,8 +52,7 @@ mp(c("(x+y)^2", "z"))
 # z
 ```
 
-Polynomial parts
-----------------
+## Polynomial parts
 
 You can extract pieces of polynoimals using the standard `[` operator,
 which works on its terms:
@@ -134,8 +126,7 @@ monomials(p)
 # y^2
 ```
 
-Polynomial arithmetic
----------------------
+## Polynomial arithmetic
 
 Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)…
 
@@ -181,8 +172,7 @@ ps1 * ps2
 # y^2  +  y z
 ```
 
-Some calculus
--------------
+## Some calculus
 
 You can compute derivatives easily:
 
@@ -197,8 +187,7 @@ gradient(p)
 # 2 y x  +  x
 ```
 
-Function coercion
------------------
+## Function coercion
 
 You can turn polynomials and vectors of polynomials into functions you
 can evaluate with `as.function()`. Here’s a basic example using a single
@@ -291,6 +280,10 @@ f <- as.function(mp("(x-2) x (x+2)"))
 x <- seq(-2.5, 2.5, .1)
 
 qplot(x, f(x), geom = "line")
+# Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+# This warning is displayed once every 8 hours.
+# Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+# generated.
 ```
 
 ![](tools/README-as-function-1.png)
@@ -321,15 +314,20 @@ seq(-2.5, 2.5, .1) %>%
   mutate(f = f(x, y)) %>% 
   ggplot(aes(x, y, fill = f)) + 
     geom_raster()
+# Warning: `cross_df()` was deprecated in purrr 1.0.0.
+# ℹ Please use `tidyr::expand_grid()` instead.
+# ℹ See <https://github.com/tidyverse/purrr/issues/768>.
+# This warning is displayed once every 8 hours.
+# Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+# generated.
 ```
 
 ![](tools/README-as-function-multi-tidy-1.png)
 
-Algebraic geometry
-------------------
+## Algebraic geometry
 
 **Grobner bases are no longer implemented in mpoly; they’re now in
-[m2r](https://github.com/musicman3320/m2r).**
+[m2r](https://github.com/coneill-math/m2r).**
 
 ``` r
 # polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
@@ -354,27 +352,20 @@ homogeneous_components(p)
 # -1 z^3
 ```
 
-Special polynomials
--------------------
+## Special polynomials
 
 **mpoly** can make use of many pieces of the **polynom** and
 **orthopolynom** packages with `as.mpoly()` methods. In particular, many
 special polynomials are available.
 
-#### [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials)
+#### [Chebyshev polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials)
 
 You can construct [Chebyshev
-polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as
+polynomials](https://en.wikipedia.org/wiki/Chebyshev_polynomials) as
 follows:
 
 ``` r
 chebyshev(1)
-# Loading required package: polynom
-# 
-# Attaching package: 'polynom'
-# The following object is masked from 'package:mpoly':
-# 
-#     LCM
 # x
 
 chebyshev(2)
@@ -409,7 +400,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree)
 
 ![](tools/README-chebyshev-1.png)
 
-#### [Jacobi polynomials](http://en.wikipedia.org/wiki/Jacobi_polynomials)
+#### [Jacobi polynomials](https://en.wikipedia.org/wiki/Jacobi_polynomials)
 
 ``` r
 s <- seq(-1, 1, length.out = 201); N <- 5
@@ -430,7 +421,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
 
 ![](tools/README-jacobi-1.png)
 
-#### [Legendre polynomials](http://en.wikipedia.org/wiki/Legendre_polynomials)
+#### [Legendre polynomials](https://en.wikipedia.org/wiki/Legendre_polynomials)
 
 ``` r
 s <- seq(-1, 1, length.out = 201); N <- 5
@@ -450,7 +441,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree)
 
 ![](tools/README-legendre-1.png)
 
-#### [Hermite polynomials](http://en.wikipedia.org/wiki/Hermite_polynomials)
+#### [Hermite polynomials](https://en.wikipedia.org/wiki/Hermite_polynomials)
 
 ``` r
 s <- seq(-3, 3, length.out = 201); N <- 5
@@ -470,7 +461,7 @@ qplot(x, value, data = mdf, geom = "path", color = degree)
 
 ![](tools/README-hermite-1.png)
 
-#### [(Generalized) Laguerre polynomials](http://en.wikipedia.org/wiki/Laguerre_polynomials)
+#### [(Generalized) Laguerre polynomials](https://en.wikipedia.org/wiki/Laguerre_polynomials)
 
 ``` r
 s <- seq(-5, 20, length.out = 201); N <- 5
@@ -491,10 +482,10 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
 
 ![](tools/README-laguerre-1.png)
 
-#### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
+#### [Bernstein polynomials](https://en.wikipedia.org/wiki/Bernstein_polynomial)
 
 [Bernstein
-polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not
+polynomials](https://en.wikipedia.org/wiki/Bernstein_polynomial) are not
 in **polynom** or **orthopolynom** but are available in **mpoly** with
 `bernstein()`:
 
@@ -545,11 +536,10 @@ qplot(x, y, data = df, geom = "path", color = which)
 
 ![](tools/README-bernstein-approx-1.png)
 
-[Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
---------------------------------------------------------------------------
+## [Bezier polynomials and curves](https://en.wikipedia.org/wiki/Bézier_curve)
 
 You can construct [Bezier
-polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given
+polynomials](https://en.wikipedia.org/wiki/Bézier_curve) for a given
 collection of points with `bezier()`:
 
 ``` r
@@ -568,6 +558,11 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_point(data = points, color = "red", size = 4) +
   geom_path(data = points, color = "red", linetype = 2) +
   geom_path(size = 2)
+# Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+# ℹ Please use `linewidth` instead.
+# This warning is displayed once every 8 hours.
+# Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+# generated.
 ```
 
 ![](tools/README-bezier-plot-1.png)
@@ -592,7 +587,7 @@ ggplot(aes(x = x, y = y), data = df) +
 To make the evaluation of the Bezier polynomials stable, `as.function()`
 has a special method for Bezier polynomials that makes use of [de
 Casteljau’s
-algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm).
+algorithm](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm).
 This allows `bezier()` to be used as a smoother:
 
 ``` r
@@ -604,8 +599,7 @@ qplot(speed, dist, data = cars) +
 
 ![](tools/README-bezier-smooth-1.png)
 
-Other stuff
------------
+## Other stuff
 
 I’m starting to put in methods for some other R functions:
 
@@ -636,24 +630,17 @@ df <- expand.grid(x = s, y = s) %>%
 # lm(formula = z ~ poly(x, y, degree = 2, raw = TRUE), data = df)
 # 
 # Coefficients:
-#                           (Intercept)  
-#                             -0.070512  
-# poly(x, y, degree = 2, raw = TRUE)1.0  
-#                             -0.004841  
-# poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              1.005307  
-# poly(x, y, degree = 2, raw = TRUE)0.1  
-#                              0.001334  
-# poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              3.003755  
-# poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -0.999536
+#                           (Intercept)  poly(x, y, degree = 2, raw = TRUE)1.0  
+#                             -0.070512                              -0.004841  
+# poly(x, y, degree = 2, raw = TRUE)2.0  poly(x, y, degree = 2, raw = TRUE)0.1  
+#                              1.005307                               0.001334  
+# poly(x, y, degree = 2, raw = TRUE)1.1  poly(x, y, degree = 2, raw = TRUE)0.2  
+#                              3.003755                              -0.999536
 as.mpoly(mod)
 # -0.004840798 x  +  1.005307 x^2  +  0.001334122 y  +  3.003755 x y  -  0.9995356 y^2  -  0.07051218
 ```
 
-Installation
-------------
+## Installation
 
 -   From CRAN: `install.packages("mpoly")`
 
@@ -664,9 +651,8 @@ Installation
 devtools::install_github("dkahle/mpoly")
 ```
 
-Acknowledgements
-----------------
+## Acknowledgements
 
 This material is based upon work partially supported by the National
 Science Foundation under Grant
-No. [1622449](https://nsf.gov/awardsearch/showAward?AWD_ID=1622449).
+No. [1622449](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1622449).

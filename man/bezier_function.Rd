@@ -79,8 +79,8 @@ ggplot(aes(x = x, y = y), data = df) +
   
 }
 \references{
-\url{http://en.wikipedia.org/wiki/Bezier_curve},
-\url{http://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
+\url{https://en.wikipedia.org/wiki/Bezier_curve},
+\url{https://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
 }
 \seealso{
 \code{\link[=bezier]{bezier()}}

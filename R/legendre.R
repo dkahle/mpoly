@@ -8,7 +8,7 @@
 #' @return a mpoly object or mpolyList object
 #' @author David Kahle calling code from the orthopolynom package
 #' @seealso [orthopolynom::legendre.polynomials()],
-#'   \url{http://en.wikipedia.org/wiki/Legendre_polynomials}
+#'   \url{https://en.wikipedia.org/wiki/Legendre_polynomials}
 #' @export
 #' @examples
 #'

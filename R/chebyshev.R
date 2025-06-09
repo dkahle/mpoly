@@ -14,7 +14,7 @@
 #'   [orthopolynom::chebyshev.u.polynomials()],
 #'   [orthopolynom::chebyshev.c.polynomials()],
 #'   [orthopolynom::chebyshev.s.polynomials()],
-#'   \url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
+#'   \url{https://en.wikipedia.org/wiki/Chebyshev_polynomials}
 #' @name chebyshev
 #' @examples
 #'

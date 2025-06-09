@@ -100,7 +100,7 @@ sum(T3(cheb_roots) * T4(cheb_roots))
 \code{\link[orthopolynom:chebyshev.u.polynomials]{orthopolynom::chebyshev.u.polynomials()}},
 \code{\link[orthopolynom:chebyshev.c.polynomials]{orthopolynom::chebyshev.c.polynomials()}},
 \code{\link[orthopolynom:chebyshev.s.polynomials]{orthopolynom::chebyshev.s.polynomials()}},
-\url{http://en.wikipedia.org/wiki/Chebyshev_polynomials}
+\url{https://en.wikipedia.org/wiki/Chebyshev_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

@@ -11,7 +11,7 @@
 #' @author David Kahle calling code from the orthopolynom package
 #' @seealso [orthopolynom::hermite.h.polynomials()],
 #'   [orthopolynom::hermite.he.polynomials()],
-#'   \url{http://en.wikipedia.org/wiki/Hermite_polynomials}
+#'   \url{https://en.wikipedia.org/wiki/Hermite_polynomials}
 #' @export
 #' @examples
 #'

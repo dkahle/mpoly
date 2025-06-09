@@ -95,7 +95,7 @@ u <- runif(n, -1, 1)
 }
 \seealso{
 \code{\link[orthopolynom:legendre.polynomials]{orthopolynom::legendre.polynomials()}},
-\url{http://en.wikipedia.org/wiki/Legendre_polynomials}
+\url{https://en.wikipedia.org/wiki/Legendre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

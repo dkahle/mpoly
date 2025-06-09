@@ -331,7 +331,7 @@ as.function.bernstein <- function(x, ...){
 #   b <- attr(x, "jacobi")$beta
 #   
 #   # return exp'd log function #
-#   #http://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
+#   #https://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
 #   #pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1,
 #   #(1-.)/2)
 #   
