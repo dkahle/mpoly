@@ -82,6 +82,9 @@ monomials(p)
 monomials(p, unit = TRUE)
 coef(p)
 
+p[1:2]
+coef_lift(p[1:2])
+
 exponents(p)
 exponents(p, reduce = TRUE)
 lapply(exponents(p), is.integer)
