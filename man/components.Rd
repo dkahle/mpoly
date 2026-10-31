@@ -3,6 +3,7 @@
 \name{components}
 \alias{components}
 \alias{[.mpoly}
+\alias{[.mpolyList}
 \alias{LT}
 \alias{LC}
 \alias{LM}
@@ -16,6 +17,8 @@
 \title{Polynomial components}
 \usage{
 \method{[}{mpoly}(x, ndx)
+
+\method{[}{mpolyList}(x, ndx)
 
 LT(x, varorder = vars(x), order = "lex")
 

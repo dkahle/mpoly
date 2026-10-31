@@ -1,3 +1,14 @@
+# mpoly (development version)
+
+## Minor improvements and fixes
+
+*   `totaldeg()` now works on `mpolyList` objects of length 1.
+
+*   Subsetting an `mpolyList` with `[` now returns an `mpolyList` instead of a 
+    bare list.
+
+
+
 # mpoly 1.1.2
 
 ## New features

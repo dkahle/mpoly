@@ -6,7 +6,18 @@ test_that("[.mpoly", {
   expect_equal(mp("x + y")[1], mp("x"))
   expect_equal(mp("x + y + z")[1:2], mp("x + y"))
   expect_equal(mp("x + y + z")[-1], mp("y + z"))
-  
+
+})
+
+
+test_that("[.mpolyList", {
+
+  ps <- mp(c("x", "y^2", "z^3"))
+
+  expect_equal(ps[1], mpolyList(mp("x")))
+  expect_equal(ps[2:3], mp(c("y^2", "z^3")))
+  expect_equal(ps[-1], mp(c("y^2", "z^3")))
+
 })
 
 
@@ -53,7 +64,17 @@ test_that("totaldeg works - lex", {
     totaldeg(mp(c("x y", "y z^2", "0"))),
     c(2L, 3L, 0L)
   )
-  
+
+  expect_equal(
+    totaldeg(mpolyList(mp("x y^2"))),
+    3L
+  )
+
+  expect_equal(
+    totaldeg(mp(c("x y", "y z^2"))[2]),
+    3L
+  )
+
   expect_error(
     totaldeg("5 x"),
     "totaldeg requires an mpoly or mpolyList object.",

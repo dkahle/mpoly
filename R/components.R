@@ -74,6 +74,17 @@
 
 #' @rdname components
 #' @export
+`[.mpolyList` <- function(x, ndx){
+  x <- unclass(x)[ndx]
+  class(x) <- "mpolyList"
+  x
+}
+
+
+
+
+#' @rdname components
+#' @export
 LT <- function(x, varorder = vars(x), order = "lex"){
   reorder.mpoly(x, varorder, order)[1]
 }
@@ -128,7 +139,7 @@ multideg <- function(x, varorder = vars(x), order = "lex"){
 #' @rdname components
 #' @export
 totaldeg <- function(x){
-  if(!is.mpoly(x) && length(x) > 1){
+  if(!is.mpoly(x) && is.list(x)){
     return(vapply(x, totaldeg, integer(1)))
   }
   if(!is.mpoly(x)) stop("totaldeg requires an mpoly or mpolyList object.", call. = FALSE)
